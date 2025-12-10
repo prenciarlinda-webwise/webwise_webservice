@@ -4,7 +4,7 @@ export const siteConfig = {
   tagline: 'Professional Web Design & Local SEO Services',
   email: 'info@websiteandseoagency.com',
   phone: '+355685121313',
-  url: 'https://webwise.com',
+  url: 'https://www.websiteandseoagency.com',
   logo: '/portfolio/web-wise-logo.png',
   description: 'We help local businesses in the UK and USA grow with professional web design and SEO services. Plumbers, roofers, contractors, and more trust us for results.',
 }

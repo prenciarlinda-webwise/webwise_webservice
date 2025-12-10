@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header"
 import Footer from "@/components/layout/Footer"
 import { siteConfig } from "@/data/site"
 import Script from "next/script"
+import GoogleAnalytics from "@/components/analytics/GoogleAnalytics"
 
 const inter = Inter({
   variable: "--font-inter",
@@ -65,6 +66,15 @@ export const metadata: Metadata = {
   icons: {
     icon: '/icon.png',
     apple: '/apple-icon.png',
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    other: {
+      'msvalidate.01': process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION || '',
+    },
+  },
+  alternates: {
+    canonical: siteConfig.url,
   },
 }
 
@@ -163,6 +173,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} ${plusJakarta.variable} antialiased`}>
+        <GoogleAnalytics />
         <Header />
         <main className="pt-20">
           {children}
