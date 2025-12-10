@@ -1,12 +1,68 @@
-import { Mail, Phone, MapPin, Clock } from 'lucide-react'
+'use client'
+
+import { useState } from 'react'
+import { Mail, Phone, MapPin, Clock, CheckCircle, AlertCircle, Loader2 } from 'lucide-react'
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { siteConfig } from '@/data/site'
 
-export const metadata = {
-  title: 'Contact Us',
-  description: 'Get in touch with Web Wise for a free consultation about your web development and SEO needs.',
-}
-
 export default function ContactPage() {
+  const { executeRecaptcha } = useGoogleReCaptcha()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+    setErrorMessage('')
+
+    const formData = new FormData(e.currentTarget)
+    const data = {
+      name: formData.get('name') as string,
+      email: formData.get('email') as string,
+      phone: formData.get('phone') as string,
+      service: formData.get('service') as string,
+      website: formData.get('website') as string,
+      message: formData.get('message') as string,
+      recaptchaToken: '',
+    }
+
+    // Get reCAPTCHA token if available
+    if (executeRecaptcha) {
+      try {
+        data.recaptchaToken = await executeRecaptcha('contact_form')
+      } catch {
+        console.error('reCAPTCHA error')
+      }
+    }
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+
+      const result = await response.json()
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        ;(e.target as HTMLFormElement).reset()
+      } else {
+        setSubmitStatus('error')
+        setErrorMessage(result.error || 'Something went wrong. Please try again.')
+      }
+    } catch {
+      setSubmitStatus('error')
+      setErrorMessage('Network error. Please check your connection and try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   return (
     <>
       {/* Hero */}
@@ -31,11 +87,32 @@ export default function ContactPage() {
             {/* Contact Form */}
             <div className="lg:col-span-2">
               <div className="bg-white border border-border rounded-2xl p-8">
-                <h2 className="text-2xl font-bold text-primary mb-6">Send Us a Message</h2>
-                <form className="space-y-6">
+                <h2 className="text-2xl font-bold text-primary mb-6">Get A Free Quote</h2>
+
+                {submitStatus === 'success' && (
+                  <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-medium text-green-800">Message sent successfully!</p>
+                      <p className="text-sm text-green-700">We&apos;ll get back to you within 24 hours.</p>
+                    </div>
+                  </div>
+                )}
+
+                {submitStatus === 'error' && (
+                  <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
+                    <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-medium text-red-800">Failed to send message</p>
+                      <p className="text-sm text-red-700">{errorMessage}</p>
+                    </div>
+                  </div>
+                )}
+
+                <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-text-primary mb-2">Your Name</label>
+                      <label htmlFor="name" className="block text-sm font-medium text-text-primary mb-2">Your Name *</label>
                       <input
                         type="text"
                         id="name"
@@ -46,7 +123,7 @@ export default function ContactPage() {
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-text-primary mb-2">Email Address</label>
+                      <label htmlFor="email" className="block text-sm font-medium text-text-primary mb-2">Email Address *</label>
                       <input
                         type="email"
                         id="email"
@@ -76,9 +153,11 @@ export default function ContactPage() {
                         className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-colors bg-white"
                       >
                         <option value="">Select a service</option>
-                        <option value="seo">SEO Services</option>
+                        <option value="local-seo">Local SEO</option>
+                        <option value="website-design">Website Design</option>
                         <option value="web-development">Web Development</option>
-                        <option value="digital-marketing">Digital Marketing</option>
+                        <option value="ppc">PPC Advertising</option>
+                        <option value="seo-website">SEO + Website Package</option>
                         <option value="other">Other</option>
                       </select>
                     </div>
@@ -94,22 +173,35 @@ export default function ContactPage() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-text-primary mb-2">Your Message</label>
+                    <label htmlFor="message" className="block text-sm font-medium text-text-primary mb-2">Your Message *</label>
                     <textarea
                       id="message"
                       name="message"
                       rows={5}
                       required
                       className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-colors resize-none"
-                      placeholder="Tell us about your project..."
+                      placeholder="Tell us about your project and goals..."
                     />
                   </div>
                   <button
                     type="submit"
-                    className="w-full px-6 py-4 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors"
+                    disabled={isSubmitting}
+                    className="w-full px-6 py-4 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
-                    Send Message
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      'Get My Free Quote'
+                    )}
                   </button>
+                  <p className="text-xs text-text-muted text-center">
+                    This site is protected by reCAPTCHA and the Google{' '}
+                    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="underline">Privacy Policy</a> and{' '}
+                    <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" className="underline">Terms of Service</a> apply.
+                  </p>
                 </form>
               </div>
             </div>
