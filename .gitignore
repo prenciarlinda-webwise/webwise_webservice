@@ -2,6 +2,19 @@
 
 # dependencies
 /node_modules
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Claude
+.claude/
+
+# Windows
+nul
+Thumbs.db
 /.pnp
 .pnp.*
 .yarn/*
