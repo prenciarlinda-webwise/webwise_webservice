@@ -123,6 +123,9 @@ export default function Footer() {
               &copy; {currentYear} {siteConfig.name}. All rights reserved.
             </p>
             <div className="flex gap-6">
+              <Link href="/html-sitemap" className="text-white/60 hover:text-white text-sm transition-colors">
+                Sitemap
+              </Link>
               <Link href="/privacy" className="text-white/60 hover:text-white text-sm transition-colors">
                 Privacy Policy
               </Link>

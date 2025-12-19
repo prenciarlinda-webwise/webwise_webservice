@@ -93,7 +93,7 @@ export default function ContactPage() {
                 <h2 className="text-2xl font-bold text-primary mb-6">Get A Free Quote</h2>
 
                 {submitStatus === 'success' && (
-                  <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start gap-3">
+                  <div id="form-success" data-gtm="form-success" className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="font-medium text-green-800">Message sent successfully!</p>

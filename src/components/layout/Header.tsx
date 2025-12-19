@@ -146,7 +146,7 @@ export default function Header() {
             {/* CTA Button */}
             <div className="hidden lg:block">
               <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors shadow-md hover:shadow-lg animate-pulse hover:animate-none">
-                Get A Free Quote
+                Free Website Audit
                 <ArrowRight size={16} />
               </Link>
             </div>
@@ -252,7 +252,7 @@ export default function Header() {
             {/* Footer */}
             <div className="p-6 border-t border-border">
               <Link href="/contact" className="block w-full py-4 text-center bg-accent text-white font-semibold rounded-lg" onClick={() => setIsMobileMenuOpen(false)}>
-                Get A Free Quote
+                Free Website Audit
               </Link>
               <div className="flex flex-col gap-2 mt-4 text-center">
                 <a href={`mailto:${siteConfig.email}`} className="text-sm text-text-secondary">{siteConfig.email}</a>
