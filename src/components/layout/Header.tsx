@@ -145,7 +145,7 @@ export default function Header() {
 
             {/* CTA Button */}
             <div className="hidden lg:block">
-              <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors shadow-md hover:shadow-lg animate-pulse hover:animate-none">
+              <Link href="/contact" className="audit-btn inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors shadow-md hover:shadow-lg animate-pulse hover:animate-none">
                 Free Website Audit
                 <ArrowRight size={16} />
               </Link>
@@ -251,7 +251,7 @@ export default function Header() {
 
             {/* Footer */}
             <div className="p-6 border-t border-border">
-              <Link href="/contact" className="block w-full py-4 text-center bg-accent text-white font-semibold rounded-lg" onClick={() => setIsMobileMenuOpen(false)}>
+              <Link href="/contact" className="audit-btn block w-full py-4 text-center bg-accent text-white font-semibold rounded-lg" onClick={() => setIsMobileMenuOpen(false)}>
                 Free Website Audit
               </Link>
               <div className="flex flex-col gap-2 mt-4 text-center">
