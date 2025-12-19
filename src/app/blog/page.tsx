@@ -3,7 +3,7 @@ import { ArrowRight, Calendar, User, Clock } from 'lucide-react'
 import { blogPosts, getFeaturedPost, getOtherPosts } from '@/data/blog'
 
 export const metadata = {
-  title: 'Blog | Local SEO Tips for Plumbers, Roofers, Contractors & More',
+  title: 'Blog - Local SEO Tips for Plumbers, Roofers, Contractors & More',
   description: 'Expert SEO tips and strategies for local service businesses. Learn how plumbers, roofers, electricians, and contractors can rank higher on Google.',
 }
 

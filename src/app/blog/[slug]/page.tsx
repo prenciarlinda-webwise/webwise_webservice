@@ -73,6 +73,59 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     keywords: post.keywords?.join(", ") || post.category,
   }
 
+  // Service Schema for industry-specific SEO posts
+  // Maps blog categories/keywords to specific service types
+  const getServiceType = (keywords: string[] = []) => {
+    const keywordStr = keywords.join(' ').toLowerCase()
+    if (keywordStr.includes('plumber') || keywordStr.includes('plumbing')) return 'Plumber SEO Services'
+    if (keywordStr.includes('hvac') || keywordStr.includes('heating') || keywordStr.includes('cooling')) return 'HVAC SEO Services'
+    if (keywordStr.includes('roofing') || keywordStr.includes('roofer')) return 'Roofing SEO Services'
+    if (keywordStr.includes('electrician') || keywordStr.includes('electrical')) return 'Electrician SEO Services'
+    if (keywordStr.includes('construction') || keywordStr.includes('contractor')) return 'Construction SEO Services'
+    if (keywordStr.includes('landscaping') || keywordStr.includes('lawn')) return 'Landscaping SEO Services'
+    if (keywordStr.includes('pest control') || keywordStr.includes('exterminator')) return 'Pest Control SEO Services'
+    if (keywordStr.includes('cleaning') || keywordStr.includes('maid') || keywordStr.includes('janitorial')) return 'Cleaning Company SEO Services'
+    if (keywordStr.includes('moving') || keywordStr.includes('movers')) return 'Moving Company SEO Services'
+    if (keywordStr.includes('auto detailing') || keywordStr.includes('car detailing')) return 'Auto Detailing SEO Services'
+    if (keywordStr.includes('dumpster') || keywordStr.includes('waste')) return 'Dumpster Rental SEO Services'
+    return null
+  }
+
+  const serviceType = getServiceType(post.keywords)
+
+  // Service Schema - only for industry-specific SEO posts
+  const serviceSchema = serviceType ? {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: serviceType,
+    name: serviceType,
+    description: post.excerpt,
+    provider: {
+      "@type": "ProfessionalService",
+      name: siteConfig.name,
+      url: siteConfig.url,
+      telephone: siteConfig.phone,
+      email: siteConfig.email,
+    },
+    areaServed: [
+      { "@type": "Country", name: "United States" },
+      { "@type": "Country", name: "United Kingdom" },
+    ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Local SEO Services",
+      itemListElement: [
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: serviceType,
+          },
+        },
+      ],
+    },
+  } : null
+
   // BreadcrumbList Schema
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -111,6 +164,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      {serviceSchema && (
+        <Script
+          id="service-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+        />
+      )}
       {/* Hero */}
       <section className="bg-gradient-to-br from-primary to-primary-dark py-24 lg:py-32">
         <div className="container px-6">

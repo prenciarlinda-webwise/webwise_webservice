@@ -97,7 +97,7 @@ export default function Header() {
                         {Object.entries(services).map(([key, service]) => (
                           <div key={key} className={activeService === key ? 'block' : 'hidden'}>
                             <div className="mb-5 pb-4 border-b border-border">
-                              <h3 className="text-lg font-bold text-text-primary">{service.title}</h3>
+                              <div className="text-lg font-bold text-text-primary">{service.title}</div>
                               <p className="text-sm text-text-secondary mt-1">{service.description}</p>
                             </div>
                             <div className="grid grid-cols-2 gap-3">

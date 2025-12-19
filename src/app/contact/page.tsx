@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Mail, Phone, MapPin, Clock, CheckCircle, AlertCircle, Loader2 } from 'lucide-react'
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { siteConfig } from '@/data/site'
+import { trackContactFormSubmit } from '@/lib/analytics'
 
 export default function ContactPage() {
   const { executeRecaptcha } = useGoogleReCaptcha()
@@ -50,6 +51,7 @@ export default function ContactPage() {
 
       if (response.ok) {
         setSubmitStatus('success')
+        trackContactFormSubmit(data.service)
         ;(e.target as HTMLFormElement).reset()
       } else {
         setSubmitStatus('error')
