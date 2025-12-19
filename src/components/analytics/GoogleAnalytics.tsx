@@ -6,10 +6,10 @@ const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID
 
 export default function GoogleAnalytics() {
-  // If using Google Tag Manager
-  if (GTM_ID) {
-    return (
-      <>
+  return (
+    <>
+      {/* Google Tag Manager */}
+      {GTM_ID && (
         <Script id="gtm-script" strategy="afterInteractive">
           {`
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -19,34 +19,32 @@ export default function GoogleAnalytics() {
             })(window,document,'script','dataLayer','${GTM_ID}');
           `}
         </Script>
-      </>
-    )
-  }
+      )}
 
-  // Fallback to GA4 direct if no GTM
-  if (!GA_MEASUREMENT_ID) return null
-
-  return (
-    <>
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-        strategy="afterInteractive"
-      />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${GA_MEASUREMENT_ID}', {
-            page_path: window.location.pathname,
-          });
-        `}
-      </Script>
+      {/* Google Analytics 4 */}
+      {GA_MEASUREMENT_ID && (
+        <>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_MEASUREMENT_ID}', {
+                page_path: window.location.pathname,
+              });
+            `}
+          </Script>
+        </>
+      )}
     </>
   )
 }
 
-// GTM noscript component for body (optional - for users with JS disabled)
+// GTM noscript component for body (for users with JS disabled)
 export function GTMNoScript() {
   const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID
   if (!GTM_ID) return null

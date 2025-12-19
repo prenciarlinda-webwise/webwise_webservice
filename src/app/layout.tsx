@@ -5,7 +5,7 @@ import Header from "@/components/layout/Header"
 import Footer from "@/components/layout/Footer"
 import { siteConfig } from "@/data/site"
 import Script from "next/script"
-import GoogleAnalytics from "@/components/analytics/GoogleAnalytics"
+import GoogleAnalytics, { GTMNoScript } from "@/components/analytics/GoogleAnalytics"
 
 const inter = Inter({
   variable: "--font-inter",
@@ -173,6 +173,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} ${plusJakarta.variable} antialiased`}>
+        <GTMNoScript />
         <GoogleAnalytics />
         <Header />
         <main className="pt-20">
