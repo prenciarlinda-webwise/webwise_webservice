@@ -1,11 +1,20 @@
 import Link from 'next/link'
+import Script from 'next/script'
 import { ArrowRight, Calendar, User, Clock } from 'lucide-react'
 import { blogPosts, getFeaturedPost, getOtherPosts } from '@/data/blog'
+import { siteConfig } from '@/data/site'
+import { generateCollectionPageSchema } from '@/lib/schemas'
 
 export const metadata = {
   title: 'Blog - Local SEO Tips for Plumbers, Roofers, Contractors & More',
   description: 'Expert SEO tips and strategies for local service businesses. Learn how plumbers, roofers, electricians, and contractors can rank higher on Google.',
 }
+
+const pageSchema = generateCollectionPageSchema({
+  name: 'Blog - Local SEO Tips for Plumbers, Roofers, Contractors & More',
+  description: 'Expert SEO tips and strategies for local service businesses. Learn how plumbers, roofers, electricians, and contractors can rank higher on Google.',
+  url: `${siteConfig.url}/blog`,
+})
 
 export default function BlogPage() {
   const featuredPost = getFeaturedPost()
@@ -13,6 +22,12 @@ export default function BlogPage() {
 
   return (
     <>
+      <Script
+        id="blog-collection-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+      />
+
       {/* Hero */}
       <section className="bg-gradient-to-br from-primary to-primary-dark py-24 lg:py-32">
         <div className="container px-6">

@@ -1,7 +1,9 @@
 import Link from 'next/link'
+import Script from 'next/script'
 import { notFound } from 'next/navigation'
 import { ArrowRight, Check, Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart } from 'lucide-react'
-import { services } from '@/data/site'
+import { services, siteConfig } from '@/data/site'
+import { generateServiceSchema, generateBreadcrumbSchema } from '@/lib/schemas'
 
 const iconMap: { [key: string]: React.ElementType } = {
   Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart
@@ -52,8 +54,32 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
     notFound()
   }
 
+  const pageUrl = `${siteConfig.url}/services/${slug}/${subslug}`
+  const serviceSchema = generateServiceSchema({
+    name: `${subservice.title} - ${service.title}`,
+    description: subservice.description,
+    url: pageUrl,
+  })
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: siteConfig.url },
+    { name: 'Services', url: `${siteConfig.url}/services` },
+    { name: service.title, url: `${siteConfig.url}/services/${slug}` },
+    { name: subservice.title, url: pageUrl },
+  ])
+
   return (
     <>
+      <Script
+        id="subservice-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       {/* Hero */}
       <section className="bg-gradient-to-br from-primary to-primary-dark py-20">
         <div className="container px-6">

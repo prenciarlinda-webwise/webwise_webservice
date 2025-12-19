@@ -1,7 +1,9 @@
 import Link from 'next/link'
+import Script from 'next/script'
 import { notFound } from 'next/navigation'
 import { ArrowRight, ExternalLink, Target, Zap, Star, Check } from 'lucide-react'
-import { clients } from '@/data/site'
+import { clients, siteConfig } from '@/data/site'
+import { generateBreadcrumbSchema } from '@/lib/schemas'
 import WebsitePreview from '@/components/ui/WebsitePreview'
 
 export async function generateStaticParams() {
@@ -30,8 +32,48 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
   const otherClients = Object.values(clients).filter((c) => c.slug !== slug && c.results).slice(0, 3)
 
+  const pageUrl = `${siteConfig.url}/portfolio/${slug}`
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: siteConfig.url },
+    { name: 'Portfolio', url: `${siteConfig.url}/portfolio` },
+    { name: client.name, url: pageUrl },
+  ])
+  const caseStudySchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${pageUrl}/#casestudy`,
+    headline: `${client.name} Case Study`,
+    description: client.results
+      ? `See how we helped ${client.name} achieve ${client.results.trafficIncrease} traffic increase.`
+      : `See how we helped ${client.name} with their ${client.services.join(', ').toLowerCase()}.`,
+    url: pageUrl,
+    author: {
+      "@type": "Organization",
+      name: siteConfig.name,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteConfig.url}${siteConfig.logo}`,
+      },
+    },
+  }
+
   return (
     <>
+      <Script
+        id="casestudy-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(caseStudySchema) }}
+      />
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       {/* Hero */}
       <section className="bg-gradient-to-br from-primary to-primary-dark py-20">
         <div className="container px-6">

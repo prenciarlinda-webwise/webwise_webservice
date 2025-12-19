@@ -1,10 +1,28 @@
 import Link from 'next/link'
+import Script from 'next/script'
 import { ArrowRight, Check, Zap, Rocket, Crown, Monitor } from 'lucide-react'
+import { generateFAQSchema, generateWebPageSchema } from '@/lib/schemas'
+import { siteConfig } from '@/data/site'
 
 export const metadata = {
   title: 'Pricing',
   description: 'Transparent pricing for web development, SEO, and digital marketing services.',
 }
+
+const faqs = [
+  { question: 'Why should I commit to 3 months?', answer: 'SEO is a long-term strategy. The 3-month timeline allows us to properly build your foundation, achieve rankings, and optimize for conversions. Most clients see meaningful results by month 2-3.' },
+  { question: 'Are there any setup fees?', answer: 'No hidden fees! The prices shown include all setup and onboarding costs.' },
+  { question: 'Can I cancel anytime?', answer: 'Yes, our SEO services are month-to-month after the initial 3-month period. We recommend staying for at least 3 months to see real results.' },
+  { question: 'Do you offer payment plans?', answer: 'Yes, we offer flexible payment options for website projects. Contact us to discuss.' },
+  { question: 'What if I need both a website and SEO?', answer: 'We offer bundle discounts! Get a website + 3 months of any SEO plan and save 15%. Contact us for details.' },
+]
+
+const faqSchema = generateFAQSchema(faqs)
+const pageSchema = generateWebPageSchema({
+  name: 'Pricing - WebWise',
+  description: 'Transparent pricing for web development, SEO, and digital marketing services.',
+  url: `${siteConfig.url}/pricing`,
+})
 
 export default function PricingPage() {
   const seoPlans = [
@@ -111,6 +129,18 @@ export default function PricingPage() {
 
   return (
     <>
+      {/* Page Schemas */}
+      <Script
+        id="webpage-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+      />
+      <Script
+        id="faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
       {/* Hero */}
       <section className="bg-gradient-to-br from-primary to-primary-dark py-24 lg:py-32">
         <div className="container px-6">

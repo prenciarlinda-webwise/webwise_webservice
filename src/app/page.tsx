@@ -1,6 +1,77 @@
 import Link from 'next/link'
+ import Script from 'next/script'
 import { ArrowRight, Star, ExternalLink, Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart } from 'lucide-react'
-import { services, clients, techStack } from '@/data/site'
+import { services, clients, techStack, siteConfig } from '@/data/site'
+
+// Homepage-specific schemas
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteConfig.url}/#website`,
+  name: siteConfig.name,
+  url: siteConfig.url,
+  description: siteConfig.description,
+  publisher: {
+    "@type": "Organization",
+    name: siteConfig.name,
+    logo: {
+      "@type": "ImageObject",
+      url: `${siteConfig.url}${siteConfig.logo}`,
+    },
+  },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${siteConfig.url}/blog?q={search_term_string}`,
+    "query-input": "required name=search_term_string",
+  },
+}
+
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": `${siteConfig.url}/#business`,
+  name: siteConfig.name,
+  url: siteConfig.url,
+  logo: `${siteConfig.url}${siteConfig.logo}`,
+  image: `${siteConfig.url}${siteConfig.logo}`,
+  description: siteConfig.description,
+  telephone: siteConfig.phone,
+  email: siteConfig.email,
+  priceRange: "$$",
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: "09:00",
+    closes: "18:00",
+  },
+  areaServed: [
+    { "@type": "Country", name: "United States" },
+    { "@type": "Country", name: "United Kingdom" },
+    { "@type": "Country", name: "Albania" },
+  ],
+  makesOffer: [
+    {
+      "@type": "Offer",
+      itemOffered: { "@type": "Service", name: "Web Design" }
+    },
+    {
+      "@type": "Offer",
+      itemOffered: { "@type": "Service", name: "Web Development" }
+    },
+    {
+      "@type": "Offer",
+      itemOffered: { "@type": "Service", name: "SEO Services" }
+    },
+    {
+      "@type": "Offer",
+      itemOffered: { "@type": "Service", name: "Local SEO" }
+    },
+    {
+      "@type": "Offer",
+      itemOffered: { "@type": "Service", name: "Digital Marketing" }
+    },
+  ],
+}
 
 const iconMap: { [key: string]: React.ElementType } = {
   Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart
@@ -14,6 +85,18 @@ function getIcon(iconName: string, size = 20) {
 export default function Home() {
   return (
     <>
+      {/* Homepage Schemas */}
+      <Script
+        id="website-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      <Script
+        id="local-business-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
+
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary via-primary-dark to-primary overflow-hidden">
         <div className="absolute inset-0 opacity-10">

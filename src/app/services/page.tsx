@@ -1,6 +1,8 @@
 import Link from 'next/link'
+import Script from 'next/script'
 import { ArrowRight, Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart } from 'lucide-react'
-import { services } from '@/data/site'
+import { services, siteConfig } from '@/data/site'
+import { generateCollectionPageSchema } from '@/lib/schemas'
 
 const iconMap: { [key: string]: React.ElementType } = {
   Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart
@@ -16,9 +18,21 @@ export const metadata = {
   description: 'Comprehensive digital services including SEO, web development, and digital marketing.',
 }
 
+const pageSchema = generateCollectionPageSchema({
+  name: 'Our Services - WebWise',
+  description: 'Comprehensive digital services including SEO, web development, and digital marketing.',
+  url: `${siteConfig.url}/services`,
+})
+
 export default function ServicesPage() {
   return (
     <>
+      <Script
+        id="services-collection-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+      />
+
       {/* Hero */}
       <section className="bg-gradient-to-br from-primary to-primary-dark py-24 lg:py-32">
         <div className="container px-6">

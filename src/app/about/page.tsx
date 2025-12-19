@@ -1,15 +1,25 @@
 import Link from 'next/link'
+import Script from 'next/script'
 import { ArrowRight, Users, Target, Award, Zap } from 'lucide-react'
 import { siteConfig, techStack } from '@/data/site'
+import { generateAboutPageSchema } from '@/lib/schemas'
 
 export const metadata = {
   title: 'About Us',
   description: 'Learn about Web Wise - our mission, values, and the team behind your digital success.',
 }
 
+const aboutSchema = generateAboutPageSchema()
+
 export default function AboutPage() {
   return (
     <>
+      <Script
+        id="about-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }}
+      />
+
       {/* Hero */}
       <section className="bg-gradient-to-br from-primary to-primary-dark py-24 lg:py-32">
         <div className="container px-6">

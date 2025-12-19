@@ -1,15 +1,29 @@
 import Link from 'next/link'
+import Script from 'next/script'
 import { ArrowRight, ExternalLink } from 'lucide-react'
-import { clients } from '@/data/site'
+import { clients, siteConfig } from '@/data/site'
+import { generateCollectionPageSchema } from '@/lib/schemas'
 
 export const metadata = {
   title: 'Portfolio',
   description: 'Explore our portfolio of successful projects and case studies.',
 }
 
+const pageSchema = generateCollectionPageSchema({
+  name: 'Portfolio - WebWise',
+  description: 'Explore our portfolio of successful projects and case studies.',
+  url: `${siteConfig.url}/portfolio`,
+})
+
 export default function PortfolioPage() {
   return (
     <>
+      <Script
+        id="portfolio-collection-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+      />
+
       {/* Hero */}
       <section className="bg-gradient-to-br from-primary to-primary-dark py-24 lg:py-32">
         <div className="container px-6">
