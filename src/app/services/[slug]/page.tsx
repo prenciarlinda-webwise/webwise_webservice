@@ -3,7 +3,16 @@ import Script from 'next/script'
 import { notFound } from 'next/navigation'
 import { ArrowRight, Check, Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart } from 'lucide-react'
 import { services, siteConfig } from '@/data/site'
-import { generateServiceSchema, generateBreadcrumbSchema } from '@/lib/schemas'
+import { generateServiceSchema, generateBreadcrumbSchema, generateFAQSchema } from '@/lib/schemas'
+import { seoFaqs, webDevFaqs, digitalMarketingFaqs } from '@/data/faqs'
+import FAQSection from '@/components/sections/FAQSection'
+
+// Map service slugs to their FAQ data
+const faqMap: { [key: string]: { question: string; answer: string }[] } = {
+  'seo': seoFaqs,
+  'web-development': webDevFaqs,
+  'digital-marketing': digitalMarketingFaqs,
+}
 
 const iconMap: { [key: string]: React.ElementType } = {
   Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart
@@ -37,6 +46,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   }
 
   const serviceUrl = `${siteConfig.url}/services/${slug}`
+  const serviceFaqs = faqMap[slug] || []
   const serviceSchema = generateServiceSchema({
     name: service.title,
     description: service.description,
@@ -47,6 +57,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     { name: 'Services', url: `${siteConfig.url}/services` },
     { name: service.title, url: serviceUrl },
   ])
+  const faqSchema = serviceFaqs.length > 0 ? generateFAQSchema(serviceFaqs) : null
 
   return (
     <>
@@ -60,6 +71,13 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      {faqSchema && (
+        <Script
+          id="faq-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
 
       {/* Hero */}
       <section className="bg-gradient-to-br from-primary to-primary-dark py-20">
@@ -147,6 +165,15 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           </div>
         </div>
       </section>
+
+      {/* FAQ */}
+      {serviceFaqs.length > 0 && (
+        <FAQSection
+          faqs={serviceFaqs}
+          title={`${service.title} FAQ`}
+          subtitle={`Common questions about our ${service.title.toLowerCase()}.`}
+        />
+      )}
     </>
   )
 }

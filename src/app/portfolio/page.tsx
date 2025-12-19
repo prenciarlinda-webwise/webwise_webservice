@@ -2,7 +2,9 @@ import Link from 'next/link'
 import Script from 'next/script'
 import { ArrowRight, ExternalLink } from 'lucide-react'
 import { clients, siteConfig } from '@/data/site'
-import { generateCollectionPageSchema } from '@/lib/schemas'
+import { generateCollectionPageSchema, generateFAQSchema } from '@/lib/schemas'
+import { portfolioFaqs } from '@/data/faqs'
+import FAQSection from '@/components/sections/FAQSection'
 
 export const metadata = {
   title: 'Portfolio',
@@ -14,6 +16,7 @@ const pageSchema = generateCollectionPageSchema({
   description: 'Explore our portfolio of successful projects and case studies.',
   url: `${siteConfig.url}/portfolio`,
 })
+const faqSchema = generateFAQSchema(portfolioFaqs)
 
 export default function PortfolioPage() {
   return (
@@ -22,6 +25,11 @@ export default function PortfolioPage() {
         id="portfolio-collection-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+      />
+      <Script
+        id="faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
       {/* Hero */}
@@ -122,6 +130,14 @@ export default function PortfolioPage() {
           </div>
         </div>
       </section>
+
+      {/* FAQ */}
+      <FAQSection
+        faqs={portfolioFaqs}
+        title="Portfolio FAQ"
+        subtitle="Common questions about our work and results."
+        background="white"
+      />
 
       {/* CTA */}
       <section className="py-24 bg-bg-secondary">

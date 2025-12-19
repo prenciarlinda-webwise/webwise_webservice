@@ -1,6 +1,7 @@
 import Script from 'next/script'
 import RecaptchaProvider from '@/components/providers/RecaptchaProvider'
-import { generateContactPageSchema } from '@/lib/schemas'
+import { generateContactPageSchema, generateFAQSchema } from '@/lib/schemas'
+import { contactFaqs } from '@/data/faqs'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 }
 
 const contactSchema = generateContactPageSchema()
+const faqSchema = generateFAQSchema(contactFaqs)
 
 export default function ContactLayout({
   children,
@@ -21,6 +23,11 @@ export default function ContactLayout({
         id="contact-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }}
+      />
+      <Script
+        id="faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <RecaptchaProvider>{children}</RecaptchaProvider>
     </>

@@ -2,7 +2,9 @@ import Link from 'next/link'
 import Script from 'next/script'
 import { ArrowRight, Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart } from 'lucide-react'
 import { services, siteConfig } from '@/data/site'
-import { generateCollectionPageSchema } from '@/lib/schemas'
+import { generateCollectionPageSchema, generateFAQSchema } from '@/lib/schemas'
+import { servicesFaqs } from '@/data/faqs'
+import FAQSection from '@/components/sections/FAQSection'
 
 const iconMap: { [key: string]: React.ElementType } = {
   Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart
@@ -24,6 +26,8 @@ const pageSchema = generateCollectionPageSchema({
   url: `${siteConfig.url}/services`,
 })
 
+const faqSchema = generateFAQSchema(servicesFaqs)
+
 export default function ServicesPage() {
   return (
     <>
@@ -31,6 +35,11 @@ export default function ServicesPage() {
         id="services-collection-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+      />
+      <Script
+        id="services-faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
       {/* Hero */}
@@ -86,6 +95,13 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
+
+      {/* FAQ */}
+      <FAQSection
+        faqs={servicesFaqs}
+        title="Services FAQ"
+        subtitle="Common questions about our digital services."
+      />
 
       {/* CTA */}
       <section className="py-24 bg-bg-secondary">

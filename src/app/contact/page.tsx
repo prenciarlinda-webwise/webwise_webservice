@@ -5,6 +5,7 @@ import { Mail, Phone, MapPin, Clock, CheckCircle, AlertCircle, Loader2 } from 'l
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { siteConfig } from '@/data/site'
 import { trackContactFormSubmit } from '@/lib/analytics'
+import { contactFaqs } from '@/data/faqs'
 
 export default function ContactPage() {
   const { executeRecaptcha } = useGoogleReCaptcha()
@@ -274,18 +275,14 @@ export default function ContactPage() {
         <div className="container px-6">
           <div className="text-center mb-16">
             <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">FAQ</span>
-            <h2 className="text-3xl font-bold text-primary">Frequently Asked Questions</h2>
+            <h2 className="text-3xl font-bold text-primary mb-4">Frequently Asked Questions</h2>
+            <p className="text-text-secondary max-w-2xl mx-auto">Common questions about contacting us and what to expect.</p>
           </div>
           <div className="max-w-3xl mx-auto space-y-4">
-            {[
-              { q: 'How long does it take to see SEO results?', a: 'Most clients see significant improvements within 3-6 months. SEO is a long-term investment that continues to compound over time.' },
-              { q: 'How much does a website cost?', a: 'Website costs vary based on complexity and features. We offer solutions starting from $2,500 for basic sites to $15,000+ for complex web applications.' },
-              { q: 'Do you offer ongoing support?', a: 'Yes! We offer monthly maintenance and support packages to keep your website and SEO performing at their best.' },
-              { q: 'What industries do you work with?', a: 'We work with businesses across all industries, with special expertise in home services, professional services, e-commerce, and local businesses.' },
-            ].map((item, i) => (
+            {contactFaqs.map((faq, i) => (
               <div key={i} className="bg-white rounded-xl p-6 border border-border">
-                <h3 className="font-semibold text-primary mb-2">{item.q}</h3>
-                <p className="text-text-secondary">{item.a}</p>
+                <h3 className="font-semibold text-primary mb-2">{faq.question}</h3>
+                <p className="text-text-secondary">{faq.answer}</p>
               </div>
             ))}
           </div>

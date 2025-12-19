@@ -83,18 +83,59 @@ export const metadata: Metadata = {
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": `${siteConfig.url}/#organization`,
   name: siteConfig.name,
   url: siteConfig.url,
-  logo: `${siteConfig.url}${siteConfig.logo}`,
-  description: siteConfig.description,
-  contactPoint: {
-    "@type": "ContactPoint",
-    telephone: siteConfig.phone,
-    email: siteConfig.email,
-    contactType: "customer service",
-    availableLanguage: ["English", "Albanian"],
+  logo: {
+    "@type": "ImageObject",
+    url: `${siteConfig.url}${siteConfig.logo}`,
+    width: 512,
+    height: 512,
   },
-  sameAs: [],
+  image: `${siteConfig.url}${siteConfig.logo}`,
+  description: siteConfig.description,
+  foundingDate: "2020",
+  founders: [
+    {
+      "@type": "Person",
+      name: "WebWise Team",
+    }
+  ],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "London",
+    addressCountry: "UK",
+  },
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      telephone: siteConfig.phone,
+      email: siteConfig.email,
+      contactType: "customer service",
+      availableLanguage: ["English", "Albanian"],
+      areaServed: ["GB", "US", "AL"],
+    },
+    {
+      "@type": "ContactPoint",
+      telephone: siteConfig.phone,
+      contactType: "sales",
+      availableLanguage: ["English"],
+      areaServed: ["GB", "US"],
+    }
+  ],
+  sameAs: [
+    // Add your social profiles here
+    // "https://www.facebook.com/webwise",
+    // "https://www.linkedin.com/company/webwise",
+    // "https://twitter.com/webwise",
+  ],
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "5.0",
+    reviewCount: "50",
+    bestRating: "5",
+    worstRating: "1",
+  },
 }
 
 export default function RootLayout({

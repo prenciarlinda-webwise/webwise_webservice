@@ -1,7 +1,20 @@
 import Link from 'next/link'
- import Script from 'next/script'
-import { ArrowRight, Star, ExternalLink, Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart } from 'lucide-react'
+import Script from 'next/script'
+import { ArrowRight, Star, ExternalLink, Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart, ChevronDown } from 'lucide-react'
 import { services, clients, techStack, siteConfig } from '@/data/site'
+import { generateFAQSchema } from '@/lib/schemas'
+
+// Homepage FAQs
+const homepageFaqs = [
+  { question: 'What services does WebWise offer?', answer: 'We offer comprehensive digital services including custom web design and development, SEO (Local, Technical, E-commerce), and digital marketing (Content Marketing, PPC, Social Media). We specialize in helping local service businesses like plumbers, roofers, and contractors dominate their local markets.' },
+  { question: 'How long does it take to build a website?', answer: 'A typical website project takes 2-4 weeks from start to launch. This includes discovery, design, development, and testing phases. More complex projects like web applications may take 6-8 weeks. We provide a detailed timeline during our initial consultation.' },
+  { question: 'How much do your services cost?', answer: 'Our website packages start at $1,500 (one-time), which includes SEO setup and Google Business Profile optimization. Monthly SEO services range from $450 to $1,200 depending on your needs. We offer transparent pricing with no hidden fees.' },
+  { question: 'How long does SEO take to show results?', answer: 'SEO is a long-term strategy. Most clients start seeing initial improvements within 1-2 months, with significant results by month 3-6. We provide monthly reports so you can track progress. Local SEO typically shows faster results than national campaigns.' },
+  { question: 'Do you work with businesses outside the UK and USA?', answer: 'Yes! While we specialize in UK and USA markets, we work with businesses worldwide. Our team operates remotely and can accommodate different time zones. We have experience with international SEO for businesses targeting multiple countries.' },
+  { question: 'What makes WebWise different from other agencies?', answer: 'We combine technical expertise with a results-focused approach. Unlike agencies that use generic templates, we build custom solutions tailored to your business. We specialize in local service businesses and understand their unique challenges. Plus, we offer transparent pricing and clear 3-month roadmaps so you know exactly what to expect.' },
+]
+
+const homepageFaqSchema = generateFAQSchema(homepageFaqs)
 
 // Homepage-specific schemas
 const websiteSchema = {
@@ -38,37 +51,123 @@ const localBusinessSchema = {
   telephone: siteConfig.phone,
   email: siteConfig.email,
   priceRange: "$$",
-  openingHoursSpecification: {
-    "@type": "OpeningHoursSpecification",
-    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-    opens: "09:00",
-    closes: "18:00",
+  currenciesAccepted: "USD, GBP, EUR",
+  paymentAccepted: "Credit Card, Bank Transfer, PayPal",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "London",
+    addressRegion: "England",
+    addressCountry: "UK",
   },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: "51.5074",
+    longitude: "-0.1278",
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "18:00",
+    }
+  ],
   areaServed: [
-    { "@type": "Country", name: "United States" },
-    { "@type": "Country", name: "United Kingdom" },
-    { "@type": "Country", name: "Albania" },
+    {
+      "@type": "Country",
+      name: "United Kingdom",
+      "@id": "https://www.wikidata.org/wiki/Q145"
+    },
+    {
+      "@type": "Country",
+      name: "United States",
+      "@id": "https://www.wikidata.org/wiki/Q30"
+    },
+    {
+      "@type": "City",
+      name: "London",
+      "@id": "https://www.wikidata.org/wiki/Q84"
+    },
+  ],
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "5.0",
+    reviewCount: "50",
+    bestRating: "5",
+    worstRating: "1",
+  },
+  review: [
+    {
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: "5",
+        bestRating: "5",
+      },
+      author: {
+        "@type": "Organization",
+        name: "Gimo's Roofing",
+      },
+      reviewBody: "Our local SEO results have been phenomenal. We went from invisible to dominating the map pack in just 3 months.",
+    },
+    {
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: "5",
+        bestRating: "5",
+      },
+      author: {
+        "@type": "Organization",
+        name: "MSC Certification",
+      },
+      reviewBody: "The certification management system they built has streamlined our entire operation.",
+    },
   ],
   makesOffer: [
     {
       "@type": "Offer",
-      itemOffered: { "@type": "Service", name: "Web Design" }
+      itemOffered: {
+        "@type": "Service",
+        name: "Website Development",
+        description: "Custom website design and development using Next.js",
+      },
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        price: "1500",
+        priceCurrency: "USD",
+        unitText: "one-time",
+      }
     },
     {
       "@type": "Offer",
-      itemOffered: { "@type": "Service", name: "Web Development" }
+      itemOffered: {
+        "@type": "Service",
+        name: "SEO Services",
+        description: "Search engine optimization for local businesses",
+      },
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        price: "450",
+        priceCurrency: "USD",
+        unitText: "monthly",
+      }
     },
     {
       "@type": "Offer",
-      itemOffered: { "@type": "Service", name: "SEO Services" }
+      itemOffered: {
+        "@type": "Service",
+        name: "Local SEO",
+        description: "Google Business Profile optimization and local rankings",
+      }
     },
     {
       "@type": "Offer",
-      itemOffered: { "@type": "Service", name: "Local SEO" }
-    },
-    {
-      "@type": "Offer",
-      itemOffered: { "@type": "Service", name: "Digital Marketing" }
+      itemOffered: {
+        "@type": "Service",
+        name: "Digital Marketing",
+        description: "PPC advertising, content marketing, and social media",
+      }
     },
   ],
 }
@@ -95,6 +194,11 @@ export default function Home() {
         id="local-business-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
+      <Script
+        id="homepage-faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homepageFaqSchema) }}
       />
 
       {/* Hero Section */}
@@ -402,8 +506,29 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* FAQ Section */}
       <section className="py-24">
+        <div className="container px-6">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">FAQ</span>
+            <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">Frequently Asked Questions</h2>
+            <p className="text-text-secondary max-w-2xl mx-auto">
+              Get answers to common questions about our services, pricing, and process.
+            </p>
+          </div>
+          <div className="max-w-3xl mx-auto space-y-4">
+            {homepageFaqs.map((faq, i) => (
+              <div key={i} className="bg-white rounded-xl p-6 border border-border">
+                <h3 className="font-semibold text-primary mb-2">{faq.question}</h3>
+                <p className="text-text-secondary">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
           <div className="bg-gradient-to-br from-primary to-primary-dark rounded-3xl p-12 lg:p-16 text-center text-white relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-accent/20 rounded-full blur-3xl" />

@@ -2,7 +2,9 @@ import Link from 'next/link'
 import Script from 'next/script'
 import { ArrowRight, Users, Target, Award, Zap } from 'lucide-react'
 import { siteConfig, techStack } from '@/data/site'
-import { generateAboutPageSchema } from '@/lib/schemas'
+import { generateAboutPageSchema, generateFAQSchema } from '@/lib/schemas'
+import { aboutFaqs } from '@/data/faqs'
+import FAQSection from '@/components/sections/FAQSection'
 
 export const metadata = {
   title: 'About Us',
@@ -10,6 +12,7 @@ export const metadata = {
 }
 
 const aboutSchema = generateAboutPageSchema()
+const faqSchema = generateFAQSchema(aboutFaqs)
 
 export default function AboutPage() {
   return (
@@ -18,6 +21,11 @@ export default function AboutPage() {
         id="about-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }}
+      />
+      <Script
+        id="faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
       {/* Hero */}
@@ -158,8 +166,16 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* FAQ */}
+      <FAQSection
+        faqs={aboutFaqs}
+        title="About Us FAQ"
+        subtitle="Common questions about WebWise and our team."
+        background="white"
+      />
+
       {/* CTA */}
-      <section className="py-24">
+      <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
           <div className="bg-gradient-to-br from-primary to-primary-dark rounded-3xl p-12 lg:p-16 text-center text-white">
             <h2 className="text-3xl font-bold mb-4">Ready to Work With Us?</h2>
