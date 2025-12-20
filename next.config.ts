@@ -476,6 +476,28 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
 
+      // Privacy and Terms redirects
+      {
+        source: '/privacy',
+        destination: '/privacy-policy',
+        permanent: true,
+      },
+      {
+        source: '/privacy/',
+        destination: '/privacy-policy',
+        permanent: true,
+      },
+      {
+        source: '/terms',
+        destination: '/terms-and-agreements',
+        permanent: true,
+      },
+      {
+        source: '/terms/',
+        destination: '/terms-and-agreements',
+        permanent: true,
+      },
+
       // Old service pages
       {
         source: '/seo-agency-3',

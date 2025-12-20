@@ -176,15 +176,15 @@ export default function SitemapPage() {
                   </a>
                 </li>
                 <li>
-                  <Link href="/privacy" className="flex items-center gap-2 text-text-secondary hover:text-accent transition-colors">
+                  <Link href="/privacy-policy" className="flex items-center gap-2 text-text-secondary hover:text-accent transition-colors">
                     <ArrowRight size={14} />
                     Privacy Policy
                   </Link>
                 </li>
                 <li>
-                  <Link href="/terms" className="flex items-center gap-2 text-text-secondary hover:text-accent transition-colors">
+                  <Link href="/terms-and-agreements" className="flex items-center gap-2 text-text-secondary hover:text-accent transition-colors">
                     <ArrowRight size={14} />
-                    Terms of Service
+                    Terms & Agreements
                   </Link>
                 </li>
               </ul>
