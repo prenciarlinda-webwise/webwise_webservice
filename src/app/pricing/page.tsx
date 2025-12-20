@@ -29,8 +29,9 @@ export default function PricingPage() {
     {
       name: 'Starter SEO',
       icon: Zap,
-      price: '$450',
-      pricePound: '£380',
+      originalPrice: '$480',
+      price: '$380',
+      savings: 'Save $100/month',
       period: '/month',
       description: 'Foundational Visibility',
       features: [
@@ -54,8 +55,9 @@ export default function PricingPage() {
     {
       name: 'Medium SEO',
       icon: Rocket,
-      price: '$800',
-      pricePound: '£680',
+      originalPrice: '$880',
+      price: '$680',
+      savings: 'Save $200/month',
       period: '/month',
       description: 'Competitive Climbing',
       features: [
@@ -79,8 +81,9 @@ export default function PricingPage() {
     {
       name: 'Premium SEO',
       icon: Crown,
-      price: '$1,200',
-      pricePound: '£1,000',
+      originalPrice: '$1,400',
+      price: '$1,000',
+      savings: 'Save $400/month',
       period: '/month',
       description: 'Market Authority',
       features: [
@@ -106,8 +109,8 @@ export default function PricingPage() {
   const webPlan = {
     name: 'Website Development',
     icon: Monitor,
-    price: '$1,500',
-    pricePound: '£1,200',
+    originalPrice: '$1,800',
+    price: '$1,200',
     period: 'one-time',
     description: 'The Conversion Engine',
     includes: ['Perfect SEO Setup', 'Google My Business Setup'],
@@ -192,11 +195,14 @@ export default function PricingPage() {
 
                 {/* Price */}
                 <div className="text-center mb-6 pb-6 border-b border-border">
+                  <div className="text-lg text-text-muted line-through">{plan.originalPrice}</div>
                   <div className="flex items-baseline justify-center gap-1">
-                    <span className="text-4xl font-bold text-primary">{plan.price}</span>
+                    <span className="text-4xl font-bold text-accent">{plan.price}</span>
                     <span className="text-text-muted">{plan.period}</span>
                   </div>
-                  <div className="text-sm text-text-muted mt-1">{plan.pricePound}/month</div>
+                  <div className="inline-block mt-2 px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded">
+                    {plan.savings}
+                  </div>
                 </div>
 
                 {/* Features */}
@@ -272,11 +278,14 @@ export default function PricingPage() {
                   </div>
 
                   <div className="mb-6">
+                    <div className="text-lg text-text-muted line-through">{webPlan.originalPrice}</div>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-4xl font-bold text-primary">{webPlan.price}</span>
+                      <span className="text-4xl font-bold text-accent">{webPlan.price}</span>
                       <span className="text-text-muted">{webPlan.period}</span>
                     </div>
-                    <div className="text-sm text-text-muted">{webPlan.pricePound} one-time</div>
+                    <div className="inline-block mt-2 px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded">
+                      Save $600
+                    </div>
                   </div>
 
                   <div className="flex flex-wrap gap-2 mb-6">
