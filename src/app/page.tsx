@@ -3,6 +3,7 @@ import Script from 'next/script'
 import { ArrowRight, Star, ExternalLink, Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart, ChevronDown } from 'lucide-react'
 import { services, clients, techStack, siteConfig } from '@/data/site'
 import { generateFAQSchema } from '@/lib/schemas'
+import WebsiteRoast from '@/components/sections/WebsiteRoast'
 
 // Homepage FAQs
 const homepageFaqs = [
@@ -276,6 +277,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Website Roast Section */}
+      <WebsiteRoast />
 
       {/* Services Section */}
       <section className="py-24 bg-bg-secondary">

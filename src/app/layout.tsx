@@ -1,8 +1,7 @@
 import type { Metadata } from "next"
 import { Inter, Plus_Jakarta_Sans } from "next/font/google"
 import "./globals.css"
-import Header from "@/components/layout/Header"
-import Footer from "@/components/layout/Footer"
+import LayoutWrapper from "@/components/layout/LayoutWrapper"
 import { siteConfig } from "@/data/site"
 import Script from "next/script"
 import GoogleAnalytics, { GTMNoScript } from "@/components/analytics/GoogleAnalytics"
@@ -155,11 +154,9 @@ export default function RootLayout({
       <body className={`${inter.variable} ${plusJakarta.variable} antialiased`}>
         <GTMNoScript />
         <GoogleAnalytics />
-        <Header />
-        <main className="pt-20">
+        <LayoutWrapper>
           {children}
-        </main>
-        <Footer />
+        </LayoutWrapper>
       </body>
     </html>
   )

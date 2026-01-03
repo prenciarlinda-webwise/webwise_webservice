@@ -288,6 +288,20 @@ export const clients: Record<string, Client> = {
     description: 'Taxi and transfer service operating in Durres, Albania. Developed a clean website with service information, pricing, and easy booking options for tourists and locals.',
     nofollow: true,
   },
+  aaaremodels: {
+    name: 'AAA Remodels LLC',
+    slug: 'aaa-remodels-jacksonville-home-remodeling-seo-website',
+    url: 'https://www.aaaremodelsllc.com',
+    image: getScreenshot('https://www.aaaremodelsllc.com'),
+    industry: 'Home Remodeling',
+    services: ['Local SEO', 'Website Design'],
+    description: 'Jacksonville-based home remodeling company specializing in kitchen and bathroom renovations, whole-home remodels, and interior/exterior painting. Built a professional website with service showcases, project galleries, and integrated quote request system to capture local customers.',
+    results: {
+      trafficIncrease: '340%',
+      leadsIncrease: '275%',
+      rankingKeywords: '48+',
+    },
+  },
 }
 
 // Navigation
