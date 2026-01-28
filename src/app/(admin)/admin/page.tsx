@@ -205,7 +205,7 @@ export default function AdminDashboard() {
           title="Active Tasks"
           value={(taskStats?.pending || 0) + (taskStats?.in_progress || 0)}
           icon={ListTodo}
-          variant="info"
+          variant="default"
         />
       </div>
 

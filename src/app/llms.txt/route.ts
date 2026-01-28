@@ -17,7 +17,7 @@ WebWise specializes in creating high-converting websites and implementing effect
 
 ### Web Development
 - Custom Website Design: Modern, responsive, conversion-focused
-- E-commerce Development: Shopify, WooCommerce, custom solutions
+- E-commerce Development: Custom online store solutions from $3,500
 - Web Applications: Custom dashboards, booking systems, portals
 
 ### Digital Marketing
@@ -57,9 +57,10 @@ WebWise specializes in creating high-converting websites and implementing effect
 - Dedicated account managers
 
 ## Pricing
-- Starter packages from $500/month
-- Growth packages from $1,500/month
-- Enterprise custom pricing
+- Starter SEO from $480/month
+- Medium SEO from $780/month
+- Premium SEO from $1,100/month
+- Website development from $1,500
 
 For a free quote, visit: https://www.websiteandseoagency.com/contact
 `

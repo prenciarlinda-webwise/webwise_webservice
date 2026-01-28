@@ -1,15 +1,29 @@
 import Link from 'next/link'
 import Script from 'next/script'
 import { ArrowRight, Star, ExternalLink, Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart, ChevronDown } from 'lucide-react'
-import { services, clients, techStack, siteConfig } from '@/data/site'
+import { services, clients, techStack, siteConfig, getWhatsAppUrl } from '@/data/site'
 import { generateFAQSchema } from '@/lib/schemas'
 import WebsiteRoast from '@/components/sections/WebsiteRoast'
+import { pageSEO } from '@/data/seo'
+import type { Metadata } from 'next'
+
+// Homepage-specific metadata
+export const metadata: Metadata = {
+  title: pageSEO.home.title,
+  description: pageSEO.home.description,
+  keywords: pageSEO.home.keywords,
+  openGraph: {
+    title: pageSEO.home.title,
+    description: pageSEO.home.description,
+    type: 'website',
+  },
+}
 
 // Homepage FAQs
 const homepageFaqs = [
   { question: 'What services does WebWise offer?', answer: 'We offer comprehensive digital services including custom web design and development, SEO (Local, Technical, E-commerce), and digital marketing (Content Marketing, PPC, Social Media). We specialize in helping local service businesses like plumbers, roofers, and contractors dominate their local markets.' },
   { question: 'How long does it take to build a website?', answer: 'A typical website project takes 2-4 weeks from start to launch. This includes discovery, design, development, and testing phases. More complex projects like web applications may take 6-8 weeks. We provide a detailed timeline during our initial consultation.' },
-  { question: 'How much do your services cost?', answer: 'Our website packages start at $1,500 (one-time), which includes SEO setup and Google Business Profile optimization. Monthly SEO services range from $450 to $1,200 depending on your needs. We offer transparent pricing with no hidden fees.' },
+  { question: 'How much do your services cost?', answer: 'Our website packages start at $1,500 (one-time), which includes SEO setup and Google Business Profile optimization. Monthly SEO services range from $480 to $1,100 depending on your needs. We offer transparent pricing with no hidden fees.' },
   { question: 'How long does SEO take to show results?', answer: 'SEO is a long-term strategy. Most clients start seeing initial improvements within 1-2 months, with significant results by month 3-6. We provide monthly reports so you can track progress. Local SEO typically shows faster results than national campaigns.' },
   { question: 'Do you work with businesses outside the UK and USA?', answer: 'Yes! While we specialize in UK and USA markets, we work with businesses worldwide. Our team operates remotely and can accommodate different time zones. We have experience with international SEO for businesses targeting multiple countries.' },
   { question: 'What makes WebWise different from other agencies?', answer: 'We combine technical expertise with a results-focused approach. Unlike agencies that use generic templates, we build custom solutions tailored to your business. We specialize in local service businesses and understand their unique challenges. Plus, we offer transparent pricing and clear 3-month roadmaps so you know exactly what to expect.' },
@@ -223,10 +237,10 @@ export default function Home() {
                 We craft high-performance websites and implement data-driven SEO strategies that transform your digital presence into a powerful growth engine.
               </p>
               <div className="flex flex-wrap gap-4 mb-8">
-                <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-4 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors shadow-lg">
+                <a href={getWhatsAppUrl("Hi, I'd like to start a project with WebWise!")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-4 bg-[#25D366] text-white font-semibold rounded-lg hover:bg-[#128C7E] transition-colors shadow-lg">
                   Start Your Project
                   <ArrowRight size={18} />
-                </Link>
+                </a>
                 <Link href="/portfolio" className="inline-flex items-center gap-2 px-6 py-4 bg-white/10 text-white font-semibold rounded-lg hover:bg-white/20 transition-colors border border-white/20">
                   View Case Studies
                 </Link>
@@ -542,10 +556,10 @@ export default function Home() {
                 Let&apos;s discuss how we can help your business grow with a tailored digital strategy.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary font-semibold rounded-lg hover:bg-white/90 transition-colors shadow-lg">
+                <a href={getWhatsAppUrl("Hi, I'd like to get a free consultation for my business.")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary font-semibold rounded-lg hover:bg-white/90 transition-colors shadow-lg">
                   Get Your Free Consultation
                   <ArrowRight size={18} />
-                </Link>
+                </a>
                 <Link href="/pricing" className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white font-semibold rounded-lg hover:bg-white/20 transition-colors border border-white/20">
                   View Pricing
                 </Link>

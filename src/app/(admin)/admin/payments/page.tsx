@@ -199,7 +199,7 @@ export default function AdminPaymentsPage() {
       paid: 'success',
       pending: 'warning',
       cancelled: 'default',
-      refunded: 'info',
+      refunded: 'default',
     }
     return <Badge variant={variants[status] || 'default'}>{status}</Badge>
   }

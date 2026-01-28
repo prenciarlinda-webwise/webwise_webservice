@@ -14,11 +14,30 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params
   const client = Object.values(clients).find((c) => c.slug === slug)
   if (!client) return { title: 'Case Study Not Found' }
+
+  const title = `${client.name} Case Study`
+  const description = client.results
+    ? `See how we helped ${client.name} achieve ${client.results.trafficIncrease} traffic increase.`
+    : `See how we helped ${client.name} with their ${client.services.join(', ').toLowerCase()}.`
+
+  // Generate unique keywords based on client industry and services
+  const keywords = [
+    `${client.industry.toLowerCase()} seo case study`,
+    `${client.industry.toLowerCase()} website design`,
+    ...client.services.map(s => `${s.toLowerCase()} results`),
+    'seo success story',
+    'web design portfolio',
+  ]
+
   return {
-    title: `${client.name} Case Study`,
-    description: client.results
-      ? `See how we helped ${client.name} achieve ${client.results.trafficIncrease} traffic increase.`
-      : `See how we helped ${client.name} with their ${client.services.join(', ').toLowerCase()}.`,
+    title,
+    description,
+    keywords,
+    openGraph: {
+      title,
+      description,
+      type: 'article',
+    },
   }
 }
 

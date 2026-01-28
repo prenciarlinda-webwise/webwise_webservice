@@ -1,69 +1,42 @@
 'use client'
 
 import { useState } from 'react'
-import { Mail, Phone, MapPin, Clock, CheckCircle, AlertCircle, Loader2 } from 'lucide-react'
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
-import { siteConfig } from '@/data/site'
-import { trackContactFormSubmit } from '@/lib/analytics'
+import { Phone, MapPin, Clock, MessageCircle } from 'lucide-react'
+import { siteConfig, getWhatsAppUrl } from '@/data/site'
 import { contactFaqs } from '@/data/faqs'
 
 export default function ContactPage() {
-  const { executeRecaptcha } = useGoogleReCaptcha()
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
-  const [errorMessage, setErrorMessage] = useState('')
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    service: '',
+    website: '',
+    message: '',
+  })
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setIsSubmitting(true)
-    setSubmitStatus('idle')
-    setErrorMessage('')
 
-    const formData = new FormData(e.currentTarget)
-    const data = {
-      name: formData.get('name') as string,
-      email: formData.get('email') as string,
-      phone: formData.get('phone') as string,
-      service: formData.get('service') as string,
-      website: formData.get('website') as string,
-      message: formData.get('message') as string,
-      recaptchaToken: '',
-    }
+    // Build WhatsApp message from form data
+    const messageParts = [
+      `Hi, I'm ${formData.name}.`,
+      formData.service && `I'm interested in: ${formData.service}`,
+      formData.website && `My website: ${formData.website}`,
+      formData.email && `Email: ${formData.email}`,
+      formData.phone && `Phone: ${formData.phone}`,
+      formData.message && `\nMessage: ${formData.message}`,
+    ].filter(Boolean)
 
-    // Get reCAPTCHA token if available
-    if (executeRecaptcha) {
-      try {
-        data.recaptchaToken = await executeRecaptcha('contact_form')
-      } catch {
-        console.error('reCAPTCHA error')
-      }
-    }
+    const whatsappMessage = messageParts.join('\n')
+    const whatsappUrl = getWhatsAppUrl(whatsappMessage)
 
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      })
-
-      const result = await response.json()
-
-      if (response.ok) {
-        setSubmitStatus('success')
-        trackContactFormSubmit(data.service)
-        ;(e.target as HTMLFormElement).reset()
-      } else {
-        setSubmitStatus('error')
-        setErrorMessage(result.error || 'Something went wrong. Please try again.')
-      }
-    } catch {
-      setSubmitStatus('error')
-      setErrorMessage('Network error. Please check your connection and try again.')
-    } finally {
-      setIsSubmitting(false)
-    }
+    // Open WhatsApp in new tab
+    window.open(whatsappUrl, '_blank')
   }
 
   return (
@@ -90,27 +63,8 @@ export default function ContactPage() {
             {/* Contact Form */}
             <div className="lg:col-span-2">
               <div className="bg-white border border-border rounded-2xl p-8">
-                <h2 className="text-2xl font-bold text-primary mb-6">Get A Free Quote</h2>
-
-                {submitStatus === 'success' && (
-                  <div id="form-success" data-gtm="form-success" className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="font-medium text-green-800">Message sent successfully!</p>
-                      <p className="text-sm text-green-700">We&apos;ll get back to you within 24 hours.</p>
-                    </div>
-                  </div>
-                )}
-
-                {submitStatus === 'error' && (
-                  <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
-                    <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="font-medium text-red-800">Failed to send message</p>
-                      <p className="text-sm text-red-700">{errorMessage}</p>
-                    </div>
-                  </div>
-                )}
+                <h2 className="text-2xl font-bold text-primary mb-2">Get A Free Quote</h2>
+                <p className="text-text-secondary mb-6">Fill out the form and we&apos;ll continue the conversation on WhatsApp.</p>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
@@ -121,17 +75,20 @@ export default function ContactPage() {
                         id="name"
                         name="name"
                         required
+                        value={formData.name}
+                        onChange={handleChange}
                         className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-colors"
                         placeholder="John Doe"
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-text-primary mb-2">Email Address *</label>
+                      <label htmlFor="email" className="block text-sm font-medium text-text-primary mb-2">Email Address</label>
                       <input
                         type="email"
                         id="email"
                         name="email"
-                        required
+                        value={formData.email}
+                        onChange={handleChange}
                         className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-colors"
                         placeholder="john@example.com"
                       />
@@ -144,6 +101,8 @@ export default function ContactPage() {
                         type="tel"
                         id="phone"
                         name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
                         className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-colors"
                         placeholder="+1 (555) 123-4567"
                       />
@@ -153,15 +112,17 @@ export default function ContactPage() {
                       <select
                         id="service"
                         name="service"
+                        value={formData.service}
+                        onChange={handleChange}
                         className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-colors bg-white"
                       >
                         <option value="">Select a service</option>
-                        <option value="local-seo">Local SEO</option>
-                        <option value="website-design">Website Design</option>
-                        <option value="web-development">Web Development</option>
-                        <option value="ppc">PPC Advertising</option>
-                        <option value="seo-website">SEO + Website Package</option>
-                        <option value="other">Other</option>
+                        <option value="Local SEO">Local SEO</option>
+                        <option value="Website Design">Website Design</option>
+                        <option value="Web Development">Web Development</option>
+                        <option value="PPC Advertising">PPC Advertising</option>
+                        <option value="SEO + Website Package">SEO + Website Package</option>
+                        <option value="Other">Other</option>
                       </select>
                     </div>
                   </div>
@@ -171,6 +132,8 @@ export default function ContactPage() {
                       type="url"
                       id="website"
                       name="website"
+                      value={formData.website}
+                      onChange={handleChange}
                       className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-colors"
                       placeholder="https://yourwebsite.com"
                     />
@@ -182,29 +145,19 @@ export default function ContactPage() {
                       name="message"
                       rows={5}
                       required
+                      value={formData.message}
+                      onChange={handleChange}
                       className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-colors resize-none"
                       placeholder="Tell us about your project and goals..."
                     />
                   </div>
                   <button
                     type="submit"
-                    disabled={isSubmitting}
-                    className="w-full px-6 py-4 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full px-6 py-4 bg-[#25D366] text-white font-semibold rounded-lg hover:bg-[#128C7E] transition-colors flex items-center justify-center gap-2"
                   >
-                    {isSubmitting ? (
-                      <>
-                        <Loader2 className="w-5 h-5 animate-spin" />
-                        Sending...
-                      </>
-                    ) : (
-                      'Get My Free Quote'
-                    )}
+                    <MessageCircle className="w-5 h-5" />
+                    Continue on WhatsApp
                   </button>
-                  <p className="text-xs text-text-muted text-center">
-                    This site is protected by reCAPTCHA and the Google{' '}
-                    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="underline">Privacy Policy</a> and{' '}
-                    <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" className="underline">Terms of Service</a> apply.
-                  </p>
                 </form>
               </div>
             </div>
@@ -214,13 +167,18 @@ export default function ContactPage() {
               <div className="bg-bg-secondary rounded-2xl p-8">
                 <h3 className="text-lg font-bold text-primary mb-6">Contact Information</h3>
                 <div className="space-y-4">
-                  <a href={`mailto:${siteConfig.email}`} className="flex items-start gap-4 text-text-secondary hover:text-accent transition-colors">
-                    <div className="w-10 h-10 flex items-center justify-center bg-accent/10 rounded-lg text-accent flex-shrink-0">
-                      <Mail size={20} />
+                  <a
+                    href={getWhatsAppUrl("Hi, I'd like to learn more about your services.")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-4 text-text-secondary hover:text-[#25D366] transition-colors"
+                  >
+                    <div className="w-10 h-10 flex items-center justify-center bg-[#25D366]/10 rounded-lg text-[#25D366] flex-shrink-0">
+                      <MessageCircle size={20} />
                     </div>
                     <div>
-                      <div className="text-sm text-text-muted mb-1">Email</div>
-                      <div className="font-medium">{siteConfig.email}</div>
+                      <div className="text-sm text-text-muted mb-1">WhatsApp</div>
+                      <div className="font-medium">Chat with us</div>
                     </div>
                   </a>
                   <a href={`tel:${siteConfig.phone.replace(/[^0-9+]/g, '')}`} className="flex items-start gap-4 text-text-secondary hover:text-accent transition-colors">
@@ -253,17 +211,19 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <div className="bg-primary rounded-2xl p-8 text-white">
-                <h3 className="text-lg font-bold mb-4">Free Consultation</h3>
-                <p className="text-white/80 mb-6">
-                  Not sure what you need? Schedule a free 30-minute consultation call with our team.
+              <div className="bg-[#25D366] rounded-2xl p-8 text-white">
+                <h3 className="text-lg font-bold mb-4">Quick Chat</h3>
+                <p className="text-white/90 mb-6">
+                  Prefer to chat directly? Message us on WhatsApp for a quick response.
                 </p>
-                <ul className="space-y-2 text-sm text-white/70">
-                  <li>• Website audit</li>
-                  <li>• SEO analysis</li>
-                  <li>• Strategy recommendations</li>
-                  <li>• Custom quote</li>
-                </ul>
+                <a
+                  href={getWhatsAppUrl("Hi, I'd like to get a free consultation for my business.")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full py-3 bg-white text-[#25D366] text-center font-semibold rounded-lg hover:bg-white/90 transition-colors"
+                >
+                  Start WhatsApp Chat
+                </a>
               </div>
             </div>
           </div>

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Mail, Phone, ArrowRight, Gift, DollarSign } from 'lucide-react'
-import { services, siteConfig, clients } from '@/data/site'
+import { Phone, ArrowRight, Gift, DollarSign, MessageCircle } from 'lucide-react'
+import { services, siteConfig, clients, getWhatsAppUrl } from '@/data/site'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -21,10 +21,15 @@ export default function Footer() {
                 <p className="text-white/90">Know a business that needs a website or SEO? Get paid for every successful referral.</p>
               </div>
             </div>
-            <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-white text-accent font-semibold rounded-lg hover:bg-white/90 transition-colors shadow-lg whitespace-nowrap">
+            <a
+              href={getWhatsAppUrl("Hi, I'd like to learn more about your referral program!")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-accent font-semibold rounded-lg hover:bg-white/90 transition-colors shadow-lg whitespace-nowrap"
+            >
               <DollarSign size={18} />
               Learn More & Refer
-            </Link>
+            </a>
           </div>
         </div>
       </div>
@@ -47,9 +52,9 @@ export default function Footer() {
               {siteConfig.tagline}. We build stunning websites and deliver powerful SEO strategies that drive real results.
             </p>
             <div className="flex flex-col gap-3">
-              <a href={`mailto:${siteConfig.email}`} className="flex items-center gap-3 text-white/70 hover:text-white transition-colors">
-                <Mail size={18} />
-                {siteConfig.email}
+              <a href={getWhatsAppUrl("Hi, I have a question about your services.")} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-white/70 hover:text-[#25D366] transition-colors">
+                <MessageCircle size={18} />
+                Chat on WhatsApp
               </a>
               <a href={`tel:${siteConfig.phone.replace(/[^0-9+]/g, '')}`} className="flex items-center gap-3 text-white/70 hover:text-white transition-colors">
                 <Phone size={18} />

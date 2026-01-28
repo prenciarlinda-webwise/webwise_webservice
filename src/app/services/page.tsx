@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Script from 'next/script'
 import { ArrowRight, Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart } from 'lucide-react'
-import { services, siteConfig } from '@/data/site'
+import { services, siteConfig, getWhatsAppUrl } from '@/data/site'
 import { generateCollectionPageSchema, generateFAQSchema } from '@/lib/schemas'
 import { servicesFaqs } from '@/data/faqs'
 import FAQSection from '@/components/sections/FAQSection'
@@ -111,10 +111,10 @@ export default function ServicesPage() {
             <p className="text-text-secondary mb-8">
               Let&apos;s discuss how our services can help grow your business.
             </p>
-            <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors">
+            <a href={getWhatsAppUrl("Hi, I'd like to get a free consultation for my business.")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-[#25D366] text-white font-semibold rounded-lg hover:bg-[#128C7E] transition-colors">
               Get Your Free Consultation
               <ArrowRight size={18} />
-            </Link>
+            </a>
           </div>
         </div>
       </section>

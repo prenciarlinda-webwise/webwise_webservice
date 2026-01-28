@@ -67,7 +67,7 @@ We work best with:
 ## Frequently Asked Questions
 
 **Q: How much does SEO cost?**
-A: Our packages start at $500/month for basic local SEO, $1,500/month for growth packages, and custom pricing for enterprise clients.
+A: Our SEO packages range from $480/month (Starter) to $1,100/month (Premium). Website development starts at $1,500. Custom e-commerce stores start at $3,500.
 
 **Q: How long until I see results?**
 A: Most clients see initial improvements in 3-4 months, with significant results by 6 months.

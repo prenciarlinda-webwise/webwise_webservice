@@ -1,53 +1,56 @@
 import Link from 'next/link'
 import Script from 'next/script'
-import { ArrowRight, Check, Zap, Rocket, Crown, Monitor } from 'lucide-react'
+import { ArrowRight, Check, Zap, Rocket, Crown, Monitor, HelpCircle, TrendingUp, Shield, Clock, DollarSign } from 'lucide-react'
 import { generateFAQSchema, generateWebPageSchema } from '@/lib/schemas'
-import { siteConfig } from '@/data/site'
+import { siteConfig, getWhatsAppUrl } from '@/data/site'
+import { pageSEO } from '@/data/seo'
+import { pricingFaqs } from '@/data/faqs'
+import { pricingContent } from '@/data/staticContent'
+import FAQSection from '@/components/sections/FAQSection'
 
 export const metadata = {
-  title: 'Pricing',
-  description: 'Transparent pricing for web development, SEO, and digital marketing services.',
+  title: pageSEO.pricing.title,
+  description: pageSEO.pricing.description,
+  keywords: pageSEO.pricing.keywords,
+  openGraph: {
+    title: pageSEO.pricing.title,
+    description: pageSEO.pricing.description,
+  },
 }
 
-const faqs = [
-  { question: 'Why should I commit to 3 months?', answer: 'SEO is a long-term strategy. The 3-month timeline allows us to properly build your foundation, achieve rankings, and optimize for conversions. Most clients see meaningful results by month 2-3.' },
-  { question: 'Are there any setup fees?', answer: 'No hidden fees! The prices shown include all setup and onboarding costs.' },
-  { question: 'Can I cancel anytime?', answer: 'Yes, our SEO services are month-to-month after the initial 3-month period. We recommend staying for at least 3 months to see real results.' },
-  { question: 'Do you offer payment plans?', answer: 'Yes, we offer flexible payment options for website projects. Contact us to discuss.' },
-  { question: 'What if I need both a website and SEO?', answer: 'We offer bundle discounts! Get a website + 3 months of any SEO plan and save 15%. Contact us for details.' },
-]
-
-const faqSchema = generateFAQSchema(faqs)
+const faqSchema = generateFAQSchema(pricingFaqs)
 const pageSchema = generateWebPageSchema({
-  name: 'Pricing - WebWise',
-  description: 'Transparent pricing for web development, SEO, and digital marketing services.',
+  name: pageSEO.pricing.title,
+  description: pageSEO.pricing.description,
   url: `${siteConfig.url}/pricing`,
 })
 
 export default function PricingPage() {
+  const content = pricingContent
+
   const seoPlans = [
     {
       name: 'Starter SEO',
       icon: Zap,
-      originalPrice: '$480',
-      price: '$380',
+      originalPrice: '$580',
+      price: '$480',
       savings: 'Save $100/month',
       period: '/month',
       description: 'Foundational Visibility',
       features: [
+        { text: 'Comprehensive SEO audit (Month 1)', included: true },
         { text: 'Google Business Profile optimization', included: true },
         { text: 'NAP consistency audit & fixes', included: true },
         { text: 'Up to 10 target keywords', included: true },
         { text: 'Monthly performance reporting', included: true },
         { text: 'Local citation building', included: true },
         { text: 'Blog content creation', included: false },
-        { text: 'Competitor analysis', included: false },
         { text: 'Backlink strategy', included: false },
       ],
       expectations: [
-        { month: 1, title: 'Foundation', desc: 'GBP fully optimized, all NAP errors fixed across the web' },
-        { month: 2, title: 'Visibility', desc: 'Appearing in Map Pack for long-tail keywords' },
-        { month: 3, title: 'Growth', desc: '20-50% more Discovery views, increased calls & clicks' },
+        { month: 1, title: 'Audit & Foundation', desc: 'Complete SEO audit, GBP optimized, NAP errors fixed' },
+        { month: 2, title: 'Optimization', desc: 'On-page improvements, citation building begins' },
+        { month: 3, title: 'Growth', desc: 'Improved visibility, increased calls & clicks' },
       ],
       cta: 'Get Started',
       popular: false,
@@ -55,25 +58,25 @@ export default function PricingPage() {
     {
       name: 'Medium SEO',
       icon: Rocket,
-      originalPrice: '$880',
-      price: '$680',
+      originalPrice: '$980',
+      price: '$780',
       savings: 'Save $200/month',
       period: '/month',
       description: 'Competitive Climbing',
       features: [
         { text: 'Everything in Starter', included: true },
+        { text: 'Comprehensive SEO audit (Month 1)', included: true },
         { text: 'Up to 25 target keywords', included: true },
         { text: 'Bi-weekly reporting', included: true },
         { text: 'Content gap analysis', included: true },
         { text: '2 blog posts per month', included: true },
         { text: 'On-page SEO optimization', included: true },
         { text: 'Competitor tracking', included: true },
-        { text: 'Premium backlinks', included: false },
       ],
       expectations: [
-        { month: 1, title: 'Analysis', desc: 'Content gaps identified, first 2 industry-leading blog posts published' },
-        { month: 2, title: 'Ranking', desc: 'Page 1 or Top of Page 2 for "Service + City" keywords' },
-        { month: 3, title: 'Traffic', desc: 'Measurable MoM organic traffic increase, outranking local competitors' },
+        { month: 1, title: 'Audit & Analysis', desc: 'Complete SEO audit, content gaps identified, first blog posts published' },
+        { month: 2, title: 'Optimization', desc: 'On-page improvements, content strategy in action' },
+        { month: 3, title: 'Results', desc: 'Measurable traffic increase, improved search visibility' },
       ],
       cta: 'Get Started',
       popular: true,
@@ -81,25 +84,25 @@ export default function PricingPage() {
     {
       name: 'Premium SEO',
       icon: Crown,
-      originalPrice: '$1,400',
-      price: '$1,000',
+      originalPrice: '$1,500',
+      price: '$1,100',
       savings: 'Save $400/month',
       period: '/month',
       description: 'Market Authority',
       features: [
         { text: 'Everything in Medium', included: true },
+        { text: 'Comprehensive SEO audit (Month 1)', included: true },
         { text: 'Unlimited target keywords', included: true },
         { text: 'Weekly reporting', included: true },
         { text: 'Deep competitor analysis', included: true },
         { text: '4 blog posts per month', included: true },
         { text: 'Aggressive backlink strategy', included: true },
-        { text: 'Conversion rate optimization', included: true },
         { text: 'Dedicated account manager', included: true },
       ],
       expectations: [
-        { month: 1, title: 'Strategy', desc: 'Deep competitor analysis, aggressive backlink campaign begins' },
-        { month: 2, title: 'Dominance', desc: 'Top 3 rankings (Golden Triangle) for high-volume keywords' },
-        { month: 3, title: 'Authority', desc: 'Lead Generation Machine with established local brand authority' },
+        { month: 1, title: 'Audit & Strategy', desc: 'Complete SEO audit, deep competitor analysis, backlink campaign begins' },
+        { month: 2, title: 'Execution', desc: 'Full strategy implementation, authority building' },
+        { month: 3, title: 'Authority', desc: 'Established presence, growing organic traffic and leads' },
       ],
       cta: 'Get Started',
       popular: false,
@@ -109,8 +112,8 @@ export default function PricingPage() {
   const webPlan = {
     name: 'Website Development',
     icon: Monitor,
-    originalPrice: '$1,800',
-    price: '$1,200',
+    originalPrice: '$2,000',
+    price: '$1,500',
     period: 'one-time',
     description: 'The Conversion Engine',
     includes: ['Perfect SEO Setup', 'Google My Business Setup'],
@@ -119,7 +122,7 @@ export default function PricingPage() {
       'Next.js for blazing speed',
       'SEO-optimized structure',
       'Contact form integration',
-      'Google Analytics setup',
+      'Google Analytics setup ($100 value)',
       'Mobile-first approach',
       '30-day support included',
     ],
@@ -150,23 +153,44 @@ export default function PricingPage() {
           <div className="text-center max-w-3xl mx-auto">
             <span className="inline-block px-4 py-2 bg-white/10 text-white rounded-full text-sm mb-4">Pricing</span>
             <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-              Transparent <span className="text-gradient">Pricing</span>
+              {content.hero.headline}
             </h1>
+            <p className="text-xl text-white/90 mb-4">{content.hero.subheadline}</p>
             <p className="text-lg text-white/80">
-              No hidden fees. Clear 3-month expectations. Real results you can track.
+              {content.hero.valueProposition}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* How Much Does SEO Cost - 40-60 word answer for Featured Snippets */}
+      <section className="py-24">
+        <div className="container px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-primary mb-6">{content.definition.question}</h2>
+            {/* Direct answer - optimized for featured snippets */}
+            <p className="text-lg text-text-secondary mb-6 leading-relaxed">
+              {content.definition.answer}
+            </p>
+            {/* Expansion */}
+            <p className="text-text-secondary leading-relaxed">
+              {content.definition.expansion}
             </p>
           </div>
         </div>
       </section>
 
       {/* SEO Pricing */}
-      <section className="py-24">
+      <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
           <div className="text-center mb-16">
             <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">SEO Services</span>
             <h2 className="text-3xl font-bold text-primary mb-4">Monthly SEO Plans</h2>
-            <p className="text-text-secondary max-w-2xl mx-auto">
-              Each plan comes with a clear 3-month roadmap so you know exactly what to expect.
+            <p className="text-text-secondary max-w-2xl mx-auto mb-4">
+              Each plan includes a comprehensive SEO audit in the first month and a clear 3-month roadmap.
+            </p>
+            <p className="text-sm text-text-muted max-w-3xl mx-auto italic">
+              Note: While we deliver top-tier SEO work, actual ranking results depend on factors including market competition, current website status, domain authority, and Google algorithm updates. We focus on sustainable, white-hat strategies that build long-term success.
             </p>
           </div>
 
@@ -235,17 +259,35 @@ export default function PricingPage() {
                   </div>
                 </div>
 
-                <Link
-                  href="/contact"
+                <a
+                  href={getWhatsAppUrl(`Hi, I'm interested in your ${plan.name} SEO plan.`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`block w-full py-3 text-center font-semibold rounded-lg transition-colors ${
                     plan.popular
-                      ? 'bg-accent text-white hover:bg-accent-dark'
+                      ? 'bg-[#25D366] text-white hover:bg-[#128C7E]'
                       : 'bg-bg-secondary text-primary hover:bg-bg-tertiary'
                   }`}
                 >
                   {plan.cta}
-                </Link>
+                </a>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How Much Does Website Cost - 40-60 word answer */}
+      <section className="py-24">
+        <div className="container px-6">
+          <div className="max-w-4xl mx-auto">
+            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Web Development</span>
+            <h2 className="text-3xl font-bold text-primary mb-6">How Much Does a Business Website Cost?</h2>
+            {/* Direct answer - optimized for featured snippets */}
+            {Array.isArray(content.sections[0].content) && content.sections[0].content.map((paragraph, i) => (
+              <p key={i} className={`${i === 0 ? 'text-lg' : ''} text-text-secondary mb-6 leading-relaxed`}>
+                {paragraph}
+              </p>
             ))}
           </div>
         </div>
@@ -326,13 +368,124 @@ export default function PricingPage() {
                     ))}
                   </div>
 
-                  <Link
-                    href="/contact"
-                    className="block w-full mt-8 py-3 text-center font-semibold rounded-lg bg-primary text-white hover:bg-primary-dark transition-colors"
+                  <a
+                    href={getWhatsAppUrl("Hi, I'm interested in getting a website for my business.")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full mt-8 py-3 text-center font-semibold rounded-lg bg-[#25D366] text-white hover:bg-[#128C7E] transition-colors"
                   >
                     Get Your Website
-                  </Link>
+                  </a>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Our Pricing Delivers Better ROI */}
+      <section className="py-24">
+        <div className="container px-6">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Value</span>
+            <h2 className="text-3xl font-bold text-primary mb-4">Why Our Pricing Delivers Better ROI</h2>
+            <p className="text-text-secondary max-w-3xl mx-auto">
+              Many businesses waste money on cheap SEO that doesn&apos;t work or expensive agencies that over-promise. Our pricing hits the sweet spot.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            {content.sections[1].items?.map((item, i) => {
+              const icons = [Clock, DollarSign, Shield, TrendingUp]
+              const IconComponent = icons[i % icons.length]
+              return (
+                <div key={i} className="bg-white border border-border rounded-xl p-6 text-center">
+                  <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center bg-accent/10 rounded-lg text-accent">
+                    <IconComponent size={24} />
+                  </div>
+                  <h4 className="font-semibold text-primary mb-2">{item.title}</h4>
+                  <p className="text-sm text-text-muted">{item.description}</p>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* When to Invest */}
+      <section className="py-24 bg-bg-secondary">
+        <div className="container px-6">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Timing</span>
+            <h2 className="text-3xl font-bold text-primary mb-4">When Should You Invest in SEO vs. a New Website?</h2>
+          </div>
+
+          <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-6">
+            {content.sections[2].items?.map((item, i) => (
+              <div key={i} className={`bg-white border-2 rounded-xl p-6 ${i === 2 ? 'border-accent' : 'border-border'}`}>
+                {i === 2 && (
+                  <div className="inline-block px-2 py-1 bg-accent/10 text-accent text-xs font-semibold rounded mb-3">
+                    Best Value
+                  </div>
+                )}
+                <h4 className="font-semibold text-primary mb-3">{item.title}</h4>
+                <p className="text-sm text-text-muted">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* What Affects Price */}
+      <section className="py-24">
+        <div className="container px-6">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Factors</span>
+            <h2 className="text-3xl font-bold text-primary mb-4">What Affects SEO Pricing?</h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            {content.sections[3].items?.map((item, i) => (
+              <div key={i} className="bg-bg-secondary rounded-xl p-6">
+                <h4 className="font-semibold text-primary mb-2">{item.title}</h4>
+                <p className="text-sm text-text-muted">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Our Guarantee */}
+      <section className="py-24 bg-bg-secondary">
+        <div className="container px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Our Promise</span>
+              <h2 className="text-3xl font-bold text-primary mb-4">What We Guarantee</h2>
+            </div>
+            <div className="bg-white rounded-2xl border border-border p-8">
+              {Array.isArray(content.sections[4].content) && content.sections[4].content.map((paragraph, i) => (
+                <p key={i} className="text-text-secondary leading-relaxed mb-4 last:mb-0">
+                  {paragraph}
+                </p>
+              ))}
+              <div className="mt-6 pt-6 border-t border-border">
+                <h4 className="font-semibold text-primary mb-4">We Guarantee:</h4>
+                <ul className="grid md:grid-cols-2 gap-3">
+                  {[
+                    'Transparent reporting every month',
+                    '100% Google-compliant practices',
+                    '24-hour response time',
+                    'Continuous data-driven optimization',
+                    'No long-term contracts after 3 months',
+                    'Full access to your accounts & data',
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-center gap-2 text-text-secondary">
+                      <Check size={16} className="text-accent flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
@@ -346,7 +499,7 @@ export default function PricingPage() {
             <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Client Dashboard</span>
             <h2 className="text-3xl font-bold text-primary mb-4">Track Your Progress</h2>
             <p className="text-text-secondary">
-              Every client gets access to a milestone tracker. SEO isn&apos;t a black box — it&apos;s a project with a clear timeline.
+              Every client gets access to a milestone tracker. SEO isn&apos;t a black box - it&apos;s a project with a clear timeline.
             </p>
           </div>
 
@@ -386,45 +539,29 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* Custom Solutions */}
+      {/* Custom Solutions CTA */}
       <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
           <div className="bg-gradient-to-br from-primary to-primary-dark rounded-3xl p-12 lg:p-16 text-center text-white">
-            <h2 className="text-3xl font-bold mb-4">Need a Custom Solution?</h2>
+            <h2 className="text-3xl font-bold mb-4">{content.cta.headline}</h2>
             <p className="text-white/80 max-w-2xl mx-auto mb-8">
-              Every business is unique. Let&apos;s discuss your specific needs and create a tailored package that fits your goals and budget.
+              {content.cta.description}
             </p>
-            <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors">
-              Get Custom Quote
+            <a href={getWhatsAppUrl("Hi, I need help choosing the right package for my business.")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-[#25D366] text-white font-semibold rounded-lg hover:bg-[#128C7E] transition-colors">
+              {content.cta.buttonText}
               <ArrowRight size={18} />
-            </Link>
+            </a>
           </div>
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="py-24">
-        <div className="container px-6">
-          <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">FAQ</span>
-            <h2 className="text-3xl font-bold text-primary">Pricing Questions</h2>
-          </div>
-          <div className="max-w-3xl mx-auto space-y-4">
-            {[
-              { q: 'Why should I commit to 3 months?', a: 'SEO is a long-term strategy. The 3-month timeline allows us to properly build your foundation, achieve rankings, and optimize for conversions. Most clients see meaningful results by month 2-3.' },
-              { q: 'Are there any setup fees?', a: 'No hidden fees! The prices shown include all setup and onboarding costs.' },
-              { q: 'Can I cancel anytime?', a: 'Yes, our SEO services are month-to-month after the initial 3-month period. We recommend staying for at least 3 months to see real results.' },
-              { q: 'Do you offer payment plans?', a: 'Yes, we offer flexible payment options for website projects. Contact us to discuss.' },
-              { q: 'What if I need both a website and SEO?', a: 'We offer bundle discounts! Get a website + 3 months of any SEO plan and save 15%. Contact us for details.' },
-            ].map((item, i) => (
-              <div key={i} className="bg-white rounded-xl p-6 border border-border">
-                <h3 className="font-semibold text-primary mb-2">{item.q}</h3>
-                <p className="text-text-secondary">{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FAQSection
+        faqs={pricingFaqs}
+        title="Pricing Questions"
+        subtitle="Common questions about our pricing and packages."
+        background="white"
+      />
     </>
   )
 }

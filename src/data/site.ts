@@ -4,10 +4,23 @@ export const siteConfig = {
   tagline: 'Professional Web Design & Local SEO Services',
   email: 'info@websiteandseoagency.com',
   phone: '+355685121313',
+  whatsapp: '355685121313', // Without + for wa.me URL
   url: 'https://www.websiteandseoagency.com',
   logo: '/portfolio/web-wise-logo.png',
   description: 'We help local businesses in the UK and USA grow with professional web design and SEO services. Plumbers, roofers, contractors, and more trust us for results.',
 }
+
+// WhatsApp URL helper
+export const getWhatsAppUrl = (message?: string) => {
+  const baseUrl = `https://wa.me/${siteConfig.whatsapp}`
+  if (message) {
+    return `${baseUrl}?text=${encodeURIComponent(message)}`
+  }
+  return baseUrl
+}
+
+// Default WhatsApp message for CTAs
+export const defaultWhatsAppMessage = "Hi, I'm interested in your SEO and web design services. I'd like to get a free consultation."
 
 // Services Data
 export const services = {

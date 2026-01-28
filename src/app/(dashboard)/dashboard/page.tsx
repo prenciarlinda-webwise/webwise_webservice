@@ -64,7 +64,7 @@ export default function ClientDashboard() {
           title="Active Tasks"
           value={activeTasks}
           icon={ListTodo}
-          variant={activeTasks > 0 ? 'info' : 'success'}
+          variant={activeTasks > 0 ? 'default' : 'success'}
         />
         <StatsCard
           title="Total Reports"

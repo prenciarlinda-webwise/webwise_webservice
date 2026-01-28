@@ -23,19 +23,8 @@ export const metadata: Metadata = {
     template: `%s - ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  keywords: [
-    "web development",
-    "SEO services",
-    "local SEO",
-    "website design",
-    "digital marketing",
-    "plumber SEO",
-    "roofing SEO",
-    "contractor website",
-    "small business SEO",
-    "UK SEO agency",
-    "USA SEO services",
-  ],
+  // Note: Keywords removed from global metadata to prevent cannibalization.
+  // Each page provides its own unique keywords via generateMetadata() or pageSEO data.
   authors: [{ name: siteConfig.name, url: siteConfig.url }],
   creator: siteConfig.name,
   openGraph: {

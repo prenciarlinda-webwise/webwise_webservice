@@ -1,19 +1,25 @@
 import Link from 'next/link'
 import Script from 'next/script'
 import { ArrowRight, ExternalLink } from 'lucide-react'
-import { clients, siteConfig } from '@/data/site'
+import { clients, siteConfig, getWhatsAppUrl } from '@/data/site'
 import { generateCollectionPageSchema, generateFAQSchema } from '@/lib/schemas'
 import { portfolioFaqs } from '@/data/faqs'
 import FAQSection from '@/components/sections/FAQSection'
+import { pageSEO } from '@/data/seo'
 
 export const metadata = {
-  title: 'Portfolio',
-  description: 'Explore our portfolio of successful projects and case studies.',
+  title: pageSEO.portfolio.title,
+  description: pageSEO.portfolio.description,
+  keywords: pageSEO.portfolio.keywords,
+  openGraph: {
+    title: pageSEO.portfolio.title,
+    description: pageSEO.portfolio.description,
+  },
 }
 
 const pageSchema = generateCollectionPageSchema({
-  name: 'Portfolio - WebWise',
-  description: 'Explore our portfolio of successful projects and case studies.',
+  name: pageSEO.portfolio.title,
+  description: pageSEO.portfolio.description,
   url: `${siteConfig.url}/portfolio`,
 })
 const faqSchema = generateFAQSchema(portfolioFaqs)
@@ -147,10 +153,10 @@ export default function PortfolioPage() {
             <p className="text-text-secondary mb-8">
               Let&apos;s discuss how we can help transform your business.
             </p>
-            <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors">
+            <a href={getWhatsAppUrl("Hi, I'd like to start a project with WebWise!")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-[#25D366] text-white font-semibold rounded-lg hover:bg-[#128C7E] transition-colors">
               Start Your Project
               <ArrowRight size={18} />
-            </Link>
+            </a>
           </div>
         </div>
       </section>

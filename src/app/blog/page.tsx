@@ -4,15 +4,21 @@ import { ArrowRight, Calendar, User, Clock } from 'lucide-react'
 import { blogPosts, getFeaturedPost, getOtherPosts } from '@/data/blog'
 import { siteConfig } from '@/data/site'
 import { generateCollectionPageSchema } from '@/lib/schemas'
+import { pageSEO } from '@/data/seo'
 
 export const metadata = {
-  title: 'Blog - Local SEO Tips for Plumbers, Roofers, Contractors & More',
-  description: 'Expert SEO tips and strategies for local service businesses. Learn how plumbers, roofers, electricians, and contractors can rank higher on Google.',
+  title: pageSEO.blog.title,
+  description: pageSEO.blog.description,
+  keywords: pageSEO.blog.keywords,
+  openGraph: {
+    title: pageSEO.blog.title,
+    description: pageSEO.blog.description,
+  },
 }
 
 const pageSchema = generateCollectionPageSchema({
-  name: 'Blog - Local SEO Tips for Plumbers, Roofers, Contractors & More',
-  description: 'Expert SEO tips and strategies for local service businesses. Learn how plumbers, roofers, electricians, and contractors can rank higher on Google.',
+  name: pageSEO.blog.title,
+  description: pageSEO.blog.description,
   url: `${siteConfig.url}/blog`,
 })
 

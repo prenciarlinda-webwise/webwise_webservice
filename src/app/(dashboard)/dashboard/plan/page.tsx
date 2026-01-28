@@ -82,9 +82,9 @@ export default function ClientPlanPage() {
                     <Badge variant="info">Special Offer</Badge>
                   </div>
                   <p className="text-sm text-purple-700 mb-3">{offer.message}</p>
-                  {offer.offer_details?.discount_percent && (
+                  {offer.offer_details?.discount_percent !== undefined && (
                     <p className="text-lg font-bold text-purple-800 mb-3">
-                      {offer.offer_details.discount_percent}% OFF
+                      {String(offer.offer_details.discount_percent)}% OFF
                     </p>
                   )}
                   {offer.offer_expires_at && (

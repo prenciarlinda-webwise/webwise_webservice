@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, X, ChevronDown, ArrowRight, Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart } from 'lucide-react'
-import { services, siteConfig, navigation } from '@/data/site'
+import { services, siteConfig, navigation, getWhatsAppUrl } from '@/data/site'
 
 const iconMap: { [key: string]: React.ElementType } = {
   Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart
@@ -145,10 +145,15 @@ export default function Header() {
 
             {/* CTA Button */}
             <div className="hidden lg:block">
-              <Link href="/contact" className="audit-btn inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors shadow-md hover:shadow-lg animate-pulse hover:animate-none">
+              <a
+                href={getWhatsAppUrl("Hi, I'd like to get a free website audit for my business.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="audit-btn inline-flex items-center gap-2 px-6 py-3 bg-[#25D366] text-white font-semibold rounded-lg hover:bg-[#128C7E] transition-colors shadow-md hover:shadow-lg"
+              >
                 Free Website Audit
                 <ArrowRight size={16} />
-              </Link>
+              </a>
             </div>
 
             {/* Mobile Menu Toggle */}
@@ -251,11 +256,17 @@ export default function Header() {
 
             {/* Footer */}
             <div className="p-6 border-t border-border">
-              <Link href="/contact" className="audit-btn block w-full py-4 text-center bg-accent text-white font-semibold rounded-lg" onClick={() => setIsMobileMenuOpen(false)}>
+              <a
+                href={getWhatsAppUrl("Hi, I'd like to get a free website audit for my business.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="audit-btn block w-full py-4 text-center bg-[#25D366] text-white font-semibold rounded-lg"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 Free Website Audit
-              </Link>
+              </a>
               <div className="flex flex-col gap-2 mt-4 text-center">
-                <a href={`mailto:${siteConfig.email}`} className="text-sm text-text-secondary">{siteConfig.email}</a>
+                <a href={getWhatsAppUrl("Hi, I have a question about your services.")} target="_blank" rel="noopener noreferrer" className="text-sm text-text-secondary">Chat on WhatsApp</a>
                 <a href={`tel:${siteConfig.phone.replace(/[^0-9+]/g, '')}`} className="text-sm text-text-secondary">{siteConfig.phone}</a>
               </div>
             </div>

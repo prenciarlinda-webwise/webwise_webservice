@@ -123,3 +123,25 @@ export function generateCollectionPageSchema(page: {
     url: page.url,
   }
 }
+
+// HowTo Schema - for process/step-by-step content
+export function generateHowToSchema(howTo: {
+  name: string
+  description: string
+  steps: { name: string; text: string }[]
+  totalTime?: string
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: howTo.name,
+    description: howTo.description,
+    ...(howTo.totalTime && { totalTime: howTo.totalTime }),
+    step: howTo.steps.map((step, index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      name: step.name,
+      text: step.text,
+    })),
+  }
+}
