@@ -61,9 +61,8 @@ export const metadata: Metadata = {
       'msvalidate.01': process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION || '',
     },
   },
-  alternates: {
-    canonical: './',
-  },
+  // Note: Canonical URLs are set per-page via generateMetadata() to support URL restructuring
+  // Do not set a global canonical here as it would override page-specific canonicals
 }
 
 // JSON-LD Structured Data - Organization only (site-wide)

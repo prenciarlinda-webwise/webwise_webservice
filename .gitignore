@@ -11,6 +11,8 @@
 
 # Claude
 .claude/
+.claude*
+CLAUDE.md
 
 # Windows
 nul

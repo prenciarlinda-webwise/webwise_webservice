@@ -158,13 +158,13 @@ export const clients: Record<string, Client> = {
     slug: 'illyrian-group-plumbing-seo-web-development',
     url: 'https://www.illyrianplumber.com',
     image: getScreenshot('https://www.illyrianplumber.com'),
-    industry: 'Construction & Plumbing',
-    services: ['SEO', 'Web Development', 'Brand Strategy'],
-    description: 'Multi-service business group offering professional construction and plumbing services. We developed their main corporate website showcasing their full range of services, along with dedicated websites for their construction division and Illyrian Plumber subsidiary.',
+    industry: 'Plumbing',
+    services: ['Local SEO', 'Website Design', 'Brand Strategy'],
+    description: 'Complete website redesign and local SEO for this East Brunswick, NJ plumbing company. We built a lightning-fast website achieving 98/100 PageSpeed scores on both mobile and desktop. Within just 2 months, Illyrian Plumber ranked in the Local Pack top 5 for critical emergency plumber keywords across multiple NJ cities including East Brunswick, Old Bridge, South River, and North Brunswick. The site is now cited by ChatGPT and Perplexity AI, driving organic visibility in the age of AI search.',
     results: {
       trafficIncrease: '290%',
       leadsIncrease: '245%',
-      rankingKeywords: '38+',
+      rankingKeywords: '20+',
     },
   },
   gimosroofing: {
@@ -315,6 +315,48 @@ export const clients: Record<string, Client> = {
       rankingKeywords: '48+',
     },
   },
+}
+
+// Industries we serve (for case studies and local-seo pages)
+export interface Industry {
+  name: string
+  slug: string
+  localSeoUrl: string
+}
+
+export const industries: Industry[] = [
+  { name: 'Plumbing', slug: 'plumbing', localSeoUrl: '/local-seo/plumbers' },
+  { name: 'Roofing', slug: 'roofing', localSeoUrl: '/local-seo/roofing' },
+  { name: 'Auto Detailing', slug: 'auto-detailing', localSeoUrl: '/local-seo/auto-detailing' },
+  { name: 'HVAC', slug: 'hvac', localSeoUrl: '/local-seo/hvac' },
+  { name: 'Electricians', slug: 'electricians', localSeoUrl: '/local-seo/electricians' },
+  { name: 'Construction', slug: 'construction', localSeoUrl: '/local-seo/construction' },
+  { name: 'Home Remodeling', slug: 'home-remodeling', localSeoUrl: '/local-seo/construction' },
+  { name: 'Home Services', slug: 'home-services', localSeoUrl: '/local-seo/construction' },
+  { name: 'Waste Management', slug: 'waste-management', localSeoUrl: '/local-seo/dumpster-rental' },
+  { name: 'Landscaping', slug: 'landscaping', localSeoUrl: '/local-seo/landscaping' },
+  { name: 'Pest Control', slug: 'pest-control', localSeoUrl: '/local-seo/pest-control' },
+  { name: 'Cleaning', slug: 'cleaning', localSeoUrl: '/local-seo/cleaning' },
+  { name: 'Moving', slug: 'moving', localSeoUrl: '/local-seo/moving' },
+  { name: 'Locksmiths', slug: 'locksmiths', localSeoUrl: '/local-seo/locksmiths' },
+  { name: 'Painting Services', slug: 'painting', localSeoUrl: '/local-seo/construction' },
+  { name: 'Flooring', slug: 'flooring', localSeoUrl: '/local-seo/construction' },
+]
+
+// Get industry by name (for matching client industries)
+export const getIndustryByName = (name: string): Industry | undefined => {
+  return industries.find(i => i.name.toLowerCase() === name.toLowerCase())
+}
+
+// Get clients by industry
+export const getClientsByIndustry = (industryName: string): Client[] => {
+  return Object.values(clients).filter(c => c.industry.toLowerCase() === industryName.toLowerCase())
+}
+
+// Get unique industries from clients (for case studies page)
+export const getUniqueClientIndustries = (): string[] => {
+  const industrySet = new Set(Object.values(clients).map(c => c.industry))
+  return Array.from(industrySet)
 }
 
 // Navigation

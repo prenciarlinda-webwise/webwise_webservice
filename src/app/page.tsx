@@ -191,6 +191,30 @@ const iconMap: { [key: string]: React.ElementType } = {
   Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart
 }
 
+// URL mappings for new flat URL structure
+const serviceUrlMap: Record<string, string> = {
+  'seo': '/seo-services',
+  'web-development': '/development',
+  'digital-marketing': '/digital-marketing',
+}
+
+const caseStudyUrlMap: Record<string, string> = {
+  'illyrian-group-plumbing-seo-web-development': '/case-studies/illyrian-group',
+  'gimos-roofing-local-seo-website-design': '/case-studies/gimos-roofing',
+  'albros-premium-detailing-seo-website-design': '/case-studies/albros-detailing',
+  'northstar-home-improvement-seo-website-development': '/case-studies/northstar',
+  '904-dumpster-rental-jacksonville-seo-website': '/case-studies/904-dumpster',
+  'gjej-pro-marketplace-web-application-seo': '/case-studies/gjej-pro',
+  'paint-techs-painting-contractor-seo-website-redesign': '/case-studies/paint-techs',
+  'sunrise-auto-rent-car-rental-website-design': '/case-studies/sunrise-auto',
+  'kn-flooring-contractor-website-design': '/case-studies/kn-flooring',
+  'kryemadhi-car-rental-albania-website-design': '/case-studies/kryemadhi',
+  'gnt-home-remodeling-contractor-website-design': '/case-studies/gnt-remodeling',
+  'eli-taxi-durres-albania-website-design': '/case-studies/eli-taxi',
+  'msc-certification-web-application-development': '/case-studies/msc-certification',
+  'aaa-remodels-jacksonville-home-remodeling-seo-website': '/case-studies/aaa-remodels',
+}
+
 function getIcon(iconName: string, size = 20) {
   const IconComponent = iconMap[iconName]
   return IconComponent ? <IconComponent size={size} /> : null
@@ -241,7 +265,7 @@ export default function Home() {
                   Start Your Project
                   <ArrowRight size={18} />
                 </a>
-                <Link href="/portfolio" className="inline-flex items-center gap-2 px-6 py-4 bg-white/10 text-white font-semibold rounded-lg hover:bg-white/20 transition-colors border border-white/20">
+                <Link href="/case-studies" className="inline-flex items-center gap-2 px-6 py-4 bg-white/10 text-white font-semibold rounded-lg hover:bg-white/20 transition-colors border border-white/20">
                   View Case Studies
                 </Link>
               </div>
@@ -323,7 +347,7 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                <Link href={`/services/${key}`} className="inline-flex items-center gap-2 text-accent font-medium hover:gap-3 transition-all">
+                <Link href={serviceUrlMap[key] || `/services/${key}`} className="inline-flex items-center gap-2 text-accent font-medium hover:gap-3 transition-all">
                   Learn more <ArrowRight size={16} />
                 </Link>
               </div>
@@ -389,7 +413,7 @@ export default function Home() {
                     <a href={client.url} target="_blank" className="flex-1 inline-flex items-center justify-center gap-2 py-2 text-sm font-medium text-accent hover:bg-accent/10 rounded-lg transition-colors">
                       <ExternalLink size={14} /> Visit Site
                     </a>
-                    <Link href={`/portfolio/${client.slug}`} className="flex-1 inline-flex items-center justify-center gap-2 py-2 text-sm font-medium text-text-secondary hover:text-primary hover:bg-bg-secondary rounded-lg transition-colors">
+                    <Link href={caseStudyUrlMap[client.slug] || `/case-studies/${client.slug}`} className="flex-1 inline-flex items-center justify-center gap-2 py-2 text-sm font-medium text-text-secondary hover:text-primary hover:bg-bg-secondary rounded-lg transition-colors">
                       Case Study <ArrowRight size={14} />
                     </Link>
                   </div>

@@ -17,6 +17,32 @@ function getIcon(iconName: string, size = 20) {
   return IconComponent ? <IconComponent size={size} /> : null
 }
 
+// URL mappings for new flat URL structure
+const subserviceUrlMap: Record<string, Record<string, string>> = {
+  'seo': {
+    'local-seo': '/local-seo',
+    'technical-seo': '/technical-seo',
+    'ecommerce-seo': '/ecommerce-seo',
+    'international-seo': '/international-seo',
+  },
+  'web-development': {
+    'website-design': '/development',
+    'web-applications': '/development/applications',
+    'ecommerce-development': '/development/ecommerce',
+  },
+  'digital-marketing': {
+    'content-marketing': '/digital-marketing/content',
+    'ppc-advertising': '/digital-marketing/ppc',
+    'social-media': '/digital-marketing/social-management',
+    'analytics': '/digital-marketing/analytics',
+  },
+}
+
+function getCanonicalUrl(slug: string, subslug: string): string {
+  const newPath = subserviceUrlMap[slug]?.[subslug]
+  return newPath ? `${siteConfig.url}${newPath}` : `${siteConfig.url}/services/${slug}/${subslug}`
+}
+
 export async function generateStaticParams() {
   const params: { slug: string; subslug: string }[] = []
   Object.entries(services).forEach(([slug, service]) => {
@@ -36,14 +62,19 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!subservice) return { title: 'Service Not Found' }
 
   const seoData = pageSEO[`services/${slug}/${subslug}`]
+  const canonicalUrl = getCanonicalUrl(slug, subslug)
 
   return {
     title: seoData?.title || `${subservice.title} - ${service.title}`,
     description: seoData?.description || subservice.description,
     keywords: seoData?.keywords,
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
       title: seoData?.title || `${subservice.title} - ${service.title}`,
       description: seoData?.description || subservice.description,
+      url: canonicalUrl,
     },
   }
 }
@@ -88,7 +119,11 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
   // Get rich content for this sub-service
   const content = getServiceContent(subslug)
 
-  const pageUrl = `${siteConfig.url}/services/${slug}/${subslug}`
+  const pageUrl = getCanonicalUrl(slug, subslug)
+  const parentServiceUrl = slug === 'seo' ? `${siteConfig.url}/seo-services` :
+                           slug === 'web-development' ? `${siteConfig.url}/development` :
+                           slug === 'digital-marketing' ? `${siteConfig.url}/digital-marketing` :
+                           `${siteConfig.url}/services/${slug}`
   const serviceSchema = generateServiceSchema({
     name: content?.hero.headline || `${subservice.title} - ${service.title}`,
     description: content?.definition.answer || subservice.description,
@@ -97,7 +132,7 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: siteConfig.url },
     { name: 'Services', url: `${siteConfig.url}/services` },
-    { name: service.title, url: `${siteConfig.url}/services/${slug}` },
+    { name: service.title, url: parentServiceUrl },
     { name: subservice.title, url: pageUrl },
   ])
 
@@ -142,7 +177,7 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
             <span>/</span>
             <Link href="/services" className="hover:text-white">Services</Link>
             <span>/</span>
-            <Link href={`/services/${slug}`} className="hover:text-white">{service.title}</Link>
+            <Link href={slug === 'seo' ? '/seo-services' : slug === 'web-development' ? '/development' : '/digital-marketing'} className="hover:text-white">{service.title}</Link>
             <span>/</span>
             <span className="text-white">{subservice.title}</span>
           </nav>
@@ -464,7 +499,7 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
               .map(([key, sub]) => (
                 <Link
                   key={key}
-                  href={`/services/${slug}/${key}`}
+                  href={subserviceUrlMap[slug]?.[key] || `/services/${slug}/${key}`}
                   className="bg-white rounded-xl p-6 border border-border hover:shadow-lg hover:border-accent/30 transition-all group"
                 >
                   <div className="w-12 h-12 flex items-center justify-center bg-bg-secondary rounded-lg text-accent group-hover:bg-accent group-hover:text-white transition-colors mb-4">

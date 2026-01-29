@@ -3,11 +3,39 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Menu, X, ChevronDown, ArrowRight, Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart } from 'lucide-react'
-import { services, siteConfig, navigation, getWhatsAppUrl } from '@/data/site'
+import { Menu, X, ChevronDown, ArrowRight, Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart, Briefcase } from 'lucide-react'
+import { services, siteConfig, navigation, industries, getUniqueClientIndustries, getIndustryByName } from '@/data/site'
+import WhatsAppButton from '@/components/ui/WhatsAppButton'
 
 const iconMap: { [key: string]: React.ElementType } = {
   Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart
+}
+
+// URL mappings for new flat URL structure
+const serviceUrlMap: Record<string, string> = {
+  'seo': '/seo-services',
+  'web-development': '/development',
+  'digital-marketing': '/digital-marketing',
+}
+
+const subserviceUrlMap: Record<string, Record<string, string>> = {
+  'seo': {
+    'local-seo': '/local-seo',
+    'technical-seo': '/technical-seo',
+    'ecommerce-seo': '/ecommerce-seo',
+    'international-seo': '/international-seo',
+  },
+  'web-development': {
+    'website-design': '/development',
+    'web-applications': '/development/applications',
+    'ecommerce-development': '/development/ecommerce',
+  },
+  'digital-marketing': {
+    'content-marketing': '/digital-marketing/content',
+    'ppc-advertising': '/digital-marketing/ppc',
+    'social-media': '/digital-marketing/social-management',
+    'analytics': '/digital-marketing/analytics',
+  },
 }
 
 export default function Header() {
@@ -104,7 +132,7 @@ export default function Header() {
                               {Object.entries(service.subservices).map(([subKey, sub]) => (
                                 <Link
                                   key={subKey}
-                                  href={`/services/${key}/${subKey}`}
+                                  href={subserviceUrlMap[key]?.[subKey] || `/services/${key}/${subKey}`}
                                   className="flex items-start gap-3 p-3 rounded-lg hover:bg-bg-secondary transition-colors group/item"
                                 >
                                   <div className="w-8 h-8 flex items-center justify-center bg-bg-tertiary rounded-md text-accent group-hover/item:bg-accent group-hover/item:text-white transition-colors">
@@ -117,7 +145,7 @@ export default function Header() {
                                 </Link>
                               ))}
                             </div>
-                            <Link href={`/services/${key}`} className="inline-flex items-center gap-2 mt-4 text-sm font-medium text-accent hover:gap-3 transition-all">
+                            <Link href={serviceUrlMap[key] || `/services/${key}`} className="inline-flex items-center gap-2 mt-4 text-sm font-medium text-accent hover:gap-3 transition-all">
                               Explore {service.title}
                               <ArrowRight size={16} />
                             </Link>
@@ -129,9 +157,47 @@ export default function Header() {
                 </div>
               </div>
 
-              <Link href="/portfolio" className="px-4 py-2 text-sm font-medium text-text-primary hover:text-accent transition-colors">
-                Portfolio
-              </Link>
+              {/* Case Studies Dropdown */}
+              <div className="relative group">
+                <Link href="/case-studies" className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-text-primary hover:text-accent transition-colors">
+                  Case Studies
+                  <ChevronDown size={14} className="transition-transform group-hover:rotate-180" />
+                </Link>
+
+                {/* Dropdown Menu */}
+                <div className="absolute top-full left-0 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                  <div className="w-64 bg-white border border-border rounded-xl shadow-xl overflow-hidden">
+                    <div className="p-2">
+                      <Link
+                        href="/case-studies"
+                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-bg-secondary transition-colors"
+                      >
+                        <div className="w-8 h-8 flex items-center justify-center bg-accent/10 rounded-md text-accent">
+                          <Briefcase size={16} />
+                        </div>
+                        <div>
+                          <span className="text-sm font-semibold text-text-primary block">All Case Studies</span>
+                          <span className="text-xs text-text-muted">View our full portfolio</span>
+                        </div>
+                      </Link>
+                      <div className="border-t border-border my-2" />
+                      <p className="px-3 py-2 text-xs font-semibold text-text-muted uppercase tracking-wider">By Industry</p>
+                      {getUniqueClientIndustries().slice(0, 8).map((industryName) => {
+                        const industry = getIndustryByName(industryName)
+                        return (
+                          <Link
+                            key={industryName}
+                            href={industry?.localSeoUrl || '/case-studies'}
+                            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-bg-secondary transition-colors"
+                          >
+                            <span className="text-sm text-text-secondary hover:text-text-primary">{industryName}</span>
+                          </Link>
+                        )
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
               <Link href="/pricing" className="px-4 py-2 text-sm font-medium text-text-primary hover:text-accent transition-colors">
                 Pricing
               </Link>
@@ -145,15 +211,13 @@ export default function Header() {
 
             {/* CTA Button */}
             <div className="hidden lg:block">
-              <a
-                href={getWhatsAppUrl("Hi, I'd like to get a free website audit for my business.")}
-                target="_blank"
-                rel="noopener noreferrer"
+              <WhatsAppButton
+                defaultMessage="Hi, I'd like to get a free website audit for my business."
                 className="audit-btn inline-flex items-center gap-2 px-6 py-3 bg-[#25D366] text-white font-semibold rounded-lg hover:bg-[#128C7E] transition-colors shadow-md hover:shadow-lg"
               >
                 Free Website Audit
                 <ArrowRight size={16} />
-              </a>
+              </WhatsAppButton>
             </div>
 
             {/* Mobile Menu Toggle */}
@@ -218,7 +282,7 @@ export default function Header() {
                   </button>
                   <div className={`overflow-hidden transition-all duration-300 ${openMobileSubmenu === key ? 'max-h-96' : 'max-h-0'}`}>
                     <Link
-                      href={`/services/${key}`}
+                      href={serviceUrlMap[key] || `/services/${key}`}
                       className="flex items-center gap-3 py-3 px-4 text-accent font-medium"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
@@ -228,7 +292,7 @@ export default function Header() {
                     {Object.entries(service.subservices).map(([subKey, sub]) => (
                       <Link
                         key={subKey}
-                        href={`/services/${key}/${subKey}`}
+                        href={subserviceUrlMap[key]?.[subKey] || `/services/${key}/${subKey}`}
                         className="flex items-center gap-3 py-3 px-4 text-text-secondary hover:text-text-primary"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
@@ -240,9 +304,39 @@ export default function Header() {
                 </div>
               ))}
 
-              <Link href="/portfolio" className="block py-4 text-lg font-medium text-text-primary border-b border-border" onClick={() => setIsMobileMenuOpen(false)}>
-                Portfolio
-              </Link>
+              {/* Case Studies with Industries */}
+              <div className="border-b border-border">
+                <button
+                  onClick={() => setOpenMobileSubmenu(openMobileSubmenu === 'case-studies' ? null : 'case-studies')}
+                  className="flex items-center justify-between w-full py-4 text-lg font-medium text-text-primary"
+                >
+                  Case Studies
+                  <ChevronDown size={20} className={`transition-transform ${openMobileSubmenu === 'case-studies' ? 'rotate-180' : ''}`} />
+                </button>
+                <div className={`overflow-hidden transition-all duration-300 ${openMobileSubmenu === 'case-studies' ? 'max-h-96' : 'max-h-0'}`}>
+                  <Link
+                    href="/case-studies"
+                    className="flex items-center gap-3 py-3 px-4 text-accent font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <Briefcase size={18} />
+                    All Case Studies
+                  </Link>
+                  {getUniqueClientIndustries().slice(0, 6).map((industryName) => {
+                    const industry = getIndustryByName(industryName)
+                    return (
+                      <Link
+                        key={industryName}
+                        href={industry?.localSeoUrl || '/case-studies'}
+                        className="flex items-center gap-3 py-3 px-4 text-text-secondary hover:text-text-primary"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        {industryName}
+                      </Link>
+                    )
+                  })}
+                </div>
+              </div>
               <Link href="/pricing" className="block py-4 text-lg font-medium text-text-primary border-b border-border" onClick={() => setIsMobileMenuOpen(false)}>
                 Pricing
               </Link>
@@ -256,17 +350,19 @@ export default function Header() {
 
             {/* Footer */}
             <div className="p-6 border-t border-border">
-              <a
-                href={getWhatsAppUrl("Hi, I'd like to get a free website audit for my business.")}
-                target="_blank"
-                rel="noopener noreferrer"
+              <WhatsAppButton
+                defaultMessage="Hi, I'd like to get a free website audit for my business."
                 className="audit-btn block w-full py-4 text-center bg-[#25D366] text-white font-semibold rounded-lg"
-                onClick={() => setIsMobileMenuOpen(false)}
               >
                 Free Website Audit
-              </a>
+              </WhatsAppButton>
               <div className="flex flex-col gap-2 mt-4 text-center">
-                <a href={getWhatsAppUrl("Hi, I have a question about your services.")} target="_blank" rel="noopener noreferrer" className="text-sm text-text-secondary">Chat on WhatsApp</a>
+                <WhatsAppButton
+                  defaultMessage="Hi, I have a question about your services."
+                  className="text-sm text-text-secondary hover:text-accent transition-colors"
+                >
+                  Chat on WhatsApp
+                </WhatsAppButton>
                 <a href={`tel:${siteConfig.phone.replace(/[^0-9+]/g, '')}`} className="text-sm text-text-secondary">{siteConfig.phone}</a>
               </div>
             </div>

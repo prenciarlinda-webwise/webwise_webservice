@@ -100,7 +100,7 @@ export const pageSEO: Record<string, PageSEO> = {
     keywords: ['ppc advertising services', 'google ads management', 'pay per click advertising', 'ppc management services'],
   },
 
-  'services/digital-marketing/social-media': {
+  'services/digital-marketing/social-management-media': {
     title: 'Social Media Marketing Services - WebWise',
     description: 'Social media marketing services for small businesses. Facebook, Instagram, LinkedIn marketing and paid social advertising.',
     keywords: ['social media marketing services', 'social media advertising', 'facebook marketing', 'instagram marketing'],
@@ -125,19 +125,19 @@ export const pageSEO: Record<string, PageSEO> = {
   // BLOG POSTS - Unique keywords per post
   // ============================================
   'blog/how-much-does-seo-cost-for-small-business': {
-    title: 'How Much Does SEO Cost for a Small Business in 2025?',
+    title: 'How Much Does SEO Cost for a Small Business in 2026?',
     description: 'A comprehensive breakdown of SEO pricing for plumbers, roofers, detailers, and local service businesses. Learn what to expect and how to budget for SEO.',
     keywords: ['seo pricing', 'seo cost small business', 'how much does seo cost', 'seo pricing packages'],
   },
 
   'blog/local-seo-for-plumbers-complete-guide': {
-    title: 'Local SEO for Plumbers: The Complete 2025 Guide',
+    title: 'Local SEO for Plumbers: The Complete 2026 Guide',
     description: 'Everything plumbers need to know about ranking #1 on Google Maps and local search. Step-by-step strategies that actually work.',
     keywords: ['local seo for plumbers', 'plumber seo', 'plumbing marketing', 'plumber google ranking'],
   },
 
   'blog/roofing-company-seo-strategy': {
-    title: 'Roofing Company SEO: Complete Strategy for 2025',
+    title: 'Roofing Company SEO: Complete Strategy for 2026',
     description: 'How roofing contractors can generate more leads through SEO. Proven strategies for ranking in competitive local markets.',
     keywords: ['roofing seo', 'roofing company seo', 'roofer marketing', 'roofing contractor seo'],
   },

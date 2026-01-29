@@ -17,6 +17,38 @@ function getIcon(iconName: string, size = 20) {
   return IconComponent ? <IconComponent size={size} /> : null
 }
 
+// URL mappings for new flat URL structure
+const serviceUrlMap: Record<string, string> = {
+  'seo': '/seo-services',
+  'web-development': '/development',
+  'digital-marketing': '/digital-marketing',
+}
+
+const subserviceUrlMap: Record<string, Record<string, string>> = {
+  'seo': {
+    'local-seo': '/local-seo',
+    'technical-seo': '/technical-seo',
+    'ecommerce-seo': '/ecommerce-seo',
+    'international-seo': '/international-seo',
+  },
+  'web-development': {
+    'website-design': '/development',
+    'web-applications': '/development/applications',
+    'ecommerce-development': '/development/ecommerce',
+  },
+  'digital-marketing': {
+    'content-marketing': '/digital-marketing/content',
+    'ppc-advertising': '/digital-marketing/ppc',
+    'social-media': '/digital-marketing/social-management',
+    'analytics': '/digital-marketing/analytics',
+  },
+}
+
+function getCanonicalUrl(slug: string): string {
+  const newPath = serviceUrlMap[slug]
+  return newPath ? `${siteConfig.url}${newPath}` : `${siteConfig.url}/services/${slug}`
+}
+
 export async function generateStaticParams() {
   return Object.keys(services).map((slug) => ({ slug }))
 }
@@ -27,14 +59,19 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!service) return { title: 'Service Not Found' }
 
   const seoData = pageSEO[`services/${slug}`]
+  const canonicalUrl = getCanonicalUrl(slug)
 
   return {
     title: seoData?.title || service.title,
     description: seoData?.description || service.description,
     keywords: seoData?.keywords,
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
       title: seoData?.title || service.title,
       description: seoData?.description || service.description,
+      url: canonicalUrl,
     },
   }
 }
@@ -70,7 +107,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   // Get rich content for this service
   const content = getServiceContent(slug)
 
-  const serviceUrl = `${siteConfig.url}/services/${slug}`
+  const serviceUrl = getCanonicalUrl(slug)
   const serviceSchema = generateServiceSchema({
     name: content?.hero.headline || service.title,
     description: content?.definition.answer || service.description,
@@ -199,7 +236,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             {Object.entries(service.subservices).map(([subKey, sub]) => (
               <Link
                 key={subKey}
-                href={`/services/${slug}/${subKey}`}
+                href={subserviceUrlMap[slug]?.[subKey] || `/services/${slug}/${subKey}`}
                 className="bg-white border border-border rounded-2xl p-8 hover:shadow-xl hover:border-accent/30 transition-all group"
               >
                 <div className="w-14 h-14 flex items-center justify-center bg-bg-secondary rounded-xl text-accent group-hover:bg-accent group-hover:text-white transition-colors mb-6">

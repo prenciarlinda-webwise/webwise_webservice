@@ -15,6 +15,33 @@ function getIcon(iconName: string, size = 20) {
   return IconComponent ? <IconComponent size={size} /> : null
 }
 
+// URL mappings for new flat URL structure
+const serviceUrlMap: Record<string, string> = {
+  'seo': '/seo-services',
+  'web-development': '/development',
+  'digital-marketing': '/digital-marketing',
+}
+
+const subserviceUrlMap: Record<string, Record<string, string>> = {
+  'seo': {
+    'local-seo': '/local-seo',
+    'technical-seo': '/technical-seo',
+    'ecommerce-seo': '/ecommerce-seo',
+    'international-seo': '/international-seo',
+  },
+  'web-development': {
+    'website-design': '/development',
+    'web-applications': '/development/applications',
+    'ecommerce-development': '/development/ecommerce',
+  },
+  'digital-marketing': {
+    'content-marketing': '/digital-marketing/content',
+    'ppc-advertising': '/digital-marketing/ppc',
+    'social-media': '/digital-marketing/social-management',
+    'analytics': '/digital-marketing/analytics',
+  },
+}
+
 export const metadata = {
   title: 'Our Services',
   description: 'Comprehensive digital services including SEO, web development, and digital marketing.',
@@ -70,7 +97,7 @@ export default function ServicesPage() {
                   </div>
                   <h2 className="text-3xl font-bold text-primary mb-4">{service.title}</h2>
                   <p className="text-text-secondary mb-6">{service.description}</p>
-                  <Link href={`/services/${key}`} className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors">
+                  <Link href={serviceUrlMap[key] || `/services/${key}`} className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors">
                     Explore {service.title}
                     <ArrowRight size={18} />
                   </Link>
@@ -79,7 +106,7 @@ export default function ServicesPage() {
                   {Object.entries(service.subservices).map(([subKey, sub]) => (
                     <Link
                       key={subKey}
-                      href={`/services/${key}/${subKey}`}
+                      href={subserviceUrlMap[key]?.[subKey] || `/services/${key}/${subKey}`}
                       className="bg-white border border-border rounded-xl p-6 hover:shadow-lg hover:border-accent/30 transition-all group"
                     >
                       <div className="w-10 h-10 flex items-center justify-center bg-bg-secondary rounded-lg text-accent group-hover:bg-accent group-hover:text-white transition-colors mb-4">

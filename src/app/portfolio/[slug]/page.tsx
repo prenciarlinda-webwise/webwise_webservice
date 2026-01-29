@@ -6,6 +6,28 @@ import { clients, siteConfig } from '@/data/site'
 import { generateBreadcrumbSchema } from '@/lib/schemas'
 import WebsitePreview from '@/components/ui/WebsitePreview'
 
+// URL mappings for case studies (old slug -> new short URL)
+const caseStudyUrlMap: Record<string, string> = {
+  'illyrian-group-plumbing-seo-web-development': '/case-studies/illyrian-group',
+  'gimos-roofing-local-seo-website-design': '/case-studies/gimos-roofing',
+  'albros-premium-detailing-seo-website-design': '/case-studies/albros-detailing',
+  'northstar-home-improvement-seo-website-development': '/case-studies/northstar',
+  '904-dumpster-rental-jacksonville-seo-website': '/case-studies/904-dumpster',
+  'gjej-pro-marketplace-web-application-seo': '/case-studies/gjej-pro',
+  'paint-techs-painting-contractor-seo-website-redesign': '/case-studies/paint-techs',
+  'sunrise-auto-rent-car-rental-website-design': '/case-studies/sunrise-auto',
+  'kn-flooring-contractor-website-design': '/case-studies/kn-flooring',
+  'kryemadhi-car-rental-albania-website-design': '/case-studies/kryemadhi',
+  'gnt-home-remodeling-contractor-website-design': '/case-studies/gnt-remodeling',
+  'eli-taxi-durres-albania-website-design': '/case-studies/eli-taxi',
+  'msc-certification-web-application-development': '/case-studies/msc-certification',
+  'aaa-remodels-jacksonville-home-remodeling-seo-website': '/case-studies/aaa-remodels',
+}
+
+function getCanonicalUrl(slug: string): string {
+  return caseStudyUrlMap[slug] ? `${siteConfig.url}${caseStudyUrlMap[slug]}` : `${siteConfig.url}/case-studies/${slug}`
+}
+
 export async function generateStaticParams() {
   return Object.values(clients).map((client) => ({ slug: client.slug }))
 }
@@ -29,14 +51,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     'web design portfolio',
   ]
 
+  const canonicalUrl = getCanonicalUrl(slug)
+
   return {
     title,
     description,
     keywords,
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
       title,
       description,
       type: 'article',
+      url: canonicalUrl,
     },
   }
 }
@@ -51,10 +79,10 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
   const otherClients = Object.values(clients).filter((c) => c.slug !== slug && c.results).slice(0, 3)
 
-  const pageUrl = `${siteConfig.url}/portfolio/${slug}`
+  const pageUrl = getCanonicalUrl(slug)
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: siteConfig.url },
-    { name: 'Portfolio', url: `${siteConfig.url}/portfolio` },
+    { name: 'Case Studies', url: `${siteConfig.url}/case-studies` },
     { name: client.name, url: pageUrl },
   ])
   const caseStudySchema = {
@@ -99,7 +127,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           <nav className="flex items-center gap-2 text-white/60 text-sm mb-8">
             <Link href="/" className="hover:text-white">Home</Link>
             <span>/</span>
-            <Link href="/portfolio" className="hover:text-white">Portfolio</Link>
+            <Link href="/case-studies" className="hover:text-white">Case Studies</Link>
             <span>/</span>
             <span className="text-white">{client.name}</span>
           </nav>
@@ -288,7 +316,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {otherClients.map((other) => (
-              <Link key={other.slug} href={`/portfolio/${other.slug}`} className="bg-white rounded-2xl border border-border overflow-hidden hover:shadow-xl transition-shadow group">
+              <Link key={other.slug} href={caseStudyUrlMap[other.slug] || `/case-studies/${other.slug}`} className="bg-white rounded-2xl border border-border overflow-hidden hover:shadow-xl transition-shadow group">
                 <div className="h-40 bg-gradient-to-br from-bg-tertiary to-bg-secondary flex items-center justify-center">
                   <span className="text-4xl font-bold text-accent/20">
                     {other.name.substring(0, 2).toUpperCase()}
@@ -312,7 +340,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             ))}
           </div>
           <div className="text-center mt-12">
-            <Link href="/portfolio" className="inline-flex items-center gap-2 px-6 py-3 bg-bg-secondary text-primary font-medium rounded-lg hover:bg-bg-tertiary transition-colors">
+            <Link href="/case-studies" className="inline-flex items-center gap-2 px-6 py-3 bg-bg-secondary text-primary font-medium rounded-lg hover:bg-bg-tertiary transition-colors">
               View All Projects <ArrowRight size={18} />
             </Link>
           </div>

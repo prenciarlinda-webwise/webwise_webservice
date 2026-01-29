@@ -1219,7 +1219,7 @@ export default function ClientDetailPage() {
             label="Title *"
             value={reportForm.title}
             onChange={(e) => setReportForm({ ...reportForm, title: e.target.value })}
-            placeholder="e.g., January 2025 SEO Report"
+            placeholder="e.g., January 2026 SEO Report"
           />
           <Select
             id="report_type"

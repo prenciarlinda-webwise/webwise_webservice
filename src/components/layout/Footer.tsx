@@ -1,7 +1,17 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
 import { Phone, ArrowRight, Gift, DollarSign, MessageCircle } from 'lucide-react'
-import { services, siteConfig, clients, getWhatsAppUrl } from '@/data/site'
+import { services, siteConfig, clients } from '@/data/site'
+import WhatsAppButton from '@/components/ui/WhatsAppButton'
+
+// URL mappings for new flat URL structure
+const serviceUrlMap: Record<string, string> = {
+  'seo': '/seo-services',
+  'web-development': '/development',
+  'digital-marketing': '/digital-marketing',
+}
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -21,15 +31,13 @@ export default function Footer() {
                 <p className="text-white/90">Know a business that needs a website or SEO? Get paid for every successful referral.</p>
               </div>
             </div>
-            <a
-              href={getWhatsAppUrl("Hi, I'd like to learn more about your referral program!")}
-              target="_blank"
-              rel="noopener noreferrer"
+            <WhatsAppButton
+              defaultMessage="Hi, I'd like to learn more about your referral program!"
               className="inline-flex items-center gap-2 px-6 py-3 bg-white text-accent font-semibold rounded-lg hover:bg-white/90 transition-colors shadow-lg whitespace-nowrap"
             >
               <DollarSign size={18} />
               Learn More & Refer
-            </a>
+            </WhatsAppButton>
           </div>
         </div>
       </div>
@@ -52,10 +60,13 @@ export default function Footer() {
               {siteConfig.tagline}. We build stunning websites and deliver powerful SEO strategies that drive real results.
             </p>
             <div className="flex flex-col gap-3">
-              <a href={getWhatsAppUrl("Hi, I have a question about your services.")} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-white/70 hover:text-[#25D366] transition-colors">
+              <WhatsAppButton
+                defaultMessage="Hi, I have a question about your services."
+                className="flex items-center gap-3 text-white/70 hover:text-[#25D366] transition-colors"
+              >
                 <MessageCircle size={18} />
                 Chat on WhatsApp
-              </a>
+              </WhatsAppButton>
               <a href={`tel:${siteConfig.phone.replace(/[^0-9+]/g, '')}`} className="flex items-center gap-3 text-white/70 hover:text-white transition-colors">
                 <Phone size={18} />
                 {siteConfig.phone}
@@ -69,7 +80,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {Object.entries(services).map(([key, service]) => (
                 <li key={key}>
-                  <Link href={`/services/${key}`} className="text-white/70 hover:text-white transition-colors">
+                  <Link href={serviceUrlMap[key] || `/services/${key}`} className="text-white/70 hover:text-white transition-colors">
                     {service.title}
                   </Link>
                 </li>
@@ -77,9 +88,9 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Portfolio */}
+          {/* Case Studies */}
           <div>
-            <h4 className="font-semibold text-lg mb-4">Portfolio</h4>
+            <h4 className="font-semibold text-lg mb-4">Case Studies</h4>
             <ul className="space-y-3">
               {Object.entries(clients).filter(([, c]) => c.results).slice(0, 5).map(([key, client]) => (
                 <li key={key}>
@@ -89,7 +100,7 @@ export default function Footer() {
                 </li>
               ))}
               <li>
-                <Link href="/portfolio" className="text-accent hover:text-accent-light transition-colors flex items-center gap-1">
+                <Link href="/case-studies" className="text-accent hover:text-accent-light transition-colors flex items-center gap-1">
                   View All <ArrowRight size={14} />
                 </Link>
               </li>
@@ -104,7 +115,7 @@ export default function Footer() {
                 <Link href="/about" className="text-white/70 hover:text-white transition-colors">About Us</Link>
               </li>
               <li>
-                <Link href="/portfolio" className="text-white/70 hover:text-white transition-colors">Case Studies</Link>
+                <Link href="/case-studies" className="text-white/70 hover:text-white transition-colors">Case Studies</Link>
               </li>
               <li>
                 <Link href="/pricing" className="text-white/70 hover:text-white transition-colors">Pricing</Link>
