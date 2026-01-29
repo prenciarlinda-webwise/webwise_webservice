@@ -166,7 +166,7 @@ export default function PortfolioPage() {
         faqs={portfolioFaqs}
         title="Portfolio FAQ"
         subtitle="Common questions about our work and results."
-        background="secondary"
+        background="gray"
       />
 
       {/* CTA */}
