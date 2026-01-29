@@ -9,8 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "baseline-browser-mapping": "^2.9.19",
     "lucide-react": "^0.556.0",
-    "next": "16.0.7",
+    "next": "^16.1.6",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-google-recaptcha-v3": "^1.11.0"

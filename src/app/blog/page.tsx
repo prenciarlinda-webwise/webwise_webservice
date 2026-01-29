@@ -54,8 +54,16 @@ export default function BlogPage() {
         <div className="container px-6">
           <div className="bg-white border border-border rounded-2xl overflow-hidden">
             <div className="grid lg:grid-cols-2 gap-0">
-              <div className="h-64 lg:h-auto bg-gradient-to-br from-bg-tertiary to-bg-secondary flex items-center justify-center">
-                <span className="text-6xl font-bold text-accent/20">FEATURED</span>
+              <div className="h-64 lg:h-auto bg-gradient-to-br from-bg-tertiary to-bg-secondary flex items-center justify-center overflow-hidden">
+                {featuredPost.image ? (
+                  <img
+                    src={featuredPost.image}
+                    alt={featuredPost.imageAlt || featuredPost.title}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span className="text-6xl font-bold text-accent/20">FEATURED</span>
+                )}
               </div>
               <div className="p-8 lg:p-12">
                 <span className="inline-block px-3 py-1 bg-accent/10 text-accent text-sm font-medium rounded-full mb-4">
@@ -84,8 +92,16 @@ export default function BlogPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {otherPosts.map((post) => (
               <Link key={post.slug} href={`/blog/${post.slug}`} className="bg-white rounded-2xl border border-border overflow-hidden hover:shadow-lg transition-shadow group">
-                <div className="h-48 bg-gradient-to-br from-bg-tertiary to-bg-secondary flex items-center justify-center">
-                  <span className="text-3xl font-bold text-accent/20">{post.category}</span>
+                <div className="h-48 bg-gradient-to-br from-bg-tertiary to-bg-secondary flex items-center justify-center overflow-hidden">
+                  {post.image ? (
+                    <img
+                      src={post.image}
+                      alt={post.imageAlt || post.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  ) : (
+                    <span className="text-3xl font-bold text-accent/20">{post.category}</span>
+                  )}
                 </div>
                 <div className="p-6">
                   <span className="inline-block px-3 py-1 bg-accent/10 text-accent text-xs font-medium rounded-full mb-3">

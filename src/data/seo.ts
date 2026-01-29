@@ -11,9 +11,9 @@ export const pageSEO: Record<string, PageSEO> = {
   // HOMEPAGE
   // ============================================
   home: {
-    title: 'Local SEO & Web Design for Contractors - WebWise',
-    description: 'WebWise delivers local SEO services for plumbers, roofers, HVAC & contractors in USA & UK. 300%+ traffic increases. Get a free SEO audit today.',
-    keywords: ['local SEO services', 'contractor SEO', 'contractor website design', 'small business SEO'],
+    title: 'Web Development & SEO Services for Small Business | WebWise',
+    description: 'Professional web development, SEO, and digital marketing services for businesses in UK & USA. Custom websites, web applications, and local SEO. 340% avg traffic increase.',
+    keywords: ['web development services', 'SEO services', 'digital marketing agency', 'custom web applications', 'local SEO services', 'small business website'],
   },
 
   // ============================================
@@ -26,8 +26,8 @@ export const pageSEO: Record<string, PageSEO> = {
   },
 
   'services/web-development': {
-    title: 'Contractor Website Design & Development - WebWise',
-    description: 'Custom website design for contractors and small businesses. Next.js websites built for speed and conversions. From $1,500.',
+    title: 'Web Development Services - Websites & Applications | WebWise',
+    description: 'Custom web development for businesses. Websites, web applications, and systems built with Next.js, Django, and modern technologies. From $1,500.',
     keywords: ['contractor website design', 'small business website design', 'custom website development', 'nextjs website development'],
   },
 

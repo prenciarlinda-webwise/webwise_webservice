@@ -26,11 +26,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       publishedTime: post.date,
       authors: [post.author],
       section: post.category,
+      images: post.image ? [{ url: post.image, alt: post.imageAlt || post.title }] : undefined,
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.excerpt,
+      images: post.image ? [post.image] : undefined,
     },
   }
 }
@@ -51,6 +53,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     "@id": `${siteConfig.url}/blog/${post.slug}#article`,
     headline: post.title,
     description: post.excerpt,
+    image: post.image || undefined,
     author: {
       "@type": "Organization",
       name: post.author,
@@ -186,7 +189,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       />
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-primary-dark py-24 lg:py-32">
+      <section className="bg-gradient-to-br from-primary to-primary-dark py-16 lg:py-24">
         <div className="container px-6">
           <nav className="flex items-center gap-2 text-white/60 text-sm mb-8">
             <Link href="/" className="hover:text-white">Home</Link>
@@ -195,22 +198,51 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <span>/</span>
             <span className="text-white truncate max-w-[200px]">{post.title}</span>
           </nav>
-          <div className="max-w-4xl">
-            <span className="inline-block px-4 py-2 bg-accent/20 text-accent-light rounded-full text-sm font-medium mb-4">
-              {post.category}
-            </span>
-            <h1 className="text-3xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-              {post.title}
-            </h1>
-            <p className="text-lg text-white/80 mb-8">{post.excerpt}</p>
-            <div className="flex flex-wrap items-center gap-6 text-sm text-white/70">
-              <span className="flex items-center gap-2"><User size={16} /> {post.author}</span>
-              <span className="flex items-center gap-2"><Calendar size={16} /> {post.date}</span>
-              <span className="flex items-center gap-2"><Clock size={16} /> {post.readTime}</span>
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <span className="inline-block px-4 py-2 bg-accent/20 text-accent-light rounded-full text-sm font-medium mb-4">
+                {post.category}
+              </span>
+              <h1 className="text-3xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+                {post.title}
+              </h1>
+              <p className="text-lg text-white/80 mb-8">{post.excerpt}</p>
+              <div className="flex flex-wrap items-center gap-6 text-sm text-white/70">
+                <span className="flex items-center gap-2"><User size={16} /> {post.author}</span>
+                <span className="flex items-center gap-2"><Calendar size={16} /> {post.date}</span>
+                <span className="flex items-center gap-2"><Clock size={16} /> {post.readTime}</span>
+              </div>
             </div>
+            {post.image && (
+              <div className="hidden lg:block">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                  <img
+                    src={post.image}
+                    alt={post.imageAlt || post.title}
+                    className="w-full h-[350px] object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent" />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
+
+      {/* Mobile Featured Image */}
+      {post.image && (
+        <div className="lg:hidden -mt-8 px-6 pb-8">
+          <div className="container">
+            <div className="rounded-2xl overflow-hidden shadow-xl">
+              <img
+                src={post.image}
+                alt={post.imageAlt || post.title}
+                className="w-full h-[200px] object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Key Takeaways Box - Immediately after hero for AI extraction */}
       {post.tldr && post.tldr.length > 0 && (
@@ -431,8 +463,16 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <div className="grid md:grid-cols-3 gap-8">
               {relatedPosts.map((relatedPost) => (
                 <Link key={relatedPost.slug} href={`/blog/${relatedPost.slug}`} className="bg-white rounded-2xl border border-border overflow-hidden hover:shadow-lg transition-shadow group">
-                  <div className="h-40 bg-gradient-to-br from-bg-tertiary to-bg-secondary flex items-center justify-center">
-                    <span className="text-2xl font-bold text-accent/20">{relatedPost.category}</span>
+                  <div className="h-40 bg-gradient-to-br from-bg-tertiary to-bg-secondary flex items-center justify-center overflow-hidden">
+                    {relatedPost.image ? (
+                      <img
+                        src={relatedPost.image}
+                        alt={relatedPost.imageAlt || relatedPost.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <span className="text-2xl font-bold text-accent/20">{relatedPost.category}</span>
+                    )}
                   </div>
                   <div className="p-6">
                     <span className="inline-block px-3 py-1 bg-accent/10 text-accent text-xs font-medium rounded-full mb-3">
