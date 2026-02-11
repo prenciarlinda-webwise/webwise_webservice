@@ -45,12 +45,11 @@ export default function robots(): MetadataRoute.Robots {
           '/*-jpg/',
           '/*-jpeg/',
 
-          // Old WordPress page patterns
+          // Old WordPress page patterns (specific paths only — avoid blocking live pages)
           '/elementor-*',
           '/pricing-plans/',
-          '/seo-agency*',
-          '/seo-services*',
-          '/web-development/',
+          '/seo-agency-3',
+          '/seo-services-2',
           '/website-and-seo/',
           '/website-client/',
           '/website-building*',

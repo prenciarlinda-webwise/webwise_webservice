@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Script from 'next/script'
-import { ArrowRight, Star, Phone, Mail, MessageCircle, Code, Search, TrendingUp, Droplet, Wind, Zap, Car, Truck, TreePine, Bug, Sparkles, Building, Home as HomeIcon } from 'lucide-react'
+import { ArrowRight, Star, Phone, Mail, MessageCircle, Code, Search, TrendingUp, Droplet, Wind, Zap, Car, Truck, TreePine, Bug, Sparkles, Building, Home as HomeIcon, KeyRound } from 'lucide-react'
 import { siteConfig, getWhatsAppUrl, techStack } from '@/data/site'
 import { pageSEO } from '@/data/seo'
 import type { Metadata } from 'next'
@@ -106,6 +106,7 @@ const industries = [
   { name: 'Cleaning Services', slug: 'cleaning', icon: Sparkles, description: 'Residential + commercial' },
   { name: 'Moving Companies', slug: 'moving', icon: Truck, description: 'Local mover keywords' },
   { name: 'Construction', slug: 'construction', icon: Building, description: 'Contractor SEO' },
+  { name: 'Locksmiths', slug: 'locksmiths', icon: KeyRound, description: 'Emergency lockout SEO' },
 ]
 
 // Case studies

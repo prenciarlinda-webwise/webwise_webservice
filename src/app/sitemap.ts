@@ -72,7 +72,11 @@ function getPriority(urlPath: string): number {
 }
 
 function getChangeFrequency(urlPath: string): MetadataRoute.Sitemap[number]['changeFrequency'] {
-  if (urlPath === '/' || urlPath.startsWith('/blog')) return 'weekly'
+  if (
+    urlPath === '/' ||
+    urlPath.startsWith('/blog') ||
+    ['/local-seo', '/seo-services', '/development', '/development/applications'].includes(urlPath)
+  ) return 'weekly'
   if (['/privacy-policy', '/terms-and-agreements'].includes(urlPath)) return 'yearly'
   return 'monthly'
 }
