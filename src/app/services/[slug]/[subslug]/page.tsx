@@ -61,7 +61,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const subservice = subservices[subslug]
   if (!subservice) return { title: 'Service Not Found' }
 
-  const seoData = pageSEO[`services/${slug}/${subslug}`]
+  const subSeoKeyMap: Record<string, Record<string, string>> = {
+    'seo': { 'local-seo': 'local-seo', 'technical-seo': 'technical-seo', 'ecommerce-seo': 'ecommerce-seo', 'international-seo': 'international-seo' },
+    'web-development': { 'website-design': 'development/website-design', 'web-applications': 'development/applications', 'ecommerce-development': 'development/ecommerce' },
+    'digital-marketing': { 'content-marketing': 'digital-marketing/content', 'ppc-advertising': 'digital-marketing/ppc', 'social-media': 'digital-marketing/social-management', 'analytics': 'digital-marketing/analytics' },
+  }
+  const seoData = pageSEO[subSeoKeyMap[slug]?.[subslug] || `${slug}/${subslug}`]
   const canonicalUrl = getCanonicalUrl(slug, subslug)
 
   return {
@@ -175,7 +180,7 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
           <nav className="flex items-center gap-2 text-white/60 text-sm mb-8 flex-wrap">
             <Link href="/" className="hover:text-white">Home</Link>
             <span>/</span>
-            <Link href="/services" className="hover:text-white">Services</Link>
+            <Link href="/seo-services" className="hover:text-white">Services</Link>
             <span>/</span>
             <Link href={slug === 'seo' ? '/seo-services' : slug === 'web-development' ? '/development' : '/digital-marketing'} className="hover:text-white">{service.title}</Link>
             <span>/</span>

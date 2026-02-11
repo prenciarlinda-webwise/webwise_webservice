@@ -4,7 +4,7 @@ import { pageSEO } from '@/data/seo'
 import SubservicePage from '@/app/services/[slug]/[subslug]/page'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const seoData = pageSEO['services/seo/ecommerce-seo']
+  const seoData = pageSEO['ecommerce-seo']
   return {
     title: seoData?.title || 'E-commerce SEO Services',
     description: seoData?.description,

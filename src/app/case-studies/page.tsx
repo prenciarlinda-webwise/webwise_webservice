@@ -4,7 +4,7 @@ import { pageSEO } from '@/data/seo'
 import PortfolioPage from '@/app/portfolio/page'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const seoData = pageSEO.portfolio
+  const seoData = pageSEO['case-studies']
   return {
     title: seoData?.title || 'Case Studies',
     description: seoData?.description,

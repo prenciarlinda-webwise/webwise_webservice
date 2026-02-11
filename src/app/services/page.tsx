@@ -50,7 +50,7 @@ export const metadata = {
 const pageSchema = generateCollectionPageSchema({
   name: 'Our Services - WebWise',
   description: 'Comprehensive digital services including SEO, web development, and digital marketing.',
-  url: `${siteConfig.url}/services`,
+  url: `${siteConfig.url}/seo-services`,
 })
 
 const faqSchema = generateFAQSchema(servicesFaqs)

@@ -25,23 +25,25 @@ const caseStudyUrlMap: Record<string, string> = {
   'aaa-remodels-jacksonville-home-remodeling-seo-website': '/case-studies/aaa-remodels',
 }
 
+const seoData = pageSEO['case-studies']
+
 export const metadata = {
-  title: pageSEO.portfolio.title,
-  description: pageSEO.portfolio.description,
-  keywords: pageSEO.portfolio.keywords,
+  title: seoData.title,
+  description: seoData.description,
+  keywords: seoData.keywords,
   alternates: {
     canonical: `${siteConfig.url}/case-studies`,
   },
   openGraph: {
-    title: pageSEO.portfolio.title,
-    description: pageSEO.portfolio.description,
+    title: seoData.title,
+    description: seoData.description,
     url: `${siteConfig.url}/case-studies`,
   },
 }
 
 const pageSchema = generateCollectionPageSchema({
-  name: pageSEO.portfolio.title,
-  description: pageSEO.portfolio.description,
+  name: seoData.title,
+  description: seoData.description,
   url: `${siteConfig.url}/case-studies`,
 })
 const faqSchema = generateFAQSchema(portfolioFaqs)

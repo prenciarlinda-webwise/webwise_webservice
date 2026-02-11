@@ -1,62 +1,13 @@
 import { MetadataRoute } from 'next'
-import { siteConfig } from '@/data/site'
-import { clients } from '@/data/site'
-import { blogPosts } from '@/data/blog'
+import fs from 'fs'
+import path from 'path'
+import { siteConfig, clients } from '@/data/site'
+import { getBlogPosts, getBlogPostUrl } from '@/data/blog'
 
-/**
- * Sitemap Priority Tier System (Updated for 2026 URL Structure):
- * Tier 1 (1.0): Homepage, Main SEO page (highest commercial value)
- * Tier 2 (0.9): Main service pages, Blog listing
- * Tier 3 (0.8): Sub-services, Industry pages, Blog posts, Pricing, Contact
- * Tier 4 (0.7): Case studies listing, About
- * Tier 5 (0.6): Individual case studies, Legal pages
- */
+const baseUrl = siteConfig.url
 
-// Industry pages that were blog posts, now under /local-seo/[industry]
-// NOTE: locksmiths excluded until custom content is created (see TODO.md)
-const industryPages = [
-  'plumbers',
-  'hvac',
-  'roofing',
-  'electricians',
-  'auto-detailing',
-  'dumpster-rental',
-  'landscaping',
-  'pest-control',
-  'cleaning',
-  'moving',
-  'construction',
-  // 'locksmiths', // TODO: Add back when content is created
-]
-
-// Blog posts that stay in /blog (with new short URLs)
-const blogUrlMap: Record<string, string> = {
-  'how-much-does-seo-cost-for-small-business': 'seo-pricing',
-  'how-long-does-seo-take-to-work': 'seo-timeline',
-  'google-business-profile-optimization-guide': 'gbp-optimization',
-  'local-seo-uk-vs-usa-differences': 'local-seo-uk-vs-usa',
-  'google-maps-ranking-factors': 'google-maps-ranking-factors',
-  'google-reviews-guide': 'google-reviews-guide',
-  'seo-vs-ppc': 'seo-vs-ppc',
-}
-
-// Blog posts that became industry pages (exclude from /blog sitemap)
-const industryBlogSlugs = [
-  'local-seo-for-plumbers-complete-guide',
-  'hvac-seo-complete-guide',
-  'roofing-company-seo-strategy',
-  'electrician-seo-guide',
-  'auto-detailing-seo-get-more-customers',
-  'dumpster-rental-seo-dominate-local-search',
-  'landscaping-seo-grow-your-business',
-  'pest-control-seo-strategy',
-  'cleaning-company-seo-guide',
-  'moving-company-seo-guide',
-  'construction-company-seo-strategy',
-]
-
-// Case study URL mapping (old portfolio slugs to new short slugs)
-const caseStudyUrlMap: Record<string, string> = {
+// Case study slug mapping (old long slugs → new short slugs)
+const caseStudySlugMap: Record<string, string> = {
   'illyrian-group-plumbing-seo-web-development': 'illyrian-group',
   'gimos-roofing-local-seo-website-design': 'gimos-roofing',
   'albros-premium-detailing-seo-website-design': 'albros-detailing',
@@ -73,157 +24,109 @@ const caseStudyUrlMap: Record<string, string> = {
   'aaa-remodels-jacksonville-home-remodeling-seo-website': 'aaa-remodels',
 }
 
+// Old paths that only exist as redirect stubs — never include in sitemap
+const REDIRECT_PATHS = ['/services', '/portfolio']
+
+/**
+ * Auto-discovers all page.tsx files under src/app/ and converts them to URL paths.
+ * Skips route groups (admin, auth, dashboard), dynamic [slug] routes, and old redirect stubs.
+ * Any new page.tsx added to the app directory is automatically included.
+ */
+function discoverPages(): string[] {
+  const appDir = path.join(process.cwd(), 'src', 'app')
+  const pages: string[] = []
+
+  function scan(dir: string) {
+    const entries = fs.readdirSync(dir, { withFileTypes: true })
+    for (const entry of entries) {
+      if (entry.isDirectory()) {
+        if (entry.name.startsWith('(') || entry.name.startsWith('[')) continue
+        scan(path.join(dir, entry.name))
+      } else if (entry.name === 'page.tsx' || entry.name === 'page.ts') {
+        const relative = path.relative(appDir, dir)
+        const urlPath = relative === '' ? '/' : `/${relative.replace(/\\/g, '/')}`
+        if (REDIRECT_PATHS.some(rp => urlPath === rp || urlPath.startsWith(`${rp}/`))) continue
+        pages.push(urlPath)
+      }
+    }
+  }
+
+  scan(appDir)
+  return pages
+}
+
+function getPriority(urlPath: string): number {
+  if (urlPath === '/' || urlPath === '/local-seo') return 1.0
+  if (['/seo-services', '/development', '/digital-marketing', '/blog'].includes(urlPath)) return 0.9
+  if (['/case-studies', '/about'].includes(urlPath)) return 0.7
+  if (urlPath.startsWith('/case-studies/')) return 0.6
+  if (['/privacy-policy', '/terms-and-agreements', '/html-sitemap'].includes(urlPath)) return 0.5
+  if (
+    urlPath.startsWith('/local-seo/') ||
+    urlPath.startsWith('/blog/') ||
+    urlPath.startsWith('/development/') ||
+    urlPath.startsWith('/digital-marketing/') ||
+    ['/pricing', '/contact', '/technical-seo', '/ecommerce-seo', '/international-seo'].includes(urlPath)
+  ) return 0.8
+  return 0.7
+}
+
+function getChangeFrequency(urlPath: string): MetadataRoute.Sitemap[number]['changeFrequency'] {
+  if (urlPath === '/' || urlPath.startsWith('/blog')) return 'weekly'
+  if (['/privacy-policy', '/terms-and-agreements'].includes(urlPath)) return 'yearly'
+  return 'monthly'
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = siteConfig.url
-
-  // Tier 1: Homepage and primary commercial page
-  const tier1Pages: MetadataRoute.Sitemap = [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/local-seo`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 1.0,
-    },
-  ]
-
-  // Tier 2: Main service pages and blog listing
-  const tier2Pages: MetadataRoute.Sitemap = [
-    {
-      url: `${baseUrl}/seo-services`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/development`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/digital-marketing`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-  ]
-
-  // Tier 3: Sub-services, industry pages, remaining blog posts
-  const subServicePages: MetadataRoute.Sitemap = [
-    // SEO sub-services
-    { url: `${baseUrl}/technical-seo`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/ecommerce-seo`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/international-seo`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 },
-    // Web design sub-services
-    { url: `${baseUrl}/development/applications`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/development/ecommerce`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 },
-    // Digital marketing sub-services
-    { url: `${baseUrl}/digital-marketing/content`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/digital-marketing/ppc`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/digital-marketing/social-management`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/digital-marketing/analytics`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 },
-  ]
-
-  // Industry pages under /local-seo/[industry]
-  const industryPageEntries: MetadataRoute.Sitemap = industryPages.map((industry) => ({
-    url: `${baseUrl}/local-seo/${industry}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
+  // 1. Auto-discover all static pages from filesystem (no lastModified)
+  const staticPages: MetadataRoute.Sitemap = discoverPages().map(urlPath => ({
+    url: `${baseUrl}${urlPath}`,
+    changeFrequency: getChangeFrequency(urlPath),
+    priority: getPriority(urlPath),
   }))
 
-  // Blog posts (excluding ones that became industry pages)
-  const blogPages: MetadataRoute.Sitemap = blogPosts
-    .filter((post) => !industryBlogSlugs.includes(post.slug))
-    .map((post) => ({
-      url: `${baseUrl}/blog/${blogUrlMap[post.slug] || post.slug}`,
-      lastModified: new Date(),
+  // 2. Blog posts with real publish dates
+  const blogPosts = getBlogPosts()
+  const blogDateMap = new Map(blogPosts.map(post => [getBlogPostUrl(post.slug), post.date]))
+  const blogPages: MetadataRoute.Sitemap = blogPosts.map(post => {
+    const urlPath = getBlogPostUrl(post.slug)
+    return {
+      url: `${baseUrl}${urlPath}`,
+      lastModified: new Date(post.date),
       changeFrequency: 'weekly' as const,
       priority: 0.8,
-    }))
+    }
+  })
 
-  const tier3StaticPages: MetadataRoute.Sitemap = [
-    {
-      url: `${baseUrl}/pricing`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-  ]
+  // 3. Case studies (no date available, omit lastModified)
+  const caseStudyPages: MetadataRoute.Sitemap = Object.values(clients).map(client => {
+    const urlPath = `/case-studies/${caseStudySlugMap[client.slug] || client.slug}`
+    return {
+      url: `${baseUrl}${urlPath}`,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    }
+  })
 
-  // Tier 4: Case studies listing, About page
-  const tier4StaticPages: MetadataRoute.Sitemap = [
-    {
-      url: `${baseUrl}/case-studies`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-  ]
+  // 4. Combine and deduplicate (blog/case study entries override static ones)
+  const seen = new Set<string>()
+  const result: MetadataRoute.Sitemap = []
 
-  // Tier 5: Individual case studies
-  const caseStudyPages: MetadataRoute.Sitemap = Object.values(clients).map((client) => ({
-    url: `${baseUrl}/case-studies/${caseStudyUrlMap[client.slug] || client.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.6,
-  }))
+  // Add blog and case study entries first (they have better metadata)
+  for (const entry of [...blogPages, ...caseStudyPages]) {
+    if (!seen.has(entry.url)) {
+      seen.add(entry.url)
+      result.push(entry)
+    }
+  }
 
-  // Tier 5: Legal pages
-  const tier5Pages: MetadataRoute.Sitemap = [
-    {
-      url: `${baseUrl}/privacy-policy`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/terms-and-agreements`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/html-sitemap`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.5,
-    },
-  ]
+  // Add static pages that aren't already covered
+  for (const entry of staticPages) {
+    if (!seen.has(entry.url)) {
+      seen.add(entry.url)
+      result.push(entry)
+    }
+  }
 
-  return [
-    ...tier1Pages,
-    ...tier2Pages,
-    ...subServicePages,
-    ...industryPageEntries,
-    ...blogPages,
-    ...tier3StaticPages,
-    ...tier4StaticPages,
-    ...caseStudyPages,
-    ...tier5Pages,
-  ]
+  return result
 }

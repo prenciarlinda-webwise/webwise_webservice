@@ -147,7 +147,7 @@ export default function SitemapPage() {
               </div>
               <ul className="space-y-3">
                 <li>
-                  <Link href="/services" className="flex items-center gap-2 text-text-secondary hover:text-accent transition-colors font-medium">
+                  <Link href="/seo-services" className="flex items-center gap-2 text-text-secondary hover:text-accent transition-colors font-medium">
                     <ArrowRight size={14} />
                     All Services
                   </Link>

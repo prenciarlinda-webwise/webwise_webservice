@@ -60,9 +60,9 @@ export const blogPosts: BlogPost[] = [
     ],
     content: `## How Much Does SEO Actually Cost for Small Businesses?
 
-Professional SEO services for small businesses typically cost between $480 and $1,100 per month, with most local service businesses investing around $780/month for comprehensive campaigns. This investment covers keyword research, on-page optimization, Google Business Profile management, content creation, local citation building, and monthly performance reporting.
+Professional [SEO services](/seo-services) for small businesses typically cost between $480 and $1,100 per month, with most local service businesses investing around $780/month for comprehensive campaigns. This investment covers keyword research, on-page optimization, Google Business Profile management, content creation, local citation building, and monthly performance reporting.
 
-The price range exists because SEO is not one-size-fits-all. A plumber in a small town faces different challenges than an HVAC company competing in a major metro area. Your specific situation determines the right investment level.
+The price range exists because SEO is not one-size-fits-all. A plumber in a small town faces different challenges than an HVAC company competing in a major metro area. Your specific situation determines the right investment level — and so does [how long SEO takes to show results](/blog/seo-timeline).
 
 Want to know what SEO would cost for your specific business? Our [local SEO services](/local-seo) include a free competitive analysis that shows exactly what you are up against and what it takes to win.
 
@@ -367,9 +367,9 @@ Our [local SEO services](/local-seo) have helped plumbers, roofers, HVAC compani
     ],
     content: `## Plumber SEO Services That Actually Deliver Results
 
-We specialize in helping plumbing companies dominate local search and fill their schedules with high-value emergency calls. When homeowners search "emergency plumber near me" at 2 AM, our clients are the ones who show up-and get the call.
+We specialize in helping plumbing companies dominate local search and fill their schedules with high-value emergency calls. When homeowners search "emergency plumber near me" at 2 AM, our clients are the ones who show up-and get the call. Our [SEO services](/seo-services) are built specifically for local service businesses like yours.
 
-Our plumber SEO services have helped companies achieve 290%+ traffic increases and consistent lead flow. We understand the plumbing industry: the urgency of emergency calls, the seasonality of water heater replacements, and the competition in local markets.
+Our plumber SEO services have helped companies achieve 290%+ traffic increases and consistent lead flow. A key part of that success is [Google Business Profile optimization](/blog/gbp-optimization). We understand the plumbing industry: the urgency of emergency calls, the seasonality of water heater replacements, and the competition in local markets.
 
 **What makes us different?** We don't just optimize and hope. We build complete lead generation systems that track every call, measure every ranking, and prove ROI month after month.
 
@@ -552,9 +552,9 @@ Stop losing emergency calls to competitors with better Google visibility. Let's 
     ],
     content: `## Auto Detailing SEO Services That Fill Your Calendar
 
-We specialize in helping auto detailing businesses dominate local search and book more appointments. When car owners search "car detailing near me" or "ceramic coating [city]," our clients show up first-with stunning before/after photos that seal the deal.
+We specialize in helping auto detailing businesses dominate local search and book more appointments. When car owners search "car detailing near me" or "ceramic coating [city]," our clients show up first-with stunning before/after photos that seal the deal. Our [SEO services](/seo-services) are tailored for local businesses like yours.
 
-Auto detailing is booming, with "car detailing near me" getting 90,500+ monthly searches. But competition is fierce. Our SEO strategies help you stand out and capture the high-value customers you want.
+Auto detailing is booming, with "car detailing near me" getting 90,500+ monthly searches. But competition is fierce. Strong [Google reviews](/blog/google-reviews-guide) and smart SEO strategies help you stand out and capture the high-value customers you want.
 
 **The result?** Detailing businesses that work with us see consistent booking growth and more ceramic coating and paint correction clients.
 
@@ -720,9 +720,9 @@ Stop losing high-value customers to competitors with better Google visibility. L
     ],
     content: `## Dumpster Rental SEO Services That Drive More Rentals
 
-We specialize in helping dumpster rental companies dominate local search and capture more rental inquiries. When contractors search "roll off dumpster rental [city]" or homeowners need "same day dumpster delivery," our clients show up first.
+We specialize in helping dumpster rental companies dominate local search and capture more rental inquiries. When contractors search "roll off dumpster rental [city]" or homeowners need "same day dumpster delivery," our clients show up first. Our [SEO services](/seo-services) are built for high-intent local industries like yours.
 
-Dumpster rental is highly localized, making SEO incredibly effective. Customers searching for dumpsters are ready to rent-they just need to find you. Our strategies ensure they do.
+Dumpster rental is highly localized, making SEO incredibly effective. Ranking in the [Google Maps Pack](/blog/google-maps-ranking-factors) is critical — customers searching for dumpsters are ready to rent and they just need to find you. Our strategies ensure they do.
 
 **The result?** Dumpster rental companies that work with us see consistent inquiry growth from contractors, homeowners, and commercial clients.
 
@@ -887,9 +887,9 @@ Stop losing rental inquiries to competitors with better Google visibility. Let's
     ],
     content: `## Roofing SEO Services That Generate High-Value Leads
 
-We specialize in helping roofing companies dominate local search and capture high-value leads. When homeowners search "roof replacement near me" or "emergency roof repair [city]," our clients show up first-and close more deals.
+We specialize in helping roofing companies dominate local search and capture high-value leads. When homeowners search "roof replacement near me" or "emergency roof repair [city]," our clients show up first-and close more deals. Our [SEO services](/seo-services) are designed for competitive local markets like roofing.
 
-Roofing is one of the most competitive local service industries, but also one of the most rewarding for SEO. With average job values of $8,000-$15,000+, even a few additional leads per month deliver massive ROI.
+Roofing is one of the most competitive local service industries, but also one of the most rewarding for SEO. With average job values of $8,000-$15,000+, even a few additional leads per month deliver [massive ROI](/blog/seo-pricing).
 
 **Our roofing clients consistently achieve:** Top 3 Map Pack rankings, significant traffic increases, and measurable lead generation that impacts their bottom line.
 
@@ -1053,9 +1053,9 @@ Stop losing high-value roof replacement jobs to competitors with better Google v
     ],
     content: `## What Is Google Business Profile Optimization?
 
-Google Business Profile (GBP) optimization is the systematic process of completing, verifying, and continuously improving your business listing on Google to maximize visibility in local search results and the Map Pack. A fully optimized GBP includes accurate business information, strategic category selection, compelling photos, active review management, and regular posting to demonstrate to Google that your business is active, trustworthy, and relevant to local searchers.
+Google Business Profile (GBP) optimization is the systematic process of completing, verifying, and continuously improving your business listing on Google to maximize visibility in [local search results](/local-seo) and the Map Pack. A fully optimized GBP includes accurate business information, strategic category selection, compelling photos, active review management, and regular posting to demonstrate to Google that your business is active, trustworthy, and relevant to local searchers.
 
-Your GBP is often the first impression potential customers have of your business. When someone searches "plumber near me" or "emergency HVAC repair," Google shows the Map Pack with three local businesses. Appearing in this coveted position can mean the difference between getting the call or losing to a competitor.
+Your GBP is often the first impression potential customers have of your business. When someone searches "plumber near me" or "emergency HVAC repair," Google shows the Map Pack with three local businesses — driven by the [Google Maps ranking factors](/blog/google-maps-ranking-factors) we cover in detail. Appearing in this coveted position can mean the difference between getting the call or losing to a competitor.
 
 This guide walks through every aspect of GBP optimization, from initial setup to advanced strategies that keep you ahead of competitors.
 
@@ -1309,9 +1309,9 @@ Optimizing your Google Business Profile is essential for local search visibility
     ],
     content: `## How Long Does SEO Really Take to Show Results?
 
-SEO typically takes 3-6 months to show significant results for local businesses, with initial improvements visible within 30-60 days for most campaigns. Google Business Profile optimization often produces faster results, sometimes within 2-4 weeks, while organic ranking improvements require more patience. The exact timeline depends on your competition level, current website authority, and investment level.
+SEO typically takes 3-6 months to show significant results for local businesses, with initial improvements visible within 30-60 days for most campaigns. [Google Business Profile optimization](/blog/gbp-optimization) often produces faster results, sometimes within 2-4 weeks, while organic ranking improvements require more patience. The exact timeline depends on your competition level, current website authority, and [investment level](/blog/seo-pricing).
 
-The honest truth is that SEO is not a quick fix. Anyone promising first-page rankings in 30 days is either lying or using risky tactics that will backfire. But the flip side is equally true: businesses that commit to consistent SEO for 6-12 months build assets that generate leads for years.
+The honest truth is that SEO is not a quick fix. Anyone promising first-page rankings in 30 days is either lying or using risky tactics that will backfire. But the flip side is equally true: businesses that commit to consistent [SEO services](/seo-services) for 6-12 months build assets that generate leads for years.
 
 Understanding realistic timelines helps you budget appropriately and avoid making emotional decisions during the patience-testing early months.
 
@@ -1554,13 +1554,13 @@ Our [local SEO services](/local-seo) include transparent timelines, monthly prog
     image: 'https://images.unsplash.com/photo-1526778548025-fa2f459cd5ce?w=1200&h=630&fit=crop',
     imageAlt: 'World map showing UK and USA for international local SEO comparison',
     keywords: ['UK SEO', 'USA SEO', 'local SEO UK', 'local SEO USA', 'international SEO', 'UK vs US marketing'],
-    relatedServiceUrl: '/services/seo/local-seo',
+    relatedServiceUrl: '/local-seo',
     relatedServiceName: 'Local SEO Services',
     content: `## What Are the Key Differences Between UK and USA Local SEO?
 
-The main differences between UK and USA local SEO are citation sources, spelling conventions, review platforms, and search behavior patterns. While the fundamentals of local SEO remain the same, these regional differences affect which directories to focus on, how to write content, and where to build your online presence.
+The main differences between UK and USA [local SEO](/local-seo) are citation sources, spelling conventions, review platforms, and search behavior patterns. While the fundamentals of local SEO remain the same, these regional differences affect which directories to focus on, how to write content, and where to build your online presence.
 
-While the fundamentals of local SEO are similar, there are important differences between optimizing for UK and USA markets.
+While the fundamentals are similar — including [Google Business Profile optimization](/blog/gbp-optimization) — there are important differences between optimizing for UK and USA markets.
 
 ### Search Engine Market Share
 
@@ -1640,7 +1640,7 @@ For USA:
 - Create "near me" content
 - Emphasize speed and availability
 
-Need help with local SEO in your market? Our [local SEO services](/services/seo/local-seo) work with businesses in both the UK and USA.
+Need help with local SEO in your market? Our [local SEO services](/local-seo) work with businesses in both the UK and USA.
     `,
   },
   {
@@ -1674,9 +1674,9 @@ Need help with local SEO in your market? Our [local SEO services](/services/seo/
     ],
     content: `## HVAC SEO Services That Keep Your Schedule Full Year-Round
 
-We specialize in helping HVAC companies dominate local search through every season. When homeowners search "AC repair near me" during a July heatwave or "emergency furnace repair" during a January cold snap, our clients are the ones who show up first.
+We specialize in helping HVAC companies dominate local search through every season. When homeowners search "AC repair near me" during a July heatwave or "emergency furnace repair" during a January cold snap, our clients are the ones who show up first. Our [SEO services](/seo-services) are built for seasonal industries like HVAC.
 
-HVAC businesses face unique SEO challenges: extreme seasonal demand fluctuations, fierce local competition, and the need to capture both emergency repairs and planned installations. Our strategies address all of these.
+HVAC businesses face unique SEO challenges: extreme seasonal demand fluctuations, fierce local competition, and the need to capture both emergency repairs and planned installations. Understanding [how long SEO takes](/blog/seo-timeline) is especially important for seasonal businesses — our strategies address all of these.
 
 **The result?** HVAC companies that work with us see consistent lead flow throughout the year-not just during peak seasons.
 
@@ -1842,9 +1842,9 @@ Stop losing emergency calls to competitors with better Google visibility. Whethe
     ],
     content: `## Construction Company SEO Services That Win More Projects
 
-We specialize in helping construction companies and general contractors generate high-value project inquiries. When property owners search "general contractor near me" or businesses need "commercial construction [city]," our clients show up first-and win more bids.
+We specialize in helping construction companies and general contractors generate high-value project inquiries. When property owners search "general contractor near me" or businesses need "commercial construction [city]," our clients show up first-and win more bids. Our [SEO services](/seo-services) paired with a professional [website](/development) make that possible.
 
-Construction projects represent significant investments. Customers research extensively before choosing a contractor. Our SEO strategies ensure you're visible throughout that research process and positioned as the obvious choice.
+Construction projects represent significant investments. Customers research extensively before choosing a contractor — and [Google Business Profile](/blog/gbp-optimization) is often where they start. Our SEO strategies ensure you're visible throughout that research process and positioned as the obvious choice.
 
 **The result?** Construction companies that work with us see consistent growth in project inquiries across residential, commercial, and specialty services.
 
@@ -2019,9 +2019,9 @@ Stop losing bids to competitors with better Google visibility. Let's discuss how
     ],
     content: `## Electrician SEO Services That Power Your Growth
 
-We specialize in helping electrical contractors dominate local search and generate consistent, high-quality leads. When homeowners search "electrician near me" or businesses need "commercial electrical contractor [city]," our clients show up first.
+We specialize in helping electrical contractors dominate local search and generate consistent, high-quality leads. When homeowners search "electrician near me" or businesses need "commercial electrical contractor [city]," our clients show up first. Our [SEO services](/seo-services) are tailored for local service businesses.
 
-Electrical services span everything from emergency repairs to high-value EV charger installations. Our SEO strategies ensure you're visible for all the services you offer-and the jobs you want most.
+Electrical services span everything from emergency repairs to high-value EV charger installations. Building strong [Google reviews](/blog/google-reviews-guide) and ranking for the right keywords ensures you're visible for all the services you offer-and the jobs you want most.
 
 **The result?** Electricians who work with us see consistent lead flow across residential, commercial, and specialty services.
 
@@ -2195,9 +2195,9 @@ Stop losing service calls to competitors with better Google visibility. Let's di
     ],
     content: `## Landscaping SEO Services That Grow Your Business Year-Round
 
-We specialize in helping landscaping and lawn care businesses dominate local search and generate consistent leads through every season. When property owners search "landscaping services near me" or "lawn care [city]," our clients show up first.
+We specialize in helping landscaping and lawn care businesses dominate local search and generate consistent leads through every season. When property owners search "landscaping services near me" or "lawn care [city]," our clients show up first. Our [SEO services](/seo-services) are built for seasonal businesses like landscaping.
 
-Landscaping is seasonal and competitive, but that creates opportunity. Our year-round SEO strategies ensure you're visible for spring cleanup, summer maintenance, fall services, AND winter snow removal.
+Landscaping is seasonal and competitive, but that creates opportunity. Ranking in the [Google Maps Pack](/blog/google-maps-ranking-factors) ensures you're visible for spring cleanup, summer maintenance, fall services, AND winter snow removal.
 
 **The result?** Landscaping businesses that work with us see consistent lead flow and build recurring client relationships.
 
@@ -2373,9 +2373,9 @@ Stop losing clients to competitors with better Google visibility. Let's discuss 
     ],
     content: `## Pest Control SEO Services That Generate More Service Calls
 
-We specialize in helping pest control companies dominate local search and capture more service calls. When homeowners search "exterminator near me" or "bed bug removal [city]," our clients show up first-and get the call.
+We specialize in helping pest control companies dominate local search and capture more service calls. When homeowners search "exterminator near me" or "bed bug removal [city]," our clients show up first-and get the call. Our [SEO services](/seo-services) are designed for urgent, high-intent industries like pest control.
 
-Pest control searches have extreme urgency. When someone discovers termites or bed bugs, they're calling the first company they find. Our SEO strategies ensure that's you.
+Pest control searches have extreme urgency. When someone discovers termites or bed bugs, they're calling the first company they find. That's why [investing in SEO](/blog/seo-pricing) pays off fast — our strategies ensure that first result is you.
 
 **The result?** Pest control companies that work with us see consistent growth in emergency calls AND recurring prevention customers.
 
@@ -2550,9 +2550,9 @@ Stop losing emergency calls to competitors with better Google visibility. Let's 
     ],
     content: `## Cleaning Company SEO Services That Win More Clients
 
-We specialize in helping cleaning companies stand out in a crowded market and generate consistent client inquiries. When homeowners search "house cleaning near me" or businesses need "commercial cleaning services [city]," our clients show up first.
+We specialize in helping cleaning companies stand out in a crowded market and generate consistent client inquiries. When homeowners search "house cleaning near me" or businesses need "commercial cleaning services [city]," our clients show up first. Our [SEO services](/seo-services) help you rise above the competition.
 
-The cleaning industry is competitive, but that's exactly why SEO works. Most cleaning companies rely on word-of-mouth alone, leaving massive opportunity for those who invest in online visibility.
+The cleaning industry is competitive, but that's exactly why SEO works. Most cleaning companies rely on word-of-mouth alone, leaving massive opportunity for those who invest in online visibility. Building strong [Google reviews](/blog/google-reviews-guide) is one of the fastest ways to stand out.
 
 **The result?** Cleaning companies that work with us see consistent growth in both residential and commercial clients.
 
@@ -2724,9 +2724,9 @@ Stop losing customers to competitors with better Google visibility. Let's discus
     ],
     content: `## Moving Company SEO Services That Generate More Quotes
 
-We specialize in helping moving companies capture more quote requests and book more moves. When people search "movers near me" or "long distance moving company [city]," our clients show up first-and convert that visibility into booked jobs.
+We specialize in helping moving companies capture more quote requests and book more moves. When people search "movers near me" or "long distance moving company [city]," our clients show up first-and convert that visibility into booked jobs. Our [SEO services](/seo-services) are built for local service businesses like yours.
 
-People searching for movers are at a critical decision point. They've already decided to move; they just need to choose a company. Our SEO strategies ensure they choose you.
+People searching for movers are at a critical decision point. They've already decided to move; they just need to choose a company. A strong [Google Business Profile](/blog/gbp-optimization) and our SEO strategies ensure they choose you.
 
 **The result?** Moving companies that work with us see consistent quote request growth across local, long-distance, and specialty moves.
 
@@ -2917,9 +2917,9 @@ Stop losing jobs to competitors with better Google visibility. Let's discuss how
     ],
     content: `## What Determines Your Google Maps Rankings?
 
-Google Maps rankings are determined by a combination of factors that measure your relevance to the search, your prominence in the market, and your proximity to the searcher. Understanding these factors lets you focus your optimization efforts where they matter most.
+Google Maps rankings are determined by a combination of factors that measure your relevance to the search, your prominence in the market, and your proximity to the searcher. Understanding these factors lets you focus your [local SEO](/local-seo) efforts where they matter most.
 
-The Map Pack (the top 3 local results that appear with a map) drives significant traffic and calls for local businesses. According to industry data, businesses in the Map Pack receive 44% of clicks for local searches. Getting into that top 3 is worth the effort.
+The Map Pack (the top 3 local results that appear with a map) drives significant traffic and calls for local businesses. According to industry data, businesses in the Map Pack receive 44% of clicks for local searches. A strong [Google Business Profile](/blog/gbp-optimization) is the foundation — getting into that top 3 is worth the effort.
 
 Want to dominate your local market? Our [local SEO services](/local-seo) have helped businesses achieve Map Pack rankings and 300%+ traffic increases.
 
@@ -3167,9 +3167,9 @@ Our [local SEO services](/local-seo) include complete Google Maps optimization. 
     ],
     content: `## Why Google Reviews Matter for Your Business
 
-Google reviews directly impact your visibility in local search results and your ability to convert searchers into customers. Businesses with more reviews and higher ratings consistently outperform competitors in the Google Map Pack.
+Google reviews directly impact your visibility in local search results and your ability to convert searchers into customers. Businesses with more reviews and higher ratings consistently outperform competitors in the Google Map Pack — reviews are one of the top [Google Maps ranking factors](/blog/google-maps-ranking-factors).
 
-Beyond rankings, reviews build trust. 93% of consumers read online reviews before making a purchase decision. A strong review profile is often the deciding factor between you and a competitor.
+Beyond rankings, reviews build trust. 93% of consumers read online reviews before making a purchase decision. Combined with strong [SEO services](/seo-services), a strong review profile is often the deciding factor between you and a competitor.
 
 The businesses dominating local search treat review generation as a systematic process, not a random occurrence. This guide shows you how to build that system.
 
@@ -3401,9 +3401,9 @@ A systematic approach to reviews transforms local business visibility. Consisten
     ],
     content: `## The Real Difference Between SEO and PPC
 
-SEO (Search Engine Optimization) and PPC (Pay-Per-Click advertising) both put your business in front of people searching Google. The fundamental difference: SEO earns your placement through optimization, while PPC buys your placement through bidding.
+SEO (Search Engine Optimization) and [PPC](/digital-marketing/ppc) (Pay-Per-Click advertising) both put your business in front of people searching Google. The fundamental difference: SEO earns your placement through optimization, while PPC buys your placement through bidding.
 
-This distinction creates dramatically different cost structures, timelines, and long-term outcomes. Understanding these differences helps you allocate your marketing budget effectively.
+This distinction creates dramatically different [cost structures](/blog/seo-pricing), timelines, and long-term outcomes. Understanding these differences helps you allocate your marketing budget effectively.
 
 Neither approach is universally better. The right choice depends on your specific situation, timeline, and goals. Many successful businesses use both strategically.
 
@@ -3583,6 +3583,32 @@ Our [local SEO services](/local-seo) help businesses build sustainable organic v
     `,
   },
 ]
+
+// URL mapping for blog slugs to their canonical URLs
+const blogSlugUrlMap: Record<string, string> = {
+  // Industry posts → /local-seo/[industry]
+  'local-seo-for-plumbers-complete-guide': '/local-seo/plumbers',
+  'hvac-seo-complete-guide': '/local-seo/hvac',
+  'roofing-company-seo-strategy': '/local-seo/roofing',
+  'electrician-seo-guide': '/local-seo/electricians',
+  'auto-detailing-seo-get-more-customers': '/local-seo/auto-detailing',
+  'dumpster-rental-seo-dominate-local-search': '/local-seo/dumpster-rental',
+  'landscaping-seo-grow-your-business': '/local-seo/landscaping',
+  'pest-control-seo-strategy': '/local-seo/pest-control',
+  'cleaning-company-seo-guide': '/local-seo/cleaning',
+  'moving-company-seo-guide': '/local-seo/moving',
+  'construction-company-seo-strategy': '/local-seo/construction',
+  // Renamed blog posts → /blog/[new-slug]
+  'how-much-does-seo-cost-for-small-business': '/blog/seo-pricing',
+  'how-long-does-seo-take-to-work': '/blog/seo-timeline',
+  'google-business-profile-optimization-guide': '/blog/gbp-optimization',
+  'local-seo-uk-vs-usa-differences': '/blog/local-seo-uk-vs-usa',
+}
+
+// Get canonical URL for a blog post slug
+export const getBlogPostUrl = (slug: string): string => {
+  return blogSlugUrlMap[slug] || `/blog/${slug}`
+}
 
 // Industry posts that are now service pages under /local-seo/ - exclude from blog listing
 const industryPostSlugs = [

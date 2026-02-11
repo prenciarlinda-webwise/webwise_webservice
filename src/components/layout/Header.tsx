@@ -84,7 +84,7 @@ export default function Header() {
 
               {/* Services Dropdown */}
               <div className="relative group">
-                <Link href="/services" className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-text-primary hover:text-accent transition-colors">
+                <Link href="/seo-services" className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-text-primary hover:text-accent transition-colors">
                   Services
                   <ChevronDown size={14} className="transition-transform group-hover:rotate-180" />
                 </Link>
@@ -113,7 +113,7 @@ export default function Header() {
                           </div>
                         ))}
                         <div className="mt-auto pt-4 border-t border-border">
-                          <Link href="/services" className="flex items-center justify-center gap-2 py-3 text-sm font-medium text-accent hover:bg-accent/10 rounded-lg transition-colors">
+                          <Link href="/seo-services" className="flex items-center justify-center gap-2 py-3 text-sm font-medium text-accent hover:bg-accent/10 rounded-lg transition-colors">
                             View All Services
                             <ArrowRight size={16} />
                           </Link>

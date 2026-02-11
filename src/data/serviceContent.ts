@@ -257,13 +257,13 @@ export const seoServiceContent: ServiceContent = {
   industries: {
     intro: 'We specialize in SEO for local service businesses. Our deep industry experience means faster results and strategies proven to work in your market.',
     list: [
-      { name: 'Plumbers', description: 'Dominate "plumber near me" searches and emergency plumbing keywords in your service area.', link: '/blog/local-seo-for-plumbers-complete-guide' },
-      { name: 'Roofers', description: 'Rank for high-value roofing keywords and capture storm damage leads.', link: '/blog/roofing-company-seo-strategy' },
-      { name: 'HVAC Contractors', description: 'Seasonal SEO strategies that keep leads flowing year-round.', link: '/blog/hvac-seo-complete-guide' },
-      { name: 'Electricians', description: 'Target emergency electrical services and EV charger installation keywords.', link: '/blog/electrician-seo-guide' },
-      { name: 'Construction Companies', description: 'Rank for commercial and residential construction keywords in competitive markets.', link: '/blog/construction-company-seo-strategy' },
-      { name: 'Auto Detailers', description: 'Local SEO for mobile and shop-based detailing businesses.', link: '/blog/auto-detailing-seo-get-more-customers' },
-      { name: 'Dumpster Rental', description: 'Capture high-intent rental keywords and beat national competitors locally.', link: '/blog/dumpster-rental-seo-dominate-local-search' },
+      { name: 'Plumbers', description: 'Dominate "plumber near me" searches and emergency plumbing keywords in your service area.', link: '/local-seo/plumbers' },
+      { name: 'Roofers', description: 'Rank for high-value roofing keywords and capture storm damage leads.', link: '/local-seo/roofing' },
+      { name: 'HVAC Contractors', description: 'Seasonal SEO strategies that keep leads flowing year-round.', link: '/local-seo/hvac' },
+      { name: 'Electricians', description: 'Target emergency electrical services and EV charger installation keywords.', link: '/local-seo/electricians' },
+      { name: 'Construction Companies', description: 'Rank for commercial and residential construction keywords in competitive markets.', link: '/local-seo/construction' },
+      { name: 'Auto Detailers', description: 'Local SEO for mobile and shop-based detailing businesses.', link: '/local-seo/auto-detailing' },
+      { name: 'Dumpster Rental', description: 'Capture high-intent rental keywords and beat national competitors locally.', link: '/local-seo/dumpster-rental' },
     ],
   },
   faqs: [
@@ -460,12 +460,12 @@ export const localSeoContent: ServiceContent = {
   industries: {
     intro: 'Local SEO is essential for any business that serves a specific geographic area. We\'ve helped these industries dominate local search:',
     list: [
-      { name: 'Plumbing Companies', description: 'Capture "emergency plumber near me" and service-specific searches.', link: '/blog/local-seo-for-plumbers-complete-guide' },
-      { name: 'Roofing Contractors', description: 'Rank for storm damage, roof repair, and installation keywords.', link: '/blog/roofing-company-seo-strategy' },
-      { name: 'HVAC Services', description: 'Seasonal optimization for heating and cooling searches.', link: '/blog/hvac-seo-complete-guide' },
-      { name: 'Electricians', description: 'Target emergency services and growing EV charger keywords.', link: '/blog/electrician-seo-guide' },
-      { name: 'Landscaping', description: 'Capture lawn care and landscaping searches by season.', link: '/blog/landscaping-seo-grow-your-business' },
-      { name: 'Cleaning Services', description: 'Rank for residential and commercial cleaning keywords.', link: '/blog/cleaning-company-seo-guide' },
+      { name: 'Plumbing Companies', description: 'Capture "emergency plumber near me" and service-specific searches.', link: '/local-seo/plumbers' },
+      { name: 'Roofing Contractors', description: 'Rank for storm damage, roof repair, and installation keywords.', link: '/local-seo/roofing' },
+      { name: 'HVAC Services', description: 'Seasonal optimization for heating and cooling searches.', link: '/local-seo/hvac' },
+      { name: 'Electricians', description: 'Target emergency services and growing EV charger keywords.', link: '/local-seo/electricians' },
+      { name: 'Landscaping', description: 'Capture lawn care and landscaping searches by season.', link: '/local-seo/landscaping' },
+      { name: 'Cleaning Services', description: 'Rank for residential and commercial cleaning keywords.', link: '/local-seo/cleaning' },
     ],
   },
   faqs: [

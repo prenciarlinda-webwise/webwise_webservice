@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Script from 'next/script'
 import { ArrowRight, Calendar, User, Clock } from 'lucide-react'
-import { blogPosts, getFeaturedPost, getOtherPosts } from '@/data/blog'
+import { blogPosts, getFeaturedPost, getOtherPosts, getBlogPostUrl } from '@/data/blog'
 import { siteConfig } from '@/data/site'
 import { generateCollectionPageSchema } from '@/lib/schemas'
 import { pageSEO } from '@/data/seo'
@@ -76,7 +76,7 @@ export default function BlogPage() {
                   <span className="flex items-center gap-1"><Calendar size={14} /> {featuredPost.date}</span>
                   <span className="flex items-center gap-1"><Clock size={14} /> {featuredPost.readTime}</span>
                 </div>
-                <Link href={`/blog/${featuredPost.slug}`} className="inline-flex items-center gap-2 text-accent font-medium hover:gap-3 transition-all">
+                <Link href={getBlogPostUrl(featuredPost.slug)} className="inline-flex items-center gap-2 text-accent font-medium hover:gap-3 transition-all">
                   Read Article <ArrowRight size={16} />
                 </Link>
               </div>
@@ -91,7 +91,7 @@ export default function BlogPage() {
           <h2 className="text-2xl font-bold text-primary mb-8">Latest Articles</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {otherPosts.map((post) => (
-              <Link key={post.slug} href={`/blog/${post.slug}`} className="bg-white rounded-2xl border border-border overflow-hidden hover:shadow-lg transition-shadow group">
+              <Link key={post.slug} href={getBlogPostUrl(post.slug)} className="bg-white rounded-2xl border border-border overflow-hidden hover:shadow-lg transition-shadow group">
                 <div className="h-48 bg-gradient-to-br from-bg-tertiary to-bg-secondary flex items-center justify-center overflow-hidden">
                   {post.image ? (
                     <img

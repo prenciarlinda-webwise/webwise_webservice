@@ -37,21 +37,21 @@ export default function NotFound() {
           <div className="bg-bg-secondary rounded-2xl p-8">
             <h3 className="font-semibold text-primary mb-4">Looking for something specific?</h3>
             <div className="grid sm:grid-cols-2 gap-4 text-left">
-              <Link href="/services/seo" className="flex items-center gap-3 p-4 bg-white rounded-lg hover:shadow-md transition-shadow group">
+              <Link href="/seo-services" className="flex items-center gap-3 p-4 bg-white rounded-lg hover:shadow-md transition-shadow group">
                 <Search size={20} className="text-accent" />
                 <div>
                   <div className="font-medium text-primary group-hover:text-accent transition-colors">SEO Services</div>
                   <div className="text-sm text-text-muted">Boost your rankings</div>
                 </div>
               </Link>
-              <Link href="/services/web-development" className="flex items-center gap-3 p-4 bg-white rounded-lg hover:shadow-md transition-shadow group">
+              <Link href="/development" className="flex items-center gap-3 p-4 bg-white rounded-lg hover:shadow-md transition-shadow group">
                 <Search size={20} className="text-accent" />
                 <div>
                   <div className="font-medium text-primary group-hover:text-accent transition-colors">Web Development</div>
                   <div className="text-sm text-text-muted">Custom websites</div>
                 </div>
               </Link>
-              <Link href="/portfolio" className="flex items-center gap-3 p-4 bg-white rounded-lg hover:shadow-md transition-shadow group">
+              <Link href="/case-studies" className="flex items-center gap-3 p-4 bg-white rounded-lg hover:shadow-md transition-shadow group">
                 <Search size={20} className="text-accent" />
                 <div>
                   <div className="font-medium text-primary group-hover:text-accent transition-colors">Our Work</div>

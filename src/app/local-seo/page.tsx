@@ -4,7 +4,7 @@ import { pageSEO } from '@/data/seo'
 
 // This page's generateMetadata takes precedence over the imported component's
 export async function generateMetadata(): Promise<Metadata> {
-  const seoData = pageSEO['services/seo/local-seo']
+  const seoData = pageSEO['local-seo']
 
   return {
     title: seoData?.title || 'Local SEO Services',

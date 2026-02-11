@@ -58,7 +58,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const service = services[slug as keyof typeof services]
   if (!service) return { title: 'Service Not Found' }
 
-  const seoData = pageSEO[`services/${slug}`]
+  const seoKeyMap: Record<string, string> = { 'seo': 'seo-services', 'web-development': 'development', 'digital-marketing': 'digital-marketing' }
+  const seoData = pageSEO[seoKeyMap[slug] || slug]
   const canonicalUrl = getCanonicalUrl(slug)
 
   return {
@@ -158,7 +159,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           <nav className="flex items-center gap-2 text-white/60 text-sm mb-8">
             <Link href="/" className="hover:text-white">Home</Link>
             <span>/</span>
-            <Link href="/services" className="hover:text-white">Services</Link>
+            <Link href="/seo-services" className="hover:text-white">Services</Link>
             <span>/</span>
             <span className="text-white">{service.title}</span>
           </nav>

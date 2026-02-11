@@ -362,8 +362,8 @@ export const getUniqueClientIndustries = (): string[] => {
 // Navigation
 export const navigation = [
   { name: 'Home', href: '/' },
-  { name: 'Services', href: '/services', hasDropdown: true },
-  { name: 'Portfolio', href: '/portfolio' },
+  { name: 'Services', href: '/seo-services', hasDropdown: true },
+  { name: 'Case Studies', href: '/case-studies' },
   { name: 'Pricing', href: '/pricing' },
   { name: 'About', href: '/about' },
   { name: 'Blog', href: '/blog' },

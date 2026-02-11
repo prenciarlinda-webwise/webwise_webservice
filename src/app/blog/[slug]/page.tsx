@@ -3,11 +3,25 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import Script from 'next/script'
 import { ArrowLeft, ArrowRight, Calendar, User, Clock, Share2, HelpCircle, Award } from 'lucide-react'
-import { blogPosts, getPostBySlug, getRelatedPosts } from '@/data/blog'
+import { blogPosts, getPostBySlug, getRelatedPosts, getBlogPostUrl } from '@/data/blog'
 import { siteConfig, getWhatsAppUrl } from '@/data/site'
 
+// Only generate pages for slugs that don't have dedicated pages elsewhere
+const excludedSlugs = [
+  // Industry posts (served from /local-seo/[industry])
+  'local-seo-for-plumbers-complete-guide', 'hvac-seo-complete-guide', 'roofing-company-seo-strategy',
+  'electrician-seo-guide', 'auto-detailing-seo-get-more-customers', 'dumpster-rental-seo-dominate-local-search',
+  'landscaping-seo-grow-your-business', 'pest-control-seo-strategy', 'cleaning-company-seo-guide',
+  'moving-company-seo-guide', 'construction-company-seo-strategy',
+  // Renamed blog posts (served from /blog/[new-slug])
+  'how-much-does-seo-cost-for-small-business', 'how-long-does-seo-take-to-work',
+  'google-business-profile-optimization-guide', 'local-seo-uk-vs-usa-differences',
+]
+
 export async function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }))
+  return blogPosts
+    .filter((post) => !excludedSlugs.includes(post.slug))
+    .map((post) => ({ slug: post.slug }))
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -47,10 +61,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   const relatedPosts = getRelatedPosts(slug, 3)
 
+  const canonicalUrl = `${siteConfig.url}${getBlogPostUrl(slug)}`
+
   // Article Schema
   const articleSchema = {
     "@type": "Article",
-    "@id": `${siteConfig.url}/blog/${post.slug}#article`,
+    "@id": `${canonicalUrl}#article`,
     headline: post.title,
     description: post.excerpt,
     image: post.image || undefined,
@@ -71,7 +87,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     dateModified: post.date,
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `${siteConfig.url}/blog/${post.slug}`,
+      "@id": canonicalUrl,
     },
     articleSection: post.category,
     keywords: post.keywords?.join(", ") || post.category,
@@ -99,7 +115,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   // Service Schema - only for industry-specific SEO posts
   const serviceSchema = serviceType ? {
     "@type": "Service",
-    "@id": `${siteConfig.url}/blog/${post.slug}#service`,
+    "@id": `${canonicalUrl}#service`,
     serviceType: serviceType,
     name: serviceType,
     description: post.excerpt,
@@ -132,7 +148,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   // BreadcrumbList Schema
   const breadcrumbSchema = {
     "@type": "BreadcrumbList",
-    "@id": `${siteConfig.url}/blog/${post.slug}#breadcrumb`,
+    "@id": `${canonicalUrl}#breadcrumb`,
     itemListElement: [
       {
         "@type": "ListItem",
@@ -150,7 +166,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         "@type": "ListItem",
         position: 3,
         name: post.title,
-        item: `${siteConfig.url}/blog/${post.slug}`,
+        item: canonicalUrl,
       },
     ],
   }
@@ -158,7 +174,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   // FAQ Schema - only when post has FAQs
   const faqSchema = post.faqs && post.faqs.length > 0 ? {
     "@type": "FAQPage",
-    "@id": `${siteConfig.url}/blog/${post.slug}#faq`,
+    "@id": `${canonicalUrl}#faq`,
     mainEntity: post.faqs.map((faq) => ({
       "@type": "Question",
       name: faq.question,
@@ -462,7 +478,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <h2 className="text-2xl font-bold text-primary mb-8">Related Articles</h2>
             <div className="grid md:grid-cols-3 gap-8">
               {relatedPosts.map((relatedPost) => (
-                <Link key={relatedPost.slug} href={`/blog/${relatedPost.slug}`} className="bg-white rounded-2xl border border-border overflow-hidden hover:shadow-lg transition-shadow group">
+                <Link key={relatedPost.slug} href={getBlogPostUrl(relatedPost.slug)} className="bg-white rounded-2xl border border-border overflow-hidden hover:shadow-lg transition-shadow group">
                   <div className="h-40 bg-gradient-to-br from-bg-tertiary to-bg-secondary flex items-center justify-center overflow-hidden">
                     {relatedPost.image ? (
                       <img
