@@ -49,7 +49,6 @@ export default function robots(): MetadataRoute.Robots {
           '/elementor-*',
           '/pricing-plans/',
           '/seo-agency-3',
-          '/seo-services-2',
           '/website-and-seo/',
           '/website-client/',
           '/website-building*',
