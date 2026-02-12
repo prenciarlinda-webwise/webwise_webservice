@@ -20,8 +20,8 @@ export const metadata: Metadata = {
 // Homepage FAQs
 const homepageFaqs = [
   {
-    question: 'What services does WebWise offer?',
-    answer: 'WebWise offers custom web development (websites, e-commerce, web applications), SEO services (local, technical, e-commerce, international), and digital marketing (PPC, content marketing, social media). We specialize in contractors and small businesses across the UK and USA.'
+    question: 'What services does Web Wise offer?',
+    answer: 'Web Wise offers custom web development (websites, e-commerce, web applications), SEO services (local, technical, e-commerce, international), and digital marketing (PPC, content marketing, social media). We specialize in contractors and small businesses across the UK and USA.'
   },
   {
     question: 'How long does it take to build a website?',
@@ -40,7 +40,7 @@ const homepageFaqs = [
     answer: 'Yes! While we specialize in UK and USA markets, we work with businesses worldwide. We have experience with international SEO and can accommodate different time zones.'
   },
   {
-    question: 'What makes WebWise different from other agencies?',
+    question: 'What makes Web Wise different from other agencies?',
     answer: 'We specialize in contractors and small businesses,  not everyone. We build custom solutions, not templates. We offer transparent pricing with no hidden fees. And we focus on results you can measure: traffic, leads, and revenue.'
   },
 ]
@@ -51,7 +51,7 @@ const homepageSchema = {
   "@graph": [
     {
       "@type": "Organization",
-      "name": "WebWise",
+      "name": "Web Wise",
       "url": siteConfig.url,
       "logo": `${siteConfig.url}${siteConfig.logo}`,
       "description": "Web development, SEO, and digital marketing agency for contractors and small businesses in the UK and USA.",
@@ -61,7 +61,7 @@ const homepageSchema = {
     },
     {
       "@type": "WebSite",
-      "name": "WebWise",
+      "name": "Web Wise",
       "url": siteConfig.url,
       "potentialAction": {
         "@type": "SearchAction",
@@ -71,7 +71,7 @@ const homepageSchema = {
     },
     {
       "@type": "ProfessionalService",
-      "name": "WebWise",
+      "name": "Web Wise",
       "description": "Web development, SEO, and digital marketing services",
       "telephone": siteConfig.phone,
       "email": siteConfig.email,
@@ -289,9 +289,9 @@ export default function Home() {
         <div className="container px-6">
           <div className="max-w-4xl mx-auto text-center mb-16">
             <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">What We Do</span>
-            <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-6">What Does WebWise Do?</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-6">What Does Web Wise Do?</h2>
             <p className="text-lg text-text-secondary mb-6">
-              WebWise is a web development and digital marketing agency that helps contractors
+              Web Wise is a web development and digital marketing agency that helps contractors
               and small businesses grow online. We build custom, high-performance websites that
               load fast and convert visitors into customers. We implement local SEO strategies
               that put you at the top of Google Maps. And we run digital marketing campaigns, 

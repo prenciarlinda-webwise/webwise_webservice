@@ -85,7 +85,7 @@ const organizationSchema = {
   founders: [
     {
       "@type": "Person",
-      name: "WebWise Team",
+      name: "Web Wise Team",
     }
   ],
   address: {
@@ -112,9 +112,9 @@ const organizationSchema = {
   ],
   sameAs: [
     // Add your social profiles here
-    // "https://www.facebook.com/webwise",
-    // "https://www.linkedin.com/company/webwise",
-    // "https://twitter.com/webwise",
+    // "https://www.facebook.com/Web Wise",
+    // "https://www.linkedin.com/company/Web Wise",
+    // "https://twitter.com/Web Wise",
   ],
   aggregateRating: {
     "@type": "AggregateRating",

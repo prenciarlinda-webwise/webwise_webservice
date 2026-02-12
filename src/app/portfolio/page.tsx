@@ -70,10 +70,10 @@ export default function PortfolioPage() {
           <div className="max-w-3xl">
             <span className="inline-block px-4 py-2 bg-white/10 text-white rounded-full text-sm mb-4">Case Studies</span>
             <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-              Our <span className="text-gradient">Work</span>
+              SEO Case Studies & Portfolio
             </h1>
             <p className="text-lg text-white/80">
-              Real results for real businesses. Explore our portfolio of successful projects and see what we can do for you.
+              Real results for real businesses. See how we helped contractors and service businesses increase traffic by 290%+.
             </p>
           </div>
         </div>
@@ -181,7 +181,7 @@ export default function PortfolioPage() {
               <p className="text-white/80 max-w-2xl mx-auto mb-8">
                 Let&apos;s discuss how we can help transform your business with a custom website, SEO strategy, or marketing campaign.
               </p>
-              <a href={getWhatsAppUrl("Hi, I'd like to discuss a project with WebWise!")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary font-semibold rounded-lg hover:bg-white/90 transition-colors shadow-lg">
+              <a href={getWhatsAppUrl("Hi, I'd like to discuss a project with Web Wise!")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary font-semibold rounded-lg hover:bg-white/90 transition-colors shadow-lg">
                 Start Your Project
                 <ArrowRight size={18} />
               </a>

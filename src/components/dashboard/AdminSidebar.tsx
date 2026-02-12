@@ -36,7 +36,7 @@ export default function AdminSidebar() {
         {/* Logo */}
         <div className="flex items-center justify-between h-16 px-6 border-b border-primary-light">
           <Link href="/admin" className="text-xl font-bold">
-            WebWise Admin
+            Web Wise Admin
           </Link>
           <NotificationBell isAdmin={true} />
         </div>

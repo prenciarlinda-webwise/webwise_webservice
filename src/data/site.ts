@@ -1,6 +1,6 @@
 // Site Configuration
 export const siteConfig = {
-  name: 'WebWise',
+  name: 'Web Wise',
   tagline: 'Professional Web Design & Local SEO Services',
   email: 'info@websiteandseoagency.com',
   phone: '+355685121313',

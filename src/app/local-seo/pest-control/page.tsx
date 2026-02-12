@@ -4,13 +4,13 @@ import BlogPostPage from '@/app/blog/[slug]/page'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'SEO Services for Pest Control Companies - More Calls',
-    description: 'We help pest control companies dominate local search and capture more service calls. Our SEO strategies bring in emergency treatments and recurring prevention customers.',
+    title: 'SEO for Pest Control - Pest Control SEO Services',
+    description: 'We help pest control companies capture emergency calls and recurring prevention customers. Termite, bed bug, and general pest rankings.',
     keywords: ['pest control seo services', 'exterminator marketing agency', 'pest control marketing', 'pest control seo'],
     alternates: { canonical: `${siteConfig.url}/local-seo/pest-control` },
     openGraph: {
-      title: 'SEO Services for Pest Control Companies - More Calls',
-      description: 'We help pest control companies dominate local search and capture more service calls.',
+      title: 'SEO for Pest Control - Pest Control SEO Services',
+      description: 'We help pest control companies capture more calls through Google.',
       url: `${siteConfig.url}/local-seo/pest-control`,
     },
   }

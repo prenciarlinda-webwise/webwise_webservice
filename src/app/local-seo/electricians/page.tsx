@@ -4,13 +4,13 @@ import BlogPostPage from '@/app/blog/[slug]/page'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'SEO Services for Electricians - Get More Service Calls',
-    description: 'We help electrical contractors dominate local search and generate consistent leads. From emergency calls to EV charger installations, our SEO drives the jobs you want.',
+    title: 'SEO for Electricians - Electrician SEO Services',
+    description: 'We help electricians rank for emergency calls, EV charger installations, and residential services. Google Maps leads that convert.',
     keywords: ['electrician seo services', 'seo for electricians', 'electrician marketing agency', 'electrical contractor seo'],
     alternates: { canonical: `${siteConfig.url}/local-seo/electricians` },
     openGraph: {
-      title: 'SEO Services for Electricians - Get More Service Calls',
-      description: 'We help electrical contractors dominate local search and generate consistent leads.',
+      title: 'SEO for Electricians - Electrician SEO Services',
+      description: 'We help electricians rank for emergency calls and residential services.',
       url: `${siteConfig.url}/local-seo/electricians`,
     },
   }

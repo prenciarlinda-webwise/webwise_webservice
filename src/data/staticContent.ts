@@ -43,16 +43,16 @@ export interface SectionItem {
 
 export const aboutContent: StaticPageContent = {
   hero: {
-    headline: "We're WebWise",
-    subheadline: "Your Partner in Digital Growth",
+    headline: "About Web Wise",
+    subheadline: "SEO & Web Development Agency for Small Business",
     valueProposition: "A team of passionate digital experts dedicated to helping local service businesses thrive online through high-performance websites and data-driven SEO strategies that deliver measurable results.",
   },
 
   definition: {
-    question: "Who Is WebWise?",
+    question: "Who Is Web Wise?",
     // 40-60 word direct answer optimized for featured snippets
-    answer: "WebWise is a digital marketing agency specializing in SEO and web development for local service businesses in the USA and UK. We help plumbers, roofers, HVAC contractors, and electricians dominate local search results with custom websites, Google Business Profile optimization, and proven SEO strategies that generate real leads.",
-    expansion: "Founded by experienced digital marketers and web developers, WebWise combines technical expertise with a deep understanding of how local customers search for services online. We've helped over 50 businesses achieve an average 340% increase in organic traffic through our systematic approach to local SEO and conversion-focused web design.",
+    answer: "Web Wise is a digital marketing agency specializing in SEO and web development for local service businesses in the USA and UK. We help plumbers, roofers, HVAC contractors, and electricians dominate local search results with custom websites, Google Business Profile optimization, and proven SEO strategies that generate real leads.",
+    expansion: "Founded by experienced digital marketers and web developers, Web Wise combines technical expertise with a deep understanding of how local customers search for services online. We've helped over 50 businesses achieve an average 340% increase in organic traffic through our systematic approach to local SEO and conversion-focused web design.",
   },
 
   sections: [
@@ -61,7 +61,7 @@ export const aboutContent: StaticPageContent = {
       badge: 'Our Mission',
       title: 'Empowering Local Businesses Through Digital Excellence',
       content: [
-        "At WebWise, we believe every local service business deserves a powerful online presence that generates consistent leads without the confusion and wasted money that often comes with digital marketing.",
+        "At Web Wise, we believe every local service business deserves a powerful online presence that generates consistent leads without the confusion and wasted money that often comes with digital marketing.",
         "Our mission is to deliver transparent, results-driven digital solutions tailored to the unique needs of contractors, tradespeople, and local service providers. We cut through the noise and focus on what actually works: getting your business found by customers ready to hire.",
         "Unlike large agencies that treat small businesses as an afterthought, we specialize exclusively in local service businesses. This focus allows us to develop deep expertise in the specific challenges you face-from seasonal fluctuations to managing reviews to competing against larger companies with bigger budgets.",
       ],
@@ -179,9 +179,9 @@ export const aboutContent: StaticPageContent = {
     {
       id: 'team',
       badge: 'Our Team',
-      title: 'The People Behind WebWise',
+      title: 'The People Behind Web Wise',
       content: [
-        "We're a small, senior team by design. You won't be passed off to junior account managers or outsourced overseas. When you work with WebWise, you work directly with experienced professionals who take ownership of your results.",
+        "We're a small, senior team by design. You won't be passed off to junior account managers or outsourced overseas. When you work with Web Wise, you work directly with experienced professionals who take ownership of your results.",
         "Our team includes strategists who've managed six-figure ad budgets, developers who've built platforms serving millions of users, and SEO specialists who've recovered sites from Google penalties. We bring enterprise-level expertise to small business budgets.",
       ],
     },
@@ -200,15 +200,15 @@ export const aboutContent: StaticPageContent = {
 
 export const pricingContent: StaticPageContent = {
   hero: {
-    headline: "Transparent Pricing",
-    subheadline: "No Hidden Fees. Clear Expectations. Real Results.",
+    headline: "SEO & Web Development Pricing",
+    subheadline: "SEO from $480/mo. Web Development from $1,500. No Hidden Fees.",
     valueProposition: "Know exactly what you're paying for and what you'll get. Our pricing is designed for local service businesses with clear 3-month roadmaps so you can track progress and ROI.",
   },
 
   definition: {
     question: "How Much Does SEO Cost for Small Business?",
     // 40-60 word direct answer optimized for featured snippets
-    answer: "Professional SEO services for small businesses typically cost $480-$1,100 per month depending on competition and goals. At WebWise, our SEO packages include a comprehensive audit in month one, Google Business Profile optimization, keyword targeting, content creation, and monthly reporting. Most local service businesses see positive ROI within 3-4 months of consistent SEO work.",
+    answer: "Professional SEO services for small businesses typically cost $480-$1,100 per month depending on competition and goals. At Web Wise, our SEO packages include a comprehensive audit in month one, Google Business Profile optimization, keyword targeting, content creation, and monthly reporting. Most local service businesses see positive ROI within 3-4 months of consistent SEO work.",
     expansion: "SEO pricing varies based on your market's competitiveness, the number of service areas you target, and how aggressive you want to be. A plumber in a small town needs less investment than an HVAC company competing in a major metro. During your free consultation, we'll analyze your specific situation and recommend the right package.",
   },
 
@@ -220,7 +220,7 @@ export const pricingContent: StaticPageContent = {
       subtitle: "A 40-60 word answer for featured snippets",
       content: [
         "A professional small business website costs $1,500-$5,000 depending on complexity and features. Our standard package at $1,500 includes responsive design, SEO optimization, contact forms, and Google Analytics setup. Custom e-commerce stores start at $3,500. All our websites are built for speed and conversions.",
-        "Unlike template-based services that charge monthly fees, we build custom websites you own outright. There's no monthly 'website fee' to WebWise-just hosting costs of $10-50/month depending on your provider. This means better ROI over time compared to $200+/month website rental services.",
+        "Unlike template-based services that charge monthly fees, we build custom websites you own outright. There's no monthly 'website fee' to Web Wise-just hosting costs of $10-50/month depending on your provider. This means better ROI over time compared to $200+/month website rental services.",
       ],
     },
     {

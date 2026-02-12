@@ -4,13 +4,13 @@ import BlogPostPage from '@/app/blog/[slug]/page'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'SEO Services for Auto Detailers - Book More Appointments',
-    description: 'We help auto detailing businesses fill their booking calendars. Our SEO strategies bring in ceramic coating clients, mobile detailing appointments, and recurring customers.',
+    title: 'SEO for Auto Detailers - Detailing SEO Services',
+    description: 'We help auto detailing businesses book more ceramic coating and paint correction jobs. Google Maps visibility that fills your calendar.',
     keywords: ['auto detailing seo services', 'car detailing marketing agency', 'detailing business seo', 'mobile detailing seo'],
     alternates: { canonical: `${siteConfig.url}/local-seo/auto-detailing` },
     openGraph: {
-      title: 'SEO Services for Auto Detailers - Book More Appointments',
-      description: 'We help auto detailing businesses fill their booking calendars with ceramic coating and detailing clients.',
+      title: 'SEO for Auto Detailers - Detailing SEO Services',
+      description: 'We help auto detailing businesses book more appointments through Google.',
       url: `${siteConfig.url}/local-seo/auto-detailing`,
     },
   }

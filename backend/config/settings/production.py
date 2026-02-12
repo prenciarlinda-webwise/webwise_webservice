@@ -1,5 +1,5 @@
 """
-Production settings for the WebWise Dashboard API.
+Production settings for the Web Wise Dashboard API.
 """
 
 import os

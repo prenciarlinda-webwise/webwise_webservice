@@ -1,5 +1,5 @@
 """
-Development settings for the WebWise Dashboard API.
+Development settings for the Web Wise Dashboard API.
 """
 
 from .base import *
@@ -20,7 +20,7 @@ DATABASES = {
 # import dj_database_url
 # DATABASES = {
 #     'default': dj_database_url.config(
-#         default=os.getenv('DATABASE_URL', 'postgresql://localhost/webwise_dev')
+#         default=os.getenv('DATABASE_URL', 'postgresql://localhost/Web Wise_dev')
 #     )
 # }
 

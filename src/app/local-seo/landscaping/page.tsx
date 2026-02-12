@@ -4,13 +4,13 @@ import BlogPostPage from '@/app/blog/[slug]/page'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'SEO Services for Landscapers - Grow Your Client Base',
-    description: 'We help landscaping and lawn care businesses generate year-round leads. Our seasonal SEO strategies keep your schedule full from spring cleanup to snow removal.',
+    title: 'SEO for Landscapers - Landscaping SEO Services',
+    description: 'Seasonal SEO that keeps landscaping companies booked year-round. Spring cleanup to snow removal. Google Maps rankings that generate leads.',
     keywords: ['landscaping seo services', 'lawn care marketing agency', 'landscaper seo', 'landscaping marketing'],
     alternates: { canonical: `${siteConfig.url}/local-seo/landscaping` },
     openGraph: {
-      title: 'SEO Services for Landscapers - Grow Your Client Base',
-      description: 'We help landscaping and lawn care businesses generate year-round leads.',
+      title: 'SEO for Landscapers - Landscaping SEO Services',
+      description: 'Seasonal SEO that keeps landscaping companies booked year-round.',
       url: `${siteConfig.url}/local-seo/landscaping`,
     },
   }

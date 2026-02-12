@@ -40,10 +40,10 @@ export default function BlogPage() {
           <div className="max-w-3xl">
             <span className="inline-block px-4 py-2 bg-white/10 text-white rounded-full text-sm mb-4">Blog</span>
             <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-              Insights & <span className="text-gradient">Resources</span>
+              SEO & Web Development Blog
             </h1>
             <p className="text-lg text-white/80">
-              Expert tips, strategies, and insights to help your business succeed online.
+              Actionable SEO tips, web development guides, and digital marketing strategies for local service businesses.
             </p>
           </div>
         </div>

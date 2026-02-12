@@ -11,8 +11,8 @@ export const pageSEO: Record<string, PageSEO> = {
   // HOMEPAGE
   // ============================================
   home: {
-    title: 'Web Development & SEO Services for Small Business | WebWise',
-    description: 'Professional web development, SEO, and digital marketing services for businesses in UK & USA. Custom websites, web applications, and local SEO. 340% avg traffic increase.',
+    title: 'Web Development & SEO Services for Small Business',
+    description: 'Custom websites, local SEO, and digital marketing for small businesses in the UK & USA. Next.js & Django development. 340% avg traffic increase. Free consultation.',
     keywords: ['web development services', 'SEO services', 'digital marketing agency', 'custom web applications', 'local SEO services', 'small business website'],
   },
 
@@ -20,20 +20,20 @@ export const pageSEO: Record<string, PageSEO> = {
   // MAIN SERVICE PAGES
   // ============================================
   'seo-services': {
-    title: 'SEO Services for Small Business - WebWise',
-    description: 'Data-driven SEO strategies for small businesses. Affordable SEO packages starting at $480/month. Transparent pricing, measurable results.',
+    title: 'SEO Services for Small Business - Packages from $480/mo',
+    description: 'Data-driven SEO for small businesses. Keyword research, on-page optimization, link building, monthly reporting. Packages from $480/month. Free audit.',
     keywords: ['seo services for small business', 'affordable seo services', 'small business seo services', 'professional seo services'],
   },
 
   'development': {
-    title: 'Web Development Services - Websites & Applications | WebWise',
-    description: 'Custom web development for businesses. Websites, web applications, and systems built with Next.js, Django, and modern technologies. From $1,500.',
+    title: 'Web Development for Small Business - Next.js & Django',
+    description: 'Custom websites and web applications built on Next.js and Django. 98+ PageSpeed scores. Starting at $1,500. UK & USA businesses.',
     keywords: ['contractor website design', 'small business website design', 'custom website development', 'nextjs website development'],
   },
 
   'digital-marketing': {
-    title: 'Digital Marketing for Small Business - WebWise',
-    description: 'Comprehensive digital marketing services for small businesses. PPC, content marketing, social media, and analytics to grow your business.',
+    title: 'Digital Marketing for Small Business - PPC, Content & Social',
+    description: 'PPC advertising, content marketing, social media, and analytics for small businesses. Data-driven campaigns that generate leads. Free strategy call.',
     keywords: ['small business digital marketing', 'online marketing services', 'digital marketing agency', 'internet marketing services'],
   },
 
@@ -41,26 +41,26 @@ export const pageSEO: Record<string, PageSEO> = {
   // SEO SUB-SERVICES
   // ============================================
   'local-seo': {
-    title: 'Local SEO Services Near Me - Rank #1 in Google Maps - WebWise',
-    description: 'Local SEO services that get small businesses into the Google 3-pack. Serving USA & UK contractors, plumbers, roofers. 380% avg traffic increase. Free audit.',
+    title: 'Local SEO Services - Google Maps & 3-Pack Rankings',
+    description: 'Local SEO that gets contractors into the Google 3-pack. GBP optimization, local citations, review strategy. 380% avg traffic increase. Free audit.',
     keywords: ['local seo services near me', 'local seo packages', 'best local seo services', 'local seo services for small business'],
   },
 
   'technical-seo': {
-    title: 'Technical SEO Audit Services - WebWise',
-    description: 'Technical SEO audit and optimization services. Site speed, crawlability, indexing, and Core Web Vitals improvements for better rankings.',
+    title: 'Technical SEO Audit Services - Site Speed & Indexing Fixes',
+    description: 'We find and fix the technical issues killing your rankings. Crawlability, Core Web Vitals, indexing errors. Audits start at $480. Free initial check.',
     keywords: ['technical seo audit services', 'technical seo services', 'seo site audit', 'website technical optimization'],
   },
 
   'ecommerce-seo': {
-    title: 'E-commerce SEO Services - Online Store SEO - WebWise',
-    description: 'E-commerce SEO services for online stores. Custom e-commerce platform optimization, product page SEO, and category structure optimization.',
+    title: 'E-commerce SEO Services - Product & Category Optimization',
+    description: 'SEO for online stores that drives sales, not just traffic. Product page optimization, category structure, schema markup. Free store audit.',
     keywords: ['ecommerce seo services', 'online store seo', 'product page seo', 'ecommerce optimization'],
   },
 
   'international-seo': {
-    title: 'International SEO Services - Multilingual SEO - WebWise',
-    description: 'International SEO services for businesses targeting multiple countries and languages. Hreflang implementation, multilingual content strategy.',
+    title: 'International SEO Services - Multi-Language & Multi-Country',
+    description: 'Reach customers in any country and language. Hreflang implementation, localized keyword research, multilingual content strategy. Free market analysis.',
     keywords: ['international seo services', 'multilingual seo services', 'global seo strategy', 'multi-country seo'],
   },
 
@@ -68,20 +68,20 @@ export const pageSEO: Record<string, PageSEO> = {
   // WEB DEVELOPMENT SUB-SERVICES
   // ============================================
   'development/website-design': {
-    title: 'Professional Website Design & Development - WebWise',
-    description: 'Professional website design and development services. Custom, responsive websites that convert visitors into customers. Mobile-first approach.',
+    title: 'Website Design for Small Business - Custom & Responsive',
+    description: 'Custom, mobile-first website design that converts visitors into customers. 94% of first impressions are design-related. Starting at $1,500.',
     keywords: ['professional website design', 'custom website development', 'responsive web design', 'business website design'],
   },
 
   'development/applications': {
-    title: 'Web Application Development - Django & React Apps - WebWise',
-    description: 'Custom web application development using Django, Python, React, and Vue.js. Scalable business applications and SaaS platforms.',
+    title: 'Web Application Development - Django & React Apps',
+    description: 'Custom web applications built with Django, Python, React, and Vue.js. Business automation, CRM, booking systems. Scalable and secure.',
     keywords: ['web application development', 'django web applications', 'custom web app development', 'react application development'],
   },
 
   'development/ecommerce': {
-    title: 'Custom E-commerce Website Development - Online Store Design - WebWise',
-    description: 'Custom e-commerce website development for small businesses. Tailored online store solutions with seamless checkout, starting at $3,500.',
+    title: 'E-commerce Website Development - Custom Online Stores',
+    description: 'Custom e-commerce websites with seamless checkout, inventory management, and payment processing. Starting at $3,500. Free consultation.',
     keywords: ['custom ecommerce development', 'online store design', 'ecommerce website', 'custom online store'],
   },
 
@@ -89,26 +89,26 @@ export const pageSEO: Record<string, PageSEO> = {
   // DIGITAL MARKETING SUB-SERVICES
   // ============================================
   'digital-marketing/content': {
-    title: 'SEO Content Writing Services - Content Marketing - WebWise',
-    description: 'SEO content writing services that rank. Blog posts, service pages, and landing pages optimized for search engines and conversions.',
+    title: 'SEO Content Writing Services - Blog Posts & Service Pages',
+    description: 'SEO-optimized blog posts, service pages, and landing pages that rank and convert. Content marketing generates 3x more leads at 62% less cost.',
     keywords: ['seo content writing services', 'content marketing services', 'blog writing services', 'seo copywriting'],
   },
 
   'digital-marketing/ppc': {
-    title: 'PPC Advertising Services - Google Ads Management - WebWise',
-    description: 'PPC advertising and Google Ads management for small businesses. ROI-focused campaigns that generate leads and sales.',
+    title: 'PPC Advertising Services - Google Ads Management',
+    description: 'Google Ads and paid search management for small businesses. ROI-focused campaigns, conversion tracking, transparent reporting. Free ad account audit.',
     keywords: ['ppc advertising services', 'google ads management', 'pay per click advertising', 'ppc management services'],
   },
 
   'digital-marketing/social-management': {
-    title: 'Social Media Marketing Services - WebWise',
-    description: 'Social media marketing services for small businesses. Facebook, Instagram, LinkedIn marketing and paid social advertising.',
+    title: 'Social Media Marketing Services - Facebook, Instagram & LinkedIn',
+    description: 'Strategic social media management for small businesses. Content creation, community management, paid social advertising. Build your brand online.',
     keywords: ['social media marketing services', 'social media advertising', 'facebook marketing', 'instagram marketing'],
   },
 
   'digital-marketing/analytics': {
-    title: 'Website Analytics & SEO Reporting Services - WebWise',
-    description: 'Website analytics setup and SEO reporting services. Google Analytics, Search Console, and custom dashboards to track your growth.',
+    title: 'Website Analytics & SEO Reporting - Google Analytics Setup',
+    description: 'Google Analytics setup, conversion tracking, call tracking, and custom dashboards. Know exactly what is working and what is not. Free analytics audit.',
     keywords: ['website analytics services', 'seo reporting services', 'google analytics setup', 'marketing analytics'],
   },
 
@@ -116,8 +116,8 @@ export const pageSEO: Record<string, PageSEO> = {
   // BLOG
   // ============================================
   blog: {
-    title: 'SEO & Web Design Blog for Local Businesses - WebWise',
-    description: 'Expert SEO tips and strategies for plumbers, roofers, HVAC, electricians, and local service businesses. Learn how to rank higher on Google.',
+    title: 'SEO & Web Development Blog - Tips for Local Business',
+    description: 'Actionable SEO tips, web development guides, and digital marketing strategies for local service businesses. Plumbers, roofers, HVAC, electricians, and more.',
     keywords: ['local seo blog', 'seo tips for small business', 'contractor marketing tips', 'local business marketing blog'],
   },
 
@@ -126,43 +126,43 @@ export const pageSEO: Record<string, PageSEO> = {
   // ============================================
   'blog/seo-pricing': {
     title: 'How Much Does SEO Cost for a Small Business in 2026?',
-    description: 'A comprehensive breakdown of SEO pricing for plumbers, roofers, detailers, and local service businesses. Learn what to expect and how to budget for SEO.',
+    description: 'SEO pricing breakdown for local service businesses. Packages from $480-$1,100/month. What affects cost, what to expect, and how to budget.',
     keywords: ['seo pricing', 'seo cost small business', 'how much does seo cost', 'seo pricing packages'],
   },
 
   'blog/gbp-optimization': {
-    title: 'Google Business Profile Optimization: The Ultimate Guide',
-    description: 'Master your Google Business Profile and dominate the local map pack. Step-by-step guide for local service businesses.',
+    title: 'Google Business Profile Optimization - Complete 2026 Guide',
+    description: 'Step-by-step GBP optimization guide for local businesses. Categories, posts, photos, reviews, Q&A. Rank higher in Google Maps.',
     keywords: ['google business profile optimization', 'gbp optimization', 'google my business seo', 'google maps ranking'],
   },
 
   'blog/seo-timeline': {
-    title: 'How Long Does SEO Take to Work? Realistic Timeline for Local Businesses',
-    description: 'Set realistic expectations for your SEO investment. Learn the typical timeline for local businesses to see results.',
+    title: 'How Long Does SEO Take to Work? Realistic Timelines by Industry',
+    description: 'Realistic SEO timelines for local businesses. Initial results in 30-60 days, significant growth by month 3-6. What affects your timeline.',
     keywords: ['how long does seo take', 'seo timeline', 'seo results time', 'when does seo work'],
   },
 
   'blog/local-seo-uk-vs-usa': {
-    title: 'Local SEO in the UK vs USA: Key Differences You Need to Know',
-    description: 'Understanding the differences between local SEO strategies in the UK and USA. Optimize for your specific market.',
+    title: 'Local SEO in the UK vs USA - Key Differences You Need to Know',
+    description: 'Citation sources, review platforms, spelling conventions, and search behavior differences between UK and USA local SEO. Optimize for your market.',
     keywords: ['uk seo vs usa', 'local seo uk', 'international local seo', 'uk local seo strategy'],
   },
 
   'blog/google-maps-ranking-factors': {
-    title: 'Google Maps Ranking Factors: Complete Guide for Local Businesses',
-    description: 'Learn the key Google Maps ranking factors and how to optimize your local business for map pack visibility.',
+    title: 'Google Maps Ranking Factors - The 12 That Actually Matter in 2026',
+    description: 'The 12 Google Maps ranking factors that determine Map Pack visibility. GBP signals, reviews, citations, on-page SEO. Data-backed guide.',
     keywords: ['google maps ranking factors', 'local map pack', 'google maps seo', 'local search ranking'],
   },
 
   'blog/google-reviews-guide': {
-    title: 'Google Reviews Guide: How to Get More Reviews for Your Business',
-    description: 'Complete guide to getting more Google reviews. Learn proven strategies to generate authentic reviews that boost your local SEO.',
+    title: 'How to Get More Google Reviews for Your Business in 2026',
+    description: 'Proven strategies to generate authentic Google reviews. Automated request systems, direct links, response templates. Build a 4.8+ star average.',
     keywords: ['google reviews guide', 'get more google reviews', 'review generation', 'online reviews strategy'],
   },
 
   'blog/seo-vs-ppc': {
-    title: 'SEO vs PPC: Which Strategy Is Right for Your Business?',
-    description: 'Compare SEO and PPC advertising to determine the best marketing strategy for your local business. Pros, cons, and when to use each.',
+    title: 'SEO vs PPC - Which Should Your Business Invest In?',
+    description: 'SEO vs PPC comparison for local businesses. Cost per lead, timeline, ROI, and when to use each. Data-driven analysis to guide your budget.',
     keywords: ['seo vs ppc', 'seo or ppc', 'organic vs paid search', 'search marketing strategy'],
   },
 
@@ -170,26 +170,26 @@ export const pageSEO: Record<string, PageSEO> = {
   // STATIC PAGES
   // ============================================
   pricing: {
-    title: 'SEO & Web Design Pricing - Transparent Packages - WebWise',
-    description: 'Clear, transparent pricing for SEO and web design services. SEO packages from $480/month. Website development from $1,500. No hidden fees.',
+    title: 'SEO & Web Development Pricing - Packages from $480/mo',
+    description: 'SEO packages from $480/month. Web development from $1,500. No contracts, no hidden fees. See exactly what you get at each tier.',
     keywords: ['seo pricing', 'website design cost', 'seo packages pricing', 'web development pricing'],
   },
 
   about: {
-    title: 'About WebWise - Local SEO & Web Design Agency',
-    description: 'WebWise is a web design and SEO agency specializing in local businesses. Based in UK, serving USA & UK contractors, plumbers, and service businesses.',
-    keywords: ['web design agency', 'seo agency', 'local seo agency', 'about webwise'],
+    title: 'About Web Wise - SEO & Web Development Agency',
+    description: 'SEO and web development agency serving small businesses in the UK & USA. 50+ businesses helped. 340% average traffic increase. Meet the team.',
+    keywords: ['web design agency', 'seo agency', 'local seo agency', 'about Web Wise'],
   },
 
   contact: {
-    title: 'Contact WebWise - Free SEO Consultation',
-    description: 'Get a free SEO consultation and website quote. Contact WebWise to discuss your project and start growing your local business online.',
+    title: 'Contact Web Wise - Free SEO Consultation & Website Quote',
+    description: 'Get a free SEO audit and website quote. Tell us about your project and we will show you how to grow your local business online.',
     keywords: ['free seo consultation', 'website quote', 'contact seo agency', 'get seo quote'],
   },
 
   'case-studies': {
-    title: 'SEO Case Studies & Web Design Portfolio - WebWise',
-    description: 'View our portfolio of successful SEO campaigns and web design projects. Real results for contractors, plumbers, roofers, and service businesses.',
+    title: 'SEO Case Studies & Web Design Portfolio',
+    description: 'Real results for real businesses. See how we helped contractors and service businesses increase traffic by 290%+. View our full portfolio.',
     keywords: ['seo case studies', 'web design portfolio', 'seo portfolio', 'website design examples'],
   },
 }

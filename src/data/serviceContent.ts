@@ -118,8 +118,8 @@ export interface ServiceContent {
 
 export const seoServiceContent: ServiceContent = {
   hero: {
-    headline: 'SEO Services That Drive Real Business Growth',
-    subheadline: 'Data-Driven Search Engine Optimization for Small Businesses',
+    headline: 'SEO Services for Small Business',
+    subheadline: 'Data-Driven Search Engine Optimization That Delivers Results',
     valueProposition: 'Stop losing customers to competitors who rank higher. Our SEO services help local businesses dominate search results, attract qualified leads, and grow revenue predictably. With transparent reporting and proven strategies, we turn your website into your best salesperson.',
   },
   definition: {
@@ -300,7 +300,7 @@ export const seoServiceContent: ServiceContent = {
       answer: 'Not necessarily. We can optimize most existing websites. However, if your site has significant technical issues, poor mobile experience, or is built on an outdated platform, a redesign might provide better ROI. We\'ll assess this during our initial audit.',
     },
     {
-      question: 'What makes WebWise different from other SEO agencies?',
+      question: 'What makes Web Wise different from other SEO agencies?',
       answer: 'We specialize exclusively in local service businesses-plumbers, roofers, contractors. This focus means we understand your market, your customers, and what keywords actually drive revenue. We offer transparent pricing, clear 3-month roadmaps, and a track record of 300%+ traffic increases.',
     },
     {
@@ -321,8 +321,8 @@ export const seoServiceContent: ServiceContent = {
 
 export const localSeoContent: ServiceContent = {
   hero: {
-    headline: 'Local SEO Services That Put You on the Map',
-    subheadline: 'Dominate Google Maps and "Near Me" Searches',
+    headline: 'Local SEO Services for Small Business',
+    subheadline: 'Google Maps & 3-Pack Rankings for Local Businesses',
     valueProposition: 'When customers search for services in your area, your business should be the first thing they see. Our local SEO services optimize your Google Business Profile, build local citations, and implement strategies that put you in the coveted Map Pack-where 42% of local searchers click.',
   },
   definition: {
@@ -515,8 +515,8 @@ export const localSeoContent: ServiceContent = {
 
 export const technicalSeoContent: ServiceContent = {
   hero: {
-    headline: 'Technical SEO That Builds a Foundation for Growth',
-    subheadline: 'Fix What\'s Holding Your Rankings Back',
+    headline: 'Technical SEO Audit Services',
+    subheadline: 'Site Speed, Crawlability & Indexing Fixes',
     valueProposition: 'The best content in the world won\'t rank if Google can\'t properly crawl and index your website. Our technical SEO services identify and fix the hidden issues that sabotage your rankings-from site speed to mobile usability to crawl errors.',
   },
   definition: {
@@ -708,8 +708,8 @@ export const technicalSeoContent: ServiceContent = {
 
 export const ecommerceSeoContent: ServiceContent = {
   hero: {
-    headline: 'E-commerce SEO That Drives Sales, Not Just Traffic',
-    subheadline: 'Rank Your Products Where Buyers Are Searching',
+    headline: 'E-commerce SEO Services',
+    subheadline: 'Product & Category Page Optimization for Online Stores',
     valueProposition: 'In e-commerce, visibility equals revenue. Our e-commerce SEO services optimize your product pages, category structure, and technical foundation to capture high-intent shoppers searching for exactly what you sell-without paying for every click.',
   },
   definition: {
@@ -902,8 +902,8 @@ export const ecommerceSeoContent: ServiceContent = {
 
 export const internationalSeoContent: ServiceContent = {
   hero: {
-    headline: 'International SEO for Global Market Expansion',
-    subheadline: 'Reach Customers in Any Country, Any Language',
+    headline: 'International SEO Services',
+    subheadline: 'Multi-Language & Multi-Country Search Optimization',
     valueProposition: 'Expanding internationally? Your SEO strategy needs to evolve. Our international SEO services ensure your website reaches the right audience in each target market with proper hreflang implementation, localized content, and country-specific optimization.',
   },
   definition: {
@@ -1095,8 +1095,8 @@ export const internationalSeoContent: ServiceContent = {
 
 export const webDevelopmentContent: ServiceContent = {
   hero: {
-    headline: 'Websites That Convert Visitors Into Customers',
-    subheadline: 'Custom Web Development Built for Performance and Growth',
+    headline: 'Web Development Services for Small Business',
+    subheadline: 'Custom Websites Built on Next.js & Django',
     valueProposition: 'Your website should be your hardest-working employee-generating leads 24/7. We build fast, SEO-optimized websites using modern technology that loads in under 2 seconds, ranks well in search engines, and converts visitors into paying customers.',
   },
   definition: {
@@ -1288,8 +1288,8 @@ export const webDevelopmentContent: ServiceContent = {
 
 export const websiteDesignContent: ServiceContent = {
   hero: {
-    headline: 'Professional Website Design That Converts',
-    subheadline: 'Custom Designs Built for Your Business Goals',
+    headline: 'Website Design for Small Business',
+    subheadline: 'Custom, Responsive Designs That Convert Visitors',
     valueProposition: 'First impressions matter. 94% of first impressions are design-related, and users form opinions in just 0.05 seconds. We design websites that not only look stunning but are strategically crafted to convert visitors into customers.',
   },
   definition: {
@@ -1481,8 +1481,8 @@ export const websiteDesignContent: ServiceContent = {
 
 export const webApplicationsContent: ServiceContent = {
   hero: {
-    headline: 'Custom Web Applications Built for Your Business',
-    subheadline: 'Powerful Tools That Streamline Operations and Drive Growth',
+    headline: 'Web Application Development',
+    subheadline: 'Custom Django & React Apps for Your Business',
     valueProposition: 'Off-the-shelf software doesn\'t fit your unique business needs. We build custom web applications using Django, Python, React, and Vue.js that automate processes, improve efficiency, and give you a competitive edge no template can provide.',
   },
   definition: {
@@ -1675,8 +1675,8 @@ export const webApplicationsContent: ServiceContent = {
 
 export const ecommerceDevelopmentContent: ServiceContent = {
   hero: {
-    headline: 'E-commerce Websites That Turn Browsers Into Buyers',
-    subheadline: 'Online Stores Built for Conversions and Growth',
+    headline: 'E-commerce Website Development',
+    subheadline: 'Custom Online Stores With Seamless Checkout',
     valueProposition: 'Your online store should sell for you 24/7. We build e-commerce websites optimized for conversions, with seamless checkout experiences, mobile-first design, and the technical foundation to scale as you grow.',
   },
   definition: {
@@ -1868,8 +1868,8 @@ export const ecommerceDevelopmentContent: ServiceContent = {
 
 export const digitalMarketingContent: ServiceContent = {
   hero: {
-    headline: 'Digital Marketing That Drives Measurable Growth',
-    subheadline: 'Strategic Online Marketing for Small Businesses',
+    headline: 'Digital Marketing Services for Small Business',
+    subheadline: 'PPC, Content Marketing, Social Media & Analytics',
     valueProposition: 'Great products and services don\'t sell themselves. Our digital marketing services connect you with the right customers through SEO, content marketing, paid advertising, and social media-all driven by data and focused on ROI.',
   },
   definition: {
@@ -2061,8 +2061,8 @@ export const digitalMarketingContent: ServiceContent = {
 
 export const contentMarketingContent: ServiceContent = {
   hero: {
-    headline: 'Content Marketing That Attracts and Converts',
-    subheadline: 'SEO-Optimized Content That Builds Authority',
+    headline: 'SEO Content Writing Services',
+    subheadline: 'Blog Posts, Service Pages & Landing Pages That Rank',
     valueProposition: 'Content is the fuel that powers modern marketing. We create strategic, SEO-optimized content that attracts your ideal customers, establishes your expertise, and converts readers into leads-without feeling salesy.',
   },
   definition: {
@@ -2254,8 +2254,8 @@ export const contentMarketingContent: ServiceContent = {
 
 export const ppcAdvertisingContent: ServiceContent = {
   hero: {
-    headline: 'PPC Advertising That Delivers Real ROI',
-    subheadline: 'Data-Driven Paid Advertising Management',
+    headline: 'PPC Advertising Services',
+    subheadline: 'Google Ads Management for Small Business',
     valueProposition: 'Stop wasting money on ads that don\'t convert. Our PPC management focuses on what matters: generating quality leads at profitable costs. We optimize campaigns continuously to maximize your return on every ad dollar spent.',
   },
   definition: {
@@ -2447,8 +2447,8 @@ export const ppcAdvertisingContent: ServiceContent = {
 
 export const socialMediaContent: ServiceContent = {
   hero: {
-    headline: 'Social Media Marketing That Builds Your Brand',
-    subheadline: 'Strategic Social Presence for Business Growth',
+    headline: 'Social Media Marketing Services',
+    subheadline: 'Facebook, Instagram & LinkedIn for Small Business',
     valueProposition: 'Social media isn\'t just about likes-it\'s about building relationships that drive business results. We help you connect with your audience authentically, build brand awareness, and generate leads through strategic social media marketing.',
   },
   definition: {
@@ -2640,8 +2640,8 @@ export const socialMediaContent: ServiceContent = {
 
 export const analyticsContent: ServiceContent = {
   hero: {
-    headline: 'Analytics That Drive Smarter Decisions',
-    subheadline: 'Turn Data Into Actionable Insights',
+    headline: 'Website Analytics & SEO Reporting',
+    subheadline: 'Google Analytics Setup, Conversion Tracking & Dashboards',
     valueProposition: 'You can\'t improve what you don\'t measure. Our analytics services help you understand exactly how your website and marketing perform, where opportunities exist, and how to optimize for better results.',
   },
   definition: {
@@ -2854,7 +2854,7 @@ export const serviceContentMap: Record<string, ServiceContent> = {
 
 // Default author bio for all services
 const defaultAuthorBio: AuthorBio = {
-  teamName: 'WebWise Digital Team',
+  teamName: 'Web Wise Digital Team',
   credentials: [
     'Google Partner Certified',
     '5+ Years Experience',

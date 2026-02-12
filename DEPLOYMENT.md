@@ -29,8 +29,8 @@ npm install -g pm2
 
 ```bash
 cd /var/www
-git clone https://github.com/yourusername/webwise-next.git
-cd webwise-next
+git clone https://github.com/yourusername/Web Wise-next.git
+cd Web Wise-next
 ```
 
 ## 3. Environment Setup
@@ -89,7 +89,7 @@ npm run build
 ## 6. Start with PM2
 
 ```bash
-pm2 start npm --name "webwise" -- start
+pm2 start npm --name "Web Wise" -- start
 pm2 save
 pm2 startup
 ```
@@ -98,7 +98,7 @@ pm2 startup
 
 Create Nginx config:
 ```bash
-sudo nano /etc/nginx/sites-available/webwise
+sudo nano /etc/nginx/sites-available/Web Wise
 ```
 
 Add this configuration:
@@ -123,7 +123,7 @@ server {
 
 Enable the site:
 ```bash
-sudo ln -s /etc/nginx/sites-available/webwise /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/Web Wise /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl restart nginx
 ```
@@ -158,21 +158,21 @@ Your site has llms.txt files for AI discovery:
 
 When you push updates:
 ```bash
-cd /var/www/webwise-next
+cd /var/www/Web Wise-next
 git pull origin main
 npm install
 npm run build
-pm2 restart webwise
+pm2 restart Web Wise
 ```
 
 ## Useful PM2 Commands
 
 ```bash
 pm2 status          # Check status
-pm2 logs webwise    # View logs
-pm2 restart webwise # Restart app
-pm2 stop webwise    # Stop app
-pm2 delete webwise  # Remove from PM2
+pm2 logs Web Wise    # View logs
+pm2 restart Web Wise # Restart app
+pm2 stop Web Wise    # Stop app
+pm2 delete Web Wise  # Remove from PM2
 ```
 
 ## Firewall (if using UFW)

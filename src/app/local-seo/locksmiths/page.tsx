@@ -10,8 +10,8 @@ const pageUrl = `${siteConfig.url}/local-seo/locksmiths`
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'SEO for Locksmiths | Get More Emergency Lockout Calls',
-    description: 'Locksmith SEO services that put your business at the top of Google when customers are locked out. Dominate local search, Google Maps, and emergency keywords in your service area.',
+    title: 'SEO for Locksmiths - Locksmith SEO Services',
+    description: 'We get locksmith businesses to the top of Google when customers are locked out. Emergency lockout calls, 24/7 visibility. Free audit.',
     keywords: [
       'locksmith seo', 'seo for locksmiths', 'locksmith marketing',
       'locksmith google ranking', 'emergency locksmith seo',
@@ -20,8 +20,8 @@ export async function generateMetadata(): Promise<Metadata> {
     ],
     alternates: { canonical: pageUrl },
     openGraph: {
-      title: 'SEO for Locksmiths | Get More Emergency Lockout Calls',
-      description: 'Locksmith SEO services that put your business at the top of Google when customers are locked out.',
+      title: 'SEO for Locksmiths - Locksmith SEO Services',
+      description: 'We get locksmith businesses to the top of Google when customers are locked out. Emergency lockout calls, 24/7 visibility.',
       url: pageUrl,
     },
   }
@@ -97,7 +97,7 @@ export default function LocksmithSEOPage() {
               <KeyRound size={32} />
             </div>
             <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-              SEO for Locksmiths,Be the First Call When They&apos;re Locked Out
+              SEO Services for Locksmiths
             </h1>
             <p className="text-xl text-white/90 mb-4">
               Rank #1 for &ldquo;locksmith near me&rdquo; and emergency lockout searches in your city.

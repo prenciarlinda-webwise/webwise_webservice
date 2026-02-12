@@ -85,7 +85,7 @@ export function generateContactPageSchema() {
     "@type": "ContactPage",
     "@id": `${siteConfig.url}/contact/#contactpage`,
     name: "Contact Us",
-    description: "Get in touch with WebWise for web design, SEO, and digital marketing services.",
+    description: "Get in touch with Web Wise for web design, SEO, and digital marketing services.",
     url: `${siteConfig.url}/contact`,
     mainEntity: {
       "@type": "Organization",
@@ -102,8 +102,8 @@ export function generateAboutPageSchema() {
     "@context": "https://schema.org",
     "@type": "AboutPage",
     "@id": `${siteConfig.url}/about/#aboutpage`,
-    name: "About WebWise",
-    description: "Learn about WebWise - our mission, team, and commitment to delivering exceptional web design and SEO services.",
+    name: "About Web Wise",
+    description: "Learn about Web Wise - our mission, team, and commitment to delivering exceptional web design and SEO services.",
     url: `${siteConfig.url}/about`,
   }
 }

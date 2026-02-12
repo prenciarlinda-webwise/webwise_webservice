@@ -1,5 +1,5 @@
 """
-Base Django settings for the WebWise Dashboard API.
+Base Django settings for the Web Wise Dashboard API.
 """
 
 import os

@@ -4,13 +4,13 @@ import BlogPostPage from '@/app/blog/[slug]/page'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'SEO Services for Dumpster Rental Companies - More Rentals',
-    description: 'We help dumpster rental companies dominate local search and capture more rental inquiries. Our SEO strategies bring in contractors, homeowners, and commercial clients.',
+    title: 'SEO for Dumpster Rental - Dumpster Rental SEO Services',
+    description: 'We help dumpster rental companies capture more rental inquiries. Size-specific pages, city targeting, Google Maps visibility. Free audit.',
     keywords: ['dumpster rental seo services', 'waste management seo', 'roll off dumpster marketing', 'dumpster company seo'],
     alternates: { canonical: `${siteConfig.url}/local-seo/dumpster-rental` },
     openGraph: {
-      title: 'SEO Services for Dumpster Rental Companies - More Rentals',
-      description: 'We help dumpster rental companies dominate local search and capture more rental inquiries.',
+      title: 'SEO for Dumpster Rental - Dumpster Rental SEO Services',
+      description: 'We help dumpster rental companies capture more inquiries through Google.',
       url: `${siteConfig.url}/local-seo/dumpster-rental`,
     },
   }

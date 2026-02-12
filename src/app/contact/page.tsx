@@ -47,10 +47,10 @@ export default function ContactPage() {
           <div className="max-w-3xl">
             <span className="inline-block px-4 py-2 bg-white/10 text-white rounded-full text-sm mb-4">Contact Us</span>
             <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-              Let&apos;s Start a <span className="text-gradient">Conversation</span>
+              Contact Web Wise
             </h1>
             <p className="text-lg text-white/80">
-              Ready to transform your digital presence? Get in touch with our team for a free consultation.
+              Get a free SEO audit and website quote. Tell us about your project and we will show you how to grow.
             </p>
           </div>
         </div>

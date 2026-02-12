@@ -38,7 +38,7 @@ export default function DashboardSidebar() {
         {/* Logo */}
         <div className="flex items-center justify-between h-16 px-6 border-b border-border">
           <Link href="/dashboard" className="text-xl font-bold text-primary">
-            WebWise
+            Web Wise
           </Link>
           <NotificationBell isAdmin={false} />
         </div>

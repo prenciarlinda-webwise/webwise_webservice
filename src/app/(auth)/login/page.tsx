@@ -48,7 +48,7 @@ export default function LoginPage() {
         {/* Header */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-block mb-4">
-            <h1 className="text-2xl font-bold text-primary">WebWise</h1>
+            <h1 className="text-2xl font-bold text-primary">Web Wise</h1>
           </Link>
           <h2 className="text-xl font-semibold text-text-primary">
             Welcome back

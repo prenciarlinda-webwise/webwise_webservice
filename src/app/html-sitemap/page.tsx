@@ -5,7 +5,7 @@ import { blogPosts } from '@/data/blog'
 
 export const metadata = {
   title: 'Sitemap',
-  description: 'Browse all pages on WebWise - your complete guide to our website structure.',
+  description: 'Browse all pages on Web Wise - your complete guide to our website structure.',
 }
 
 // URL mappings for new flat URL structure

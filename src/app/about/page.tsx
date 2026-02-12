@@ -62,7 +62,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Who Is WebWise - 40-60 word answer for Featured Snippets */}
+      {/* Who Is Web Wise - 40-60 word answer for Featured Snippets */}
       <section className="py-24">
         <div className="container px-6">
           <div className="max-w-4xl mx-auto">
@@ -227,7 +227,7 @@ export default function AboutPage() {
         <div className="container px-6">
           <div className="max-w-4xl mx-auto">
             <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Our Team</span>
-            <h2 className="text-3xl font-bold text-primary mb-8">The People Behind WebWise</h2>
+            <h2 className="text-3xl font-bold text-primary mb-8">The People Behind Web Wise</h2>
             <div className="space-y-6">
               {Array.isArray(content.sections[5].content) && content.sections[5].content.map((paragraph, i) => (
                 <p key={i} className="text-text-secondary leading-relaxed">
@@ -261,7 +261,7 @@ export default function AboutPage() {
       <FAQSection
         faqs={aboutFaqs}
         title="About Us FAQ"
-        subtitle="Common questions about WebWise and our team."
+        subtitle="Common questions about Web Wise and our team."
         background="white"
       />
 

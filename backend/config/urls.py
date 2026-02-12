@@ -1,5 +1,5 @@
 """
-URL configuration for the WebWise Dashboard API.
+URL configuration for the Web Wise Dashboard API.
 """
 
 from django.contrib import admin

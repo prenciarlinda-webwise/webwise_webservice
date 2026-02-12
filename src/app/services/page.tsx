@@ -48,7 +48,7 @@ export const metadata = {
 }
 
 const pageSchema = generateCollectionPageSchema({
-  name: 'Our Services - WebWise',
+  name: 'Our Services - Web Wise',
   description: 'Comprehensive digital services including SEO, web development, and digital marketing.',
   url: `${siteConfig.url}/seo-services`,
 })

@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server'
 
-const llmsContent = `# WebWise - Professional Web Design & SEO Agency
+const llmsContent = `# Web Wise - Professional Web Design & SEO Agency
 
-> WebWise is a professional web design and SEO agency helping local businesses in the USA, UK, and Albania grow their online presence.
+> Web Wise is a professional web design and SEO agency helping local businesses in the USA, UK, and Albania grow their online presence.
 
 ## About Us
-WebWise specializes in creating high-converting websites and implementing effective SEO strategies for local service businesses including plumbers, roofers, HVAC contractors, auto detailers, electricians, landscapers, and more.
+Web Wise specializes in creating high-converting websites and implementing effective SEO strategies for local service businesses including plumbers, roofers, HVAC contractors, auto detailers, electricians, landscapers, and more.
 
 ## Services
 
@@ -49,7 +49,7 @@ WebWise specializes in creating high-converting websites and implementing effect
 - Home remodeling services
 - Dumpster rental companies
 
-## Why Choose WebWise
+## Why Choose Web Wise
 - Proven results with 300%+ traffic increases
 - Industry-specific expertise
 - Transparent reporting
