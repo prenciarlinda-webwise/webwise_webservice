@@ -466,6 +466,7 @@ export const localSeoContent: ServiceContent = {
       { name: 'Electricians', description: 'Target emergency services and growing EV charger keywords.', link: '/local-seo/electricians' },
       { name: 'Landscaping', description: 'Capture lawn care and landscaping searches by season.', link: '/local-seo/landscaping' },
       { name: 'Cleaning Services', description: 'Rank for residential and commercial cleaning keywords.', link: '/local-seo/cleaning' },
+      { name: 'Locksmiths', description: 'Dominate emergency lockout and lock service searches.', link: '/local-seo/locksmiths' },
     ],
   },
   faqs: [
