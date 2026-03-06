@@ -363,6 +363,73 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
         </section>
       )}
 
+      {/* Packages / Pricing Overview */}
+      {content?.packages && (
+        <section className="py-24">
+          <div className="container px-6">
+            <div className="text-center mb-16">
+              <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Pricing</span>
+              <h2 className="text-3xl font-bold text-primary mb-4">{content.packages.question}</h2>
+              <p className="text-text-secondary max-w-3xl mx-auto">{content.packages.intro}</p>
+            </div>
+
+            <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {content.packages.tiers.map((tier, i) => (
+                <div
+                  key={i}
+                  className={`bg-white rounded-2xl border-2 p-8 flex flex-col relative ${
+                    i === 1 ? 'border-accent shadow-xl lg:scale-105' : 'border-border'
+                  }`}
+                >
+                  {i === 1 && (
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-accent text-white text-sm font-medium rounded-full">
+                      Most Popular
+                    </div>
+                  )}
+                  <div className="mb-6">
+                    <h3 className="text-xl font-bold text-primary mb-1">{tier.name}</h3>
+                    <div className="text-2xl font-bold text-accent mb-2">{tier.price}</div>
+                    <p className="text-sm text-text-secondary">{tier.description}</p>
+                  </div>
+                  <ul className="space-y-2 mb-6 flex-grow">
+                    {tier.features.map((feature, j) => (
+                      <li key={j} className="flex items-start gap-2 text-sm text-text-secondary">
+                        <Check size={14} className="text-accent flex-shrink-0 mt-0.5" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="bg-bg-secondary rounded-lg p-3 mb-6 text-xs text-text-muted">
+                    <strong className="text-primary">Best for:</strong> {tier.bestFor}
+                  </div>
+                  <a
+                    href={getWhatsAppUrl(`Hi, I'm interested in your ${tier.name} plan.`)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`block w-full py-3 text-center font-semibold rounded-lg transition-colors ${
+                      i === 1
+                        ? 'bg-[#25D366] text-white hover:bg-[#128C7E]'
+                        : 'bg-bg-secondary text-primary hover:bg-bg-tertiary'
+                    }`}
+                  >
+                    Get Started
+                  </a>
+                </div>
+              ))}
+            </div>
+
+            {content.packages.pricingLink && (
+              <div className="text-center mt-10">
+                <Link href={content.packages.pricingLink} className="inline-flex items-center gap-2 text-accent font-medium hover:underline">
+                  View full pricing details
+                  <ArrowRight size={16} />
+                </Link>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* Industries We Serve */}
       {content?.industries && (
         <section className="py-24 bg-bg-secondary">

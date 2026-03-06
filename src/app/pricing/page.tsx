@@ -1,6 +1,5 @@
-import Link from 'next/link'
 import Script from 'next/script'
-import { ArrowRight, Check, Zap, Rocket, Crown, Monitor, HelpCircle, TrendingUp, Shield, Clock, DollarSign } from 'lucide-react'
+import { ArrowRight, Check, Zap, Rocket, Crown, Monitor, TrendingUp, Shield, Clock, DollarSign, Star, Gift, Palette, Globe, Users, Briefcase, MapPin, BarChart2 } from 'lucide-react'
 import { generateFAQSchema, generateWebPageSchema } from '@/lib/schemas'
 import { siteConfig, getWhatsAppUrl } from '@/data/site'
 import { pageSEO } from '@/data/seo'
@@ -30,79 +29,85 @@ export default function PricingPage() {
 
   const seoPlans = [
     {
-      name: 'Starter SEO',
+      name: 'Starter Local SEO',
       icon: Zap,
-      originalPrice: '$580',
-      price: '$480',
-      savings: 'Save $100/month',
+      originalPrice: '€580',
+      price: '€480',
+      savings: 'Save €100/month',
       period: '/month',
       description: 'Foundational Visibility',
       features: [
-        { text: 'Comprehensive SEO audit (Month 1)', included: true },
-        { text: 'Google Business Profile optimization', included: true },
-        { text: 'NAP consistency audit & fixes', included: true },
-        { text: 'Up to 10 target keywords', included: true },
-        { text: 'Monthly performance reporting', included: true },
-        { text: 'Local citation building', included: true },
+        { text: 'Full local SEO audit (20+ point checklist)', included: true },
+        { text: 'Google Business Profile optimized (all 14 sections)', included: true },
+        { text: 'NAP consistency check across 15 directories', included: true },
+        { text: '10 target keywords tracked monthly', included: true },
+        { text: '3 local citations built per month', included: true },
+        { text: '10 GBP posts per month', included: true },
+        { text: 'Monthly ranking + traffic report', included: true },
+        { text: 'Review monitoring (alerts on new reviews)', included: true },
         { text: 'Blog content creation', included: false },
-        { text: 'Backlink strategy', included: false },
+        { text: 'Competitor rank tracking', included: false },
       ],
       expectations: [
-        { month: 1, title: 'Audit & Foundation', desc: 'Complete SEO audit, GBP optimized, NAP errors fixed' },
-        { month: 2, title: 'Optimization', desc: 'On-page improvements, citation building begins' },
-        { month: 3, title: 'Growth', desc: 'Improved visibility, increased calls & clicks' },
+        { month: 1, title: 'Audit & Foundation', desc: 'Complete SEO audit, GBP fully optimized, NAP errors fixed across 15 directories' },
+        { month: 2, title: 'Citations & Content', desc: 'Citation building underway, 10 GBP posts published, keyword positions recorded' },
+        { month: 3, title: 'Visibility Growth', desc: 'Map Pack movement visible, increased calls & profile views' },
       ],
       cta: 'Get Started',
       popular: false,
     },
     {
-      name: 'Medium SEO',
+      name: 'Medium Local SEO',
       icon: Rocket,
-      originalPrice: '$980',
-      price: '$780',
-      savings: 'Save $200/month',
+      originalPrice: '€980',
+      price: '€780',
+      savings: 'Save €200/month',
       period: '/month',
       description: 'Competitive Climbing',
       features: [
         { text: 'Everything in Starter', included: true },
-        { text: 'Comprehensive SEO audit (Month 1)', included: true },
-        { text: 'Up to 25 target keywords', included: true },
-        { text: 'Bi-weekly reporting', included: true },
+        { text: '25 target keywords tracked weekly', included: true },
+        { text: '5 local citations + 1 backlink per month', included: true },
+        { text: '2 blog posts/month (800+ words, fully optimized)', included: true },
+        { text: 'On-page SEO for all service & location pages', included: true },
+        { text: 'Competitor rank tracking (3 competitors)', included: true },
+        { text: '15 GBP posts per month', included: true },
+        { text: 'Bi-weekly ranking & traffic reports', included: true },
+        { text: 'Review response management', included: true },
         { text: 'Content gap analysis', included: true },
-        { text: '2 blog posts per month', included: true },
-        { text: 'On-page SEO optimization', included: true },
-        { text: 'Competitor tracking', included: true },
       ],
       expectations: [
-        { month: 1, title: 'Audit & Analysis', desc: 'Complete SEO audit, content gaps identified, first blog posts published' },
-        { month: 2, title: 'Optimization', desc: 'On-page improvements, content strategy in action' },
-        { month: 3, title: 'Results', desc: 'Measurable traffic increase, improved search visibility' },
+        { month: 1, title: 'Audit & Analysis', desc: 'Deep audit, content gaps identified, competitor benchmarks set, first 2 blog posts live' },
+        { month: 2, title: 'Optimization', desc: 'On-page improvements live, citation building active, 25 keywords tracking weekly movement' },
+        { month: 3, title: 'Measurable Results', desc: 'Traffic increase visible in Search Console, improved Map Pack positions, leads rising' },
       ],
       cta: 'Get Started',
       popular: true,
     },
     {
-      name: 'Premium SEO',
+      name: 'Premium Local SEO',
       icon: Crown,
-      originalPrice: '$1,500',
-      price: '$1,100',
-      savings: 'Save $400/month',
+      originalPrice: '€1,500',
+      price: '€1,100',
+      savings: 'Save €400/month',
       period: '/month',
       description: 'Market Authority',
       features: [
         { text: 'Everything in Medium', included: true },
-        { text: 'Comprehensive SEO audit (Month 1)', included: true },
-        { text: 'Unlimited target keywords', included: true },
-        { text: 'Weekly reporting', included: true },
-        { text: 'Deep competitor analysis', included: true },
-        { text: '4 blog posts per month', included: true },
-        { text: 'Aggressive backlink strategy', included: true },
+        { text: 'Unlimited keywords tracked weekly', included: true },
+        { text: '10+ citations & backlinks per month', included: true },
+        { text: '4 blog posts/month (1,000+ words, schema-optimized)', included: true },
+        { text: 'Deep competitor analysis (5 competitors)', included: true },
+        { text: '20 GBP posts per month', included: true },
+        { text: 'Weekly reporting with call tracking metrics', included: true },
+        { text: 'Proactive review generation system', included: true },
+        { text: 'Aggressive backlink outreach campaign', included: true },
         { text: 'Dedicated account manager', included: true },
       ],
       expectations: [
-        { month: 1, title: 'Audit & Strategy', desc: 'Complete SEO audit, deep competitor analysis, backlink campaign begins' },
-        { month: 2, title: 'Execution', desc: 'Full strategy implementation, authority building' },
-        { month: 3, title: 'Authority', desc: 'Established presence, growing organic traffic and leads' },
+        { month: 1, title: 'Audit & Strategy', desc: 'Comprehensive audit, 5-competitor deep dive, backlink campaign launched, review system activated' },
+        { month: 2, title: 'Full Execution', desc: 'All strategies running: content, links, citations, 20 GBP posts, competitor gap closures' },
+        { month: 3, title: 'Authority & Leads', desc: 'Established Map Pack presence, organic traffic growing, qualified lead volume measurably higher' },
       ],
       cta: 'Get Started',
       popular: false,
@@ -112,8 +117,8 @@ export default function PricingPage() {
   const webPlan = {
     name: 'Website Development',
     icon: Monitor,
-    originalPrice: '$2,000',
-    price: '$1,500',
+    originalPrice: '€2,000',
+    price: '€1,500',
     period: 'one-time',
     description: 'The Conversion Engine',
     includes: ['Perfect SEO Setup', 'Google My Business Setup'],
@@ -122,7 +127,7 @@ export default function PricingPage() {
       'Next.js for blazing speed',
       'SEO-optimized structure',
       'Contact form integration',
-      'Google Analytics setup ($100 value)',
+      'Google Analytics setup (€100 value)',
       'Mobile-first approach',
       '30-day support included',
     ],
@@ -132,6 +137,44 @@ export default function PricingPage() {
       { month: 3, title: 'Insights', desc: 'Clear baseline data on visitor-to-lead conversion rate' },
     ],
   }
+
+  const launchPackageCategories = [
+    {
+      icon: Palette,
+      label: 'Brand Identity',
+      items: ['Professional logo design', 'Brand colors & typography kit'],
+    },
+    {
+      icon: Globe,
+      label: 'Website',
+      items: [
+        'Fully SEO-optimized website',
+        '2 location pages',
+        '3 service pages',
+        '3 blog posts',
+        'Mobile-first, fast-loading design',
+        'Contact form + click-to-call',
+      ],
+    },
+    {
+      icon: MapPin,
+      label: 'Google Setup',
+      items: [
+        'Google Business Profile setup & full optimization',
+        'Google Ads account setup & first campaign',
+      ],
+    },
+    {
+      icon: Users,
+      label: 'Social Media',
+      items: ['Instagram Business Profile setup', 'Facebook Business Page setup'],
+    },
+    {
+      icon: Briefcase,
+      label: 'Lead Platforms',
+      items: ['Thumbtack business profile setup', 'Angi (formerly Angie\'s List) profile setup'],
+    },
+  ]
 
   return (
     <>
@@ -163,6 +206,127 @@ export default function PricingPage() {
         </div>
       </section>
 
+      {/* NEW LOCAL BUSINESS LAUNCH PACKAGE */}
+      <section className="py-24 bg-gradient-to-br from-[#fff4e8] via-[#fde8ce] to-[#fbd3a5] relative overflow-hidden">
+        {/* Decorative circles */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 rounded-full translate-y-1/2 -translate-x-1/3 pointer-events-none" />
+        <div className="container px-6 relative">
+          <div className="text-center mb-12">
+            <span className="inline-block px-4 py-2 bg-accent text-white font-semibold rounded-full text-sm mb-4 tracking-wide uppercase">
+              New Local Business
+            </span>
+            <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">
+              Complete Business Launch Package
+            </h2>
+            <p className="text-text-secondary max-w-2xl mx-auto">
+              Everything a new local business needs to go from zero to fully visible online. Logo, website, Google, social media, and lead platforms, all done for you in <strong>2 weeks</strong>.
+            </p>
+          </div>
+
+          <div className="max-w-5xl mx-auto">
+            <div className="bg-white rounded-3xl overflow-hidden shadow-2xl">
+
+              {/* Top banner */}
+              <div className="bg-gradient-to-r from-accent to-[#d96a10] px-8 py-4 flex flex-wrap items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <Star className="text-white" size={22} fill="white" />
+                  <span className="text-white font-bold text-lg">Launch Special: Everything Included at One Fixed Price</span>
+                </div>
+                <span className="bg-white text-accent font-bold px-4 py-1 rounded-full text-sm">Limited Availability</span>
+              </div>
+
+              <div className="p-8 lg:p-12">
+                <div className="grid lg:grid-cols-5 gap-10">
+
+                  {/* Left: deliverables grid */}
+                  <div className="lg:col-span-3 space-y-6">
+                    <h3 className="text-xl font-bold text-primary mb-2">What&apos;s Included</h3>
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      {launchPackageCategories.map((cat, i) => (
+                        <div key={i} className="bg-bg-secondary rounded-2xl p-5">
+                          <div className="flex items-center gap-2 mb-3">
+                            <div className="w-8 h-8 flex items-center justify-center bg-accent/10 rounded-lg text-accent">
+                              <cat.icon size={18} />
+                            </div>
+                            <span className="font-semibold text-primary text-sm">{cat.label}</span>
+                          </div>
+                          <ul className="space-y-1.5">
+                            {cat.items.map((item, j) => (
+                              <li key={j} className="flex items-start gap-2 text-sm text-text-secondary">
+                                <Check size={14} className="text-accent flex-shrink-0 mt-0.5" />
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Right: price + bonus */}
+                  <div className="lg:col-span-2 flex flex-col justify-between gap-6">
+
+                    {/* Price block */}
+                    <div className="bg-gradient-to-br from-primary to-[#1a1c3a] rounded-2xl p-8 text-center text-white">
+                      <p className="text-white/60 text-sm uppercase tracking-wider mb-1">One-Time Investment</p>
+                      <div className="text-6xl font-bold text-white mb-1">€700</div>
+                      <p className="text-white/60 text-sm mb-3">No monthly fees. No hidden costs.</p>
+                      <div className="inline-flex items-center gap-1.5 bg-accent/20 border border-accent/40 rounded-full px-3 py-1 text-accent text-xs font-semibold mb-6">
+                        <Clock size={12} />
+                        Everything delivered within 2 weeks
+                      </div>
+                      <ul className="text-left space-y-2 mb-8">
+                        {[
+                          'Logo + Branding',
+                          'SEO-Optimized Website',
+                          'GMB Setup & Optimization',
+                          'Google Ads Setup',
+                          'Instagram + Facebook',
+                          'Thumbtack + Angi Profiles',
+                          '2 Locations + 3 Services + 3 Blogs',
+                        ].map((item, i) => (
+                          <li key={i} className="flex items-center gap-2 text-sm text-white/80">
+                            <Check size={14} className="text-accent flex-shrink-0" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                      <a
+                        href={getWhatsAppUrl("Hi, I'm interested in the New Local Business Launch Package at €700.")}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full py-4 text-center font-bold rounded-xl bg-accent text-white hover:bg-[#d96a10] transition-colors text-lg"
+                      >
+                        Get Started Today
+                      </a>
+                    </div>
+
+                    {/* 3-Month Offer */}
+                    <div className="border-2 border-accent/40 rounded-2xl p-6 bg-accent/5">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Gift size={20} className="text-accent" />
+                        <span className="font-bold text-primary">Exclusive 3-Month Offer</span>
+                        <span className="bg-accent/10 text-accent text-xs font-semibold px-2 py-0.5 rounded-full ml-auto border border-accent/30">Optional Add-On</span>
+                      </div>
+                      <p className="text-sm text-text-secondary leading-relaxed">
+                        You can choose to add our <strong>Premium SEO package at the Medium SEO price</strong>, full premium service for <strong>€780/month</strong> instead of €1,100.
+                      </p>
+                      <div className="mt-4 flex items-center justify-between text-sm">
+                        <span className="text-text-muted line-through">Premium SEO: €1,100/mo</span>
+                        <span className="text-accent font-bold">Available at: €780/mo</span>
+                      </div>
+                      <p className="text-xs text-text-muted mt-3 italic">Available exclusively to Launch Package clients after month 3.</p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* How Much Does SEO Cost - 40-60 word answer for Featured Snippets */}
       <section className="py-24">
         <div className="container px-6">
@@ -184,13 +348,13 @@ export default function PricingPage() {
       <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">SEO Services</span>
-            <h2 className="text-3xl font-bold text-primary mb-4">Monthly SEO Plans</h2>
+            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Monthly SEO Plans</span>
+            <h2 className="text-3xl font-bold text-primary mb-4">Local SEO Packages</h2>
             <p className="text-text-secondary max-w-2xl mx-auto mb-4">
-              Each plan includes a comprehensive SEO audit in the first month and a clear 3-month roadmap.
+              Each plan includes a comprehensive local SEO audit in the first month with a clear 3-month roadmap of measurable milestones.
             </p>
             <p className="text-sm text-text-muted max-w-3xl mx-auto italic">
-              Note: While we deliver top-tier SEO work, actual ranking results depend on factors including market competition, current website status, domain authority, and Google algorithm updates. We focus on sustainable, white-hat strategies that build long-term success.
+              Note: Actual ranking results depend on market competition, current website status, domain authority, and Google algorithm updates. We focus on transparent, measurable, white-hat strategies that build long-term success.
             </p>
           </div>
 
@@ -232,9 +396,9 @@ export default function PricingPage() {
                 {/* Features */}
                 <ul className="space-y-3 mb-6 flex-grow">
                   {plan.features.map((feature, j) => (
-                    <li key={j} className="flex items-center gap-3">
-                      <Check size={18} className={feature.included ? 'text-accent' : 'text-gray-300'} />
-                      <span className={feature.included ? 'text-text-secondary' : 'text-text-muted line-through'}>
+                    <li key={j} className="flex items-start gap-3">
+                      <Check size={16} className={`flex-shrink-0 mt-0.5 ${feature.included ? 'text-accent' : 'text-gray-300'}`} />
+                      <span className={`text-sm ${feature.included ? 'text-text-secondary' : 'text-text-muted line-through'}`}>
                         {feature.text}
                       </span>
                     </li>
@@ -243,7 +407,10 @@ export default function PricingPage() {
 
                 {/* 3-Month Expectations */}
                 <div className="bg-bg-secondary rounded-xl p-4 mb-6">
-                  <h4 className="text-sm font-semibold text-primary mb-3">3-Month Roadmap</h4>
+                  <h4 className="text-sm font-semibold text-primary mb-3 flex items-center gap-2">
+                    <BarChart2 size={14} className="text-accent" />
+                    3-Month Measurable Roadmap
+                  </h4>
                   <div className="space-y-3">
                     {plan.expectations.map((exp, j) => (
                       <div key={j} className="flex gap-3">
@@ -260,7 +427,7 @@ export default function PricingPage() {
                 </div>
 
                 <a
-                  href={getWhatsAppUrl(`Hi, I'm interested in your ${plan.name} SEO plan.`)}
+                  href={getWhatsAppUrl(`Hi, I'm interested in your ${plan.name} plan.`)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`block w-full py-3 text-center font-semibold rounded-lg transition-colors ${
@@ -283,7 +450,6 @@ export default function PricingPage() {
           <div className="max-w-4xl mx-auto">
             <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Web Development</span>
             <h2 className="text-3xl font-bold text-primary mb-6">How Much Does a Business Website Cost?</h2>
-            {/* Direct answer - optimized for featured snippets */}
             {Array.isArray(content.sections[0].content) && content.sections[0].content.map((paragraph, i) => (
               <p key={i} className={`${i === 0 ? 'text-lg' : ''} text-text-secondary mb-6 leading-relaxed`}>
                 {paragraph}
@@ -326,7 +492,7 @@ export default function PricingPage() {
                       <span className="text-text-muted">{webPlan.period}</span>
                     </div>
                     <div className="inline-block mt-2 px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded">
-                      Save $600
+                      Save €500
                     </div>
                   </div>
 

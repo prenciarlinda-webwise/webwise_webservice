@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import Script from 'next/script'
-import { ArrowLeft, ArrowRight, Calendar, User, Clock, Share2, HelpCircle, Award } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Calendar, User, Clock, Share2, HelpCircle, Award, Check, Rocket } from 'lucide-react'
 import { blogPosts, getPostBySlug, getRelatedPosts, getBlogPostUrl } from '@/data/blog'
 import { siteConfig, getWhatsAppUrl } from '@/data/site'
 
@@ -427,6 +427,50 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             {/* Sidebar */}
             <aside className="lg:col-span-1">
               <div className="sticky top-24 space-y-8">
+
+                {/* New Local Business Launch Package */}
+                <div className="rounded-2xl overflow-hidden border-2 border-accent/30 bg-gradient-to-br from-[#fff4e8] to-[#fde8ce]">
+                  <div className="bg-gradient-to-r from-accent to-[#d96a10] px-4 py-2.5 flex items-center gap-2">
+                    <Rocket size={16} className="text-white flex-shrink-0" />
+                    <span className="text-white font-bold text-sm">New Local Business?</span>
+                  </div>
+                  <div className="p-5">
+                    <div className="flex items-baseline gap-1 mb-1">
+                      <span className="text-3xl font-bold text-primary">€700</span>
+                      <span className="text-text-muted text-sm">one-time</span>
+                    </div>
+                    <p className="text-xs text-text-secondary mb-2 font-medium">Complete Business Launch Package</p>
+                    <p className="text-xs text-accent font-semibold mb-4">Delivered within 2 weeks</p>
+                    <ul className="space-y-1.5 mb-4">
+                      {[
+                        'Logo + Branding',
+                        'SEO-Optimized Website',
+                        'Google Business Profile',
+                        'Google Ads Setup',
+                        'Instagram + Facebook',
+                        'Thumbtack + Angi Profiles',
+                        '2 locations, 3 services, 3 blogs',
+                      ].map((item) => (
+                        <li key={item} className="flex items-center gap-2 text-xs text-text-secondary">
+                          <Check size={12} className="text-accent flex-shrink-0" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="bg-accent/10 border border-accent/20 rounded-lg px-3 py-2 mb-4 text-xs text-text-secondary">
+                      <strong className="text-primary">3-Month Offer:</strong> Unlock Premium SEO at £780/mo after month 3.
+                    </div>
+                    <a
+                      href={getWhatsAppUrl("Hi, I'm interested in the New Local Business Launch Package at €700.")}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block w-full py-2.5 bg-accent text-white text-center font-semibold rounded-lg hover:bg-[#d96a10] transition-colors text-sm"
+                    >
+                      Get Started Today
+                    </a>
+                  </div>
+                </div>
+
                 {/* CTA */}
                 <div className="bg-primary rounded-2xl p-6 text-white">
                   <h3 className="font-bold mb-2">Need Help With SEO?</h3>
