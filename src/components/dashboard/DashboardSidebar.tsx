@@ -1,89 +1,90 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
+import { useAuth } from '@/context/AuthContext'
+import { siteConfig } from '@/data/site'
 import {
-  LayoutDashboard,
-  FileText,
-  CreditCard,
-  User,
-  Package,
-  LogOut,
-  ListTodo,
+  LayoutDashboard, Users, FolderOpen, CreditCard, FileText,
+  UserCog, ClipboardList, Building2, Briefcase, Receipt, LogOut,
+  CalendarDays, Bell
 } from 'lucide-react'
-import { useAuth } from '@/hooks/useAuth'
-import NotificationBell from './NotificationBell'
 
-const navItems = [
-  { href: '/dashboard', label: 'Overview', icon: LayoutDashboard },
-  { href: '/dashboard/tasks', label: 'Tasks', icon: ListTodo },
-  { href: '/dashboard/reports', label: 'Reports', icon: FileText },
-  { href: '/dashboard/payments', label: 'Payments', icon: CreditCard },
-  { href: '/dashboard/profile', label: 'Profile', icon: User },
-  { href: '/dashboard/plan', label: 'My Plan', icon: Package },
+interface NavItem {
+  label: string
+  href: string
+  icon: React.ElementType
+  roles: string[]
+}
+
+const navItems: NavItem[] = [
+  { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard, roles: ['admin', 'employee', 'client'] },
+  // Admin
+  { label: 'Clients', href: '/dashboard/clients', icon: Users, roles: ['admin', 'employee'] },
+  { label: 'Projects', href: '/dashboard/projects', icon: FolderOpen, roles: ['admin', 'employee'] },
+  { label: 'Payments', href: '/dashboard/payments', icon: CreditCard, roles: ['admin'] },
+  { label: 'Employees', href: '/dashboard/employees', icon: UserCog, roles: ['admin'] },
+  { label: 'Reports', href: '/dashboard/reports', icon: FileText, roles: ['admin'] },
+  { label: 'Notifications', href: '/dashboard/notifications', icon: Bell, roles: ['admin', 'employee'] },
+  // Employee
+  { label: 'My Deliverables', href: '/dashboard/tasks', icon: ClipboardList, roles: ['employee'] },
+  // Client
+  { label: 'My Profile', href: '/dashboard/profile', icon: Building2, roles: ['client'] },
+  { label: 'My Projects', href: '/dashboard/my-projects', icon: FolderOpen, roles: ['client'] },
+  { label: 'Progress', href: '/dashboard/progress', icon: CalendarDays, roles: ['client'] },
+  { label: 'My Payments', href: '/dashboard/my-payments', icon: Receipt, roles: ['client'] },
+  { label: 'My Reports', href: '/dashboard/my-reports', icon: Briefcase, roles: ['client'] },
 ]
 
 export default function DashboardSidebar() {
+  const { user, logout } = useAuth()
   const pathname = usePathname()
-  const { logout, user } = useAuth()
 
-  const handleLogout = async () => {
-    await logout()
-    window.location.href = '/login'
-  }
+  if (!user) return null
+
+  const filteredNav = navItems.filter(item => item.roles.includes(user.role))
 
   return (
-    <aside className="fixed left-0 top-0 z-40 h-screen w-64 bg-white border-r border-border">
-      <div className="flex flex-col h-full">
-        {/* Logo */}
-        <div className="flex items-center justify-between h-16 px-6 border-b border-border">
-          <Link href="/dashboard" className="text-xl font-bold text-primary">
-            Web Wise
-          </Link>
-          <NotificationBell isAdmin={false} />
-        </div>
+    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-primary text-white flex flex-col">
+      <div className="p-6 border-b border-white/10">
+        <Link href="/dashboard">
+          <Image src={siteConfig.logo} alt={siteConfig.name} width={130} height={35} className="h-8 w-auto brightness-0 invert" />
+        </Link>
+      </div>
 
-        {/* Navigation */}
-        <nav className="flex-1 overflow-y-auto py-4 px-3">
-          <ul className="space-y-1">
-            {navItems.map((item) => {
-              const isActive = pathname === item.href
-              const Icon = item.icon
-              return (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                      isActive
-                        ? 'bg-accent text-white'
-                        : 'text-text-secondary hover:bg-bg-secondary hover:text-text-primary'
-                    }`}
-                  >
-                    <Icon className="w-5 h-5" />
-                    {item.label}
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
-        </nav>
+      <nav className="flex-1 py-4 overflow-y-auto">
+        {filteredNav.map(item => {
+          const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname?.startsWith(item.href))
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`flex items-center gap-3 px-6 py-3 text-sm font-medium transition-colors ${
+                isActive
+                  ? 'bg-white/15 text-white border-r-3 border-accent'
+                  : 'text-white/70 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <item.icon size={18} />
+              {item.label}
+            </Link>
+          )
+        })}
+      </nav>
 
-        {/* User info & Logout */}
-        <div className="p-4 border-t border-border">
-          <div className="mb-3 px-3">
-            <p className="text-sm font-medium text-text-primary truncate">
-              {user?.full_name || user?.email}
-            </p>
-            <p className="text-xs text-text-muted truncate">{user?.email}</p>
-          </div>
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium text-text-secondary hover:bg-bg-secondary hover:text-text-primary transition-colors"
-          >
-            <LogOut className="w-5 h-5" />
-            Log Out
-          </button>
+      <div className="p-4 border-t border-white/10">
+        <div className="px-2 mb-3">
+          <p className="text-sm font-medium truncate">{user.first_name} {user.last_name}</p>
+          <p className="text-xs text-white/50 capitalize">{user.role}</p>
         </div>
+        <button
+          onClick={logout}
+          className="flex items-center gap-3 w-full px-2 py-2 text-sm text-white/70 hover:text-white transition-colors rounded-lg hover:bg-white/5"
+        >
+          <LogOut size={18} />
+          Sign Out
+        </button>
       </div>
     </aside>
   )

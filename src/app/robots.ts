@@ -9,9 +9,8 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: '*',
         allow: '/',
         disallow: [
-          // API and admin
+          // API routes
           '/api/',
-          '/admin/',
 
           // Old WordPress patterns - block crawling
           '/feed/',

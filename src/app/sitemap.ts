@@ -29,7 +29,7 @@ const REDIRECT_PATHS = ['/services', '/portfolio']
 
 /**
  * Auto-discovers all page.tsx files under src/app/ and converts them to URL paths.
- * Skips route groups (admin, auth, dashboard), dynamic [slug] routes, and old redirect stubs.
+ * Skips route groups, dynamic [slug] routes, and old redirect stubs.
  * Any new page.tsx added to the app directory is automatically included.
  */
 function discoverPages(): string[] {

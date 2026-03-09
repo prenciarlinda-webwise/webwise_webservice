@@ -1,231 +1,151 @@
 'use client'
 
-import { useEffect, useState, FormEvent } from 'react'
-import { User, Building, Globe, MapPin, Save } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { api } from '@/lib/api'
-import type { ClientProfile } from '@/lib/types'
-import Input from '@/components/ui/Input'
-import Button from '@/components/ui/Button'
+import PageHeader from '@/components/dashboard/PageHeader'
 
-export default function ClientProfilePage() {
+interface ClientProfile {
+  id: number
+  business_name: string
+  business_phone: string
+  business_email: string
+  services: string[]
+  products: string[]
+  price_per_service: Record<string, number>
+  service_locations: string[]
+  social_links: Record<string, string>
+}
+
+export default function ProfilePage() {
   const [profile, setProfile] = useState<ClientProfile | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [isSaving, setIsSaving] = useState(false)
-  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
-  const [formData, setFormData] = useState({
-    first_name: '',
-    last_name: '',
-    phone: '',
-    company_name: '',
-    website_url: '',
-    industry: '',
-    address: '',
-    city: '',
-    state: '',
-    country: '',
-    postal_code: '',
-  })
+  const [saving, setSaving] = useState(false)
+  const [saveStatus, setSaveStatus] = useState<'idle' | 'saved' | 'error'>('idle')
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const data = await api.getClientProfile()
-        setProfile(data)
-        setFormData({
-          first_name: data.user.first_name,
-          last_name: data.user.last_name,
-          phone: data.user.phone,
-          company_name: data.company_name,
-          website_url: data.website_url,
-          industry: data.industry,
-          address: data.address,
-          city: data.city,
-          state: data.state,
-          country: data.country,
-          postal_code: data.postal_code,
-        })
-      } catch (error) {
-        console.error('Failed to fetch profile:', error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    fetchProfile()
+    api.get<ClientProfile>('/clients/me/').then(setProfile)
   }, [])
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault()
-    setIsSaving(true)
-    setMessage(null)
+  const update = (field: string, value: unknown) => {
+    setProfile(prev => prev ? { ...prev, [field]: value } : prev)
+  }
 
+  const handleSave = async () => {
+    if (!profile) return
+    setSaving(true)
+    setSaveStatus('idle')
     try {
-      await api.updateClientProfile(formData)
-      setMessage({ type: 'success', text: 'Profile updated successfully' })
-    } catch (error) {
-      setMessage({ type: 'error', text: error instanceof Error ? error.message : 'Failed to update profile' })
+      const updated = await api.patch<ClientProfile>('/clients/me/', {
+        business_name: profile.business_name,
+        business_phone: profile.business_phone,
+        business_email: profile.business_email,
+        services: profile.services,
+        products: profile.products,
+        price_per_service: profile.price_per_service,
+        service_locations: profile.service_locations,
+        social_links: profile.social_links,
+      })
+      setProfile(updated)
+      setSaveStatus('saved')
+    } catch {
+      setSaveStatus('error')
     } finally {
-      setIsSaving(false)
+      setSaving(false)
+      setTimeout(() => setSaveStatus('idle'), 3000)
     }
   }
 
-  const handleChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }))
-  }
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-center">
-          <div className="inline-block w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
-          <p className="mt-2 text-sm text-text-muted">Loading profile...</p>
-        </div>
-      </div>
-    )
-  }
+  if (!profile) return <div className="animate-pulse h-8 w-48 bg-bg-secondary rounded" />
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-text-primary mb-6">Profile Settings</h1>
+      <PageHeader
+        title="Business Profile"
+        description="Edit your business information"
+        action={
+          <button
+            onClick={handleSave}
+            disabled={saving}
+            className={`px-6 py-2 text-white text-sm font-medium rounded-lg disabled:opacity-50 transition-colors ${saveStatus === 'error' ? 'bg-red-500' : saveStatus === 'saved' ? 'bg-green-600' : 'bg-accent hover:bg-accent/90'}`}
+          >
+            {saveStatus === 'saved' ? 'Saved!' : saveStatus === 'error' ? 'Failed to save' : saving ? 'Saving...' : 'Save Changes'}
+          </button>
+        }
+      />
 
-      {message && (
-        <div className={`mb-6 p-4 rounded-lg ${message.type === 'success' ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'}`}>
-          <p className={`text-sm ${message.type === 'success' ? 'text-green-600' : 'text-red-600'}`}>{message.text}</p>
-        </div>
-      )}
-
-      <form onSubmit={handleSubmit}>
-        {/* Personal Information */}
-        <div className="bg-white rounded-xl border border-border p-6 mb-6">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 bg-blue-100 rounded-lg">
-              <User className="w-5 h-5 text-blue-600" />
-            </div>
-            <h2 className="text-lg font-semibold text-text-primary">Personal Information</h2>
+      <div className="grid lg:grid-cols-2 gap-6">
+        {/* Basic Info */}
+        <div className="bg-white rounded-xl border border-border p-6 space-y-4">
+          <h3 className="font-semibold">Basic Information</h3>
+          <div>
+            <label className="block text-sm font-medium mb-1">Business Name</label>
+            <input
+              value={profile.business_name}
+              onChange={e => update('business_name', e.target.value)}
+              className="w-full px-3 py-2 border border-border rounded-lg text-sm"
+            />
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input
-              id="first_name"
-              label="First Name"
-              value={formData.first_name}
-              onChange={(e) => handleChange('first_name', e.target.value)}
-              required
-            />
-            <Input
-              id="last_name"
-              label="Last Name"
-              value={formData.last_name}
-              onChange={(e) => handleChange('last_name', e.target.value)}
-              required
-            />
-            <Input
-              id="email"
-              label="Email"
+          <div>
+            <label className="block text-sm font-medium mb-1">Business Email</label>
+            <input
               type="email"
-              value={profile?.user.email || ''}
-              disabled
-              className="bg-bg-secondary"
+              value={profile.business_email}
+              onChange={e => update('business_email', e.target.value)}
+              className="w-full px-3 py-2 border border-border rounded-lg text-sm"
             />
-            <Input
-              id="phone"
-              label="Phone"
-              type="tel"
-              value={formData.phone}
-              onChange={(e) => handleChange('phone', e.target.value)}
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Business Phone</label>
+            <input
+              value={profile.business_phone}
+              onChange={e => update('business_phone', e.target.value)}
+              className="w-full px-3 py-2 border border-border rounded-lg text-sm"
             />
           </div>
         </div>
 
-        {/* Business Information */}
-        <div className="bg-white rounded-xl border border-border p-6 mb-6">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 bg-green-100 rounded-lg">
-              <Building className="w-5 h-5 text-green-600" />
-            </div>
-            <h2 className="text-lg font-semibold text-text-primary">Business Information</h2>
-          </div>
+        {/* Services */}
+        <div className="bg-white rounded-xl border border-border p-6 space-y-4">
+          <h3 className="font-semibold">Services</h3>
+          <p className="text-xs text-text-muted">Comma-separated list</p>
+          <textarea
+            value={profile.services.join(', ')}
+            onChange={e => update('services', e.target.value.split(',').map(s => s.trim()).filter(Boolean))}
+            className="w-full px-3 py-2 border border-border rounded-lg text-sm h-20"
+          />
+          <h3 className="font-semibold">Products</h3>
+          <textarea
+            value={profile.products.join(', ')}
+            onChange={e => update('products', e.target.value.split(',').map(s => s.trim()).filter(Boolean))}
+            className="w-full px-3 py-2 border border-border rounded-lg text-sm h-20"
+          />
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input
-              id="company_name"
-              label="Company Name"
-              value={formData.company_name}
-              onChange={(e) => handleChange('company_name', e.target.value)}
-              required
-            />
-            <Input
-              id="industry"
-              label="Industry"
-              value={formData.industry}
-              onChange={(e) => handleChange('industry', e.target.value)}
-            />
-            <div className="md:col-span-2">
-              <Input
-                id="website_url"
-                label="Website URL"
-                type="url"
-                value={formData.website_url}
-                onChange={(e) => handleChange('website_url', e.target.value)}
-                placeholder="https://"
+        {/* Locations */}
+        <div className="bg-white rounded-xl border border-border p-6 space-y-4">
+          <h3 className="font-semibold">Service Locations</h3>
+          <p className="text-xs text-text-muted">Comma-separated list</p>
+          <textarea
+            value={profile.service_locations.join(', ')}
+            onChange={e => update('service_locations', e.target.value.split(',').map(s => s.trim()).filter(Boolean))}
+            className="w-full px-3 py-2 border border-border rounded-lg text-sm h-20"
+          />
+        </div>
+
+        {/* Social Links */}
+        <div className="bg-white rounded-xl border border-border p-6 space-y-4">
+          <h3 className="font-semibold">Social Links</h3>
+          {Object.entries(profile.social_links).map(([platform, url]) => (
+            <div key={platform}>
+              <label className="block text-sm font-medium mb-1 capitalize">{platform.replace(/_/g, ' ')}</label>
+              <input
+                value={url}
+                onChange={e => update('social_links', { ...profile.social_links, [platform]: e.target.value })}
+                className="w-full px-3 py-2 border border-border rounded-lg text-sm"
               />
             </div>
-          </div>
+          ))}
         </div>
-
-        {/* Address */}
-        <div className="bg-white rounded-xl border border-border p-6 mb-6">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 bg-purple-100 rounded-lg">
-              <MapPin className="w-5 h-5 text-purple-600" />
-            </div>
-            <h2 className="text-lg font-semibold text-text-primary">Address</h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="md:col-span-2">
-              <Input
-                id="address"
-                label="Street Address"
-                value={formData.address}
-                onChange={(e) => handleChange('address', e.target.value)}
-              />
-            </div>
-            <Input
-              id="city"
-              label="City"
-              value={formData.city}
-              onChange={(e) => handleChange('city', e.target.value)}
-            />
-            <Input
-              id="state"
-              label="State/Province"
-              value={formData.state}
-              onChange={(e) => handleChange('state', e.target.value)}
-            />
-            <Input
-              id="country"
-              label="Country"
-              value={formData.country}
-              onChange={(e) => handleChange('country', e.target.value)}
-            />
-            <Input
-              id="postal_code"
-              label="Postal Code"
-              value={formData.postal_code}
-              onChange={(e) => handleChange('postal_code', e.target.value)}
-            />
-          </div>
-        </div>
-
-        {/* Submit */}
-        <div className="flex justify-end">
-          <Button type="submit" isLoading={isSaving}>
-            <Save className="w-4 h-4 mr-2" />
-            Save Changes
-          </Button>
-        </div>
-      </form>
+      </div>
     </div>
   )
 }

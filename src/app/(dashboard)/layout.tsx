@@ -1,59 +1,74 @@
 'use client'
 
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import { AuthProvider, useAuth } from '@/context/AuthContext'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import DashboardSidebar from '@/components/dashboard/DashboardSidebar'
-import DashboardHeader from '@/components/dashboard/DashboardHeader'
+import { Bell } from 'lucide-react'
+import { api } from '@/lib/api'
 
-function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
+function DashboardShell({ children }: { children: React.ReactNode }) {
+  const { user, loading } = useAuth()
   const router = useRouter()
-  const { user, isLoading, isAuthenticated } = useAuth()
+  const [unreadCount, setUnreadCount] = useState(0)
 
   useEffect(() => {
-    if (!isLoading) {
-      if (!isAuthenticated) {
-        router.push('/login')
-      } else if (user?.role === 'admin') {
-        router.push('/admin')
-      }
+    if (!loading && !user) {
+      router.push('/login')
     }
-  }, [isLoading, isAuthenticated, user, router])
+  }, [user, loading, router])
 
-  if (isLoading) {
+  useEffect(() => {
+    if (user && (user.role === 'admin' || user.role === 'employee')) {
+      api.get<{ unread_count: number }>('/notifications/unread-count/')
+        .then(d => setUnreadCount(d.unread_count))
+        .catch(() => {})
+      const interval = setInterval(() => {
+        api.get<{ unread_count: number }>('/notifications/unread-count/')
+          .then(d => setUnreadCount(d.unread_count))
+          .catch(() => {})
+      }, 30000)
+      return () => clearInterval(interval)
+    }
+  }, [user])
+
+  if (loading) {
     return (
-      <div className="min-h-screen bg-bg-secondary flex items-center justify-center">
-        <div className="text-center">
-          <div className="inline-block w-10 h-10 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
-          <p className="mt-4 text-text-muted">Loading...</p>
-        </div>
+      <div className="min-h-screen flex items-center justify-center bg-bg-secondary">
+        <div className="animate-spin h-8 w-8 border-4 border-accent border-t-transparent rounded-full" />
       </div>
     )
   }
 
-  if (!isAuthenticated || user?.role !== 'client') {
-    return null
-  }
+  if (!user) return null
 
   return (
     <div className="min-h-screen bg-bg-secondary">
       <DashboardSidebar />
       <div className="ml-64">
-        <DashboardHeader />
-        <main className="p-6">{children}</main>
+        <div className="flex justify-end items-center px-8 pt-4">
+          {(user.role === 'admin' || user.role === 'employee') && (
+            <Link href="/dashboard/notifications" className="relative p-2 rounded-lg hover:bg-white border border-transparent hover:border-border transition-colors">
+              <Bell size={20} className="text-text-secondary" />
+              {unreadCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1">
+                  {unreadCount}
+                </span>
+              )}
+            </Link>
+          )}
+        </div>
+        <main className="p-8 pt-2">{children}</main>
       </div>
     </div>
   )
 }
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <AuthProvider>
-      <DashboardLayoutContent>{children}</DashboardLayoutContent>
+      <DashboardShell>{children}</DashboardShell>
     </AuthProvider>
   )
 }

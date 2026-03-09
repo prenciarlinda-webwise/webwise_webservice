@@ -1,83 +1,68 @@
 'use client'
 
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  useCallback,
-  ReactNode,
-} from 'react'
+import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
+import { useRouter } from 'next/navigation'
 import { api } from '@/lib/api'
-import type { User } from '@/lib/types'
+
+interface User {
+  id: number
+  username: string
+  email: string
+  first_name: string
+  last_name: string
+  role: 'admin' | 'employee' | 'client'
+  phone: string
+}
 
 interface AuthContextType {
   user: User | null
-  isLoading: boolean
-  isAuthenticated: boolean
-  login: (email: string, password: string) => Promise<void>
-  logout: () => Promise<void>
-  refreshUser: () => Promise<void>
+  loading: boolean
+  login: (username: string, password: string) => Promise<void>
+  logout: () => void
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined)
+const AuthContext = createContext<AuthContextType | null>(null)
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const [loading, setLoading] = useState(true)
+  const router = useRouter()
 
-  const refreshUser = useCallback(async () => {
+  const fetchUser = useCallback(async () => {
     try {
-      const userData = await api.getCurrentUser()
-      setUser(userData)
+      const data = await api.get<User>('/auth/me/')
+      setUser(data)
     } catch {
-      setUser(null)
       api.clearTokens()
+      setUser(null)
+    } finally {
+      setLoading(false)
     }
   }, [])
 
   useEffect(() => {
-    // Check for existing session on mount
-    const initAuth = async () => {
-      const token = api.getAccessToken()
-      if (token) {
-        try {
-          await refreshUser()
-        } catch {
-          // Token invalid, clear it
-          api.clearTokens()
-        }
-      }
-      setIsLoading(false)
+    const hasToken = typeof window !== 'undefined' && localStorage.getItem('access_token')
+    if (hasToken) {
+      fetchUser()
+    } else {
+      setLoading(false)
     }
+  }, [fetchUser])
 
-    initAuth()
-  }, [refreshUser])
-
-  const login = async (email: string, password: string) => {
-    const response = await api.login(email, password)
-    setUser(response.user)
+  const login = async (username: string, password: string) => {
+    await api.login(username, password)
+    await fetchUser()
+    router.push('/dashboard')
   }
 
-  const logout = async () => {
-    try {
-      await api.logout()
-    } finally {
-      setUser(null)
-    }
+  const logout = () => {
+    api.clearTokens()
+    setUser(null)
+    router.push('/login')
   }
 
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        isLoading,
-        isAuthenticated: !!user,
-        login,
-        logout,
-        refreshUser,
-      }}
-    >
+    <AuthContext.Provider value={{ user, loading, login, logout }}>
       {children}
     </AuthContext.Provider>
   )
@@ -85,8 +70,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 export function useAuth() {
   const context = useContext(AuthContext)
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider')
-  }
+  if (!context) throw new Error('useAuth must be used within AuthProvider')
   return context
 }
