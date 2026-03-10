@@ -25,6 +25,7 @@ export interface BlogPost {
   relatedServiceName?: string
   faqs?: BlogFAQ[]
   content: string
+  publishDate?: string  // ISO date (YYYY-MM-DD) for scheduled publishing. Post is hidden until this date.
 }
 
 export const blogPosts: BlogPost[] = [
@@ -39,8 +40,8 @@ export const blogPosts: BlogPost[] = [
     readTime: '14 min read',
     featured: true,
     keywords: ['SEO pricing', 'SEO cost small business', 'local SEO pricing', 'SEO budget', 'monthly SEO cost', 'how much does SEO cost'],
-    image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&h=630&fit=crop',
-    imageAlt: 'Calculator and financial charts representing SEO pricing and budgeting for small businesses',
+    image: '/blog/seo-general/seo-pricing-comparison.svg',
+    imageAlt: 'SEO pricing tiers for small business from budget to enterprise-level investment',
     relatedServiceUrl: '/local-seo',
     relatedServiceName: 'Local SEO Services',
     tldr: [
@@ -65,6 +66,8 @@ Professional [SEO services](/seo-services) for small businesses typically cost b
 The price range exists because SEO is not one-size-fits-all. A plumber in a small town faces different challenges than an HVAC company competing in a major metro area. Your specific situation determines the right investment level,and so does [how long SEO takes to show results](/blog/seo-timeline).
 
 Want to know what SEO would cost for your specific business? Our [local SEO services](/local-seo) include a free competitive analysis that shows exactly what you are up against and what it takes to win.
+
+![What does SEO cost? Average monthly pricing tiers for small business from budget to enterprise](/blog/seo-general/seo-pricing-comparison.svg)
 
 ## What Factors Affect SEO Pricing?
 
@@ -220,6 +223,8 @@ Spam backlinks, thin content, and other cheap tactics can damage your online rep
 
 Understanding SEO costs in context helps you allocate your marketing budget effectively.
 
+![SEO vs lead generation platforms: cost per lead comparison over 12 months](/blog/seo-general/seo-vs-lead-gen-cost.svg)
+
 ### SEO vs Google Ads
 
 **Google Ads:**
@@ -272,6 +277,8 @@ Understanding SEO costs in context helps you allocate your marketing budget effe
 ## What ROI Can You Expect From SEO?
 
 When done correctly, SEO delivers exceptional returns. Here is what our clients typically experience:
+
+![SEO results timeline: 5 phases from foundation to compounding returns over 12 months](/blog/seo-general/seo-timeline-results.svg)
 
 ### Timeline Expectations
 
@@ -346,8 +353,8 @@ Our [local SEO services](/local-seo) have helped plumbers, roofers, HVAC compani
     date: 'Dec 3, 2024',
     readTime: '14 min read',
     featured: false,
-    image: 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=1200&h=630&fit=crop',
-    imageAlt: 'Professional plumber working on pipes representing plumbing SEO services',
+    image: '/blog/plumber-seo/plumber-map-pack.svg',
+    imageAlt: 'Where 76% of plumbing calls start: Google Map Pack for plumber searches',
     keywords: ['seo for plumbers', 'plumber seo', 'local seo for plumbers', 'plumbing seo', 'seo for plumbing companies', 'plumber seo services', 'plumbing marketing agency', 'plumber seo company', 'plumber seo agency', 'seo services for plumbers'],
     relatedServiceUrl: '/local-seo',
     relatedServiceName: 'Local SEO Services',
@@ -373,9 +380,11 @@ Our [local SEO services](/local-seo) have helped plumbers, roofers, HVAC compani
 
 We specialize in helping plumbing companies dominate local search and fill their schedules with high-value emergency calls. When homeowners search "emergency plumber near me" at 2 AM, our clients are the ones who show up and get the call. Our [SEO services](/seo-services) are built specifically for local service businesses like yours.
 
-Our plumber SEO services have helped companies achieve 290%+ traffic increases and consistent lead flow. A key part of that success is [Google Business Profile optimization](/blog/google-business-profile-optimization-guide). We understand the plumbing industry: the urgency of emergency calls, the seasonality of water heater replacements, and the competition in local markets.
+Our plumber SEO services have helped companies achieve 290%+ traffic increases and consistent lead flow. A key part of that success is Google Business Profile optimization. We understand the plumbing industry: the urgency of emergency calls, the seasonality of water heater replacements, and the competition in local markets.
 
 **What makes us different?** We don't just optimize and hope. We analyze which keywords bring the most profitable jobs, not just the most traffic, and we build complete lead generation systems that track every call, measure every ranking, and prove ROI month after month.
+
+![Where 76% of plumbing calls start: the Google Map Pack showing top 3 results for plumber searches](/blog/plumber-seo/plumber-map-pack.svg)
 
 ## What Is SEO for Plumbers?
 
@@ -383,7 +392,7 @@ SEO for plumbers is the process of optimizing your plumbing company's online pre
 
 There are four types of SEO that matter for plumbing companies:
 
-**Local SEO** is the most important for plumbers. This is what gets you into the Google Map Pack when someone searches "plumber near me" or "emergency plumber [city]." It includes your Google Business Profile, [local citations](/blog/local-citations-guide), reviews, and location-specific content.
+**Local SEO** is the most important for plumbers. This is what gets you into the Google Map Pack when someone searches "plumber near me" or "emergency plumber [city]." It includes your Google Business Profile, local citations, reviews, and location-specific content.
 
 **On-page SEO** covers everything on your website: service pages, title tags, meta descriptions, page speed, mobile responsiveness, and structured data. A well-optimized plumbing website converts visitors into calls.
 
@@ -395,79 +404,25 @@ Most plumbing companies only think about one or two of these. A complete plumber
 
 Why does this matter specifically for plumbing? Because your customers are searching with high urgency. When someone has a flooded basement at 2 AM, they are not browsing five websites and comparing reviews. They are calling the first plumber that appears on Google. If your plumbing SEO is not covering all four areas, you are invisible to those customers, and your competitors are getting those calls instead.
 
+![Plumbing keyword value comparison: emergency vs planned service searches with conversion rates](/blog/plumber-seo/plumber-keyword-value.svg)
+
 ## Why Plumbing SEO Is One of the Highest-ROI Investments
 
-Here is something most plumbing marketing agencies won't tell you: not all plumbing keywords are created equal. A "plumber near me" search (355K monthly searches) and an "emergency plumber near me" search (61K monthly searches) look similar, but the customer behind each search is completely different.
+Here is something most plumbing marketing agencies won't tell you: not all plumbing keywords are created equal. A "plumber near me" search and an "emergency plumber near me" search look similar, but the customer behind each search is completely different.
 
 The homeowner searching "emergency plumber" has a burst pipe flooding their basement at midnight. They are not price shopping. They are not bookmarking for later. They are calling the first plumber they find, and they are willing to pay premium rates for immediate service. A single emergency plumbing call can be worth $500 to $2,000 or more.
 
 This is why we take a profit-focused approach to SEO for plumbing companies. We don't just chase the highest-volume keywords. We analyze which searches lead to the most profitable jobs and build your strategy around capturing those customers first.
 
-**The numbers speak for themselves:**
-- "Plumber near me" gets 355K monthly searches
-- "Emergency plumber" gets 86K monthly searches
-- "Emergency plumber near me" gets 61K monthly searches
-- "Water heater repair near me" gets 67K monthly searches
-
 **Our approach:** We build plumbing SEO campaigns that target every profitable keyword category, from high-volume "plumber near me" searches to emergency and specialty terms that bring in the most valuable jobs. Our strategies are built around generating revenue, not just traffic.
 
 ## Plumbing SEO: Every Service Category We Target
 
-A complete local SEO strategy for plumbers targets every service you offer across every area you serve. Here are the keyword categories we build campaigns around:
+A complete local SEO strategy for plumbers targets every service you offer across every area you serve. We target 100+ high-intent plumbing keywords across emergency services, water heater repair, drain and sewer, and general plumbing categories. Our strategy covers everything from high-volume emergency terms that generate immediate calls to long-tail service-specific keywords that capture customers researching specific plumbing needs.
 
-### Emergency Plumbing SEO
+Emergency plumbing searches are the highest-value leads in the industry, so ranking for terms like "emergency plumber [city]" and "24/7 plumber near me" is a cornerstone of our strategy. We also build campaigns around water heater and heating keywords that spike during cold months, drain and sewer terms that convert well because the customer has an immediate problem, and general plumbing searches that establish your company as a local authority.
 
-Emergency plumbing searches represent customers with urgent, high-value problems who need help immediately. These are the highest-value leads in the plumbing industry, and ranking for them is a cornerstone of our plumber SEO strategy.
-
-**Keywords we target:**
-- Emergency plumber [city]
-- 24/7 plumber near me
-- Burst pipe repair [city]
-- Same day plumber [city]
-- After hours plumber near me
-- Plumber open now
-
-We analyze which emergency keywords bring the most profitable jobs and prioritize those in your campaign.
-
-### Water Heater and Heating SEO
-
-Water heater services represent consistent, high-ticket work for plumbers year-round. These searches spike during cold months and represent customers who need service fast.
-
-**Keywords we target:**
-- Water heater repair near me (67K monthly searches)
-- Tankless water heater installation [city] (15K monthly searches)
-- Boiler repair near me (15K monthly searches)
-- Water heater replacement [city]
-- Hot water heater not working
-- Tankless water heater repair [city]
-
-### Drain and Sewer SEO
-
-Drain and sewer work generates steady lead flow and often leads to larger jobs like sewer line replacement. These keywords convert well because the customer has an immediate problem.
-
-**Keywords we target:**
-- Drain cleaning [city]
-- Sewer line repair near me (37K monthly searches)
-- Clogged drain repair [city]
-- Sewer camera inspection [city]
-- Hydro jetting [city]
-- Sewer line replacement near me
-
-### General Plumbing Services SEO
-
-These are the high-volume searches that build your baseline visibility and establish your plumbing company as a local authority.
-
-**Keywords we target:**
-- Plumber near me (355K monthly searches)
-- Plumbing services [city] (65K monthly searches)
-- Plumbing repair near me (51K monthly searches)
-- Licensed plumber [city]
-- Best plumbers near me
-- Local plumbers [city]
-- Toilet repair [city]
-- Faucet repair near me
-
-We build a comprehensive keyword strategy targeting 100+ terms across your entire service area, organized by service category and city. Every keyword is evaluated not just by search volume, but by the profit potential of the jobs it generates. This is what separates our approach to plumber SEO from agencies that simply target the highest-volume terms and hope for the best.
+Every keyword is evaluated not just by search volume, but by the profit potential of the jobs it generates. This is what separates our approach to plumber SEO from agencies that simply target the highest-volume terms and hope for the best.
 
 ## What Is Included in Our Plumber SEO Services
 
@@ -475,7 +430,9 @@ When you partner with us for plumber SEO, we handle everything needed to dominat
 
 ### Google Business Profile Domination
 
-Your Google Business Profile is where emergency calls come from. Appearing in the [Google Maps Pack](/blog/google-maps-ranking-factors) is essential for any plumbing company. We optimize every element:
+![Local SEO ranking factors breakdown: GBP 32%, Reviews 16%, On-Page 19%, Citations 7%, Links 11%, Proximity 15%](/blog/seo-general/local-seo-ranking-factors.svg)
+
+Your Google Business Profile is where emergency calls come from. Appearing in the Google Maps Pack is essential for any plumbing company. We optimize every element:
 
 - Complete profile setup with strategic category selection
 - Weekly photo uploads showing your team and completed work
@@ -505,7 +462,7 @@ We create dedicated pages for every city and neighborhood you serve:
 
 ### Reviews and Reputation
 
-Reviews make or break Map Pack rankings. Strong [Google reviews](/blog/google-reviews-guide) are one of the fastest trust signals you can build. We implement:
+Reviews make or break Map Pack rankings. Strong Google reviews are one of the fastest trust signals you can build. We implement:
 
 - Automated review request sequences via text and email
 - Direct links that make leaving reviews effortless
@@ -520,7 +477,7 @@ Reviews make or break Map Pack rankings. Strong [Google reviews](/blog/google-re
 - Complete audit of your current online presence
 - Google Business Profile optimization (often see improvements within weeks)
 - Website technical fixes and speed optimization
-- [Citation](/blog/local-citations-guide) audit and cleanup
+- Citation audit and cleanup
 - Competitor analysis to identify opportunities
 
 ### Month 2-3: Content and Authority Building
@@ -549,7 +506,7 @@ We see these mistakes constantly when auditing plumbing company websites:
 
 **3. Incomplete Google Business Profile.** Your GBP is often the first thing potential customers see. An incomplete profile with no photos and few reviews loses to competitors who invest in theirs. This is the foundation of local SEO for plumbers.
 
-**4. No review strategy.** Hoping for organic reviews is not a strategy. You need a systematic approach to requesting, collecting, and responding to [reviews](/blog/google-reviews-guide) after every job.
+**4. No review strategy.** Hoping for organic reviews is not a strategy. You need a systematic approach to requesting, collecting, and responding to reviews after every job.
 
 **5. Duplicate content across city pages.** Copying the same content and swapping the city name does not work. Google penalizes thin, duplicate content. Each location page needs unique, relevant information about your services in that area.
 
@@ -643,8 +600,8 @@ Stop losing emergency calls to competitors with better Google visibility. Whethe
     date: 'Dec 1, 2024',
     readTime: '8 min read',
     featured: false,
-    image: 'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?w=1200&h=630&fit=crop',
-    imageAlt: 'Professional auto detailing service polishing a car for SEO marketing',
+    image: '/blog/detailing-seo/detailing-map-pack.svg',
+    imageAlt: 'Google Map Pack for auto detailing showing where premium bookings originate',
     keywords: ['auto detailing SEO', 'auto detailing SEO services', 'car detailing marketing', 'mobile detailing SEO', 'ceramic coating SEO', 'detailing business marketing'],
     relatedServiceUrl: '/local-seo',
     relatedServiceName: 'Local SEO Services',
@@ -666,7 +623,9 @@ Stop losing emergency calls to competitors with better Google visibility. Whethe
 
 We specialize in helping auto detailing businesses dominate local search and book more appointments. When car owners search "car detailing near me" or "ceramic coating [city]," our clients show up first-with stunning before/after photos that seal the deal. Our [SEO services](/seo-services) are tailored for local businesses like yours.
 
-Auto detailing is booming, with "car detailing near me" getting 90,500+ monthly searches. But competition is fierce. Strong [Google reviews](/blog/google-reviews-guide) and smart SEO strategies help you stand out and capture the high-value customers you want.
+Auto detailing is booming, with "car detailing near me" getting 90,500+ monthly searches. But competition is fierce. Strong reviews and smart SEO strategies help you stand out and capture the high-value customers you want.
+
+![Google Map Pack for auto detailing showing where premium detailing bookings start](/blog/detailing-seo/detailing-map-pack.svg)
 
 **The result?** Detailing businesses that work with us see consistent booking growth and more ceramic coating and paint correction clients.
 
@@ -751,6 +710,8 @@ For detailers serving multiple areas:
 - Strategy refinement
 - Expanded targeting
 
+![Google click-through rate by ranking position showing Map Pack gets 69.3% of local search clicks](/blog/seo-general/google-ranking-position-ctr.svg)
+
 ## Why Visual SEO Matters for Detailers
 
 Car owners don't just read about detailing-they want to SEE results. Our SEO strategies are visual-first:
@@ -761,6 +722,8 @@ Car owners don't just read about detailing-they want to SEE results. Our SEO str
 **Reviews:** Photo reviews from satisfied customers
 
 When potential customers see your work quality, they book. We make sure they see it.
+
+![SEO vs lead generation platforms cost per lead comparison over 12 months](/blog/seo-general/seo-vs-lead-gen-cost.svg)
 
 ## Auto Detailing SEO Pricing
 
@@ -811,8 +774,8 @@ Stop losing high-value customers to competitors with better Google visibility. L
     date: 'Nov 28, 2024',
     readTime: '8 min read',
     featured: false,
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=630&fit=crop',
-    imageAlt: 'Dumpster rental container for waste management SEO services',
+    image: '/blog/dumpster-seo/dumpster-map-pack.svg',
+    imageAlt: 'Google Map Pack for dumpster rentals showing where $300-$600 bookings start',
     keywords: ['dumpster rental SEO', 'dumpster rental SEO services', 'roll off dumpster marketing', 'waste management SEO', 'dumpster company marketing'],
     relatedServiceUrl: '/local-seo',
     relatedServiceName: 'Local SEO Services',
@@ -834,7 +797,9 @@ Stop losing high-value customers to competitors with better Google visibility. L
 
 We specialize in helping dumpster rental companies dominate local search and capture more rental inquiries. When contractors search "roll off dumpster rental [city]" or homeowners need "same day dumpster delivery," our clients show up first. Our [SEO services](/seo-services) are built for high-intent local industries like yours.
 
-Dumpster rental is highly localized, making SEO incredibly effective. Ranking in the [Google Maps Pack](/blog/google-maps-ranking-factors) is critical,customers searching for dumpsters are ready to rent and they just need to find you. Our strategies ensure they do.
+Dumpster rental is highly localized, making SEO incredibly effective. Ranking in the Google Maps Pack is critical — customers searching for dumpsters are ready to rent and they just need to find you. Our strategies ensure they do.
+
+![Google Map Pack for dumpster rentals showing where $300-$600 rental bookings start](/blog/dumpster-seo/dumpster-map-pack.svg)
 
 **The result?** Dumpster rental companies that work with us see consistent inquiry growth from contractors, homeowners, and commercial clients.
 
@@ -918,6 +883,8 @@ For dumpster companies serving multiple areas:
 - Strategy refinement
 - Expanded service area targeting
 
+![Local SEO ranking factors breakdown: GBP 32%, Reviews 16%, On-Page 19%, Citations 7%, Links 11%, Proximity 15%](/blog/seo-general/local-seo-ranking-factors.svg)
+
 ## Why Size and Use-Case Pages Matter
 
 Most dumpster companies have one generic "Dumpster Rental" page. That's a missed opportunity.
@@ -928,6 +895,8 @@ Most dumpster companies have one generic "Dumpster Rental" page. That's a missed
 - "Same day dumpster" - they need it now
 
 We create pages that match exactly what customers search. When your page answers their specific question, they call you-not your competitor with a generic page.
+
+![SEO vs lead generation platforms cost per lead comparison over 12 months](/blog/seo-general/seo-vs-lead-gen-cost.svg)
 
 ## Dumpster Rental SEO Pricing
 
@@ -978,8 +947,8 @@ Stop losing rental inquiries to competitors with better Google visibility. Let's
     date: 'Nov 25, 2024',
     readTime: '8 min read',
     featured: false,
-    image: 'https://images.unsplash.com/photo-1632759145351-1d592919f522?w=1200&h=630&fit=crop',
-    imageAlt: 'Roofing contractor working on a roof for roofing SEO services',
+    image: '/blog/roofing-seo/roofing-map-pack.svg',
+    imageAlt: 'Google Map Pack for roofers showing where $5K-$15K roofing jobs originate',
     keywords: ['roofing SEO', 'roofing SEO services', 'SEO for roofers', 'roofing marketing agency', 'roof repair SEO', 'roofing contractor marketing'],
     relatedServiceUrl: '/local-seo',
     relatedServiceName: 'Local SEO Services',
@@ -1001,13 +970,17 @@ Stop losing rental inquiries to competitors with better Google visibility. Let's
 
 We specialize in helping roofing companies dominate local search and capture high-value leads. When homeowners search "roof replacement near me" or "emergency roof repair [city]," our clients show up first-and close more deals. Our [SEO services](/seo-services) are designed for competitive local markets like roofing.
 
-Roofing is one of the most competitive local service industries, but also one of the most rewarding for SEO. With average job values of $8,000-$15,000+, even a few additional leads per month deliver [massive ROI](/blog/seo-pricing).
+Roofing is one of the most competitive local service industries, but also one of the most rewarding for SEO. With average job values of $8,000-$15,000+, even a few additional leads per month deliver massive ROI.
 
 **Our roofing clients consistently achieve:** Top 3 Map Pack rankings, significant traffic increases, and measurable lead generation that impacts their bottom line.
+
+![Google Map Pack for roofers showing where $5K-$15K roofing jobs come from](/blog/roofing-seo/roofing-map-pack.svg)
 
 ## What's Included in Our Roofing SEO Services?
 
 ### High-Value Keyword Targeting
+
+![Roofing keyword search volume by season: spring peak, summer high, fall storm damage, winter planning](/blog/roofing-seo/roofing-seasonal-keywords.svg)
 
 We focus on keywords that bring customers ready to hire:
 
@@ -1083,6 +1056,8 @@ Reviews are critical for roofing companies. We implement:
 - Strategy optimization
 - Expanded targeting
 
+![SEO vs lead generation platforms: cost per lead comparison over 12 months](/blog/seo-general/seo-vs-lead-gen-cost.svg)
+
 ## Why Roofing SEO Delivers Exceptional ROI
 
 Consider the math:
@@ -1144,8 +1119,8 @@ Stop losing high-value roof replacement jobs to competitors with better Google v
     date: 'Jan 29, 2026',
     readTime: '18 min read',
     featured: false,
-    image: 'https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?w=1200&h=630&fit=crop',
-    imageAlt: 'Google search on mobile phone for Google Business Profile optimization',
+    image: '/blog/gbp-guide/gbp-optimization-checklist.svg',
+    imageAlt: 'Google Business Profile optimization checklist with 20+ action items across 4 categories',
     keywords: ['Google Business Profile optimization', 'GBP optimization', 'Google My Business', 'local map pack', 'GMB SEO', 'Google reviews'],
     relatedServiceUrl: '/local-seo',
     relatedServiceName: 'Local SEO Services',
@@ -1173,6 +1148,8 @@ This guide walks through every aspect of GBP optimization, from initial setup to
 
 Ready for professional GBP management? Our [local SEO services](/local-seo) include comprehensive Google Business Profile optimization with proven results.
 
+![Google Business Profile optimization checklist with 20+ action items across 4 categories](/blog/gbp-guide/gbp-optimization-checklist.svg)
+
 ## How Do You Set Up Your Google Business Profile Correctly?
 
 Setting up your GBP correctly from the start prevents problems later. Here is the field-by-field guide to getting it right.
@@ -1197,6 +1174,8 @@ Most service businesses should hide their address and set service areas. You can
 ### Phone Number
 
 Use a local phone number, not a toll-free number. Local numbers signal to Google that you are a genuine local business. If you need call tracking, use a local tracking number and keep your main number consistent across all online listings.
+
+![Local SEO ranking factors breakdown: GBP 32%, Reviews 16%, On-Page 19%, Citations 7%, Links 11%, Proximity 15%](/blog/seo-general/local-seo-ranking-factors.svg)
 
 ### Categories
 
@@ -1270,6 +1249,8 @@ Add 3-5 new photos weekly. Consistent photo uploads signal an active business to
 - Name files descriptively (dallas-plumber-water-heater-install.jpg)
 - Geo-tag photos with your service area location
 - Keep file sizes under 5MB for fast loading
+
+![Google click-through rate by ranking position showing Map Pack gets 69.3% of local search clicks](/blog/seo-general/google-ranking-position-ctr.svg)
 
 ## How Do You Get and Manage Google Reviews?
 
@@ -1400,8 +1381,8 @@ Optimizing your Google Business Profile is essential for local search visibility
     date: 'Jan 29, 2026',
     readTime: '14 min read',
     featured: false,
-    image: 'https://images.unsplash.com/photo-1434626881859-194d67b2b86f?w=1200&h=630&fit=crop',
-    imageAlt: 'Calendar and timeline representing SEO results timeline',
+    image: '/blog/seo-general/seo-timeline-results.svg',
+    imageAlt: 'SEO results timeline: 5 phases from foundation to compounding returns over 12 months',
     keywords: ['how long does SEO take', 'SEO timeline', 'SEO results time', 'when does SEO work', 'local SEO timeline', 'SEO expectations'],
     relatedServiceUrl: '/local-seo',
     relatedServiceName: 'Local SEO Services',
@@ -1426,6 +1407,8 @@ SEO typically takes 3-6 months to show significant results for local businesses,
 The honest truth is that SEO is not a quick fix. Anyone promising first-page rankings in 30 days is either lying or using risky tactics that will backfire. But the flip side is equally true: businesses that commit to consistent [SEO services](/seo-services) for 6-12 months build assets that generate leads for years.
 
 Understanding realistic timelines helps you budget appropriately and avoid making emotional decisions during the patience-testing early months.
+
+![SEO results timeline for service businesses: 5 phases from foundation to compounding returns](/blog/seo-general/seo-timeline-results.svg)
 
 Need professional SEO with realistic expectations? Our [local SEO services](/local-seo) include transparent timelines and monthly progress reporting.
 
@@ -1556,6 +1539,8 @@ Some markets are exceptionally challenging:
 - Medical services in large metros
 - Any industry where competitors have years of SEO investment
 
+![Local SEO ranking factors breakdown: GBP 32%, Reviews 16%, On-Page 19%, Citations 7%, Links 11%, Proximity 15%](/blog/seo-general/local-seo-ranking-factors.svg)
+
 ## What Factors Speed Up or Slow Down SEO Results?
 
 Understanding these factors helps set accurate expectations for your specific situation.
@@ -1583,6 +1568,8 @@ Understanding these factors helps set accurate expectations for your specific si
 **Google Penalties:** Sites with penalty history or bad backlinks need cleanup before growth.
 
 **Inconsistent Effort:** Stopping and starting SEO repeatedly prevents momentum from building.
+
+![SEO vs lead generation platforms: cost per lead comparison over 12 months](/blog/seo-general/seo-vs-lead-gen-cost.svg)
 
 ## Why Does SEO Take Time When Paid Ads Work Immediately?
 
@@ -1663,8 +1650,8 @@ Our [local SEO services](/local-seo) include transparent timelines, monthly prog
     date: 'Dec 15, 2025',
     readTime: '10 min read',
     featured: false,
-    image: 'https://images.unsplash.com/photo-1526778548025-fa2f459cd5ce?w=1200&h=630&fit=crop',
-    imageAlt: 'World map showing UK and USA for international local SEO comparison',
+    image: '/blog/seo-uk-vs-usa/uk-vs-usa-seo-differences.svg',
+    imageAlt: 'Local SEO UK vs USA key differences in directories, reviews, pricing, and strategy',
     keywords: ['UK SEO', 'USA SEO', 'local SEO UK', 'local SEO USA', 'international SEO', 'UK vs US marketing'],
     relatedServiceUrl: '/local-seo',
     relatedServiceName: 'Local SEO Services',
@@ -1673,6 +1660,8 @@ Our [local SEO services](/local-seo) include transparent timelines, monthly prog
 The main differences between UK and USA [local SEO](/local-seo) are citation sources, spelling conventions, review platforms, and search behavior patterns. While the fundamentals of local SEO remain the same, these regional differences affect which directories to focus on, how to write content, and where to build your online presence.
 
 While the fundamentals are similar,including [Google Business Profile optimization](/blog/gbp-optimization),there are important differences between optimizing for UK and USA markets.
+
+![Local SEO UK vs USA key differences in directories, reviews, pricing, and strategy](/blog/seo-uk-vs-usa/uk-vs-usa-seo-differences.svg)
 
 ### Search Engine Market Share
 
@@ -1687,6 +1676,8 @@ While the fundamentals are similar,including [Google Business Profile optimizati
 - Yahoo: 2%
 
 Google dominates both markets, but even more so in the UK.
+
+![Local citation building NAP consistency framework with 3-tier directory strategy](/blog/citations-guide/citation-building-process.svg)
 
 ### Citation Sources
 
@@ -1728,6 +1719,8 @@ Use the spelling appropriate for your target market.
 - Checkatrade
 - Facebook
 
+![Google click-through rate by ranking position showing Map Pack gets 69.3% of local search clicks](/blog/seo-general/google-ranking-position-ctr.svg)
+
 ### Local Search Behavior
 
 **USA Searchers**
@@ -1765,8 +1758,8 @@ Need help with local SEO in your market? Our [local SEO services](/local-seo) wo
     date: 'Nov 13, 2024',
     readTime: '8 min read',
     featured: false,
-    image: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=1200&h=630&fit=crop',
-    imageAlt: 'HVAC technician working on air conditioning unit for HVAC SEO services',
+    image: '/blog/hvac-seo/hvac-map-pack.svg',
+    imageAlt: 'HVAC Google Map Pack showing where emergency AC and heating calls start',
     keywords: ['HVAC SEO', 'HVAC SEO services', 'SEO for HVAC companies', 'heating cooling marketing', 'AC repair SEO', 'HVAC marketing agency'],
     relatedServiceUrl: '/local-seo',
     relatedServiceName: 'Local SEO Services',
@@ -1788,9 +1781,11 @@ Need help with local SEO in your market? Our [local SEO services](/local-seo) wo
 
 We specialize in helping HVAC companies dominate local search through every season. When homeowners search "AC repair near me" during a July heatwave or "emergency furnace repair" during a January cold snap, our clients are the ones who show up first. Our [SEO services](/seo-services) are built for seasonal industries like HVAC.
 
-HVAC businesses face unique SEO challenges: extreme seasonal demand fluctuations, fierce local competition, and the need to capture both emergency repairs and planned installations. Understanding [how long SEO takes](/blog/seo-timeline) is especially important for seasonal businesses,our strategies address all of these.
+HVAC businesses face unique SEO challenges: extreme seasonal demand fluctuations, fierce local competition, and the need to capture both emergency repairs and planned installations. Understanding how long SEO takes is especially important for seasonal businesses,our strategies address all of these.
 
 **The result?** HVAC companies that work with us see consistent lead flow throughout the year-not just during peak seasons.
+
+![HVAC Google Map Pack showing where emergency AC and heating calls start](/blog/hvac-seo/hvac-map-pack.svg)
 
 ## What's Included in Our HVAC SEO Services?
 
@@ -1873,6 +1868,8 @@ For HVAC companies serving multiple cities:
 - Strategy refinement based on data
 - Expanded keyword targeting
 
+![HVAC search demand dual-peak seasonal pattern showing summer cooling and winter heating spikes](/blog/hvac-seo/hvac-seasonal-demand.svg)
+
 ## Why Seasonal SEO Strategy Matters for HVAC
 
 Most HVAC companies make a critical mistake: they wait until summer to worry about AC keywords or until winter for heating terms. By then, it's too late-rankings take time to build.
@@ -1883,6 +1880,8 @@ This proactive strategy means:
 - You capture emergency searches when they spike
 - Competitors scrambling to rank can't catch up
 - Lead flow stays consistent rather than boom-bust cycles
+
+![SEO vs lead generation platforms: cost per lead comparison over 12 months](/blog/seo-general/seo-vs-lead-gen-cost.svg)
 
 ## HVAC SEO Pricing
 
@@ -1933,8 +1932,8 @@ Stop losing emergency calls to competitors with better Google visibility. Whethe
     date: 'Nov 10, 2024',
     readTime: '8 min read',
     featured: false,
-    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&h=630&fit=crop',
-    imageAlt: 'Construction workers on site for construction company SEO services',
+    image: '/blog/construction-seo/construction-map-pack.svg',
+    imageAlt: 'Google Map Pack for contractors showing where $10K-$100K projects start',
     keywords: ['construction SEO', 'construction SEO services', 'general contractor marketing', 'contractor SEO', 'construction company marketing', 'construction leads'],
     relatedServiceUrl: '/local-seo',
     relatedServiceName: 'Local SEO Services',
@@ -1956,9 +1955,11 @@ Stop losing emergency calls to competitors with better Google visibility. Whethe
 
 We specialize in helping construction companies and general contractors generate high-value project inquiries. When property owners search "general contractor near me" or businesses need "commercial construction [city]," our clients show up first-and win more bids. Our [SEO services](/seo-services) paired with a professional [website](/development) make that possible.
 
-Construction projects represent significant investments. Customers research extensively before choosing a contractor,and [Google Business Profile](/blog/gbp-optimization) is often where they start. Our SEO strategies ensure you're visible throughout that research process and positioned as the obvious choice.
+Construction projects represent significant investments. Customers research extensively before choosing a contractor,and Google Business Profile is often where they start. Our SEO strategies ensure you're visible throughout that research process and positioned as the obvious choice.
 
 **The result?** Construction companies that work with us see consistent growth in project inquiries across residential, commercial, and specialty services.
+
+![Google Map Pack for contractors showing where $10K-$100K projects start](/blog/construction-seo/construction-map-pack.svg)
 
 ## What's Included in Our Construction Company SEO Services?
 
@@ -2047,6 +2048,8 @@ Your GBP is often the first impression. We optimize it completely:
 - Strategy refinement
 - Expanded service targeting
 
+![Google click-through rate by ranking position showing Map Pack gets 69.3% of local search clicks](/blog/seo-general/google-ranking-position-ctr.svg)
+
 ## Why Project Portfolios Matter for Construction SEO
 
 Construction customers want to see your work before they call. Project showcase pages serve two critical purposes:
@@ -2060,6 +2063,8 @@ Construction customers want to see your work before they call. Project showcase 
 - Target project-specific keywords
 - Include testimonials from satisfied clients
 - Build internal links throughout your site
+
+![SEO vs lead generation platforms cost per lead comparison over 12 months](/blog/seo-general/seo-vs-lead-gen-cost.svg)
 
 ## Construction Company SEO Pricing
 
@@ -2110,8 +2115,8 @@ Stop losing bids to competitors with better Google visibility. Let's discuss how
     date: 'Nov 7, 2024',
     readTime: '8 min read',
     featured: false,
-    image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1200&h=630&fit=crop',
-    imageAlt: 'Electrician working on electrical panel for electrician SEO services',
+    image: '/blog/electrician-seo/electrician-map-pack.svg',
+    imageAlt: 'Where 74% of electrical service calls start: Google Map Pack for electrician searches',
     keywords: ['electrician SEO', 'electrician SEO services', 'SEO for electricians', 'electrical contractor marketing', 'electrician leads', 'electrical services SEO'],
     relatedServiceUrl: '/local-seo',
     relatedServiceName: 'Local SEO Services',
@@ -2133,9 +2138,11 @@ Stop losing bids to competitors with better Google visibility. Let's discuss how
 
 We specialize in helping electrical contractors dominate local search and generate consistent, high-quality leads. When homeowners search "electrician near me" or businesses need "commercial electrical contractor [city]," our clients show up first. Our [SEO services](/seo-services) are tailored for local service businesses.
 
-Electrical services span everything from emergency repairs to high-value EV charger installations. Building strong [Google reviews](/blog/google-reviews-guide) and ranking for the right keywords ensures you're visible for all the services you offer-and the jobs you want most.
+Electrical services span everything from emergency repairs to high-value EV charger installations. Building strong Google reviews and ranking for the right keywords ensures you're visible for all the services you offer-and the jobs you want most.
 
 **The result?** Electricians who work with us see consistent lead flow across residential, commercial, and specialty services.
+
+![Where 74% of electrical service calls start: Google Map Pack for electrician searches](/blog/electrician-seo/electrician-map-pack.svg)
 
 ## What's Included in Our Electrician SEO Services?
 
@@ -2170,6 +2177,8 @@ We target keywords across all your service categories:
 - Home automation wiring
 
 ### Google Business Profile Optimization
+
+![Local SEO ranking factors breakdown: GBP 32%, Reviews 16%, On-Page 19%, Citations 7%, Links 11%, Proximity 15%](/blog/seo-general/local-seo-ranking-factors.svg)
 
 Your GBP drives emergency and local calls. We optimize it completely:
 
@@ -2237,6 +2246,8 @@ EV charger installation is one of the fastest-growing electrical services. Searc
 
 Getting ahead of competitors on EV keywords now means dominating this high-value market for years to come.
 
+![SEO vs lead generation platforms cost per lead comparison over 12 months](/blog/seo-general/seo-vs-lead-gen-cost.svg)
+
 ## Electrician SEO Pricing
 
 **Starter - $480/month**
@@ -2286,8 +2297,8 @@ Stop losing service calls to competitors with better Google visibility. Let's di
     date: 'Nov 4, 2024',
     readTime: '8 min read',
     featured: false,
-    image: 'https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1200&h=630&fit=crop',
-    imageAlt: 'Professional landscaping work on a lawn for landscaping SEO services',
+    image: '/blog/landscaping-seo/landscaping-map-pack.svg',
+    imageAlt: 'Google Map Pack for landscapers showing where premium clients search',
     keywords: ['landscaping SEO', 'landscaping SEO services', 'lawn care marketing', 'landscaper marketing agency', 'lawn service SEO', 'landscaping leads'],
     relatedServiceUrl: '/local-seo',
     relatedServiceName: 'Local SEO Services',
@@ -2309,9 +2320,11 @@ Stop losing service calls to competitors with better Google visibility. Let's di
 
 We specialize in helping landscaping and lawn care businesses dominate local search and generate consistent leads through every season. When property owners search "landscaping services near me" or "lawn care [city]," our clients show up first. Our [SEO services](/seo-services) are built for seasonal businesses like landscaping.
 
-Landscaping is seasonal and competitive, but that creates opportunity. Ranking in the [Google Maps Pack](/blog/google-maps-ranking-factors) ensures you're visible for spring cleanup, summer maintenance, fall services, AND winter snow removal.
+Landscaping is seasonal and competitive, but that creates opportunity. Ranking in the Google Maps Pack ensures you're visible for spring cleanup, summer maintenance, fall services, AND winter snow removal.
 
 **The result?** Landscaping businesses that work with us see consistent lead flow and build recurring client relationships.
+
+![Google Map Pack for landscapers showing where premium clients search](/blog/landscaping-seo/landscaping-map-pack.svg)
 
 ## What's Included in Our Landscaping SEO Services?
 
@@ -2403,6 +2416,8 @@ For landscapers serving multiple areas:
 - Strategy refinement
 - Expanded service targeting
 
+![How Google reviews impact local rankings with stats on review count vs Map Pack position](/blog/reviews-guide/review-impact-rankings.svg)
+
 ## Why Seasonal SEO Planning Matters
 
 Most landscapers wait until spring to think about marketing. By then, it's too late-customers are already searching and choosing competitors.
@@ -2414,6 +2429,8 @@ Most landscapers wait until spring to think about marketing. By then, it's too l
 - Prepare winter content in fall
 
 This means you're already ranking when each season's demand hits, capturing customers before competitors even start trying.
+
+![SEO vs lead generation platforms cost per lead comparison over 12 months](/blog/seo-general/seo-vs-lead-gen-cost.svg)
 
 ## Landscaping SEO Pricing
 
@@ -2464,8 +2481,8 @@ Stop losing clients to competitors with better Google visibility. Let's discuss 
     date: 'Nov 1, 2024',
     readTime: '8 min read',
     featured: false,
-    image: 'https://images.unsplash.com/photo-1632935191897-e5dafc0e8d9a?w=1200&h=630&fit=crop',
-    imageAlt: 'Pest control technician spraying for pest control SEO services',
+    image: '/blog/pest-control-seo/pest-control-map-pack.svg',
+    imageAlt: 'Where pest control calls start: Google Map Pack showing 45%+ conversion rate',
     keywords: ['pest control SEO', 'pest control SEO services', 'exterminator marketing', 'pest control marketing agency', 'termite control SEO', 'pest control leads'],
     relatedServiceUrl: '/local-seo',
     relatedServiceName: 'Local SEO Services',
@@ -2487,9 +2504,11 @@ Stop losing clients to competitors with better Google visibility. Let's discuss 
 
 We specialize in helping pest control companies dominate local search and capture more service calls. When homeowners search "exterminator near me" or "bed bug removal [city]," our clients show up first-and get the call. Our [SEO services](/seo-services) are designed for urgent, high-intent industries like pest control.
 
-Pest control searches have extreme urgency. When someone discovers termites or bed bugs, they're calling the first company they find. That's why [investing in SEO](/blog/seo-pricing) pays off fast,our strategies ensure that first result is you.
+Pest control searches have extreme urgency. When someone discovers termites or bed bugs, they're calling the first company they find. That's why investing in SEO pays off fast,our strategies ensure that first result is you.
 
 **The result?** Pest control companies that work with us see consistent growth in emergency calls AND recurring prevention customers.
+
+![Where pest control calls start: Google Map Pack showing 45%+ conversion rate](/blog/pest-control-seo/pest-control-map-pack.svg)
 
 ## What's Included in Our Pest Control SEO Services?
 
@@ -2579,6 +2598,8 @@ For pest control companies serving multiple areas:
 - Strategy refinement
 - Expanded service targeting
 
+![Google click-through rate by ranking position showing Map Pack gets 69.3% of local search clicks](/blog/seo-general/google-ranking-position-ctr.svg)
+
 ## Emergency vs Prevention: We Capture Both
 
 Pest control has two customer types:
@@ -2591,6 +2612,8 @@ We build strategies that capture both:
 - Emergency keywords and messaging for urgent searches
 - Prevention and maintenance content for recurring customers
 - Review systems that build trust for both audiences
+
+![SEO vs lead generation platforms cost per lead comparison over 12 months](/blog/seo-general/seo-vs-lead-gen-cost.svg)
 
 ## Pest Control SEO Pricing
 
@@ -2641,8 +2664,8 @@ Stop losing emergency calls to competitors with better Google visibility. Let's 
     date: 'Oct 28, 2024',
     readTime: '14 min read',
     featured: false,
-    image: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&h=630&fit=crop',
-    imageAlt: 'Professional cleaning service team for cleaning company SEO',
+    image: '/blog/cleaning-seo/cleaning-map-pack.svg',
+    imageAlt: 'Google Map Pack for cleaning companies showing where recurring clients search',
     keywords: ['seo for cleaning company', 'cleaning company seo', 'cleaning service seo', 'carpet cleaning seo', 'seo for carpet cleaners', 'house cleaning seo company', 'cleaning company seo experts', 'janitorial seo'],
     relatedServiceUrl: '/local-seo',
     relatedServiceName: 'Local SEO Services',
@@ -2661,7 +2684,7 @@ Stop losing emergency calls to competitors with better Google visibility. Let's 
       { question: 'How do I get my cleaning business in the Google Map Pack?', answer: 'To appear in the Google Map Pack, you need a fully optimized Google Business Profile with accurate service categories, consistent NAP (name, address, phone) across all directories, strong reviews with a 4.5+ star average, and local relevance signals from citations and your website. We handle all of this as part of our cleaning company SEO services.' },
       { question: 'Do you help with carpet cleaning SEO?', answer: 'Yes. Carpet cleaning SEO is one of our strongest subcategories. We target high-value keywords like "carpet cleaning near me," "carpet cleaning [city]," and "steam cleaning services" with dedicated landing pages and Google Business Profile optimization specifically for carpet cleaners.' },
       { question: 'Should I hire an SEO agency or do SEO myself for my cleaning business?', answer: 'DIY SEO is possible for basic tasks like claiming your Google Business Profile and asking for reviews. But ranking competitively requires technical skills, content strategy, link building, and ongoing optimization that takes 10-20 hours per month. Most cleaning company owners find that hiring an agency lets them focus on running their business while the leads come in consistently.' },
-      { question: 'What are the best keywords for cleaning company SEO?', answer: 'The highest-volume cleaning keywords include "commercial cleaning services" (39K monthly searches), "air duct cleaning services" (43K searches), "move out cleaning services" (14K searches), and "carpet cleaning near me" (90K+ searches). The best strategy combines these high-volume terms with location modifiers like "house cleaning [city]" and "office cleaning near me." Specialty keywords like "post-construction cleaning" and "vacation rental cleaning" convert at higher rates because the intent is stronger.' },
+      { question: 'What are the best keywords for cleaning company SEO?', answer: 'The best keywords depend on your specific cleaning services and location. We analyze your market, identify high-converting terms across residential cleaning, carpet cleaning, commercial janitorial, and specialty services, then build a custom strategy targeting 100+ keywords in your service area.' },
     ],
     content: `## What Is SEO for a Cleaning Company?
 
@@ -2676,12 +2699,14 @@ There are four types of SEO that matter for cleaning companies:
 
 Most cleaning companies only do one or two of these. A complete strategy covers all four because that is what it takes to rank on the first page in a competitive market. Our [SEO services](/seo-services) are built specifically for cleaning businesses.
 
+![Google Map Pack for cleaning companies showing where recurring clients search](/blog/cleaning-seo/cleaning-map-pack.svg)
+
 ## Why SEO Matters for Cleaning Companies
 
 The cleaning industry is worth over $90 billion in the US alone, and it is one of the most competitive local service markets. Here is why investing in SEO for your cleaning company is not optional anymore:
 
 - **46% of all Google searches have local intent.** People searching for "cleaning service near me" are ready to hire, not just browsing
-- **The Google Map Pack gets 42% of clicks** on local search results. If you are not in the top 3 [map results](/blog/google-maps-ranking-factors), you are invisible to nearly half your potential customers
+- **The Google Map Pack gets 42% of clicks** on local search results. If you are not in the top 3 map results, you are invisible to nearly half your potential customers
 - **76% of people who search for a local service visit a business within 24 hours.** Cleaning searches have some of the highest conversion rates in home services
 - **Word-of-mouth alone is not enough.** Your competitors are investing in SEO, Google Ads, and online reviews. Every month you wait, they build a bigger lead
 
@@ -2689,106 +2714,17 @@ The cleaning companies that invest in SEO early build a compounding advantage. O
 
 ## Cleaning Service SEO: Every Subcategory We Target
 
-We do not treat all cleaning companies the same. Your SEO strategy should match the specific services you offer. Here is how we approach each cleaning subcategory:
+We do not treat all cleaning companies the same. Your SEO strategy should match the specific services you offer. We target 100+ high-intent cleaning keywords across house cleaning, carpet cleaning, commercial janitorial, and specialty cleaning categories. Our strategy covers high-volume terms that generate immediate bookings and long-tail keywords that capture customers comparing specific cleaning services.
 
-### House Cleaning and Maid Service SEO
+For house cleaning SEO, we build dedicated landing pages for each service type and each city you serve. A homeowner searching "deep cleaning services in [city]" should land on a page specifically about your deep cleaning service in that area, not a generic homepage. We also target UK-specific terms for companies serving the UK market.
 
-House cleaning is the most competitive cleaning subcategory, but it also has the highest search volume. We target keywords that match how real homeowners search:
+Carpet cleaning SEO is one of the highest-value subcategories because carpet cleaning jobs are often $150-$500+ per appointment with strong repeat potential. Whether you run a standalone carpet cleaning business or offer it as part of a broader cleaning company, we build a strategy around the keywords that actually drive bookings. Carpet cleaners also benefit heavily from before-and-after photos on Google Business Profile and review responses that mention specific stain types and results.
 
-- House cleaning services [city]
-- Maid service near me
-- Professional deep cleaning services (3,300+ monthly searches in the US)
-- Weekly house cleaning
-- Recurring cleaning services
-- Deep cleaning services (3,000+ monthly searches in the UK alone)
-- One-time house cleaning
-- Same day house cleaning
-- Bathroom cleaning services
-- Green cleaning services
-- Apartment building cleaning services (8,000+ monthly searches)
+Commercial cleaning contracts are the highest-value clients, often worth $2,000-$10,000+ per month in recurring revenue. Cleaning service SEO for commercial clients requires content that speaks to facility managers and business owners. We create pages that address their specific concerns: insurance, bonding, employee background checks, and compliance certifications.
 
-For house cleaning SEO, we build dedicated landing pages for each service type and each city you serve. A homeowner searching "deep cleaning services in [city]" should land on a page specifically about your deep cleaning service in that area, not a generic homepage. We also target UK-specific terms like "home cleaning services," "house deep cleaning services," and "find a cleaner near me" for companies serving the UK market.
-
-### Carpet Cleaning SEO
-
-Carpet cleaning SEO is one of the highest-value subcategories because carpet cleaning jobs are often $150-$500+ per appointment with strong repeat potential. The keyword "carpet cleaning near me" alone gets 50,000+ searches per month in the US, and "carpet cleaner near me" gets 2,600+ monthly searches in the UK.
-
-We target carpet cleaning keywords that convert:
-
-- Carpet cleaning [city]
-- Carpet cleaning near me
-- Steam carpet cleaning
-- Commercial carpet cleaning services
-- Carpet stain removal services
-- Upholstery cleaning [city]
-- Rug cleaning services near me
-- Sofa cleaning services
-- Carpet cleaning services near me
-
-Carpet cleaners also benefit heavily from before-and-after photos on Google Business Profile and review responses that mention specific stain types and results. Whether you run a standalone carpet cleaning business or offer it as part of a broader cleaning company, we build a strategy around the keywords that actually drive bookings.
-
-### Commercial and Janitorial SEO
-
-Commercial cleaning contracts are the highest-value clients, often worth $2,000-$10,000+ per month in recurring revenue. The keyword "commercial cleaning services" alone gets 39,000 monthly searches in the US. The SEO strategy is different from residential because decision-makers search differently:
-
-- Commercial cleaning services [city] (39K monthly searches)
-- Office cleaning services near me
-- Janitorial services [city]
-- Cleaning and janitorial services
-- Industrial cleaning services (9,800+ monthly searches)
-- Medical office cleaning services (2,800+ monthly searches)
-- Healthcare cleaning services (5,400+ monthly searches)
-- Hospital cleaning services (3,300+ monthly searches)
-- Restaurant cleaning services (5,100+ monthly searches)
-- Hotel cleaning services (4,300+ monthly searches)
-- Warehouse cleaning services (1,800+ monthly searches)
-- Fitness center cleaning services (7,600+ monthly searches)
-- Daycare cleaning services (2,300+ monthly searches)
-- School cleaning services
-- Retail store cleaning
-- Contract cleaning services
-
-Cleaning service SEO for commercial clients requires content that speaks to facility managers and business owners. We create pages that address their specific concerns: insurance, bonding, employee background checks, and compliance certifications. In the UK, we also target terms like "office cleaning services near me," "industrial cleaning companies," and "specialist cleaning services."
-
-### Specialty Cleaning SEO
-
-Specialty cleaning keywords often have lower competition but strong conversion rates because the intent is specific and urgent:
-
-- Move out cleaning services (14,000+ monthly searches)
-- Move out cleaning services near me (6,100+ monthly searches)
-- Construction cleaning services (5,500+ monthly searches)
-- Post-construction cleaning services
-- Airbnb cleaning services (2,500+ monthly searches)
-- Vacation rental cleaning services (3,500+ monthly searches)
-- Hoarding cleaning services (2,100+ monthly searches)
-- Event cleaning services (1,800+ monthly searches)
-- Attic cleaning services (1,700+ monthly searches)
-- Solar panel cleaning services (2,500+ monthly searches)
-
-**Additional high-value specialty services:**
-- Air duct cleaning services (43,000+ monthly searches, one of the highest volume cleaning keywords)
-- Dryer vent cleaning services (3,900+ monthly searches)
-- Gutter cleaning services (2,400+ monthly searches)
-- Roof cleaning services (5,900+ monthly searches)
-- Tile cleaning services (2,900+ monthly searches)
-- Window cleaning services near me
-
-In the UK market, we also target "end of tenancy cleaning services," "oven cleaning services near me," "garden cleaning services," "patio cleaning services," and "specialist cleaning services" which have strong local search volume.
-
-We build dedicated pages for every specialty service you offer. These pages often rank faster than competitive generic terms and bring in high-value clients.
+Specialty cleaning keywords often have lower competition but strong conversion rates because the intent is specific and urgent. From move-out cleaning and post-construction cleanup to Airbnb turnovers and air duct cleaning, we build dedicated pages for every specialty service you offer. These pages often rank faster than competitive generic terms and bring in high-value clients.
 
 ## What Is Included in Our Cleaning Service SEO Packages
-
-### Keyword Research and Strategy
-
-Every cleaning service SEO campaign starts with research. We identify the exact keywords your customers search for, analyze what your local competitors rank for, and find gaps where you can win quickly.
-
-We look at:
-
-- Search volume and competition for each keyword
-- Which keywords your competitors rank for that you do not
-- Long-tail keywords with high conversion potential (like "eco-friendly house cleaning [city]")
-- Seasonal trends (spring cleaning searches spike 300% in March-April)
 
 ### On-Page SEO for Cleaning Websites
 
@@ -2803,7 +2739,7 @@ Your website is your digital storefront. We optimize every page to rank and conv
 
 ### Local SEO and Google Business Profile
 
-Local SEO is where cleaning companies win or lose. A fully optimized [Google Business Profile](/blog/google-business-profile-optimization-guide) is the foundation, and we build from there across your entire local presence:
+Local SEO is where cleaning companies win or lose. A fully optimized Google Business Profile is the foundation, and we build from there across your entire local presence:
 
 **Google Business Profile optimization:**
 - Correct primary and secondary categories
@@ -2820,7 +2756,7 @@ Local SEO is where cleaning companies win or lose. A fully optimized [Google Bus
 - Local business directories and chamber of commerce listings
 - Data aggregator submissions for broad distribution
 
-Building strong [local citations](/blog/local-citations-guide) is one of the fastest ways to improve your map pack rankings.
+Building strong local citations is one of the fastest ways to improve your map pack rankings.
 
 ### Content Strategy
 
@@ -2917,6 +2853,8 @@ SEO is not a guessing game. Here are the metrics we track monthly for every clie
 
 Monthly reports show exactly what we did, what moved, and what revenue your SEO investment generated.
 
+![Automated review generation system: 4-step process from job completion to 5-star review](/blog/reviews-guide/review-generation-funnel.svg)
+
 ## Why Reviews Matter for Cleaning Companies
 
 Cleaning services live and die by reviews. You are asking customers to let strangers into their homes or offices. Trust is everything.
@@ -2933,7 +2871,9 @@ Cleaning services live and die by reviews. You are asking customers to let stran
 - Professional response templates for positive and negative reviews
 - Reputation management strategy for handling complaints
 
-**The goal:** Build a 4.8+ star average with 50+ reviews that makes choosing you the obvious decision. Strong [Google reviews](/blog/google-reviews-guide) are the fastest trust signal you can build.
+**The goal:** Build a 4.8+ star average with 50+ reviews that makes choosing you the obvious decision. Strong Google reviews are the fastest trust signal you can build.
+
+![SEO vs lead generation platforms cost per lead comparison over 12 months](/blog/seo-general/seo-vs-lead-gen-cost.svg)
 
 ## Cleaning Service SEO Pricing
 
@@ -2990,8 +2930,8 @@ Stop losing customers to competitors with better Google visibility. Whether you 
     date: 'Oct 25, 2024',
     readTime: '8 min read',
     featured: false,
-    image: 'https://images.unsplash.com/photo-1600518464441-9154a4dea21b?w=1200&h=630&fit=crop',
-    imageAlt: 'Moving truck and boxes for moving company SEO services',
+    image: '/blog/moving-seo/moving-map-pack.svg',
+    imageAlt: 'Google Map Pack for movers showing where $800-$5K jobs come from',
     keywords: ['moving company SEO', 'moving company SEO services', 'movers marketing', 'local movers SEO', 'moving company marketing', 'moving leads'],
     relatedServiceUrl: '/local-seo',
     relatedServiceName: 'Local SEO Services',
@@ -3013,9 +2953,11 @@ Stop losing customers to competitors with better Google visibility. Whether you 
 
 We specialize in helping moving companies capture more quote requests and book more moves. When people search "movers near me" or "long distance moving company [city]," our clients show up first-and convert that visibility into booked jobs. Our [SEO services](/seo-services) are built for local service businesses like yours.
 
-People searching for movers are at a critical decision point. They've already decided to move; they just need to choose a company. A strong [Google Business Profile](/blog/gbp-optimization) and our SEO strategies ensure they choose you.
+People searching for movers are at a critical decision point. They've already decided to move; they just need to choose a company. A strong Google Business Profile and our SEO strategies ensure they choose you.
 
 **The result?** Moving companies that work with us see consistent quote request growth across local, long-distance, and specialty moves.
+
+![Google Map Pack for movers showing where $800-$5K jobs come from](/blog/moving-seo/moving-map-pack.svg)
 
 ## What's Included in Our Moving Company SEO Services?
 
@@ -3108,6 +3050,8 @@ For long-distance movers:
 - Strategy refinement
 - Expanded service targeting
 
+![Local SEO ranking factors breakdown: GBP 32%, Reviews 16%, On-Page 19%, Citations 7%, Links 11%, Proximity 15%](/blog/seo-general/local-seo-ranking-factors.svg)
+
 ## Why Trust Signals Matter for Movers
 
 Moving customers are cautious. They're entrusting their belongings-often everything they own-to strangers. Trust signals aren't optional; they're essential.
@@ -3133,6 +3077,8 @@ Moving has strong seasonality:
 - Build rankings year-round so you dominate peak season
 - Capture off-season searches when competitors scale back
 - Seasonal content that addresses moving timing questions
+
+![SEO vs lead generation platforms cost per lead comparison over 12 months](/blog/seo-general/seo-vs-lead-gen-cost.svg)
 
 ## Moving Company SEO Pricing
 
@@ -3174,17 +3120,452 @@ Stop losing jobs to competitors with better Google visibility. Let's discuss how
     `,
   },
   {
+    slug: 'locksmith-keywords-for-seo',
+    title: 'Locksmith Keywords for SEO: 100+ High-Intent Keywords That Drive Calls in 2026',
+    excerpt: 'The complete list of locksmith keywords for SEO, organized by service category, search intent, and conversion potential. Use this keyword research guide to build your locksmith SEO strategy.',
+    category: 'Local SEO',
+    author: 'Web Wise Team',
+    authorBio: 'The Web Wise Team has helped locksmith businesses across the US and UK achieve first-page Google rankings through data-driven keyword strategies and local SEO.',
+    date: 'Mar 9, 2026',
+    readTime: '18 min read',
+    featured: false,
+    image: '/blog/locksmith-keywords/locksmith-keywords-hero.svg',
+    imageAlt: 'Locksmith keywords for SEO: 100+ high-intent keywords organized by category with search volumes and conversion rates',
+    keywords: ['locksmith keywords', 'locksmith keywords for seo', 'locksmith seo keywords', 'seo for locksmiths', 'locksmith seo', 'locksmith search terms', 'locksmith keyword research', 'best locksmith keywords'],
+    relatedServiceUrl: '/local-seo',
+    relatedServiceName: 'Local SEO Services',
+    tldr: [
+      'Emergency lockout keywords like "locksmith near me" and "locked out of house" have the highest conversion rates at 40%+ because customers need help immediately',
+      'Targeting city-specific locksmith keywords is essential because 93% of locksmith searches have local intent and Google prioritizes businesses near the searcher',
+      'Long-tail locksmith keywords like "car key fob replacement [city]" have lower competition and higher conversion rates than broad terms',
+      'Automotive locksmith keywords command premium pricing with car key replacement jobs averaging $150-$400 per call',
+      'Commercial locksmith keywords target higher-ticket contracts and recurring revenue from property managers and businesses',
+      'A complete locksmith keyword strategy should cover 100+ terms across emergency, residential, automotive, commercial, and specialty categories mapped to your service area',
+    ],
+    faqs: [
+      { question: 'What are the best keywords for a locksmith business?', answer: 'The highest-converting locksmith keywords are emergency-intent terms like "locksmith near me," "locked out of house," "24 hour locksmith [city]," and "emergency locksmith near me." These keywords have conversion rates above 40% because the searcher needs immediate help and will call the first trustworthy result they find.' },
+      { question: 'How do I find locksmith keywords for my area?', answer: 'Start with your core services (emergency lockout, rekey, car key replacement) and add your city name. Use Google autocomplete by typing "locksmith [your city]" and noting the suggestions. Check Google Search Console for terms you already appear for. Tools like Google Keyword Planner, Ahrefs, or SEMrush can reveal search volumes and competition levels for your market.' },
+      { question: 'How many keywords should a locksmith target?', answer: 'A comprehensive locksmith SEO strategy should target 100+ keywords across all service categories and service areas. Each city you serve needs its own set of location-modified keywords. Most locksmith businesses serve 10-20 cities, and each city should have at least 8-10 core service keywords targeted.' },
+      { question: 'What is the search volume for locksmith keywords?', answer: '"Locksmith near me" gets approximately 450,000 monthly searches in the US. "Emergency locksmith" gets around 33,000, "car locksmith" gets 22,000, and city-specific terms like "locksmith [city name]" typically range from 500-5,000 depending on population. The combined volume across all locksmith-related terms is massive.' },
+      { question: 'Should I target "near me" locksmith keywords?', answer: 'Yes. "Near me" keywords are among the highest-converting search terms for locksmiths. Google uses the searcher location to determine which businesses to show, so you do not need to add "near me" to your page content. Instead, optimize your Google Business Profile, build local citations, and ensure your website clearly states your service areas.' },
+      { question: 'How long does it take to rank for locksmith keywords?', answer: 'Google Maps rankings for locksmith keywords typically improve within 60-90 days of starting optimization. Organic search rankings for competitive terms like "locksmith [major city]" usually take 3-6 months. Less competitive long-tail keywords and smaller cities can rank much faster, sometimes within weeks.' },
+      { question: 'What locksmith keywords have the lowest competition?', answer: 'Specialty service keywords like "safe lockout service," "master key system installation," "high security lock installation," and "access control programming" tend to have the lowest competition. City-specific long-tail terms in smaller markets also have minimal competition. These are ideal starting points for new locksmith websites.' },
+      { question: 'Do I need different keywords for each city I serve?', answer: 'Yes. Google treats "locksmith Dallas" and "locksmith Fort Worth" as completely different queries with different results. Each city in your service area needs dedicated landing pages targeting location-specific keywords. This is one of the most common mistakes locksmith businesses make, having one generic page instead of city-specific pages.' },
+    ],
+    content: `## Locksmith Keywords for SEO: The Complete Keyword Research Guide
+
+If you run a locksmith business, the keywords you target determine whether customers find you or your competitors on Google. This guide contains over 100 locksmith keywords organized by service category, search intent, and conversion potential so you can build an SEO strategy that actually generates calls.
+
+Whether you are doing SEO yourself or working with a [professional locksmith SEO service](/local-seo/locksmiths), understanding which keywords matter and why is the foundation of every successful campaign.
+
+![Where 70% of locksmith calls come from: the Google Map Pack showing top 3 local results](/blog/locksmith-keywords/google-map-pack-locksmith.svg)
+
+## Why Locksmith Keyword Research Matters
+
+The locksmith industry is one of the most search-dependent trades. When someone is locked out of their house at 2 AM or needs a car key replaced, they do not open a phone book. They search Google and call the first business that looks legitimate.
+
+Targeting the right locksmith keywords means your business appears for these high-intent searches. Targeting the wrong keywords, or no keywords at all, means every one of those calls goes to a competitor.
+
+Here is what makes locksmith keyword research unique compared to other industries:
+
+**Extreme urgency.** Most locksmith searches happen when someone needs help right now. Emergency lockout keywords have conversion rates above 40% because the searcher is not browsing. They are calling.
+
+**Strong local intent.** 93% of locksmith searches have local intent. Google heavily factors in proximity, which means you need city and neighborhood-specific keywords for every area you serve.
+
+**Service diversity.** Locksmiths offer everything from emergency lockouts to smart lock installations to commercial access control. Each service category has its own keyword cluster with different search volumes and competition levels.
+
+**Scam competition.** The locksmith industry has a well-documented problem with fake listings and scam operators. This actually creates opportunity because Google increasingly rewards businesses that demonstrate legitimacy through reviews, citations, and well-optimized websites.
+
+![Locksmith keyword traffic breakdown by category showing emergency keywords dominate with 490K+ monthly searches](/blog/locksmith-keywords/locksmith-keyword-traffic-breakdown.svg)
+
+## Emergency Lockout Keywords
+
+Emergency lockout keywords are the most valuable locksmith keywords. These searches happen when someone is locked out right now and needs immediate help. They convert at 40%+ rates and represent your highest-revenue calls.
+
+### High Volume Emergency Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| locksmith near me | 450,000 | Emergency/Local | High |
+| emergency locksmith | 33,100 | Emergency | Medium |
+| locked out of house | 27,100 | Emergency | Medium |
+| locksmith open now | 14,800 | Emergency | Medium |
+| 24 hour locksmith | 12,100 | Emergency | Medium |
+| car lockout service | 8,100 | Emergency | Medium |
+| locked out of car | 40,500 | Emergency | Medium |
+| house lockout | 6,600 | Emergency | Low |
+| emergency locksmith near me | 18,100 | Emergency/Local | Medium |
+| after hours locksmith | 3,600 | Emergency | Low |
+
+### Long-Tail Emergency Keywords
+
+These lower-volume terms convert extremely well because they signal immediate need:
+
+- locked out of house no spare key
+- locked out of apartment who to call
+- locksmith for locked car door
+- emergency locksmith cost
+- how much does an emergency locksmith charge
+- mobile locksmith near me open now
+- locksmith that comes to you
+- locked keys in car who to call
+- home lockout service near me
+- lost house keys locksmith
+
+### City-Modified Emergency Keywords
+
+Every emergency keyword needs city variations for your service area. For example:
+
+- emergency locksmith [city]
+- 24 hour locksmith [city]
+- locksmith [city] open now
+- locked out locksmith [city]
+- [city] locksmith emergency
+- late night locksmith [city]
+
+**Pro tip:** Create a dedicated landing page for each city you serve. A page titled "Emergency Locksmith in [City] - 24/7 Fast Response" targeting "[city] emergency locksmith" will outrank a generic emergency page every time.
+
+## Residential Locksmith Keywords
+
+Residential locksmith keywords represent steady, planned work. These customers are not always in a rush, they may be rekeying after moving into a new home or upgrading their locks. The jobs are lower-ticket than emergency calls but more predictable.
+
+### Core Residential Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| lock rekey | 14,800 | Service | Medium |
+| lock change | 9,900 | Service | Medium |
+| rekey locks | 12,100 | Service | Medium |
+| deadbolt installation | 6,600 | Service | Low |
+| home lock change | 4,400 | Service | Low |
+| residential locksmith | 3,600 | Service | Low |
+| lock repair near me | 5,400 | Service/Local | Medium |
+| door lock replacement | 4,400 | Service | Low |
+| rekey locks after buying house | 2,900 | Service | Low |
+| new home lock change | 1,900 | Service | Low |
+
+### Long-Tail Residential Keywords
+
+- how much does it cost to rekey locks
+- lock rekey vs lock change
+- rekey locks after moving
+- change locks on new house cost
+- deadbolt installation cost
+- how much to change locks on house
+- best locks for front door
+- residential locksmith near me
+- home security lock upgrade
+- sliding door lock replacement
+- lock replacement cost
+- garage door lock repair
+
+### Residential Keywords by Room/Area
+
+Target specific areas of the home for detailed service pages:
+
+- front door lock replacement
+- back door lock change
+- garage lock repair
+- bedroom door lock installation
+- bathroom lock replacement
+- window lock repair
+- gate lock installation
+- mailbox lock replacement
+- shed lock installation
+- patio door lock repair
+
+## Automotive Locksmith Keywords
+
+Automotive locksmith keywords command premium pricing. Car key replacement jobs average $150-$400 depending on the vehicle, and transponder key programming can be even higher. These keywords are worth targeting aggressively.
+
+### Core Automotive Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| car key replacement | 33,100 | Service | High |
+| car locksmith | 22,200 | Service/Local | High |
+| car key copy | 18,100 | Service | Medium |
+| transponder key programming | 8,100 | Service | Medium |
+| key fob replacement | 27,100 | Service | High |
+| car key fob copy | 6,600 | Service | Medium |
+| ignition repair | 4,400 | Service | Low |
+| auto locksmith near me | 9,900 | Service/Local | Medium |
+| car key made | 5,400 | Service | Medium |
+| lost car key replacement | 6,600 | Service | Medium |
+
+### Long-Tail Automotive Keywords
+
+- car key replacement cost
+- how much does car key replacement cost
+- transponder key programming near me
+- car key fob battery replacement
+- push to start key replacement
+- car key copy near me cost
+- spare car key made
+- car key programmer near me
+- replace car key without original
+- duplicate car key cost
+- smart key replacement cost
+- key fob not working after battery replacement
+
+### Make-Specific Automotive Keywords
+
+High-value keywords that target specific car brands:
+
+- Honda key replacement
+- Toyota key fob replacement
+- Ford transponder key programming
+- BMW key replacement cost
+- Mercedes key programming
+- Chevrolet key fob copy
+- Nissan intelligent key replacement
+- Jeep key fob replacement
+- Hyundai key replacement
+- Volkswagen key programming
+
+**These are extremely valuable** because they signal a customer who knows exactly what they need and is ready to pay. A page targeting "[Make] key replacement [city]" can rank quickly due to low competition.
+
+## Commercial Locksmith Keywords
+
+Commercial locksmith keywords target higher-ticket contracts and often lead to recurring business relationships with property managers, business owners, and facility managers. A single commercial contract can be worth thousands per year.
+
+### Core Commercial Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| commercial locksmith | 6,600 | Service | Medium |
+| access control installation | 4,400 | Service | Low |
+| master key system | 3,600 | Service | Low |
+| commercial lock change | 2,400 | Service | Low |
+| office lockout | 2,900 | Emergency | Low |
+| business lock change | 1,600 | Service | Low |
+| commercial door lock repair | 1,300 | Service | Low |
+| keypad lock installation | 2,400 | Service | Low |
+| commercial lock installation | 1,900 | Service | Low |
+| panic bar installation | 1,600 | Service | Low |
+
+### Long-Tail Commercial Keywords
+
+- commercial locksmith near me
+- master key system cost
+- access control system for small business
+- commercial lock rekey cost
+- office lock change after employee termination
+- business security lock upgrade
+- commercial door closer installation
+- exit device installation
+- restricted key system
+- commercial locksmith services
+- tenant lock change
+- property manager locksmith
+
+### Industry-Specific Commercial Keywords
+
+- apartment complex lock change
+- hotel lock system installation
+- restaurant lock change
+- retail store lock installation
+- warehouse lock security
+- school lock system
+- church lock replacement
+- gym locker lock repair
+- storage unit lock change
+- office building access control
+
+## Specialty and Smart Lock Keywords
+
+Specialty locksmith keywords target customers with specific high-value needs. Smart lock installation is a growing category as more homeowners adopt connected security.
+
+### Smart Lock Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| smart lock installation | 6,600 | Service | Low |
+| smart lock installer near me | 2,400 | Service/Local | Low |
+| keyless entry installation | 3,600 | Service | Low |
+| smart deadbolt installation | 1,900 | Service | Low |
+| wifi lock installation | 1,300 | Service | Low |
+| smart lock setup | 2,400 | Service | Low |
+
+### Safe Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| safe lockout | 2,900 | Emergency | Low |
+| safe cracking service | 1,600 | Service | Low |
+| safe combination change | 1,300 | Service | Low |
+| gun safe lockout | 1,900 | Emergency | Low |
+| safe lock repair | 1,000 | Service | Low |
+| safe installation | 1,600 | Service | Low |
+
+### Other Specialty Keywords
+
+- high security lock installation
+- lock rekeying for landlords
+- eviction lock change service
+- broken key extraction
+- lock picking service
+- security assessment locksmith
+- lock upgrading service
+- bump proof locks installation
+- keyless entry for business
+- biometric lock installation
+
+## How to Use These Locksmith Keywords
+
+![Google click-through rate by ranking position for local locksmith searches showing Map Pack captures 69.3% of clicks](/blog/locksmith-keywords/google-ranking-position-ctr.svg)
+
+Having a keyword list is step one. Here is how to actually implement these keywords to rank on Google and generate calls.
+
+### Map Keywords to Pages
+
+Every keyword cluster needs its own dedicated page. Do not try to rank one page for everything. Here is the page structure that works:
+
+**Homepage** → Target your broadest term: "locksmith [primary city]"
+
+**Service pages** (one per category):
+- /emergency-locksmith → emergency lockout keywords
+- /residential-locksmith → rekey, lock change, installation keywords
+- /automotive-locksmith → car key, transponder, key fob keywords
+- /commercial-locksmith → access control, master key, business lock keywords
+- /smart-lock-installation → smart lock and keyless entry keywords
+
+**City pages** (one per service area):
+- /locksmith-[city-name] → "[city] locksmith" + top services
+- Each city page should mention your core services with city-specific content
+
+### Optimize Title Tags and Meta Descriptions
+
+Your title tag is the single most important on-page ranking factor. Use this formula:
+
+**Title:** [Primary Keyword] | [Brand] - [City, State]
+**Example:** Emergency Locksmith in Dallas | FastKey Locksmith - 24/7 Response
+
+**Meta description:** Include your primary keyword, a benefit, and a call to action.
+**Example:** Professional emergency locksmith in Dallas. 15-minute response time, upfront pricing, no hidden fees. Call now for immediate lockout help.
+
+### Use Keywords Naturally in Content
+
+Google is sophisticated enough to understand context. Do not stuff keywords. Instead:
+
+- Use the exact keyword in your H1 heading
+- Include variations naturally throughout the page
+- Answer the questions your customers actually ask
+- Write at least 800-1,000 words per service page
+- Include your city name naturally in the content
+
+### Optimize Your Google Business Profile
+
+![What determines your locksmith Google Maps ranking - GBP signals 32%, Reviews 16%, On-Page SEO 19%, Citations 7%, Links 11%, Proximity 15%](/blog/locksmith-keywords/local-seo-ranking-factors.svg)
+
+Your Google Business Profile needs keyword optimization too:
+
+- Business description should include your top keywords naturally
+- Services list should match your keyword categories
+- Posts should mention specific services and cities
+- Q&A section is an opportunity to include keywords in answers
+- Categories should cover all your service types
+
+### Build City-Specific Landing Pages
+
+This is where most locksmith businesses fail. If you serve 15 cities, you need 15 city pages. Each page should include:
+
+- Unique content about serving that specific area
+- City-specific testimonials when possible
+- Mention of neighborhoods and landmarks
+- Your response time to that area
+- Location-modified keywords throughout
+
+### Track Which Keywords Generate Calls
+
+Not all keywords are equal. Set up call tracking to identify which keywords and pages actually generate phone calls. You may find that "car key replacement [city]" generates more revenue per call than "locksmith near me" despite lower search volume. Use this data to double down on what works.
+
+## Locksmith Keywords by Search Intent
+
+Understanding search intent helps you create the right content for each keyword:
+
+### Transactional Intent (Ready to Call)
+
+These searchers want a locksmith right now:
+- locksmith near me
+- emergency locksmith [city]
+- 24 hour locksmith
+- locked out of house call locksmith
+- car lockout service near me
+
+**Best page type:** Service page with prominent phone number and click-to-call buttons.
+
+### Informational Intent (Researching)
+
+These searchers want information before deciding:
+- how much does a locksmith cost
+- locksmith prices for car key
+- how to rekey locks yourself
+- is it cheaper to rekey or replace locks
+- how long does a locksmith take
+
+**Best page type:** Blog post or FAQ page that answers the question and includes a CTA to call for a quote.
+
+### Commercial Investigation Intent (Comparing Options)
+
+These searchers are evaluating locksmith options:
+- best locksmith in [city]
+- locksmith reviews [city]
+- locksmith [city] prices
+- licensed locksmith near me
+- top rated locksmith
+
+**Best page type:** City landing page with reviews, credentials, and pricing transparency.
+
+## Seasonal Locksmith Keyword Trends
+
+Locksmith search volumes fluctuate throughout the year. Understanding these patterns helps you plan content and advertising:
+
+**Winter (Nov-Feb):** Spike in "frozen lock," "car won't start locksmith," and "lock de-icer" searches. Heating-related lockout calls increase as people rush in and out.
+
+**Spring (Mar-May):** "Rekey locks new home" and "lock change after moving" peak during spring moving season. Smart lock installation interest rises.
+
+**Summer (Jun-Aug):** Car lockout searches peak as people spend more time out. "Vacation home lock" and "lock upgrade before vacation" see seasonal bumps.
+
+**Fall (Sep-Oct):** "Back to school lock" searches for dorm and school lockers. "Security assessment" and "lock upgrade" interest rises before the holiday season.
+
+Create seasonal blog content around these trends to capture timely search traffic year-round.
+
+## Common Keyword Research Mistakes Locksmiths Make
+
+**1. Only targeting "locksmith near me."** Yes, it has massive volume. But Google determines proximity automatically. You cannot rank for it without strong local SEO fundamentals across all the other keywords too.
+
+**2. Ignoring long-tail keywords.** A term like "car key fob replacement for Honda Civic" has low volume but almost zero competition and very high conversion rates. These add up fast.
+
+**3. Not targeting individual cities.** "Locksmith Dallas" and "locksmith Plano" are different keywords with different results. You need separate pages and strategies for each.
+
+**4. Copying competitor keywords without strategy.** Just because a competitor targets a keyword does not mean you should. Focus on keywords that match services you actually offer and areas you actually serve.
+
+**5. Forgetting Google Business Profile keywords.** Your GBP description, services, and posts all influence what searches you appear for. Optimize them with the same keywords you target on your website.
+
+**6. Not tracking keyword performance.** If you do not measure which keywords generate actual calls and revenue, you cannot optimize your strategy. Set up call tracking from day one.
+
+## Start Ranking for These Locksmith Keywords
+
+This keyword list is your roadmap. The next step is implementing a strategy that targets these terms across your website, Google Business Profile, and content marketing.
+
+If you want professional help building and executing a locksmith keyword strategy that generates measurable calls and revenue, our team specializes in [SEO for locksmiths](/local-seo/locksmiths). We have helped locksmith businesses across the US and UK achieve first-page rankings and break free from expensive lead generation platforms.
+
+[Get a Free Locksmith SEO Audit](/contact) - We will analyze your current keyword rankings, identify the highest-opportunity terms in your market, and show you exactly what it takes to outrank your competition.
+    `,
+  },
+  {
     slug: 'locksmith-seo-guide',
     title: 'SEO for Locksmiths - Get More Emergency Lockout Calls From Google',
     excerpt: 'We help locksmith businesses dominate Google Maps and local search. Our proven SEO strategies deliver more emergency lockout calls, 24/7 visibility, and zero per-lead fees.',
     category: 'Local SEO',
     author: 'Web Wise Team',
     authorBio: 'The Web Wise Team specializes in local SEO for service businesses, having helped locksmith companies achieve top Google rankings and break free from expensive lead generation platforms.',
-    date: 'Dec 5, 2024',
+    date: 'Mar 9, 2026',
     readTime: '14 min read',
     featured: false,
-    image: 'https://images.unsplash.com/photo-1621274147744-cfb5694bb233?w=1200&h=630&fit=crop',
-    imageAlt: 'Professional locksmith working on a door lock representing locksmith SEO services',
+    image: '/blog/locksmith-keywords/google-map-pack-locksmith.svg',
+    imageAlt: 'Google Map Pack results for locksmith near me showing top 3 local locksmith businesses',
     keywords: ['seo for locksmiths', 'locksmith seo', 'locksmith keywords', 'locksmith seo services', 'locksmith marketing', 'emergency locksmith seo', 'locksmith local seo', 'locksmith lead generation', 'locksmith google maps', 'locksmith website optimization'],
     relatedServiceUrl: '/local-seo',
     relatedServiceName: 'Local SEO Services',
@@ -3210,7 +3591,9 @@ Stop losing jobs to competitors with better Google visibility. Let's discuss how
 
 When someone is locked out of their house at 2 AM, they grab their phone and call the first locksmith they find on Google. If that locksmith is not you, you are losing your highest-value jobs to competitors every single day. Our [SEO services](/seo-services) are built to make sure you are the one who shows up and gets the call.
 
-Our locksmith SEO services help businesses break free from expensive lead generation platforms and build their own stream of exclusive, high-intent calls. A key part of that success is [Google Business Profile optimization](/blog/google-business-profile-optimization-guide), which drives over 70% of all locksmith calls.
+Our locksmith SEO services help businesses break free from expensive lead generation platforms and build their own stream of exclusive, high-intent calls. A key part of that success is Google Business Profile optimization, which drives over 70% of all locksmith calls.
+
+![Where 70% of locksmith calls come from: the Google Map Pack showing top 3 local results](/blog/locksmith-keywords/google-map-pack-locksmith.svg)
 
 **What makes us different?** We don't just optimize and hope. We build complete lead generation systems that eliminate your dependence on middleman platforms, track every call, and prove ROI month after month.
 
@@ -3220,7 +3603,7 @@ SEO for locksmiths is the process of optimizing your locksmith business to appea
 
 There are four types of SEO that matter for locksmith businesses:
 
-**Local SEO** is the most critical for locksmiths. This is what gets you into the Google Map Pack when someone searches "locksmith near me" or "emergency locksmith [city]." It includes your Google Business Profile, [local citations](/blog/local-citations-guide), reviews, and location-specific content.
+**Local SEO** is the most critical for locksmiths. This is what gets you into the Google Map Pack when someone searches "locksmith near me" or "emergency locksmith [city]." It includes your Google Business Profile, local citations, reviews, and location-specific content.
 
 **On-page SEO** covers everything on your website: service pages for each type of lock service, title tags, meta descriptions, page speed, mobile responsiveness, and structured data. A well-optimized locksmith website converts visitors into calls.
 
@@ -3228,7 +3611,7 @@ There are four types of SEO that matter for locksmith businesses:
 
 **Technical SEO** ensures Google can properly crawl and index your site. This includes site speed, mobile-friendliness, schema markup, and fixing errors that prevent pages from ranking.
 
-Most locksmith businesses only think about one or two of these. A complete locksmith SEO strategy addresses all four, which is exactly what we deliver. Unlike pay-per-click ads or lead generation platforms that charge for every call, SEO builds a long-term asset. Once your locksmith business ranks in the [Google Maps Pack](/blog/google-maps-ranking-factors) and organic results, you receive a consistent stream of high-intent calls without paying per lead.
+Most locksmith businesses only think about one or two of these. A complete locksmith SEO strategy addresses all four, which is exactly what we deliver. Unlike pay-per-click ads or lead generation platforms that charge for every call, SEO builds a long-term asset. Once your locksmith business ranks in the Google Maps Pack and organic results, you receive a consistent stream of high-intent calls without paying per lead.
 
 ## Why Your Locksmith Business Needs SEO
 
@@ -3242,73 +3625,11 @@ The locksmith industry is uniquely dependent on Google visibility. Most customer
 
 **Your service area is too broad to rank without a strategy.** You serve 15+ cities but your website has one generic page. Google does not know which areas you cover, so you rank in none of them. Locksmith SEO with city-specific pages fixes this.
 
-## Locksmith Keywords We Target
+![Google click-through rate by ranking position for local locksmith searches showing Map Pack captures 69.3% of clicks](/blog/locksmith-keywords/google-ranking-position-ctr.svg)
 
-A complete SEO strategy for locksmiths targets every service you offer across every area you serve. We target keywords across all locksmith service categories, prioritizing emergency and high-intent searches that convert to immediate phone calls.
+## The Keywords That Drive Locksmith Revenue
 
-### Emergency Lockout Keywords
-
-Emergency lockout searches are the most valuable locksmith keywords. These customers need help right now and will call the first locksmith they find.
-
-- Emergency locksmith near me
-- Locked out of house
-- Car lockout service [city]
-- 24 hour locksmith [city]
-- Locksmith open now
-- After hours locksmith near me
-
-### Residential Locksmith Keywords
-
-Residential services represent steady, recurring work for locksmith businesses.
-
-- Lock rekey service [city]
-- Home lock change near me
-- Deadbolt installation [city]
-- House lockout service
-- Residential locksmith [city]
-- Lock repair near me
-
-### Automotive Locksmith Keywords
-
-Automotive locksmith services often command premium prices and generate consistent demand.
-
-- Car key replacement [city]
-- Transponder key programming near me
-- Car key fob copy [city]
-- Ignition repair [city]
-- Auto locksmith near me
-
-### Commercial Locksmith Keywords
-
-Commercial locksmith work represents higher-ticket contracts and recurring business relationships.
-
-- Commercial locksmith [city]
-- Access control installation near me
-- Master key system [city]
-- Office lockout service
-- Commercial lock change [city]
-
-### Specialty Service Keywords
-
-Specialty services attract customers with specific, high-value needs.
-
-- Smart lock installation [city]
-- Safe lockout service near me
-- Lock repair [city]
-- Security assessment [city]
-- High security locks [city]
-
-### Local and City Keywords
-
-Every locksmith keyword needs to be targeted with local modifiers for your specific service area.
-
-- Locksmith [city name]
-- Locksmith near [neighborhood]
-- Best locksmith in [city]
-- Mobile locksmith [city]
-- Cheap locksmith [city]
-
-We build a comprehensive locksmith keyword strategy targeting 50+ terms across your entire service area, organized by service category and city.
+We target 100+ high-intent locksmith keywords across every service category: emergency lockouts, residential rekeying, automotive key services, commercial access control, smart lock installations, and safe services. Every keyword is mapped to your specific service area with city and neighborhood modifiers, prioritizing the emergency and "near me" searches that convert to immediate phone calls at 40%+ rates. Our keyword strategy covers the full customer journey, from someone locked out at 2 AM searching "emergency locksmith near me" to a property manager researching "master key system installation" for next quarter.
 
 ## What Is Included in Our Locksmith SEO Services
 
@@ -3316,7 +3637,7 @@ When you partner with us for locksmith SEO, we handle everything needed to domin
 
 ### Google Business Profile Domination
 
-Your Google Business Profile is where 70% of locksmith calls originate. We optimize every element to maximize your visibility in the [Google Maps 3-Pack](/blog/google-maps-ranking-factors):
+Your Google Business Profile is where 70% of locksmith calls originate. We optimize every element to maximize your visibility in the Google Maps 3-Pack:
 
 - Category optimization (locksmith plus subcategories)
 - Service descriptions with target locksmith keywords
@@ -3346,11 +3667,11 @@ Consistent business listings across the web are critical for local locksmith ran
 - NAP consistency cleanup across all existing listings
 - Local chamber of commerce listings
 - Better Business Bureau profile
-- [Citation building](/blog/local-citations-guide) across all major data aggregators
+- Citation building across all major data aggregators
 
 ### Reviews and Reputation Management
 
-[Reviews](/blog/google-reviews-guide) are one of the top 3 ranking factors for Google Maps. Locksmiths with 50+ reviews and a 4.7+ star rating consistently outrank competitors. We implement:
+Reviews are one of the top 3 ranking factors for Google Maps. Locksmiths with 50+ reviews and a 4.7+ star rating consistently outrank competitors. We implement:
 
 - Post-service SMS review requests sent automatically after every job
 - Email follow-up sequences for customers who do not respond to text
@@ -3396,7 +3717,7 @@ We build or optimize dedicated pages for every service you offer, each targeting
 
 ### Weeks 3-4: Local Citation and Directory Building
 
-[Consistent citations](/blog/local-citations-guide) across the web are critical for local rankings. We ensure your business information is accurate everywhere.
+Consistent citations across the web are critical for local rankings. We ensure your business information is accurate everywhere.
 
 - Top 50 directory submissions
 - Locksmith-specific directories
@@ -3518,8 +3839,8 @@ Get a free locksmith SEO audit and discover exactly what it takes to rank #1 in 
     date: 'Jan 28, 2026',
     readTime: '10 min read',
     featured: false,
-    image: 'https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=1200&h=630&fit=crop',
-    imageAlt: 'Google Maps on smartphone for local SEO ranking factors',
+    image: '/blog/seo-general/local-seo-ranking-factors.svg',
+    imageAlt: 'Local SEO ranking factors breakdown: GBP 32%, Reviews 16%, On-Page 19%, Citations 7%, Links 11%, Proximity 15%',
     keywords: ['google maps ranking factors', 'how to rank on google maps', 'local pack ranking factors', 'google business profile ranking', 'map pack SEO'],
     relatedServiceUrl: '/local-seo',
     relatedServiceName: 'Local SEO Services',
@@ -3544,6 +3865,8 @@ Google Maps rankings are determined by a combination of factors that measure you
 The Map Pack (the top 3 local results that appear with a map) drives significant traffic and calls for local businesses. According to industry data, businesses in the Map Pack receive 44% of clicks for local searches. A strong [Google Business Profile](/blog/gbp-optimization) is the foundation,getting into that top 3 is worth the effort.
 
 Want to dominate your local market? Our [local SEO services](/local-seo) have helped businesses achieve Map Pack rankings and 300%+ traffic increases.
+
+![Local SEO ranking factors breakdown: GBP 32%, Reviews 16%, On-Page 19%, Citations 7%, Links 11%, Proximity 15%](/blog/seo-general/local-seo-ranking-factors.svg)
 
 ## The 12 Google Maps Ranking Factors
 
@@ -3581,6 +3904,8 @@ Your primary category is perhaps the single most important field on your profile
 A plumber should select "Plumber" not "Contractor." An HVAC company should select "HVAC Contractor" not "Home Services."
 
 ### 4. Review Quantity and Quality
+
+![How Google reviews impact local rankings with stats on review count vs Map Pack position](/blog/reviews-guide/review-impact-rankings.svg)
 
 Reviews are a trust signal. Businesses with more reviews and higher ratings tend to rank better and convert more searchers into customers.
 
@@ -3639,6 +3964,8 @@ Citations are mentions of your business name, address, and phone number on other
 - Social media profiles
 
 Inconsistent information (wrong phone number, old address) confuses Google and can hurt rankings.
+
+![Google click-through rate by ranking position showing Map Pack gets 69.3% of local search clicks](/blog/seo-general/google-ranking-position-ctr.svg)
 
 ### 9. Behavioral Signals
 
@@ -3768,8 +4095,8 @@ Our [local SEO services](/local-seo) include complete Google Maps optimization. 
     date: 'Jan 27, 2026',
     readTime: '9 min read',
     featured: false,
-    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&h=630&fit=crop',
-    imageAlt: 'Five star review rating for Google reviews guide',
+    image: '/blog/reviews-guide/review-impact-rankings.svg',
+    imageAlt: 'How Google reviews impact local rankings with stats on review count vs Map Pack position',
     keywords: ['how to get google reviews', 'google reviews SEO', 'review generation', 'get more reviews', 'google business profile reviews'],
     relatedServiceUrl: '/local-seo',
     relatedServiceName: 'Local SEO Services',
@@ -3795,6 +4122,8 @@ Beyond rankings, reviews build trust. 93% of consumers read online reviews befor
 
 The businesses dominating local search treat review generation as a systematic process, not a random occurrence. This guide shows you how to build that system.
 
+![How Google reviews impact local rankings with stats on review count vs Map Pack position](/blog/reviews-guide/review-impact-rankings.svg)
+
 Need help implementing a complete review strategy? Our [local SEO services](/local-seo) include done-for-you review optimizations.
 
 ## How Reviews Impact Your Google Rankings
@@ -3815,6 +4144,8 @@ When customers mention specific services in their reviews, Google associates you
 
 ### Engagement Signals
 Responding to reviews shows Google (and customers) that you actively engage with feedback. Response rate is a factor in local rankings.
+
+![Automated review generation system: 4-step process from job completion to 5-star review](/blog/reviews-guide/review-generation-funnel.svg)
 
 ## Building a Review System That Works
 
@@ -3963,6 +4294,8 @@ Offering to fix the problem shows character. Many customers update reviews after
 ### Learn From Patterns
 If multiple reviews mention the same issue, address the underlying problem.
 
+![Google Business Profile optimization checklist with 20+ action items across 4 categories](/blog/gbp-guide/gbp-optimization-checklist.svg)
+
 ## Review Velocity: Consistency Over Volume
 
 Getting 50 reviews in one month then nothing for a year raises red flags. Google prefers consistent, natural-looking review patterns.
@@ -4002,8 +4335,8 @@ A systematic approach to reviews transforms local business visibility. Consisten
     date: 'Jan 26, 2026',
     readTime: '8 min read',
     featured: false,
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=630&fit=crop',
-    imageAlt: 'Marketing analytics dashboard comparing SEO and PPC performance',
+    image: '/blog/seo-general/seo-vs-ppc-comparison.svg',
+    imageAlt: 'SEO vs PPC side-by-side comparison for local businesses',
     keywords: ['seo vs ppc', 'seo or google ads', 'organic vs paid', 'should I do seo or ppc', 'seo vs paid advertising'],
     relatedServiceUrl: '/local-seo',
     relatedServiceName: 'Local SEO Services',
@@ -4028,6 +4361,10 @@ SEO (Search Engine Optimization) and [PPC](/digital-marketing/ppc) (Pay-Per-Clic
 This distinction creates dramatically different [cost structures](/blog/seo-pricing), timelines, and long-term outcomes. Understanding these differences helps you allocate your marketing budget effectively.
 
 Neither approach is universally better. The right choice depends on your specific situation, timeline, and goals. Many successful businesses use both strategically.
+
+![SEO vs PPC side-by-side comparison for local businesses](/blog/seo-general/seo-vs-ppc-comparison.svg)
+
+![SEO vs lead generation platforms cost per lead comparison over 12 months](/blog/seo-general/seo-vs-lead-gen-cost.svg)
 
 ## SEO: The Long Game
 
@@ -4151,6 +4488,8 @@ SEO makes sense when:
 
 **Local Map Pack goals:** Google Maps visibility comes from SEO, not PPC.
 
+![SEO results timeline: 5 phases from foundation to compounding returns over 12 months](/blog/seo-general/seo-timeline-results.svg)
+
 ## The Best Approach: Use Both Strategically
 
 Most successful local businesses combine SEO and PPC in a coordinated strategy:
@@ -4215,8 +4554,8 @@ Our [local SEO services](/local-seo) help businesses build sustainable organic v
     readTime: '18 min read',
     featured: false,
     keywords: ['plumber marketing ideas', 'plumbing marketing', 'marketing for plumbers', 'plumber advertising', 'plumbing advertising ideas', 'plumber advertising ideas', 'digital marketing for plumbers', 'plumbing marketing agency', 'plumber marketing agency', 'plumber digital marketing', 'online marketing for plumbers', 'plumbing marketing ideas', 'social media marketing for plumbers', 'plumber marketing services', 'internet marketing for plumbers'],
-    image: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&h=630&fit=crop',
-    imageAlt: 'Professional plumber working on pipes, representing plumbing business marketing and advertising strategies',
+    image: '/blog/plumber-seo/plumber-map-pack.svg',
+    imageAlt: 'Where 76% of plumbing calls start: Google Map Pack for plumber searches',
     relatedServiceUrl: '/local-seo/plumbers',
     relatedServiceName: 'Plumber SEO',
     tldr: [
@@ -4245,6 +4584,8 @@ Most plumbing customers find their plumber through a Google search. That means y
 
 The key to effective plumbing marketing is understanding that your customers are not casually browsing. They have a burst pipe, a backed-up drain, or a broken water heater. Your advertising needs to reach them at that exact moment of need, and every channel we cover below plays a role in making that happen.
 
+![Where 76% of plumbing calls start: Google Map Pack for plumber searches](/blog/plumber-seo/plumber-map-pack.svg)
+
 Need professional help implementing these strategies? Our [plumber SEO services](/local-seo/plumbers) handle everything from GBP optimization to review management so you can focus on running your business.
 
 ## Idea 1: Optimize Your Google Business Profile
@@ -4261,6 +4602,8 @@ Your Google Business Profile is the single most important plumber advertising as
 - Add every service you offer to the Services section with descriptions
 
 A well-optimized GBP can generate 20-50+ calls per month in moderately competitive markets. It costs nothing except your time. Learn the full process in our [Google Business Profile optimization guide](/blog/google-business-profile-optimization-guide).
+
+![How Google reviews impact local rankings with stats on review count vs Map Pack position](/blog/reviews-guide/review-impact-rankings.svg)
 
 ## Idea 2: Build a 5-Star Review Profile
 
@@ -4292,6 +4635,8 @@ Over 70% of plumbing searches happen on mobile phones, often during emergencies.
 - Professional branding that builds instant credibility
 
 Your website is not just a digital brochure, it is your hardest-working employee. A professionally designed plumbing website with consistent branding across every page converts 2-3x more visitors than a DIY template. If your current site is outdated or slow, a [professional web development](/development) rebuild can transform your online presence overnight.
+
+![SEO vs lead generation platforms: cost per lead comparison over 12 months](/blog/seo-general/seo-vs-lead-gen-cost.svg)
 
 ## Idea 4: Invest in Local SEO
 
@@ -4546,8 +4891,8 @@ When you are ready to invest in growth, professional plumber marketing services 
     readTime: '16 min read',
     featured: false,
     keywords: ['how to get roofing leads', 'roofing lead generation', 'roofing leads', 'roofing marketing', 'roof replacement leads', 'commercial roofing leads'],
-    image: 'https://images.unsplash.com/photo-1632759145351-1d592919f522?w=1200&h=630&fit=crop',
-    imageAlt: 'Roofing contractor on a residential roof representing roofing lead generation strategies',
+    image: '/blog/roofing-seo/roofing-map-pack.svg',
+    imageAlt: 'Google Map Pack for roofers showing where $5K-$15K roofing jobs originate',
     relatedServiceUrl: '/local-seo/roofing',
     relatedServiceName: 'Roofing SEO',
     tldr: [
@@ -4571,6 +4916,8 @@ The most effective roofing lead generation strategies combine high-intent search
 Roofing is one of the highest-value local service industries. Average roof replacement projects range from $8,000 to $20,000+, making every quality lead worth significant revenue. Yet many roofers still rely on buying shared leads from platforms that sell the same lead to multiple competitors.
 
 This guide covers 12 proven strategies to generate your own exclusive roofing leads, ranked by effectiveness and ROI.
+
+![Google Map Pack for roofers showing where $5K-$15K roofing jobs originate](/blog/roofing-seo/roofing-map-pack.svg)
 
 ## Strategy 1: Dominate the Google Map Pack
 
@@ -4699,6 +5046,8 @@ Referral leads close at the highest rate (40-60%) and cost the least of any lead
 
 **Pro tip:** Real estate agents are a goldmine for roofing referrals. Buyers often need roof repairs or replacements after home inspections. Build relationships with 10-20 local agents and offer them a priority scheduling guarantee.
 
+![Roofing keyword search volume by season with top keywords per quarter](/blog/roofing-seo/roofing-seasonal-keywords.svg)
+
 ## Strategy 8: Target Storm Damage Opportunities Strategically
 
 Storm damage work can represent 30-50% of a roofing company's annual revenue in storm-prone areas. The roofers who capture this work are the ones prepared before the storm hits.
@@ -4784,6 +5133,8 @@ Partnerships with complementary businesses and professionals create a steady str
 
 Build relationships by offering priority scheduling, competitive pricing, and exceptional communication to your partners' referrals.
 
+![SEO vs lead generation platforms: cost per lead comparison over 12 months](/blog/seo-general/seo-vs-lead-gen-cost.svg)
+
 ## How to Calculate Your Roofing Lead Generation ROI
 
 Understanding your numbers prevents wasting money on ineffective channels and helps you invest more in what works.
@@ -4828,8 +5179,8 @@ Want professional help building your roofing lead generation system? Our [roofin
     readTime: '15 min read',
     featured: false,
     keywords: ['hvac marketing ideas', 'hvac marketing strategies', 'marketing for hvac companies', 'hvac advertising', 'hvac business marketing', 'heating and cooling marketing'],
-    image: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=1200&h=630&fit=crop',
-    imageAlt: 'HVAC technician working on an air conditioning unit representing HVAC marketing strategies',
+    image: '/blog/hvac-seo/hvac-map-pack.svg',
+    imageAlt: 'HVAC Google Map Pack showing where emergency AC and heating calls start',
     relatedServiceUrl: '/local-seo/hvac',
     relatedServiceName: 'HVAC SEO',
     tldr: [
@@ -4853,6 +5204,8 @@ The best HVAC marketing ideas address the biggest challenge heating and cooling 
 HVAC companies that rely on reactive marketing, scrambling to advertise when demand spikes, always lose to competitors who prepared months earlier. The strategies below help you build a marketing system that generates consistent leads through peak seasons, shoulder months, and even the slow periods.
 
 Looking for professional help with your HVAC marketing? Our [HVAC marketing and SEO services](/local-seo/hvac) are built specifically for seasonal service businesses like yours.
+
+![HVAC Google Map Pack showing where emergency AC and heating calls start](/blog/hvac-seo/hvac-map-pack.svg)
 
 ## Idea 1: Master Seasonal Google Business Profile Optimization
 
@@ -4923,6 +5276,8 @@ Your website needs to convert both emergency searchers (AC broken right now) and
 
 **The seasonal SEO advantage:** Start optimizing for summer keywords in spring and winter keywords in fall. By the time demand peaks, your pages have had months to build authority and rank higher than competitors who optimized reactively.
 
+![HVAC search demand dual-peak pattern: summer cooling and winter heating spikes](/blog/hvac-seo/hvac-seasonal-demand.svg)
+
 ## Idea 4: Run Seasonal Google Ads Campaigns
 
 Google Ads deliver immediate HVAC leads during peak demand periods. The key is adjusting your campaigns, budgets, and messaging with the seasons.
@@ -4947,6 +5302,8 @@ Google Ads deliver immediate HVAC leads during peak demand periods. The key is a
 - Focus on system replacement for homeowners planning ahead
 
 **Budget guidance:** HVAC companies typically spend $2,000-$5,000/month on Google Ads during peak seasons and $500-$1,000 during off-seasons. Expect leads in the $40-$120 range.
+
+![SEO vs lead generation platforms: cost per lead comparison over 12 months](/blog/seo-general/seo-vs-lead-gen-cost.svg)
 
 ## Idea 5: Market Maintenance Agreements Aggressively
 
@@ -5171,8 +5528,8 @@ When you are ready for professional help, our [HVAC marketing and SEO services](
     readTime: '18 min read',
     featured: false,
     keywords: ['local citations', 'what are local citations', 'citation building', 'NAP consistency', 'local SEO citations', 'business listings', 'citation sources'],
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=630&fit=crop',
-    imageAlt: 'Computer screen showing local business directory listings representing local citation building',
+    image: '/blog/citations-guide/citation-building-process.svg',
+    imageAlt: 'Local citation building NAP consistency framework with 3-tier directory strategy',
     relatedServiceUrl: '/local-seo',
     relatedServiceName: 'Local SEO',
     tldr: [
@@ -5197,9 +5554,13 @@ Citations are one of the foundational elements of [local SEO](/local-seo). While
 
 Think of it this way: if your business has inconsistent information across the web, with different phone numbers on Yelp, an old address on Yellow Pages, and a misspelled name on Facebook, Google has reason to doubt the accuracy of your information. That doubt translates directly into lower local rankings.
 
+![Local citation building NAP consistency framework with 3-tier directory strategy](/blog/citations-guide/citation-building-process.svg)
+
 ## How Do Citations Impact Local Search Rankings?
 
 Google's local search algorithm considers citations in several ways, making them a multi-dimensional ranking factor rather than a simple "more is better" signal.
+
+![Local SEO ranking factors breakdown: GBP 32%, Reviews 16%, On-Page 19%, Citations 7%, Links 11%, Proximity 15%](/blog/seo-general/local-seo-ranking-factors.svg)
 
 ### NAP Consistency as a Trust Signal
 
@@ -5228,6 +5589,8 @@ Active, recently updated citations signal to Google that a business is currently
 Understanding the two types of citations helps you build a comprehensive citation strategy.
 
 ### Structured Citations
+
+![Google Business Profile optimization checklist with 20+ action items across 4 categories](/blog/gbp-guide/gbp-optimization-checklist.svg)
 
 Structured citations are formal business listings on directories and platforms where your information appears in a consistent, standardized format. These are the most common and easiest citations to build and control.
 
@@ -5523,8 +5886,8 @@ Need professional help? Our [local SEO services](/local-seo) include comprehensi
     readTime: '20 min read',
     featured: false,
     keywords: ['local SEO checklist', 'local SEO audit checklist', 'local SEO steps', 'local SEO guide', 'Google Business Profile checklist', 'local search optimization'],
-    image: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=1200&h=630&fit=crop',
-    imageAlt: 'Checklist on a clipboard representing a comprehensive local SEO audit and optimization checklist',
+    image: '/blog/local-seo-guide/local-seo-checklist-overview.svg',
+    imageAlt: 'Complete local SEO checklist: 47 steps organized in 6 categories with priority order',
     relatedServiceUrl: '/local-seo',
     relatedServiceName: 'Local SEO',
     tldr: [
@@ -5549,6 +5912,8 @@ This is the exact checklist our team uses when onboarding new [local SEO](/local
 
 **How to use this checklist:** Work through each section in order. The Google Business Profile section delivers the fastest results, so start there. Check off items as you complete them, and revisit the entire checklist quarterly to ensure nothing has fallen behind.
 
+![Complete local SEO checklist: 47 steps organized in 6 categories with priority order](/blog/local-seo-guide/local-seo-checklist-overview.svg)
+
 ## Section 1: Google Business Profile Checklist (15 Items)
 
 Your Google Business Profile is the foundation of local SEO. These 15 items directly impact your Map Pack visibility and should be your first priority.
@@ -5556,6 +5921,8 @@ Your Google Business Profile is the foundation of local SEO. These 15 items dire
 ### 1. Claim and Verify Your Google Business Profile
 
 If you have not already claimed your GBP listing, do it now. Go to business.google.com and follow the verification process. Verification typically requires a postcard, phone call, or email confirmation. You cannot optimize what you do not control.
+
+![Google Business Profile optimization checklist with 20+ action items across 4 categories](/blog/gbp-guide/gbp-optimization-checklist.svg)
 
 ### 2. Choose the Correct Primary Category
 
@@ -5664,6 +6031,8 @@ Your About page should include your business story, team information, service ar
 ### 27. Add Internal Links Between Related Pages
 
 Link your service pages to relevant city pages, link blog posts to related services, and create a logical internal linking structure. Internal links help search engines understand your site structure and distribute page authority.
+
+![Local citation building NAP consistency framework with 3-tier directory strategy](/blog/citations-guide/citation-building-process.svg)
 
 ## Section 3: Citation Checklist (10 Items)
 
@@ -5806,8 +6175,8 @@ This checklist works whether you implement it yourself or hire a professional. I
     readTime: '16 min read',
     featured: false,
     keywords: ['local link building', 'local backlinks', 'local SEO link building', 'local link building strategies', 'how to build local backlinks', 'backlinks for local business'],
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=630&fit=crop',
-    imageAlt: 'Network of connected nodes representing local link building and backlink strategies for local SEO',
+    image: '/blog/link-building-guide/local-link-building-strategies.svg',
+    imageAlt: '6 local link building strategies ranked by impact and difficulty',
     relatedServiceUrl: '/local-seo',
     relatedServiceName: 'Local SEO',
     tldr: [
@@ -5832,9 +6201,13 @@ Backlinks have been a top-3 Google ranking factor since the search engine launch
 
 Think of it this way: if the local newspaper, your Chamber of Commerce, and three community organizations all link to your website, Google has strong evidence that your business is established in that area. This geographic trust supports everything else in your [local SEO strategy](/local-seo).
 
+![6 local link building strategies ranked by impact and difficulty](/blog/link-building-guide/local-link-building-strategies.svg)
+
 ## How Local Backlinks Differ from General Backlinks
 
 Not all backlinks are created equal for local SEO. Understanding the difference helps you focus your effort on links that actually improve local rankings.
+
+![Local SEO ranking factors breakdown: GBP 32%, Reviews 16%, On-Page 19%, Citations 7%, Links 11%, Proximity 15%](/blog/seo-general/local-seo-ranking-factors.svg)
 
 ### Geographic Relevance
 
@@ -5851,6 +6224,8 @@ When multiple local organizations link to your business, it creates a pattern of
 ## 15 Local Link Building Strategies That Work
 
 These strategies are ordered by accessibility and effectiveness. Start with the easiest opportunities and work down to more advanced tactics.
+
+![Local citation building NAP consistency framework with 3-tier directory strategy](/blog/citations-guide/citation-building-process.svg)
 
 ### Strategy 1: Join Your Local Chamber of Commerce
 
@@ -6103,6 +6478,1648 @@ For a comprehensive local link building strategy, our [local SEO services](/loca
 [Get a Free Backlink Analysis](/contact) and we will audit your current link profile, compare it against your top local competitors, and identify the highest-value link building opportunities for your business.
     `,
   },
+  {
+    slug: 'plumber-keywords-for-seo',
+    title: 'Plumber Keywords for SEO: 100+ High-Intent Keywords That Generate Calls in 2026',
+    excerpt: 'The complete list of plumber keywords for SEO, organized by service category, search intent, and conversion potential. Use this plumbing keyword research guide to build an SEO strategy that generates real calls.',
+    category: 'Local SEO',
+    author: 'Web Wise Team',
+    authorBio: 'The Web Wise Team has helped plumbing businesses across the US and UK achieve first-page Google rankings through data-driven keyword strategies and local SEO.',
+    date: 'Mar 10, 2026',
+    publishDate: '2026-03-10',
+    readTime: '18 min read',
+    featured: false,
+    image: '/blog/plumber-seo/plumber-map-pack.svg',
+    imageAlt: 'Plumber keywords for SEO: 100+ high-intent keywords organized by category with search volumes and conversion rates',
+    keywords: ['plumber keywords', 'plumber keywords for seo', 'plumbing seo keywords', 'plumber search terms', 'plumbing keyword research'],
+    relatedServiceUrl: '/local-seo/plumbers',
+    relatedServiceName: 'Plumber SEO Services',
+    tldr: [
+      'Emergency plumbing keywords like "plumber near me" and "emergency plumber" have conversion rates above 50% because customers need help immediately and will call the first trustworthy result',
+      'Location-modified plumber keywords are essential because 97% of plumbing searches have local intent and Google prioritizes businesses near the searcher',
+      'Long-tail plumbing keywords like "water heater replacement cost [city]" have lower competition and higher conversion rates than broad terms',
+      'Seasonal keywords like "frozen pipe repair" and "AC drain line clog" create predictable traffic spikes you can plan content around',
+      'Commercial plumbing keywords target higher-ticket contracts worth $2,000-$50,000+ per job from property managers, restaurants, and businesses',
+      'A complete plumber keyword strategy should cover 100+ terms across emergency, residential, commercial, seasonal, and long-tail categories mapped to every city you serve',
+    ],
+    faqs: [
+      { question: 'What are the best keywords for a plumbing business?', answer: 'The highest-converting plumber keywords are emergency-intent terms like "plumber near me" (1.2M+ monthly searches), "emergency plumber" (90K+), "24 hour plumber [city]," and "burst pipe repair near me." These keywords convert at 50%+ because the searcher has an urgent problem and will call the first legitimate business they find.' },
+      { question: 'How do I find plumbing keywords for my area?', answer: 'Start with your core services (drain cleaning, water heater repair, leak detection) and add your city name. Use Google autocomplete by typing "plumber [your city]" and noting suggestions. Check Google Search Console for terms you already rank for. Tools like Google Keyword Planner, Ahrefs, or SEMrush reveal search volumes and competition levels for your specific market.' },
+      { question: 'How many keywords should a plumber target?', answer: 'A comprehensive plumbing SEO strategy should target 100+ keywords across all service categories and service areas. Each city you serve needs its own set of location-modified keywords. Most plumbing businesses serve 10-30 cities, and each city should have at least 10-15 core service keywords targeted through dedicated landing pages.' },
+      { question: 'What is the search volume for plumber keywords?', answer: '"Plumber near me" gets approximately 1.2 million monthly searches in the US. "Emergency plumber" gets around 90,000, "drain cleaning" gets 60,500, and city-specific terms like "plumber [city name]" typically range from 1,000-10,000 depending on population. The combined volume across all plumbing-related terms is enormous.' },
+      { question: 'Should I target "near me" plumber keywords?', answer: 'Yes. "Near me" keywords are among the highest-converting search terms for plumbers. Google uses the searcher location to determine which businesses to show, so you do not need to add "near me" to your page content. Instead, optimize your Google Business Profile, build local citations, and ensure your website clearly states your service areas.' },
+      { question: 'How long does it take to rank for plumber keywords?', answer: 'Google Maps rankings for plumber keywords typically improve within 60-90 days of starting optimization. Organic search rankings for competitive terms like "plumber [major city]" usually take 3-6 months. Less competitive long-tail keywords and smaller cities can rank much faster, sometimes within weeks.' },
+      { question: 'What plumber keywords have the lowest competition?', answer: 'Specialty service keywords like "sump pump installation," "water softener repair," "gas line leak detection," and "sewer camera inspection" tend to have the lowest competition. City-specific long-tail terms in smaller markets also have minimal competition. These are ideal starting points for new plumbing websites.' },
+      { question: 'Do I need different keywords for each city I serve?', answer: 'Yes. Google treats "plumber Dallas" and "plumber Fort Worth" as completely different queries with different results. Each city in your service area needs dedicated landing pages targeting location-specific keywords. This is one of the most common mistakes plumbing businesses make — having one generic page instead of city-specific pages.' },
+    ],
+    content: `## Plumber Keywords for SEO: The Complete Keyword Research Guide
+
+If you run a plumbing business, the keywords you target determine whether customers find you or your competitors on Google. This guide contains over 100 plumber keywords organized by service category, search intent, and conversion potential so you can build an SEO strategy that actually generates calls.
+
+Whether you are doing SEO yourself or working with a [professional plumber SEO service](/local-seo/plumbers), understanding which keywords matter and why is the foundation of every successful campaign.
+
+![Where 70% of plumber calls come from: the Google Map Pack showing top 3 local results for plumber searches](/blog/plumber-seo/plumber-map-pack.svg)
+
+## Why Plumber Keyword Research Matters
+
+Plumbing is one of the most search-dependent trades. When a homeowner has a burst pipe flooding their kitchen at 6 AM, they do not flip through a directory. They grab their phone, search Google, and call the first plumber that looks trustworthy.
+
+Targeting the right plumber keywords means your business appears for these high-intent searches. Targeting the wrong keywords, or no keywords at all, means every one of those calls goes to a competitor.
+
+Here is what makes plumber keyword research unique compared to other industries:
+
+**Extreme urgency.** Most plumbing searches happen when someone has an active emergency — a burst pipe, overflowing toilet, or no hot water. Emergency plumbing keywords have conversion rates above 50% because the searcher is not comparison shopping. They are calling.
+
+**Massive search volume.** "Plumber near me" alone generates over 1.2 million monthly searches in the US. The total volume across all plumbing-related keywords is one of the highest in home services.
+
+**Strong local intent.** 97% of plumbing searches have local intent. Google heavily factors in proximity, which means you need city and neighborhood-specific keywords for every area you serve.
+
+**Service diversity.** Plumbers handle everything from emergency repairs to water heater installations to sewer line replacements. Each service category has its own keyword cluster with different search volumes, competition levels, and average job values.
+
+![Plumber keyword traffic breakdown by category showing emergency keywords dominate with 1.5M+ monthly searches](/blog/plumber-seo/keyword-value-plumber.svg)
+
+## Emergency Plumbing Keywords
+
+Emergency plumbing keywords are the most valuable plumber keywords. These searches happen when someone has an active plumbing crisis and needs help immediately. They convert at 50%+ rates and represent your highest-revenue, most time-sensitive calls.
+
+### High Volume Emergency Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| plumber near me | 1,220,000 | Emergency/Local | Very High |
+| emergency plumber | 90,500 | Emergency | High |
+| emergency plumber near me | 74,000 | Emergency/Local | High |
+| 24 hour plumber | 33,100 | Emergency | Medium |
+| plumber open now | 18,100 | Emergency | Medium |
+| burst pipe repair | 14,800 | Emergency | Medium |
+| water heater not working | 22,200 | Emergency | Medium |
+| no hot water | 40,500 | Emergency | Medium |
+| toilet overflowing | 27,100 | Emergency | Medium |
+| water leak repair | 18,100 | Emergency | Medium |
+| clogged drain | 49,500 | Emergency/Service | Medium |
+| sewer backup | 12,100 | Emergency | Medium |
+| gas leak plumber | 8,100 | Emergency | Medium |
+| flooded basement plumber | 6,600 | Emergency | Low |
+| frozen pipe repair | 9,900 | Emergency/Seasonal | Medium |
+| 24 hour plumber near me | 22,200 | Emergency/Local | Medium |
+
+### Long-Tail Emergency Keywords
+
+These lower-volume terms convert extremely well because they signal immediate need:
+
+- burst pipe who to call
+- toilet won't stop running who to call
+- water heater leaking from bottom emergency
+- sewer backing up into house
+- no water in house suddenly
+- main water line break who to call
+- gas smell in house plumber
+- water coming through ceiling who to call
+- septic tank overflowing who to call
+- hot water heater making loud noise
+
+### City-Modified Emergency Keywords
+
+Every emergency keyword needs city variations for your service area. For example:
+
+- emergency plumber [city]
+- 24 hour plumber [city]
+- plumber [city] open now
+- burst pipe repair [city]
+- [city] plumber emergency
+- late night plumber [city]
+
+**Pro tip:** Create a dedicated landing page for each city you serve. A page titled "Emergency Plumber in [City] - 24/7 Fast Response" targeting "[city] emergency plumber" will outrank a generic emergency page every time.
+
+## Residential Plumbing Keywords
+
+Residential plumbing keywords represent steady, planned work. These customers are scheduling repairs, replacements, or upgrades. The jobs can range from $150 drain cleanings to $5,000+ water heater installations.
+
+### Core Residential Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| drain cleaning | 60,500 | Service | High |
+| water heater replacement | 40,500 | Service | High |
+| water heater installation | 33,100 | Service | Medium |
+| tankless water heater installation | 22,200 | Service | Medium |
+| toilet repair | 27,100 | Service | Medium |
+| faucet repair | 18,100 | Service | Medium |
+| garbage disposal installation | 14,800 | Service | Medium |
+| sump pump installation | 12,100 | Service | Low |
+| water softener installation | 9,900 | Service | Low |
+| leak detection | 14,800 | Service | Medium |
+| sewer line repair | 12,100 | Service | Medium |
+| pipe replacement | 8,100 | Service | Medium |
+| bathroom plumbing | 6,600 | Service | Low |
+| kitchen plumbing | 5,400 | Service | Low |
+| shower valve replacement | 6,600 | Service | Low |
+| toilet installation | 9,900 | Service | Low |
+
+### Long-Tail Residential Keywords
+
+- how much does drain cleaning cost
+- water heater replacement cost
+- tankless vs tank water heater
+- how much does it cost to replace a water heater
+- sump pump installation cost
+- sewer line repair cost
+- how much does a plumber charge per hour
+- garbage disposal installation cost
+- water softener installation cost
+- faucet replacement cost
+- toilet replacement cost
+- shower valve replacement cost
+
+### Residential Keywords by Area of Home
+
+Target specific areas for detailed service pages:
+
+- kitchen sink plumbing repair
+- bathroom sink not draining
+- shower drain clogged
+- bathtub drain slow
+- basement floor drain backup
+- laundry room drain clogged
+- outdoor faucet repair
+- sprinkler system plumbing
+- water line to refrigerator
+- dishwasher installation plumbing
+- washing machine drain clogged
+
+## Commercial Plumbing Keywords
+
+Commercial plumbing keywords target higher-ticket contracts that often lead to recurring business relationships with property managers, restaurant owners, and facility managers. A single commercial plumbing contract can be worth $10,000-$50,000+ per year.
+
+### Core Commercial Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| commercial plumber | 9,900 | Service | Medium |
+| commercial plumbing services | 6,600 | Service | Medium |
+| restaurant plumber | 3,600 | Service | Low |
+| grease trap cleaning | 8,100 | Service | Low |
+| commercial drain cleaning | 4,400 | Service | Low |
+| backflow testing | 6,600 | Service | Low |
+| commercial water heater installation | 2,900 | Service | Low |
+| hydro jetting service | 5,400 | Service | Low |
+| sewer camera inspection | 4,400 | Service | Low |
+| commercial pipe repair | 2,400 | Service | Low |
+| fire sprinkler plumber | 1,900 | Service | Low |
+| boiler repair service | 3,600 | Service | Low |
+
+### Long-Tail Commercial Keywords
+
+- commercial plumber near me
+- grease trap cleaning cost
+- backflow preventer installation cost
+- hydro jetting sewer line cost
+- commercial bathroom plumbing repair
+- restaurant grease trap service
+- property management plumber
+- commercial plumbing maintenance contract
+- tenant plumbing repair service
+- office building plumbing
+- retail store plumbing service
+- warehouse plumbing repair
+
+### Industry-Specific Commercial Keywords
+
+- restaurant plumbing repair
+- hotel plumbing service
+- apartment complex plumber
+- school plumbing maintenance
+- hospital plumbing contractor
+- church plumbing repair
+- gym plumbing service
+- car wash plumbing installation
+- brewery plumbing installation
+- medical office plumbing
+
+## Seasonal and Weather-Related Plumbing Keywords
+
+Plumbing search volumes have strong seasonal patterns. Understanding these trends lets you create timely content and adjust your advertising spend throughout the year.
+
+### Winter Keywords (Nov-Feb)
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| frozen pipe repair | 9,900 | Emergency | Medium |
+| pipe burst from cold | 4,400 | Emergency | Low |
+| how to thaw frozen pipes | 14,800 | Informational | Low |
+| pipe insulation | 6,600 | Service | Low |
+| no hot water in winter | 3,600 | Emergency | Low |
+| furnace leaking water | 5,400 | Emergency | Low |
+| boiler repair | 8,100 | Emergency | Medium |
+
+### Spring Keywords (Mar-May)
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| sump pump repair | 9,900 | Service | Medium |
+| basement flooding | 8,100 | Emergency | Medium |
+| outdoor faucet repair | 4,400 | Service | Low |
+| sprinkler system startup | 3,600 | Service | Low |
+| sewer line inspection before buying house | 2,400 | Service | Low |
+
+### Summer Keywords (Jun-Aug)
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| AC drain line clogged | 6,600 | Service | Low |
+| water line repair | 5,400 | Service | Medium |
+| pool plumbing repair | 2,900 | Service | Low |
+| outdoor shower installation | 2,400 | Service | Low |
+| low water pressure summer | 1,900 | Service | Low |
+
+Create seasonal blog content and landing pages around these trends to capture timely search traffic year-round. For example, publish a "How to Prevent Frozen Pipes" guide in October before winter searches spike.
+
+## Long-Tail Plumber Keywords
+
+Long-tail keywords are longer, more specific phrases with lower search volume but higher conversion rates. These are goldmines for plumbing businesses because they face less competition and attract customers who know exactly what they need.
+
+### Cost and Pricing Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| how much does a plumber cost | 18,100 | Informational | Medium |
+| plumber cost per hour | 9,900 | Informational | Medium |
+| drain cleaning cost | 8,100 | Informational | Low |
+| water heater replacement cost | 14,800 | Informational | Medium |
+| sewer line replacement cost | 6,600 | Informational | Low |
+| tankless water heater cost | 12,100 | Informational | Medium |
+| toilet installation cost | 4,400 | Informational | Low |
+| sump pump cost installed | 3,600 | Informational | Low |
+| repipe house cost | 4,400 | Informational | Low |
+| sewer camera inspection cost | 2,400 | Informational | Low |
+
+### Comparison and Decision Keywords
+
+- tankless vs tank water heater pros and cons
+- is a water softener worth it
+- should I repair or replace my water heater
+- PEX vs copper piping
+- sewer line repair vs replacement
+- is hydro jetting worth it
+- water heater 40 vs 50 gallon
+
+### Problem-Specific Long-Tail Keywords
+
+- water heater pilot light keeps going out
+- toilet running constantly
+- faucet dripping at night
+- low water pressure in one faucet
+- sewer smell coming from drain
+- water discoloration brown
+- pipe making banging noise
+- hot water takes too long to reach faucet
+
+## Location-Modified Keywords Section
+
+Location-modified keywords are where plumber SEO becomes truly powerful. Every service keyword multiplied by every city you serve creates a massive keyword footprint. Here is how to approach location targeting:
+
+### City-Level Keywords
+
+These are your highest-priority location keywords:
+
+- plumber [city]
+- [city] plumber
+- plumbing services [city]
+- best plumber in [city]
+- emergency plumber [city]
+- drain cleaning [city]
+- water heater repair [city]
+
+### Neighborhood and Suburb Keywords
+
+For larger metro areas, target neighborhoods and suburbs:
+
+- plumber [neighborhood]
+- [suburb] plumbing company
+- drain cleaning [suburb]
+- emergency plumber [neighborhood]
+
+### County and Region Keywords
+
+Broader geographic terms capture additional searches:
+
+- plumber [county] county
+- plumbing services [region]
+- best plumber in [state abbreviation]
+
+### How Many City Pages Do You Need?
+
+If you serve 20 cities, you need a minimum of 20 city-specific plumbing landing pages. Each page should include:
+
+- Unique content about serving that specific area
+- City-specific testimonials when possible
+- Mention of neighborhoods and landmarks
+- Your response time to that area
+- Location-modified keywords throughout
+- A local phone number or area code when possible
+
+**This is the single most common mistake plumbing businesses make.** They have one generic service area page instead of individual city pages. A page titled "Plumber in [City] - Same Day Service" will consistently outrank a generic "Areas We Serve" page.
+
+## How to Implement These Plumber Keywords
+
+Having a keyword list is step one. Here is how to actually implement these keywords to rank on Google and generate calls.
+
+### Map Keywords to Pages
+
+Every keyword cluster needs its own dedicated page. Do not try to rank one page for everything. Here is the page structure that works:
+
+**Homepage** → Target your broadest term: "plumber [primary city]"
+
+**Service pages** (one per category):
+- /emergency-plumber → emergency plumbing keywords
+- /drain-cleaning → drain cleaning and clog keywords
+- /water-heater-repair → water heater service and installation keywords
+- /sewer-services → sewer line repair, camera inspection, hydro jetting keywords
+- /commercial-plumbing → commercial and restaurant plumbing keywords
+- /leak-detection → leak detection and pipe repair keywords
+
+**City pages** (one per service area):
+- /plumber-[city-name] → "[city] plumber" + top services
+- Each city page should mention your core services with city-specific content
+
+### Optimize Title Tags and Meta Descriptions
+
+Your title tag is the single most important on-page ranking factor. Use this formula:
+
+**Title:** [Primary Keyword] | [Brand] - [City, State]
+**Example:** Emergency Plumber in Dallas | ABC Plumbing - 24/7 Same Day Service
+
+**Meta description:** Include your primary keyword, a benefit, and a call to action.
+**Example:** Licensed emergency plumber in Dallas. 30-minute response time, upfront pricing, no overtime charges. Call now for same-day plumbing repair.
+
+### Use Keywords Naturally in Content
+
+Google is sophisticated enough to understand context. Do not stuff keywords. Instead:
+
+- Use the exact keyword in your H1 heading
+- Include variations naturally throughout the page
+- Answer the questions your customers actually ask
+- Write at least 800-1,000 words per service page
+- Include your city name naturally in the content
+
+### Optimize Your Google Business Profile
+
+Your Google Business Profile needs keyword optimization too:
+
+- Business description should include your top plumbing keywords naturally
+- Services list should match your keyword categories exactly
+- Posts should mention specific services and cities weekly
+- Q&A section is an opportunity to include keywords in answers
+- Categories should cover all your service types (plumber, water heater installation, drain cleaning, etc.)
+
+### Track Which Keywords Generate Calls
+
+Not all keywords are equal. Set up call tracking to identify which keywords and pages actually generate phone calls. You may find that "water heater replacement [city]" generates more revenue per call than "plumber near me" despite lower search volume because the job value is higher. Use this data to double down on what works.
+
+## Common Keyword Research Mistakes Plumbers Make
+
+**1. Only targeting "plumber near me."** Yes, it has 1.2 million monthly searches. But Google determines proximity automatically. You cannot rank for it without strong local SEO fundamentals across all the other keywords too.
+
+**2. Ignoring long-tail keywords.** A term like "tankless water heater installation cost [city]" has low volume but almost zero competition and very high conversion rates. These keywords add up fast and often represent higher-value jobs.
+
+**3. Not creating city-specific pages.** "Plumber Dallas" and "plumber Plano" are different keywords with different results. You need separate pages and strategies for each city in your service area.
+
+**4. Skipping seasonal keywords.** Frozen pipe searches spike 400% in winter. AC drain line clogs surge in summer. If you do not have content ready for these seasonal trends, you miss predictable traffic every year.
+
+**5. Forgetting Google Business Profile keywords.** Your GBP description, services, and posts all influence what searches you appear for. Optimize them with the same keywords you target on your website.
+
+**6. Not tracking keyword performance.** If you do not measure which keywords generate actual calls and revenue, you cannot optimize your strategy. Set up call tracking from day one.
+
+## Start Ranking for These Plumber Keywords
+
+This keyword list is your roadmap. The next step is implementing a strategy that targets these terms across your website, Google Business Profile, and content marketing.
+
+If you want professional help building and executing a plumber keyword strategy that generates measurable calls and revenue, our team specializes in [SEO for plumbers](/local-seo/plumbers). We have helped plumbing businesses across the US and UK achieve first-page rankings and consistent lead flow without expensive pay-per-lead platforms.
+
+Ready to take your [SEO strategy](/seo-services) to the next level? We build complete keyword-driven campaigns tailored to your service area and specialties.
+
+[Get a Free Plumber SEO Audit](/contact) - We will analyze your current keyword rankings, identify the highest-opportunity terms in your market, and show you exactly what it takes to outrank your competition.
+
+*Data sources: Google Keyword Planner, Ahrefs, SEMrush, and proprietary client data from websiteandseoagency.com plumbing SEO campaigns. Search volumes are US estimates and may vary by region.*
+    `,
+  },
+  {
+    slug: 'electrician-keywords-for-seo',
+    title: 'Electrician Keywords for SEO: 100+ High-Intent Keywords That Generate Service Calls in 2026',
+    excerpt: 'The complete list of electrician keywords for SEO, organized by service type, search intent, and conversion potential. Use this keyword research guide to dominate local search and generate more electrical service calls.',
+    category: 'Local SEO',
+    author: 'Web Wise Team',
+    authorBio: 'The Web Wise Team has helped electrical contractors across the US and UK achieve first-page Google rankings through data-driven keyword strategies and local SEO.',
+    date: 'Mar 29, 2026',
+    publishDate: '2026-03-29',
+    readTime: '18 min read',
+    featured: false,
+    image: '/blog/electrician-seo/electrician-map-pack.svg',
+    imageAlt: 'Electrician keywords for SEO: 100+ high-intent keywords organized by category with search volumes and conversion rates',
+    keywords: ['electrician keywords', 'electrician keywords for seo', 'electrical contractor seo keywords', 'electrician search terms', 'electrician seo keywords', 'electrician keyword research', 'seo for electricians', 'electrical seo keywords'],
+    relatedServiceUrl: '/local-seo/electricians',
+    relatedServiceName: 'Electrician SEO Services',
+    tldr: [
+      'Emergency electrical keywords like "electrician near me" and "no power in house" have the highest conversion rates at 45%+ because customers need help immediately and will call the first licensed electrician they find',
+      'Residential electrical keywords covering panel upgrades, rewiring, and outlet installation represent your most consistent revenue stream with steady year-round search demand',
+      'Specialty keywords like "EV charger installation" and "smart home wiring" are rapidly growing categories with low competition and premium pricing, making them ideal for forward-thinking electricians',
+      'Location-modified keywords are essential because 91% of electrical service searches have local intent and Google prioritizes electricians near the searcher',
+      'Long-tail electrician keywords like "200 amp panel upgrade cost [city]" have lower competition and higher conversion rates than broad terms, generating pre-qualified leads',
+      'A complete electrician keyword strategy should cover 100+ terms across emergency, residential, commercial, and specialty categories mapped to every city in your service area',
+    ],
+    faqs: [
+      { question: 'What are the best keywords for an electrician business?', answer: 'The highest-converting electrician keywords are emergency-intent terms like "electrician near me," "no power in house," "emergency electrician [city]," and "24 hour electrician." These convert at 45%+ because the searcher has an urgent electrical problem and will call the first licensed electrician they find. For steady revenue, residential service keywords like "panel upgrade," "outlet installation," and "whole house rewiring" perform consistently.' },
+      { question: 'How do I find electrician keywords for my area?', answer: 'Start with your core services (panel upgrades, rewiring, outlet installation, EV charger installation) and add your city name. Use Google autocomplete by typing "electrician [your city]" and noting the suggestions. Check Google Search Console for terms you already appear for. Tools like Google Keyword Planner, Ahrefs, or SEMrush can reveal search volumes and competition levels specific to your market.' },
+      { question: 'How many keywords should an electrician target?', answer: 'A comprehensive electrician SEO strategy should target 100+ keywords across all service categories and service areas. Each city you serve needs its own set of location-modified keywords. Most electrical contractors serve 10-25 cities, and each city should have at least 10-15 core service keywords targeted through dedicated landing pages.' },
+      { question: 'What is the search volume for electrician keywords?', answer: '"Electrician near me" gets approximately 600,000 monthly searches in the US. "Electrical repair" gets around 40,000, "panel upgrade" gets 18,000, and city-specific terms like "electrician [city name]" typically range from 500-8,000 depending on population. The combined volume across all electrician-related terms represents massive demand.' },
+      { question: 'Should I target "near me" electrician keywords?', answer: 'Yes. "Near me" keywords are among the highest-converting search terms for electricians. Google uses the searcher location to determine which businesses to show, so you do not need to add "near me" to your page content. Instead, optimize your Google Business Profile, build local citations, and ensure your website clearly states your service areas and includes your address.' },
+      { question: 'How long does it take to rank for electrician keywords?', answer: 'Google Maps rankings for electrician keywords typically improve within 60-90 days of starting optimization. Organic search rankings for competitive terms like "electrician [major city]" usually take 3-6 months. Less competitive long-tail keywords and smaller cities can rank much faster, sometimes within 3-4 weeks.' },
+      { question: 'What electrician keywords have the lowest competition?', answer: 'Specialty service keywords like "EV charger installation," "knob and tube wiring replacement," "aluminum wiring remediation," and "generator interlock kit installation" tend to have the lowest competition. City-specific long-tail terms in smaller markets also have minimal competition. These are ideal starting points for new electrician websites.' },
+      { question: 'Do I need different keywords for each city I serve?', answer: 'Yes. Google treats "electrician Dallas" and "electrician Fort Worth" as completely different queries with different results. Each city in your service area needs dedicated landing pages targeting location-specific keywords. This is one of the most common mistakes electrical contractors make\u2014having one generic service page instead of city-specific pages for each area they cover.' },
+    ],
+    content: `## Electrician Keywords for SEO: The Complete Keyword Research Guide
+
+If you run an electrical contracting business, the keywords you target determine whether customers find you or your competitors on Google. This guide contains over 100 electrician keywords organized by service category, search intent, and conversion potential so you can build an SEO strategy that actually generates service calls.
+
+Whether you are doing SEO yourself or working with a [professional electrician SEO service](/local-seo/electricians), understanding which keywords matter and why is the foundation of every successful campaign.
+
+![Where 72% of electrician service calls originate: the Google Map Pack showing top 3 local results](/blog/electrician-seo/electrician-map-pack.svg)
+
+## Why Electrician Keyword Research Matters
+
+The electrical trade is one of the most search-dependent home service industries. When a homeowner loses power at 10 PM, smells burning from an outlet, or needs a panel upgrade before their home inspection deadline, they search Google and call the first licensed electrician that looks credible.
+
+Targeting the right electrician keywords means your business appears for these high-intent searches. Targeting the wrong keywords, or no specific keywords at all, means every one of those calls goes to a competitor.
+
+Here is what makes electrician keyword research unique compared to other trades:
+
+**Safety urgency.** Electrical problems are not just inconvenient. They are dangerous. Keywords like "sparking outlet" and "burning smell electrical" carry extreme urgency because the searcher may be worried about a fire. These convert at the highest rates in the entire home services industry.
+
+**Strong local intent.** 91% of electrician searches have local intent. Google heavily factors in proximity, which means you need city and neighborhood-specific keywords for every area you serve.
+
+**Service diversity.** Electricians handle everything from emergency power outages to EV charger installations to full commercial buildouts. Each service category has its own keyword cluster with different search volumes, competition levels, and profit margins.
+
+**Licensing trust factor.** Unlike some trades, electrical work requires licensing in every state. Customers actively search for "licensed electrician" variations, creating keyword opportunities that reward legitimate businesses.
+
+## Emergency Electrical Keywords
+
+Emergency electrical keywords are the most valuable electrician keywords. These searches happen when someone has lost power, sees sparking, or smells something burning. They convert at 45%+ rates and represent your highest-urgency calls.
+
+### High Volume Emergency Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| electrician near me | 600,000 | Emergency/Local | High |
+| emergency electrician | 27,100 | Emergency | Medium |
+| no power in house | 22,200 | Emergency | Medium |
+| 24 hour electrician | 14,800 | Emergency | Medium |
+| electrical repair | 40,500 | Service | High |
+| emergency electrician near me | 18,100 | Emergency/Local | Medium |
+| power outage in my house only | 12,100 | Emergency | Low |
+| sparking outlet | 9,900 | Emergency | Low |
+| electrical emergency | 6,600 | Emergency | Medium |
+| no electricity in house | 8,100 | Emergency | Low |
+
+### Long-Tail Emergency Keywords
+
+These lower-volume terms convert extremely well because they signal immediate need:
+
+- half my house lost power
+- burning smell from electrical outlet
+- outlet sparking when plugging in
+- breaker keeps tripping
+- lights flickering in house
+- power went out in one room
+- smoke coming from outlet
+- electrical fire smell in house
+- lost power to half my house
+- circuit breaker won't reset
+
+### City-Modified Emergency Keywords
+
+Every emergency keyword needs city variations for your service area. For example:
+
+- emergency electrician [city]
+- 24 hour electrician [city]
+- electrician [city] open now
+- electrical repair [city]
+- [city] electrician emergency
+- after hours electrician [city]
+
+**Pro tip:** Create a dedicated landing page for each city you serve. A page titled "Emergency Electrician in [City] - Licensed & Available 24/7" targeting "[city] emergency electrician" will outrank a generic emergency page every time.
+
+## Residential Electrical Keywords
+
+Residential electrical keywords represent your bread-and-butter work. These customers are planning upgrades, renovations, or repairs. The jobs range from $150 outlet installations to $5,000+ panel upgrades and whole-house rewires.
+
+### Core Residential Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| electrical panel upgrade | 18,100 | Service | Medium |
+| outlet installation | 12,100 | Service | Medium |
+| whole house rewiring | 8,100 | Service | Medium |
+| ceiling fan installation | 22,200 | Service | Medium |
+| 200 amp panel upgrade | 9,900 | Service | Medium |
+| electrical outlet repair | 6,600 | Service | Low |
+| light switch installation | 5,400 | Service | Low |
+| residential electrician | 9,900 | Service | Medium |
+| recessed lighting installation | 8,100 | Service | Medium |
+| circuit breaker replacement | 6,600 | Service | Low |
+
+### Long-Tail Residential Keywords
+
+- how much does a panel upgrade cost
+- 100 amp to 200 amp upgrade cost
+- cost to rewire a house
+- ceiling fan installation cost
+- how much to add an outlet
+- electrical outlet not working
+- install outlet in garage
+- upgrade electrical panel for EV charger
+- add 220v outlet for dryer
+- GFCI outlet installation cost
+- outdoor electrical outlet installation
+- whole house surge protector installation cost
+- knob and tube wiring replacement cost
+
+### Residential Keywords by Project Type
+
+Target specific project types for detailed service pages:
+
+- bathroom electrical wiring
+- kitchen electrical upgrade
+- basement wiring for finished basement
+- garage electrical panel installation
+- outdoor landscape lighting installation
+- attic fan wiring
+- hot tub electrical hookup
+- pool electrical wiring
+- shed electrical wiring
+- home addition electrical wiring
+
+## Commercial Electrical Keywords
+
+Commercial electrical keywords target higher-ticket contracts and often lead to ongoing maintenance relationships. A single commercial wiring contract can be worth tens of thousands of dollars, and maintenance agreements create recurring revenue.
+
+### Core Commercial Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| commercial electrician | 12,100 | Service | Medium |
+| commercial electrical contractor | 6,600 | Service | Medium |
+| commercial wiring | 4,400 | Service | Low |
+| office electrical installation | 2,900 | Service | Low |
+| commercial lighting installation | 3,600 | Service | Low |
+| industrial electrician | 5,400 | Service | Medium |
+| commercial electrical repair | 2,400 | Service | Low |
+| tenant improvement electrical | 1,600 | Service | Low |
+| commercial electrical maintenance | 1,900 | Service | Low |
+| electrical contractor for new construction | 2,400 | Service | Low |
+
+### Long-Tail Commercial Keywords
+
+- commercial electrician near me
+- commercial electrical inspection cost
+- office lighting upgrade to LED
+- warehouse electrical wiring
+- retail store electrical installation
+- restaurant electrical contractor
+- commercial panel upgrade cost
+- 3 phase electrical installation
+- commercial building rewiring
+- commercial EV charging station installation
+- parking lot lighting installation
+- commercial fire alarm wiring
+
+### Industry-Specific Commercial Keywords
+
+- restaurant kitchen electrical code
+- medical office electrical requirements
+- data center electrical contractor
+- manufacturing plant electrical maintenance
+- church electrical upgrade
+- school electrical inspection
+- hotel electrical renovation
+- gym electrical installation
+- car wash electrical wiring
+- brewery electrical contractor
+
+## Specialty and Modern Electrical Keywords
+
+Specialty electrical keywords target customers with specific high-value needs. EV charger installation, smart home wiring, and solar electrical work are rapidly growing categories with premium pricing and lower competition than traditional electrical keywords.
+
+### EV Charger Installation Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| EV charger installation | 27,100 | Service | Medium |
+| Tesla charger installation | 14,800 | Service | Medium |
+| Level 2 EV charger installation | 8,100 | Service | Low |
+| home EV charging station installation | 6,600 | Service | Low |
+| EV charger installation cost | 9,900 | Informational | Medium |
+| 240v outlet for EV charger | 4,400 | Service | Low |
+| electrician for EV charger | 3,600 | Service | Low |
+| commercial EV charger installation | 2,900 | Service | Low |
+
+### Smart Home and Automation Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| smart home wiring | 4,400 | Service | Low |
+| smart light switch installation | 3,600 | Service | Low |
+| home automation wiring | 2,900 | Service | Low |
+| smart thermostat installation electrician | 2,400 | Service | Low |
+| whole home audio wiring | 1,900 | Service | Low |
+| smart home pre-wire new construction | 1,600 | Service | Low |
+
+### Generator and Solar Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| generator installation | 14,800 | Service | Medium |
+| whole house generator installation | 9,900 | Service | Medium |
+| Generac generator installation | 6,600 | Service | Medium |
+| solar panel electrical hookup | 4,400 | Service | Low |
+| standby generator installation cost | 5,400 | Informational | Medium |
+| generator interlock kit installation | 3,600 | Service | Low |
+| backup generator for house | 8,100 | Informational | Medium |
+| solar electrical panel upgrade | 2,400 | Service | Low |
+
+### Other Specialty Keywords
+
+- aluminum wiring remediation
+- knob and tube wiring replacement
+- electrical safety inspection
+- home electrical inspection for sale
+- surge protector whole house
+- dedicated circuit installation
+- code violation electrical repair
+- electrical permit and inspection
+- arc fault breaker installation
+- smoke detector hardwired installation
+
+## Long-Tail Electrician Keywords
+
+Long-tail keywords are longer, more specific search phrases that have lower volume individually but higher conversion rates and lower competition. These are the hidden revenue generators that most electricians overlook entirely.
+
+### Cost and Pricing Keywords
+
+- how much does an electrician charge per hour
+- electrician cost to install outlet
+- cost to upgrade electrical panel to 200 amps
+- how much to wire a new house
+- electrician cost to install ceiling fan
+- rewire house cost per square foot
+- cost to run electrical to detached garage
+- how much does it cost to add a circuit
+- electrician hourly rate [city]
+- cost to install 240v outlet
+
+### Problem and Symptom Keywords
+
+- why do my lights flicker
+- outlet not working but breaker not tripped
+- burning smell from light switch
+- why does my circuit breaker keep tripping
+- buzzing sound from electrical panel
+- half my outlets stopped working
+- GFCI outlet keeps tripping
+- light switch shocking me
+- hot outlet but nothing plugged in
+- electrical humming noise in wall
+
+### Comparison and Decision Keywords
+
+- electrician vs handyman for electrical work
+- should I upgrade to 200 amp service
+- is knob and tube wiring dangerous
+- do I need a permit for electrical work
+- how often should electrical wiring be replaced
+- is aluminum wiring a fire hazard
+- rewire or sell house as-is
+- electrician or electrical contractor difference
+
+## Location-Modified Electrician Keywords
+
+Location-modified keywords are critical for electricians because Google treats every city as a separate market. "Electrician Dallas" and "electrician Fort Worth" return completely different results and require different optimization strategies.
+
+### Primary Location Keyword Patterns
+
+For every city in your service area, target these keyword patterns:
+
+- electrician [city]
+- electrician in [city]
+- [city] electrician
+- electrical contractor [city]
+- best electrician [city]
+- licensed electrician [city]
+- residential electrician [city]
+- emergency electrician [city]
+- 24 hour electrician [city]
+- electrical repair [city]
+
+### Neighborhood and Zip Code Keywords
+
+In larger metro areas, drill down to neighborhoods:
+
+- electrician [neighborhood]
+- electrical repair [zip code]
+- [neighborhood] electrician near me
+- electrician [county name]
+
+### Service + Location Combinations
+
+The most valuable location keywords combine a specific service with a city:
+
+- panel upgrade [city]
+- EV charger installation [city]
+- whole house rewiring [city]
+- ceiling fan installation [city]
+- generator installation [city]
+- electrical inspection [city]
+
+**These service + location keywords should be your priority.** They signal a customer who knows exactly what they need and where they are, which means high conversion rates and shorter sales cycles.
+
+## How to Implement These Electrician Keywords
+
+Having a keyword list is step one. Here is how to actually implement these keywords to rank on Google and generate service calls.
+
+### Map Keywords to Pages
+
+Every keyword cluster needs its own dedicated page. Do not try to rank one page for everything. Here is the page structure that works:
+
+**Homepage** -> Target your broadest term: "electrician [primary city]"
+
+**Service pages** (one per category):
+- /emergency-electrician -> emergency and urgent repair keywords
+- /residential-electrician -> panel upgrade, rewiring, outlet, ceiling fan keywords
+- /commercial-electrician -> commercial wiring, industrial, tenant improvement keywords
+- /ev-charger-installation -> EV charger and electric vehicle keywords
+- /generator-installation -> generator and backup power keywords
+- /smart-home-wiring -> smart home, automation, and modern wiring keywords
+
+**City pages** (one per service area):
+- /electrician-[city-name] -> "[city] electrician" + top services
+- Each city page should mention your core services with city-specific content
+
+### Optimize Title Tags and Meta Descriptions
+
+Your title tag is the single most important on-page ranking factor. Use this formula:
+
+**Title:** [Primary Keyword] | [Brand] - [City, State]
+**Example:** 200 Amp Panel Upgrade | Sparks Electric - Licensed Dallas Electricians
+
+**Meta description:** Include your primary keyword, a benefit, and a call to action.
+**Example:** Licensed electricians in Dallas specializing in 200 amp panel upgrades. Same-day estimates, upfront pricing, all work permitted and inspected. Call for a free quote.
+
+### Use Keywords Naturally in Content
+
+Google is sophisticated enough to understand context. Do not stuff keywords. Instead:
+
+- Use the exact keyword in your H1 heading
+- Include variations naturally throughout the page
+- Answer the questions your customers actually ask
+- Write at least 800-1,200 words per service page
+- Include your city name naturally in the content
+- Mention licensing, insurance, and credentials as trust signals
+
+### Optimize Your Google Business Profile
+
+Your Google Business Profile is the gateway to the Map Pack, which is where the majority of electrician service calls originate:
+
+- Business description should include your top keywords naturally
+- Services list should match your keyword categories exactly
+- Posts should mention specific services and cities weekly
+- Q&A section is an opportunity to include keywords in answers
+- Categories should cover all your service types (Electrician, Electrical Installation Service, Lighting Contractor, etc.)
+
+### Build City-Specific Landing Pages
+
+This is where most electrical contractors fail. If you serve 20 cities, you need 20 city pages. Each page should include:
+
+- Unique content about serving that specific area
+- City-specific testimonials when possible
+- Mention of neighborhoods, landmarks, and housing stock
+- Your response time to that area
+- Location-modified keywords throughout
+- Embedded Google Map showing your coverage
+
+## Common Keyword Research Mistakes Electricians Make
+
+**1. Only targeting "electrician near me."** Yes, it has 600K+ monthly searches. But Google determines proximity automatically. You cannot rank for it in your area without strong local SEO fundamentals across all your other keywords and service pages.
+
+**2. Ignoring specialty keywords.** Terms like "EV charger installation [city]" and "whole house generator installation [city]" have lower volume but almost zero competition and represent $2,000-$10,000+ jobs. These should be priority targets.
+
+**3. Not creating city-specific pages.** "Electrician Dallas" and "electrician Plano" are different keywords with different results. You need separate pages and strategies for each city in your service area.
+
+**4. Overlooking problem-based keywords.** When someone searches "why does my circuit breaker keep tripping," they have a problem that needs a professional. Blog posts and FAQ content targeting these informational keywords build traffic and generate calls from people who realize they need an electrician.
+
+**5. Forgetting Google Business Profile optimization.** Your GBP description, services, and posts all influence what searches you appear for in the Map Pack. Optimize them with the same keywords you target on your website.
+
+**6. Not tracking which keywords generate actual calls.** If you do not measure which keywords drive phone calls and booked jobs, you cannot optimize your strategy. Set up call tracking from day one so you know your true cost per lead by keyword.
+
+## Start Ranking for These Electrician Keywords
+
+This keyword list is your roadmap to generating more service calls from Google. The next step is implementing a strategy that targets these terms across your website, Google Business Profile, and content marketing.
+
+If you want professional help building and executing an electrician keyword strategy that generates measurable calls and revenue, our team specializes in [SEO for electricians](/local-seo/electricians). We have helped electrical contractors across the US and UK achieve first-page rankings and stop relying on expensive lead generation platforms.
+
+Ready to take your [SEO strategy](/seo-services) to the next level? We will analyze your current keyword rankings, identify the highest-opportunity terms in your market, and build a plan to outrank your competition.
+
+[Get a Free Electrician SEO Audit](/contact) - We will show you exactly where you stand in your local market and what it takes to start generating more calls from Google.
+    `,
+  },
+  {
+    slug: 'roofing-keywords-for-seo',
+    title: 'Roofing Keywords for SEO: 100+ Keywords That Win Storm Season and Year-Round Leads in 2026',
+    excerpt: 'The complete list of roofing keywords for SEO, organized by service type, material, season, and search intent. Use this keyword research guide to build a roofing SEO strategy that generates year-round leads.',
+    category: 'Local SEO',
+    author: 'Web Wise Team',
+    authorBio: 'The Web Wise Team has helped roofing companies across the US and UK achieve first-page Google rankings through data-driven keyword strategies and local SEO.',
+    date: 'Mar 24, 2026',
+    publishDate: '2026-03-24',
+    readTime: '18 min read',
+    featured: false,
+    image: '/blog/roofing-seo/roofing-map-pack.svg',
+    imageAlt: 'Roofing keywords for SEO: 100+ high-intent keywords organized by category with search volumes and seasonal trends',
+    keywords: ['roofing keywords', 'roofing keywords for seo', 'roofing seo keywords', 'roofer search terms', 'roofing keyword research'],
+    relatedServiceUrl: '/local-seo/roofing',
+    relatedServiceName: 'Roofing SEO Services',
+    tldr: [
+      'Emergency storm damage keywords like "roof leak repair near me" and "emergency roof repair" have the highest conversion rates at 35%+ because homeowners need immediate help after weather events',
+      'Targeting city-specific roofing keywords is critical because 92% of roofing searches have local intent and Google prioritizes contractors near the searcher',
+      'Seasonal roofing keywords spike dramatically during storm season, with "storm damage roof repair" searches increasing 300-400% after major weather events',
+      'Material-specific keywords like "metal roofing cost" and "asphalt shingle replacement" attract homeowners deep in the decision process who are ready to get quotes',
+      'Commercial roofing keywords target higher-ticket jobs averaging $15,000-$50,000+ and often lead to ongoing maintenance contracts',
+      'A complete roofing keyword strategy should cover 100+ terms across emergency, residential, commercial, material, and seasonal categories mapped to every city in your service area',
+    ],
+    faqs: [
+      { question: 'What are the best keywords for a roofing company?', answer: 'The highest-converting roofing keywords are urgent-intent terms like "roofers near me," "roof repair near me," "emergency roof repair [city]," and "storm damage roof repair." These keywords convert at 30-40% rates because the homeowner has an active problem. Material-specific terms like "metal roof installation" and "shingle replacement" also convert well because they indicate a homeowner ready to buy.' },
+      { question: 'How do I find roofing keywords for my area?', answer: 'Start with your core services (roof repair, replacement, inspection) and add your city name. Use Google autocomplete by typing "roofer [your city]" and noting the suggestions. Check Google Search Console for terms you already rank for. Tools like Google Keyword Planner, Ahrefs, or SEMrush reveal search volumes for your specific market. Also check for storm-related keyword spikes after local weather events.' },
+      { question: 'How many keywords should a roofing company target?', answer: 'A comprehensive roofing SEO strategy should target 100+ keywords across all service categories and service areas. Each city you serve needs its own set of location-modified keywords. Most roofing companies serve 15-30 cities, and each city should have at least 10-15 core service keywords targeted through dedicated landing pages.' },
+      { question: 'What is the search volume for roofing keywords?', answer: '"Roofers near me" gets approximately 400,000 monthly searches in the US. "Roof repair near me" gets around 110,000, "roof replacement cost" gets 40,500, and city-specific terms like "roofer [city name]" typically range from 500-8,000 depending on population. Storm-related terms spike 300-400% after severe weather events.' },
+      { question: 'Should I target "near me" roofing keywords?', answer: 'Yes. "Near me" keywords are among the highest-converting search terms for roofers. Google uses the searcher location to determine which businesses to show, so you do not need to add "near me" to your page content. Instead, optimize your Google Business Profile, build local citations, and ensure your website clearly lists every city and zip code you serve.' },
+      { question: 'How long does it take to rank for roofing keywords?', answer: 'Google Maps rankings for roofing keywords typically improve within 60-90 days of starting optimization. Organic rankings for competitive terms like "roofer [major city]" usually take 4-8 months. Less competitive long-tail keywords and smaller markets can rank within weeks. Storm damage keywords often have less established competition and can rank faster.' },
+      { question: 'What roofing keywords have the lowest competition?', answer: 'Specialty service keywords like "roof coating application," "skylight leak repair," "flat roof ponding repair," and "ice dam removal" tend to have the lowest competition. City-specific long-tail terms in smaller suburbs also have minimal competition. Material-specific terms in niche categories like "standing seam metal roof repair [city]" are ideal starting points for newer roofing websites.' },
+      { question: 'Do roofing keywords change by season?', answer: 'Yes, dramatically. Storm damage keywords spike 300-400% after severe weather. Spring brings peak searches for roof inspections and replacements. Summer is the busiest season for "new roof" and "roof replacement" searches. Fall sees spikes in "gutter installation" and "winterize roof" terms. Winter brings "ice dam," "snow removal roof," and "emergency roof leak" searches. Plan content around these seasonal patterns.' },
+    ],
+    content: `## Roofing Keywords for SEO: The Complete Keyword Research Guide
+
+If you run a roofing company, the keywords you target on Google determine whether homeowners call you or your competitors after a storm rolls through or when they are finally ready to replace that aging roof. This guide contains over 100 roofing keywords organized by service type, material, season, and search intent so you can build an SEO strategy that generates leads year-round.
+
+Whether you are handling SEO in-house or working with a [professional roofing SEO service](/local-seo/roofing), understanding which keywords drive real revenue is the foundation of every successful campaign.
+
+![Where 70% of roofing leads come from: the Google Map Pack showing top 3 local results for roofer searches](/blog/roofing-seo/roofing-map-pack.svg)
+
+## Why Roofing Keyword Research Matters
+
+Roofing is one of the highest-ticket home services, with the average roof replacement costing $8,000-$15,000 and commercial jobs running $15,000-$50,000+. Every lead you capture from Google search is worth hundreds or thousands of dollars in revenue. The keywords you rank for directly determine how many of those leads come to you versus your competitors.
+
+Here is what makes roofing keyword research unique compared to other trades:
+
+**Extreme weather dependence.** Roofing searches spike 300-400% after major storms, hail events, and hurricanes. If you are not ranking when the storm hits, you miss the single biggest lead generation window of the year.
+
+**Strong local intent.** 92% of roofing searches have local intent. Google heavily factors in proximity, which means you need city and neighborhood-specific keywords for every area you serve.
+
+**High ticket value.** A single roofing lead can be worth $8,000-$50,000+. Even a modest improvement in rankings can translate to hundreds of thousands in additional revenue per year.
+
+**Seasonal patterns.** Unlike emergency-only trades, roofing has distinct seasonal keyword patterns. Storm damage spikes in spring and summer, inspections peak in fall, and ice dam searches dominate winter. A strong keyword strategy covers all four seasons.
+
+**Insurance involvement.** Many roofing jobs involve insurance claims, creating an entire keyword category around "insurance roof replacement" and "storm damage claim" that most roofers overlook.
+
+## Emergency and Storm Damage Keywords
+
+Emergency and storm damage keywords are the most time-sensitive roofing keywords. These searches happen immediately after weather events when homeowners have active leaks, missing shingles, or structural damage. They convert at 35%+ rates because the homeowner needs help right now.
+
+### High Volume Emergency Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| roofers near me | 400,000 | Emergency/Local | High |
+| roof repair near me | 110,000 | Emergency/Local | High |
+| emergency roof repair | 18,100 | Emergency | Medium |
+| roof leak repair | 33,100 | Emergency/Service | Medium |
+| storm damage roof repair | 14,800 | Emergency | Medium |
+| roof leak repair near me | 22,200 | Emergency/Local | High |
+| emergency roofer | 6,600 | Emergency | Medium |
+| hail damage roof repair | 9,900 | Emergency | Medium |
+| wind damage roof repair | 5,400 | Emergency | Low |
+| roof tarping service | 3,600 | Emergency | Low |
+
+### Long-Tail Emergency Keywords
+
+These lower-volume terms convert extremely well because they signal a homeowner with an active problem:
+
+- roof leaking during rain who to call
+- emergency roof tarp after storm
+- tree fell on roof who to call
+- roof leaking into attic
+- missing shingles after storm
+- how to stop a roof leak temporarily
+- emergency roof patch near me
+- storm damage roof inspection free
+- insurance approved roofer near me
+- water dripping from ceiling after storm
+
+### City-Modified Emergency Keywords
+
+Every emergency keyword needs city variations for your service area. For example:
+
+- emergency roof repair [city]
+- storm damage roofer [city]
+- roof leak repair [city]
+- hail damage roof [city]
+- [city] emergency roofer
+- roof tarping service [city]
+
+**Pro tip:** Create a dedicated storm damage landing page for each city you serve. A page titled "Storm Damage Roof Repair in [City] - Free Insurance Inspections" targeting "[city] storm damage roof repair" will outrank a generic emergency page every time. Have these pages ready before storm season hits.
+
+## Residential Roofing Keywords
+
+Residential roofing keywords represent your bread-and-butter work. These homeowners are planning a roof replacement, need repairs, or want inspections. The jobs are predictable and often scheduled weeks in advance.
+
+### Core Residential Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| roof replacement | 60,500 | Service | High |
+| roof replacement cost | 40,500 | Research | High |
+| new roof cost | 33,100 | Research | High |
+| shingle repair | 14,800 | Service | Medium |
+| roof inspection | 22,200 | Service | Medium |
+| roof installation | 18,100 | Service | Medium |
+| roof replacement near me | 27,100 | Service/Local | High |
+| residential roofer | 4,400 | Service | Medium |
+| roof estimate | 9,900 | Service | Medium |
+| reroof cost | 6,600 | Research | Medium |
+
+### Long-Tail Residential Keywords
+
+- how much does a new roof cost in 2026
+- average roof replacement cost by square foot
+- how long does a roof replacement take
+- signs you need a new roof
+- roof replacement vs roof repair
+- how often should a roof be replaced
+- roof inspection before buying a house
+- free roof inspection near me
+- roof repair cost estimate
+- best time of year to replace a roof
+- how to choose a roofing contractor
+- roof replacement financing options
+
+### Residential Keywords by Roof Area
+
+Target specific areas for detailed service pages:
+
+- ridge cap repair
+- soffit and fascia repair
+- roof valley repair
+- chimney flashing repair
+- skylight leak repair
+- dormer roof repair
+- gutter replacement
+- roof vent installation
+- attic ventilation improvement
+- eave repair
+
+## Commercial Roofing Keywords
+
+Commercial roofing keywords target higher-ticket jobs and often lead to ongoing maintenance contracts worth tens of thousands per year. A single commercial contract can anchor your business through slow residential seasons.
+
+### Core Commercial Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| commercial roofing | 14,800 | Service | Medium |
+| commercial roofer near me | 9,900 | Service/Local | Medium |
+| flat roof repair | 12,100 | Service | Medium |
+| TPO roofing | 8,100 | Service/Research | Medium |
+| commercial roof replacement | 5,400 | Service | Medium |
+| commercial roof inspection | 3,600 | Service | Low |
+| flat roof installation | 4,400 | Service | Low |
+| EPDM roofing | 6,600 | Service/Research | Low |
+| commercial roof coating | 4,400 | Service | Low |
+| commercial roof maintenance | 2,900 | Service | Low |
+
+### Long-Tail Commercial Keywords
+
+- commercial roofing contractor near me
+- flat roof repair cost per square foot
+- TPO vs EPDM roofing comparison
+- commercial roof leak repair
+- flat roof ponding solution
+- commercial roof maintenance plan
+- warehouse roof replacement cost
+- industrial roofing contractor
+- commercial roof warranty
+- preventative roof maintenance program
+- commercial flat roof coating
+- built-up roofing system
+
+### Industry-Specific Commercial Keywords
+
+- apartment complex roof replacement
+- hotel roof repair
+- restaurant roof leak
+- retail store roofing
+- warehouse roofing contractor
+- church roof replacement
+- school roof installation
+- office building roof repair
+- hospital roofing contractor
+- shopping center roof maintenance
+
+## Roofing Material Keywords
+
+Material-specific keywords attract homeowners who are deep in the research and decision phase. These searchers have already decided they need a new roof and are now choosing materials. They convert well because they are ready to get quotes.
+
+### Asphalt Shingle Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| asphalt shingle roof | 9,900 | Research | Medium |
+| asphalt shingle replacement | 6,600 | Service | Medium |
+| architectural shingles cost | 8,100 | Research | Medium |
+| 3-tab vs architectural shingles | 5,400 | Research | Low |
+| best asphalt shingles 2026 | 3,600 | Research | Low |
+| shingle roof lifespan | 4,400 | Research | Low |
+| asphalt shingle repair | 5,400 | Service | Medium |
+| GAF shingles cost | 2,900 | Research | Low |
+| Owens Corning shingles price | 2,400 | Research | Low |
+| CertainTeed shingles review | 1,900 | Research | Low |
+
+### Metal Roofing Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| metal roofing | 60,500 | Research | High |
+| metal roof cost | 33,100 | Research | High |
+| standing seam metal roof | 18,100 | Research | Medium |
+| metal roof installation | 9,900 | Service | Medium |
+| metal roof vs shingles | 14,800 | Research | Medium |
+| metal roofing contractor near me | 6,600 | Service/Local | Medium |
+| metal roof lifespan | 4,400 | Research | Low |
+| metal roof over shingles | 8,100 | Research | Medium |
+| corrugated metal roofing | 5,400 | Research | Low |
+| metal roof repair | 4,400 | Service | Low |
+
+### Tile and Other Material Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| tile roof | 9,900 | Research | Medium |
+| tile roof repair | 6,600 | Service | Medium |
+| slate roof repair | 5,400 | Service | Low |
+| clay tile roof cost | 3,600 | Research | Low |
+| concrete tile roofing | 2,900 | Research | Low |
+| cedar shake roof | 4,400 | Research | Low |
+| flat roof materials | 3,600 | Research | Low |
+| rubber roofing | 5,400 | Research | Low |
+| synthetic slate roofing | 2,400 | Research | Low |
+| solar shingles cost | 6,600 | Research | Low |
+
+**These material keywords are extremely valuable** because they indicate a homeowner who has moved past the "do I need a new roof?" stage and into "what kind of roof do I want?" A page targeting "standing seam metal roof cost [city]" can rank quickly due to moderate competition while attracting high-intent leads.
+
+## Seasonal and Weather Keywords
+
+![Roofing keyword search volume by season showing spring and summer storm spikes](/blog/roofing-seo/seasonal-keywords-roofing.svg)
+
+Roofing search volumes fluctuate dramatically with the seasons and weather events. Understanding these patterns lets you create content and adjust your SEO strategy to capture leads when they peak.
+
+### Spring Storm Season Keywords (March-June)
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| hail damage roof | 9,900 | Emergency | Medium |
+| storm damage roof inspection | 6,600 | Service | Medium |
+| roof insurance claim | 8,100 | Research | Medium |
+| tornado damage roof repair | 3,600 | Emergency | Low |
+| free storm damage inspection | 4,400 | Service | Low |
+| hail damage shingles | 2,900 | Research | Low |
+
+### Summer Peak Season Keywords (June-September)
+
+- roof replacement summer
+- best time to replace roof
+- new roof installation timeline
+- roof replacement during summer
+- how hot is too hot for roofing
+- roof replacement schedule
+
+### Fall Preparation Keywords (September-November)
+
+- roof inspection before winter
+- winterize roof
+- gutter cleaning and roof inspection
+- fall roof maintenance
+- prepare roof for winter
+- roof inspection checklist
+
+### Winter Emergency Keywords (December-February)
+
+- ice dam removal
+- ice dam roof damage
+- snow load on roof
+- roof collapse from snow
+- winter roof leak
+- icicles on roof dangerous
+- heat cable installation roof
+
+**Strategy:** Create seasonal content 4-6 weeks before each season starts. Your "Spring Storm Damage Guide" should be published in February so it has time to index and rank before the first storms hit.
+
+## Long-Tail Roofing Keywords
+
+Long-tail keywords have lower search volume individually but higher conversion rates and lower competition. When you target dozens of these terms, the combined traffic adds up significantly.
+
+### Cost and Pricing Keywords
+
+- how much does a roof replacement cost in [state]
+- average cost to replace a roof on a 2000 sq ft house
+- roof repair cost per square foot
+- cheapest roofing material
+- metal roof cost vs shingles long term
+- roof replacement financing no credit check
+- how much does a metal roof cost per square
+- insurance deductible for roof replacement
+- roof replacement tax deduction 2026
+
+### Decision and Comparison Keywords
+
+- should I repair or replace my roof
+- how do I know if I need a new roof
+- best roofing material for [state/climate]
+- metal roof pros and cons
+- how long does a 30-year shingle roof really last
+- is a metal roof worth the extra cost
+- best roofing company how to choose
+- questions to ask a roofing contractor
+- roofing contractor red flags
+
+### Insurance-Related Keywords
+
+- does homeowners insurance cover roof replacement
+- how to file a roof insurance claim
+- roof damage insurance claim process
+- insurance adjuster roof inspection
+- supplementing a roof insurance claim
+- depreciation on roof insurance claim
+- public adjuster for roof claim
+- denied roof insurance claim what to do
+
+**Insurance keywords are a goldmine** that most roofing companies ignore. Homeowners searching these terms have confirmed roof damage and are actively trying to get it paid for. If you can position your company as the expert that helps navigate insurance claims, you win both the search ranking and the job.
+
+## Location-Modified Keywords
+
+Location-modified keywords are the backbone of local roofing SEO. Google treats "roofer Dallas" and "roofer Fort Worth" as completely different queries with different results. You need dedicated pages for each.
+
+### City Keyword Templates
+
+Build landing pages using these keyword formulas for every city you serve:
+
+- roofer [city]
+- roofing company [city]
+- roof repair [city]
+- roof replacement [city]
+- [city] roofing contractor
+- best roofer in [city]
+- storm damage roof repair [city]
+- metal roofing [city]
+- commercial roofer [city]
+- roof inspection [city]
+
+### Neighborhood and Zip Code Keywords
+
+In larger metro areas, target neighborhoods and zip codes:
+
+- roof repair [neighborhood]
+- roofer near [landmark/area]
+- roofing contractor [zip code]
+- [county] roofing company
+
+### Multi-City Strategy
+
+| Service Area Size | Pages Needed | Keywords Per Page | Total Keywords |
+|-------------------|-------------|-------------------|----------------|
+| Small (5 cities) | 5 city + 5 service | 10-15 | 100-150 |
+| Medium (15 cities) | 15 city + 8 service | 10-15 | 230-345 |
+| Large (30+ cities) | 30+ city + 10 service | 10-15 | 400+ |
+
+**Each city page must have unique content.** Google penalizes duplicate content, so do not simply swap out the city name on a template. Reference local landmarks, neighborhoods, weather patterns specific to that area, and customer testimonials from that city when possible.
+
+## How to Use These Roofing Keywords
+
+Having a keyword list is step one. Here is how to implement these keywords to rank on Google and generate real roofing leads.
+
+### Map Keywords to Pages
+
+Every keyword cluster needs its own dedicated page. Do not try to rank one page for everything. Here is the page structure that works:
+
+**Homepage** -> Target your broadest term: "roofing company [primary city]"
+
+**Service pages** (one per category):
+- /roof-repair -> emergency and repair keywords
+- /roof-replacement -> replacement, new roof, and cost keywords
+- /storm-damage-repair -> storm, hail, wind, and insurance keywords
+- /commercial-roofing -> commercial, flat roof, TPO keywords
+- /metal-roofing -> metal roof installation and cost keywords
+
+**City pages** (one per service area):
+- /roofing-[city-name] -> "[city] roofer" + top services
+- Each city page should mention your core services with city-specific content
+
+### Optimize Title Tags and Meta Descriptions
+
+Your title tag is the single most important on-page ranking factor. Use this formula:
+
+**Title:** [Primary Keyword] | [Brand] - [City, State]
+**Example:** Roof Repair and Replacement in Dallas | ABC Roofing - Free Estimates
+
+**Meta description:** Include your primary keyword, a benefit, and a call to action.
+**Example:** Professional roof repair and replacement in Dallas. Licensed, insured, free storm damage inspections. 5-star rated with 500+ roofs completed. Call for a free estimate.
+
+### Optimize Your Google Business Profile
+
+Your Google Business Profile is critical for the Map Pack, which captures the majority of clicks for local roofing searches:
+
+- Business description should include your top keywords naturally
+- Services list should match your keyword categories exactly
+- Posts should highlight recent jobs, seasonal services, and storm response
+- Photos of completed projects boost engagement and rankings
+- Reviews mentioning specific services and cities strengthen relevance
+
+### Track Which Keywords Generate Leads
+
+Not all keywords are equal. Set up call tracking and form tracking to identify which keywords and pages actually generate estimates and signed contracts. You may find that "metal roof installation [city]" generates higher-ticket jobs than "roof repair near me" despite lower search volume. Use this data to prioritize your SEO investment.
+
+## Common Keyword Research Mistakes Roofers Make
+
+**1. Only optimizing for "roofers near me."** This term has massive volume but Google determines proximity automatically. You cannot rank for it everywhere. You need strong local SEO fundamentals and city-specific pages to appear across your full service area.
+
+**2. Ignoring storm season preparation.** If you wait until after a major storm to create storm damage content, you are months too late. Build and optimize storm damage pages well before storm season so they are indexed and ranking when the weather hits.
+
+**3. Not targeting material-specific keywords.** Homeowners researching "metal roofing cost" or "architectural shingles vs 3-tab" are deep in the buying process. These keywords have lower volume but much higher conversion rates than generic terms.
+
+**4. Having one page for all cities.** "Roofer Dallas" and "roofer Plano" are different keywords with different results. You need separate, unique landing pages for each city in your service area.
+
+**5. Forgetting insurance-related keywords.** A huge percentage of roofing jobs come through insurance claims. Keywords like "roof insurance claim help" and "insurance approved roofer" attract homeowners who already have confirmed damage and funding. These are some of the highest-converting terms in the industry.
+
+**6. Not tracking keyword ROI.** If you do not measure which keywords generate actual estimates and closed deals, you cannot optimize your strategy. A keyword with 500 monthly searches that converts at 10% is more valuable than one with 5,000 searches that converts at 0.5%. Set up proper tracking from day one.
+
+## Start Ranking for These Roofing Keywords
+
+This keyword list is your roadmap to capturing more roofing leads from Google. The next step is implementing a strategy that targets these terms across your website, Google Business Profile, and content marketing.
+
+If you want professional help building and executing a roofing keyword strategy that generates measurable leads and revenue, our team specializes in [SEO for roofing companies](/local-seo/roofing). We have helped roofing businesses across the US and UK achieve first-page rankings and reduce their dependence on expensive lead generation platforms.
+
+Ready to see where you stand? Learn more about our full range of [SEO services](/seo-services) or go straight to getting your custom analysis.
+
+[Get a Free Roofing SEO Audit](/contact) - We will analyze your current keyword rankings, identify the highest-opportunity terms in your market, and show you exactly what it takes to outrank your competition before storm season hits.
+    `,
+  },
+  {
+    slug: 'hvac-keywords-for-seo',
+    title: 'HVAC Keywords for SEO: 100+ Keywords That Generate Leads Year-Round in 2026',
+    excerpt: 'The complete list of HVAC keywords for SEO, organized by service type, season, and conversion potential. Use this keyword research guide to dominate local search for heating and cooling.',
+    category: 'Local SEO',
+    author: 'Web Wise Team',
+    authorBio: 'The Web Wise Team has helped HVAC businesses across the US and UK achieve first-page Google rankings through data-driven keyword strategies and local SEO.',
+    date: 'Mar 19, 2026',
+    publishDate: '2026-03-19',
+    readTime: '18 min read',
+    featured: false,
+    image: '/blog/hvac-seo/hvac-map-pack.svg',
+    imageAlt: 'HVAC keywords for SEO: 100+ high-intent keywords organized by category with search volumes and seasonal trends',
+    keywords: ['hvac keywords', 'hvac keywords for seo', 'hvac seo keywords', 'hvac search terms', 'heating cooling keywords', 'ac repair keywords', 'furnace keywords seo'],
+    relatedServiceUrl: '/local-seo/hvac',
+    relatedServiceName: 'HVAC SEO Services',
+    tldr: [
+      'Emergency HVAC keywords like "AC not working" and "no heat" have conversion rates above 50% because homeowners need immediate help when their system fails',
+      'HVAC is the most seasonal industry in SEO with AC keywords spiking 400% in summer and heating keywords 350% in winter, requiring year-round keyword planning',
+      'Location-modified keywords are critical because 95% of HVAC searches have local intent and Google shows results based on the searcher proximity',
+      'Long-tail HVAC keywords like "central air conditioning installation cost [city]" have lower competition and higher conversion rates than broad terms',
+      'Commercial HVAC keywords target higher-ticket contracts worth $5,000-$50,000+ per project compared to $150-$500 residential service calls',
+      'A complete HVAC keyword strategy should cover 100+ terms across emergency, AC, heating, seasonal, commercial, and specialty categories mapped to your service area',
+    ],
+    faqs: [
+      { question: 'What are the best keywords for an HVAC business?', answer: 'The highest-converting HVAC keywords are emergency-intent terms like "AC repair near me," "no heat," "furnace not working," and "emergency HVAC [city]." These convert at 50%+ because the homeowner needs immediate help. Also target seasonal terms like "AC tune-up" in spring and "furnace maintenance" in fall to capture planned service appointments.' },
+      { question: 'How do I find HVAC keywords for my local area?', answer: 'Start with your core services (AC repair, furnace installation, heat pump) and add your city name. Use Google autocomplete by typing "HVAC [your city]" to see suggestions. Check Google Search Console for terms you already rank for. Tools like Google Keyword Planner and SEMrush reveal search volumes and competition for your specific market.' },
+      { question: 'How many keywords should an HVAC company target?', answer: 'A comprehensive HVAC SEO strategy should target 100+ keywords across emergency, cooling, heating, commercial, and seasonal categories. Each city you serve needs its own location-modified keywords. Most HVAC companies serve 15-30 cities, and each should have dedicated pages targeting 10-15 core service keywords.' },
+      { question: 'What is the search volume for HVAC keywords?', answer: '"AC repair near me" gets approximately 200,000 monthly searches in the US. "HVAC near me" gets about 300,000, "furnace repair near me" around 60,000, and city-specific terms like "HVAC [city]" range from 500-8,000 depending on market size. The combined HVAC keyword universe is massive.' },
+      { question: 'When should I target seasonal HVAC keywords?', answer: 'Start optimizing for summer AC keywords in February-March so your pages rank by the time demand spikes in May-June. Start heating keywords in July-August to rank by October-November. Year-round terms like "HVAC maintenance" and "indoor air quality" fill the gaps. Seasonal keyword preparation is 2-3 months ahead of demand.' },
+      { question: 'How long does it take to rank for HVAC keywords?', answer: 'Google Maps rankings for HVAC keywords typically improve within 60-90 days. Organic rankings for competitive terms like "AC repair [major city]" take 3-6 months. Less competitive long-tail terms and smaller markets can rank in weeks. Seasonal keywords require extra lead time since you need to rank before the season starts.' },
+      { question: 'What HVAC keywords have the lowest competition?', answer: 'Specialty service keywords like "ductless mini split installation," "heat pump repair," "indoor air quality testing," and "zoning system installation" have low competition. City-specific long-tail terms in smaller markets are also less competitive. These are ideal starting points while building authority for broader terms.' },
+      { question: 'Should I target both heating and cooling keywords?', answer: 'Absolutely. Even if your business is stronger in one area, targeting both heating and cooling keywords ensures year-round lead flow. AC keywords dominate summer searches while heating keywords dominate winter. Companies that only optimize for one season leave half their potential revenue on the table.' },
+    ],
+    content: `## HVAC Keywords for SEO: The Complete Keyword Research Guide
+
+If you run an HVAC business, the keywords you target determine whether homeowners find you or a competitor when their AC dies in August or their furnace quits in January. This guide contains over 100 HVAC keywords organized by service type, season, and conversion potential so you can build an SEO strategy that generates leads year-round.
+
+Whether you handle SEO in-house or work with a [professional HVAC SEO service](/local-seo/hvac), understanding which keywords drive calls is the foundation of every successful campaign.
+
+![Where 76% of HVAC service calls originate: the Google Map Pack showing top 3 local results](/blog/hvac-seo/hvac-map-pack.svg)
+
+## Why HVAC Keyword Research Is Different From Other Industries
+
+HVAC keyword research is unique because of extreme seasonality. Unlike plumbers or electricians who see relatively steady demand, HVAC businesses experience massive search volume swings:
+
+**Summer AC spike.** AC-related keywords surge 300-400% from May through September. "AC repair near me" jumps from 80,000 searches in March to 350,000+ in July.
+
+**Winter heating spike.** Heating keywords surge 250-350% from October through February. "Furnace not working" goes from 15,000 searches in summer to 60,000+ in December.
+
+**Emergency urgency.** When a home has no heat in winter or no AC in summer, the homeowner calls the first HVAC company they find. Emergency keywords convert at 50%+ rates.
+
+**Dual service targeting.** Most HVAC companies offer both heating and cooling, meaning you need keyword strategies for two completely different service categories with opposite seasonal patterns.
+
+**High ticket values.** HVAC installations range from $3,000 to $15,000+, making each keyword-driven lead extremely valuable compared to other home services.
+
+![HVAC seasonal keyword demand showing AC keywords peak in summer and heating keywords peak in winter](/blog/hvac-seo/seasonal-demand-hvac.svg)
+
+## Emergency HVAC Keywords
+
+Emergency keywords are the most valuable HVAC keywords. These searches happen when a system fails and the homeowner needs help immediately. They convert at 50%+ rates.
+
+### High Volume Emergency Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| AC repair near me | 200,000 | Emergency/Local | High |
+| HVAC near me | 300,000 | Emergency/Local | High |
+| furnace repair near me | 60,000 | Emergency/Local | High |
+| AC not working | 49,500 | Emergency | Medium |
+| no heat in house | 33,100 | Emergency | Medium |
+| furnace not working | 40,500 | Emergency | Medium |
+| emergency HVAC | 12,100 | Emergency | Medium |
+| AC blowing hot air | 27,100 | Emergency/Diagnostic | Medium |
+| heater not turning on | 22,200 | Emergency | Medium |
+| emergency AC repair | 8,100 | Emergency | Medium |
+| HVAC emergency service | 4,400 | Emergency | Low |
+| 24 hour AC repair | 6,600 | Emergency | Low |
+| furnace not blowing hot air | 18,100 | Emergency/Diagnostic | Medium |
+| AC unit frozen | 14,800 | Emergency/Diagnostic | Low |
+| heat pump not working | 12,100 | Emergency | Low |
+
+### Long-Tail Emergency Keywords
+
+- "AC stopped working in the middle of the night [city]"
+- "furnace making loud banging noise"
+- "carbon monoxide alarm going off furnace"
+- "AC compressor not turning on"
+- "pilot light went out on furnace"
+- "heat pump blowing cold air in heat mode"
+- "AC leaking water inside house"
+- "thermostat not reaching set temperature"
+- "HVAC system short cycling every few minutes"
+- "burning smell coming from furnace"
+
+## AC and Cooling Keywords
+
+These keywords target homeowners looking for AC services, from repairs to installations. Volume peaks dramatically May through September.
+
+### Core AC Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| AC repair | 110,000 | Service | High |
+| air conditioning repair | 60,500 | Service | High |
+| AC installation | 33,100 | Service | High |
+| central air conditioning | 49,500 | Research | High |
+| AC replacement | 22,200 | Service | Medium |
+| AC tune-up | 18,100 | Maintenance | Medium |
+| AC maintenance | 14,800 | Maintenance | Medium |
+| ductless mini split | 40,500 | Product | Medium |
+| window AC installation | 8,100 | Service | Low |
+| AC recharge | 12,100 | Service | Medium |
+| central AC installation cost | 9,900 | Research | Medium |
+| AC unit replacement cost | 8,100 | Research | Medium |
+
+### Long-Tail AC Keywords
+
+- "how much does a new central air unit cost"
+- "best time to replace AC unit"
+- "AC unit too small for house"
+- "ductless mini split vs central air cost"
+- "AC warranty repair [city]"
+- "commercial AC repair [city]"
+- "AC installation same day service"
+- "Carrier AC dealer near me"
+- "Trane AC installer [city]"
+- "AC efficiency rating SEER explained"
+- "two-stage AC system benefits"
+- "smart thermostat installation with AC"
+
+## Heating and Furnace Keywords
+
+These keywords capture homeowners searching for heating services. Volume peaks October through February.
+
+### Core Heating Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| furnace repair | 74,000 | Service | High |
+| furnace installation | 22,200 | Service | High |
+| heater repair near me | 40,500 | Service/Local | High |
+| furnace replacement | 18,100 | Service | Medium |
+| heat pump installation | 22,200 | Service | Medium |
+| furnace tune-up | 14,800 | Maintenance | Medium |
+| boiler repair | 18,100 | Service | Medium |
+| radiant floor heating | 12,100 | Product | Low |
+| gas furnace installation | 9,900 | Service | Medium |
+| electric furnace repair | 6,600 | Service | Low |
+| furnace installation cost | 14,800 | Research | Medium |
+| heat pump vs furnace | 12,100 | Research | Low |
+
+### Long-Tail Heating Keywords
+
+- "high efficiency furnace installation cost"
+- "furnace making clicking noise but not turning on"
+- "heat pump installation cost [city]"
+- "gas vs electric furnace pros and cons"
+- "furnace replacement same day [city]"
+- "boiler to furnace conversion cost"
+- "dual fuel heat pump system installation"
+- "Lennox furnace dealer near me"
+- "furnace flame sensor cleaning cost"
+- "tankless water heater and furnace combo"
+
+## Seasonal Maintenance Keywords
+
+These keywords capture homeowners planning ahead. Lower urgency but high conversion for maintenance contracts and tune-ups.
+
+### Spring/Summer Prep Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| AC tune-up | 18,100 | Maintenance | Medium |
+| spring HVAC maintenance | 3,600 | Maintenance | Low |
+| AC maintenance checklist | 4,400 | Research | Low |
+| pre-season AC inspection | 2,400 | Maintenance | Low |
+| air conditioning service | 27,100 | Service | Medium |
+| AC filter replacement | 9,900 | DIY/Service | Low |
+
+### Fall/Winter Prep Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| furnace tune-up | 14,800 | Maintenance | Medium |
+| fall furnace maintenance | 3,600 | Maintenance | Low |
+| heating system inspection | 4,400 | Maintenance | Low |
+| furnace filter replacement | 8,100 | DIY/Service | Low |
+| winterize HVAC system | 2,400 | Maintenance | Low |
+| annual furnace inspection cost | 3,600 | Research | Low |
+
+## Commercial HVAC Keywords
+
+Commercial keywords target higher-ticket projects. These leads are worth $5,000-$50,000+ per project.
+
+### Core Commercial Keywords
+
+| Keyword | Monthly US Searches (Est.) | Intent | Competition |
+|---------|---------------------------|--------|-------------|
+| commercial HVAC | 22,200 | Service | High |
+| commercial AC repair | 9,900 | Service | Medium |
+| commercial HVAC installation | 6,600 | Service | Medium |
+| rooftop unit repair | 4,400 | Service | Low |
+| commercial refrigeration repair | 6,600 | Service | Medium |
+| commercial HVAC maintenance contract | 2,400 | Service | Low |
+| restaurant HVAC service | 1,600 | Service | Low |
+| office building HVAC | 2,400 | Service | Low |
+| warehouse HVAC installation | 1,300 | Service | Low |
+| commercial HVAC contractor near me | 4,400 | Service/Local | Medium |
+
+### Commercial Long-Tail Keywords
+
+- "commercial HVAC preventive maintenance agreement"
+- "VRF system installation commercial"
+- "commercial building HVAC replacement cost"
+- "chiller repair service [city]"
+- "commercial ductwork installation"
+- "server room cooling solutions"
+- "medical office HVAC requirements"
+- "retail store HVAC installation"
+
+## Specialty and Modern HVAC Keywords
+
+These growing keyword categories target newer services and technology-driven customers.
+
+### Indoor Air Quality Keywords
+
+- "indoor air quality testing near me" (8,100 monthly)
+- "whole house air purifier installation" (4,400)
+- "UV light for HVAC system" (6,600)
+- "air duct cleaning near me" (60,500)
+- "humidifier installation HVAC" (3,600)
+- "HEPA filter installation" (2,400)
+
+### Smart Home and Energy Efficiency Keywords
+
+- "smart thermostat installation" (14,800 monthly)
+- "Nest thermostat installation service" (4,400)
+- "energy efficient HVAC upgrade" (2,400)
+- "home energy audit HVAC" (1,600)
+- "zoning system installation" (2,400)
+- "programmable thermostat installation" (3,600)
+
+### Heat Pump Keywords (Growing Fast)
+
+- "heat pump installation near me" (22,200 monthly)
+- "air source heat pump cost" (9,900)
+- "heat pump vs furnace efficiency" (6,600)
+- "geothermal heat pump installation" (4,400)
+- "mini split heat pump installation" (8,100)
+- "heat pump rebates [state]" (3,600)
+- "cold climate heat pump" (4,400)
+
+## Location-Modified Keywords
+
+HVAC searches are almost entirely local. You need city-specific keywords for every area you serve.
+
+### Primary Location Patterns
+
+Every HVAC company should target these patterns for each city:
+
+- "HVAC [city]"
+- "AC repair [city]"
+- "furnace repair [city]"
+- "heating and cooling [city]"
+- "HVAC contractor [city]"
+- "AC installation [city]"
+- "furnace installation [city]"
+- "emergency HVAC [city]"
+
+### Neighborhood and Zip Code Patterns
+
+For metro areas, target neighborhoods and suburbs:
+
+- "AC repair [neighborhood/suburb]"
+- "HVAC service [zip code]"
+- "furnace repair near [landmark]"
+- "heating contractor [county]"
+
+## How to Implement These Keywords
+
+Having a keyword list is step one. Here is how to actually use these keywords to rank and generate leads.
+
+### Map Keywords to Pages
+
+**Homepage:** Target your primary city + main service ("HVAC contractor [city]," "heating and cooling [city]")
+
+**Service pages:** Create individual pages for each major service (AC repair, furnace installation, heat pump, ductless mini split, commercial HVAC)
+
+**City pages:** Build dedicated landing pages for each city you serve, targeting "[service] [city]" patterns
+
+**Blog content:** Target informational keywords ("how much does furnace installation cost," "heat pump vs furnace")
+
+### Optimize Title Tags and Meta Descriptions
+
+Your title tag is the single most important on-page ranking factor. Include your primary keyword naturally:
+
+- "AC Repair [City] | Same-Day Service | [Company Name]"
+- "Furnace Installation [City] | Licensed HVAC Contractor"
+- "Emergency HVAC Service [City] | 24/7 Heating & Cooling"
+
+### Google Business Profile Optimization
+
+Your GBP drives most HVAC leads. Optimize with keywords in:
+
+- Business description (mention all services and cities)
+- Service categories (add every relevant HVAC category)
+- Posts (weekly updates mentioning seasonal services)
+- Q&A section (add questions with keyword-rich answers)
+- Photo descriptions and captions
+
+### Seasonal Content Calendar
+
+Plan your content around seasonal demand:
+
+- **February-March:** Publish AC-related content for summer rankings
+- **April-May:** Push AC tune-up and maintenance content
+- **July-August:** Publish heating content for winter rankings
+- **September-October:** Push furnace maintenance and winterization content
+- **Year-round:** Indoor air quality, energy efficiency, smart home integration
+
+## Common HVAC Keyword Mistakes
+
+**Only targeting one season.** HVAC companies that only optimize for AC or only for heating miss half their potential leads. Build content for both.
+
+**Ignoring diagnostic keywords.** Terms like "AC blowing hot air" and "furnace clicking but not starting" have high conversion rates because the homeowner already knows they have a problem.
+
+**Not building city pages.** Every city you serve needs its own landing page. A single "Service Areas" page listing cities cannot rank for "[service] [city]" searches.
+
+**Overlooking commercial keywords.** Residential HVAC is competitive. Commercial keywords are less competitive with higher ticket values.
+
+**Skipping maintenance keywords.** Tune-up and maintenance keywords generate recurring customers and maintenance contracts worth thousands annually.
+
+**Waiting for the season.** If you start optimizing AC content in June, you have already missed the peak. SEO takes 2-3 months to work. Plan ahead.
+
+This keyword list is your year-round roadmap for HVAC SEO success. The next step is implementing a strategy that targets these terms systematically across your website, Google Business Profile, and content marketing.
+
+Ready to dominate HVAC search in your market? Learn about our [HVAC SEO services](/local-seo/hvac) or explore our full range of [SEO services](/seo-services).
+
+[Get a Free HVAC SEO Audit](/contact) — We will analyze your current keyword rankings, identify the highest-opportunity terms for each season, and show you exactly how to outrank competitors in your service area.
+    `,
+  },
 ]
 
 // URL mapping for blog slugs to their canonical URLs
@@ -6148,8 +8165,15 @@ const industryPostSlugs = [
   'locksmith-seo-guide',
 ]
 
-// Get blog posts excluding industry pages (which are now under /local-seo/)
-export const getBlogPosts = () => blogPosts.filter(post => !industryPostSlugs.includes(post.slug))
+// Check if a post should be published (no publishDate or publishDate <= today)
+const isPublished = (post: BlogPost): boolean => {
+  if (!post.publishDate) return true
+  const today = new Date().toISOString().split('T')[0]
+  return post.publishDate <= today
+}
+
+// Get blog posts excluding industry pages (which are now under /local-seo/) and scheduled future posts
+export const getBlogPosts = () => blogPosts.filter(post => !industryPostSlugs.includes(post.slug) && isPublished(post))
 
 // Get featured post (from non-industry posts)
 export const getFeaturedPost = () => {
@@ -6160,8 +8184,12 @@ export const getFeaturedPost = () => {
 // Get all posts except featured (from non-industry posts)
 export const getOtherPosts = () => getBlogPosts().filter(post => !post.featured)
 
-// Get post by slug
-export const getPostBySlug = (slug: string) => blogPosts.find(post => post.slug === slug)
+// Get post by slug (respects publishDate)
+export const getPostBySlug = (slug: string) => {
+  const post = blogPosts.find(post => post.slug === slug)
+  if (post && !isPublished(post)) return undefined
+  return post
+}
 
 // Get related posts (same category, different post)
 export const getRelatedPosts = (currentSlug: string, limit = 3) => {

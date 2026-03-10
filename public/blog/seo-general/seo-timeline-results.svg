@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8f9fa"/>
+      <stop offset="100%" stop-color="#e8edf2"/>
+    </linearGradient>
+    <filter id="sh" x="-4%" y="-4%" width="108%" height="116%">
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="520" fill="url(#bg)" rx="16"/>
+
+  <rect x="0" y="0" width="800" height="56" fill="#25274d" rx="16"/>
+  <rect x="0" y="30" width="800" height="26" fill="#25274d"/>
+  <text x="400" y="36" fill="white" font-size="18" font-weight="700" text-anchor="middle">How Long Does SEO Take? Realistic Timeline for Service Businesses</text>
+
+  <!-- Timeline -->
+  <rect x="40" y="76" width="720" height="420" rx="12" fill="white" filter="url(#sh)"/>
+
+  <!-- Main timeline line -->
+  <line x1="120" y1="130" x2="120" y2="460" stroke="#e5e7eb" stroke-width="3"/>
+
+  <!-- Phase 1: Month 1-2 -->
+  <circle cx="120" cy="130" r="18" fill="#ed7c21"/>
+  <text x="120" y="136" fill="white" font-size="14" font-weight="800" text-anchor="middle">1</text>
+
+  <rect x="155" y="106" width="570" height="68" rx="10" fill="#fff8f0" stroke="#ed7c21" stroke-width="1"/>
+  <text x="175" y="128" fill="#25274d" font-size="14" font-weight="700">Month 1-2: Foundation &amp; Quick Wins</text>
+  <text x="175" y="146" fill="#6b7280" font-size="11">Google Business Profile optimized, technical fixes, citation building</text>
+  <text x="175" y="162" fill="#ed7c21" font-size="11" font-weight="600">✓ GBP calls increase 20-30%  ·  ✓ Technical health score 90+</text>
+
+  <!-- Phase 2: Month 3-4 -->
+  <circle cx="120" cy="210" r="18" fill="#3b82f6"/>
+  <text x="120" y="216" fill="white" font-size="14" font-weight="800" text-anchor="middle">2</text>
+
+  <rect x="155" y="186" width="570" height="68" rx="10" fill="#f0f7ff" stroke="#3b82f6" stroke-width="1"/>
+  <text x="175" y="208" fill="#25274d" font-size="14" font-weight="700">Month 3-4: Rankings Start Moving</text>
+  <text x="175" y="226" fill="#6b7280" font-size="11">Map Pack visibility improving, city pages indexed, review generation active</text>
+  <text x="175" y="242" fill="#3b82f6" font-size="11" font-weight="600">✓ Map Pack for low-competition cities  ·  ✓ 50+ new reviews</text>
+
+  <!-- Phase 3: Month 5-6 -->
+  <circle cx="120" cy="290" r="18" fill="#10b981"/>
+  <text x="120" y="296" fill="white" font-size="14" font-weight="800" text-anchor="middle">3</text>
+
+  <rect x="155" y="266" width="570" height="68" rx="10" fill="#f0fdf4" stroke="#10b981" stroke-width="1"/>
+  <text x="175" y="288" fill="#25274d" font-size="14" font-weight="700">Month 5-6: Significant Growth</text>
+  <text x="175" y="306" fill="#6b7280" font-size="11">Organic traffic up 150-250%, Map Pack in primary city, leads increasing</text>
+  <text x="175" y="322" fill="#10b981" font-size="11" font-weight="600">✓ Page 1 for 10+ keywords  ·  ✓ Lead volume up 200%+</text>
+
+  <!-- Phase 4: Month 7-9 -->
+  <circle cx="120" cy="370" r="18" fill="#8b5cf6"/>
+  <text x="120" y="376" fill="white" font-size="14" font-weight="800" text-anchor="middle">4</text>
+
+  <rect x="155" y="346" width="570" height="68" rx="10" fill="#faf5ff" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="175" y="368" fill="#25274d" font-size="14" font-weight="700">Month 7-9: Market Dominance</text>
+  <text x="175" y="386" fill="#6b7280" font-size="11">Dominating Map Pack, ranking for competitive terms, competitors losing ground</text>
+  <text x="175" y="402" fill="#8b5cf6" font-size="11" font-weight="600">✓ Top 3 for primary keywords  ·  ✓ Cost per lead below $15</text>
+
+  <!-- Phase 5: Month 10-12 -->
+  <circle cx="120" cy="450" r="18" fill="#25274d"/>
+  <text x="120" y="456" fill="white" font-size="14" font-weight="800" text-anchor="middle">5</text>
+
+  <rect x="155" y="426" width="570" height="56" rx="10" fill="#f1f2f6" stroke="#25274d" stroke-width="1"/>
+  <text x="175" y="448" fill="#25274d" font-size="14" font-weight="700">Month 10-12: Compounding Returns</text>
+  <text x="175" y="466" fill="#6b7280" font-size="11">SEO generates leads on autopilot. Expanding to new services and areas.</text>
+
+  <!-- Right side growth arrow -->
+  <text x="700" y="130" fill="#6b7280" font-size="20" text-anchor="end">📊</text>
+  <text x="700" y="210" fill="#6b7280" font-size="20" text-anchor="end">📈</text>
+  <text x="700" y="290" fill="#6b7280" font-size="20" text-anchor="end">🚀</text>
+  <text x="700" y="370" fill="#6b7280" font-size="20" text-anchor="end">👑</text>
+  <text x="700" y="450" fill="#6b7280" font-size="20" text-anchor="end">💰</text>
+
+  <text x="770" y="508" fill="#25274d" font-size="9" font-weight="600" text-anchor="end" opacity="0.5">websiteandseoagency.com</text>
+</svg>

@@ -34,11 +34,7 @@ export default function robots(): MetadataRoute.Robots {
           '/wp-includes/',
           '/wp-admin/',
 
-          // Old attachment/media URLs
-          '/*.svg',
-          '/*.png',
-          '/*.jpg',
-          '/*.jpeg',
+          // Old WordPress attachment page patterns (not actual image files)
           '/*-svg/',
           '/*-png/',
           '/*-jpg/',

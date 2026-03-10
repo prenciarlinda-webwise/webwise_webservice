@@ -47,7 +47,6 @@ const caseStudyUrlMap: Record<string, string> = {
   'kn-flooring-contractor-website-design': '/case-studies/kn-flooring',
   'kryemadhi-car-rental-albania-website-design': '/case-studies/kryemadhi',
   'gnt-home-remodeling-contractor-website-design': '/case-studies/gnt-remodeling',
-  'eli-taxi-durres-albania-website-design': '/case-studies/eli-taxi',
   'msc-certification-web-application-development': '/case-studies/msc-certification',
   'aaa-remodels-jacksonville-home-remodeling-seo-website': '/case-studies/aaa-remodels',
 }

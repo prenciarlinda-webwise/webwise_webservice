@@ -291,16 +291,6 @@ export const clients: Record<string, Client> = {
     description: 'Full-service home remodeling company offering kitchen, bathroom, and whole-home renovations. Built a professional website with project portfolio and quote request functionality.',
     nofollow: true,
   },
-  elitaxidurres: {
-    name: 'Eli Taxi Durres',
-    slug: 'eli-taxi-durres-albania-website-design',
-    url: 'https://www.eli-taxidurres.com',
-    image: getScreenshot('https://www.eli-taxidurres.com'),
-    industry: 'Transportation',
-    services: ['Website Design'],
-    description: 'Taxi and transfer service operating in Durres, Albania. Developed a clean website with service information, pricing, and easy booking options for tourists and locals.',
-    nofollow: true,
-  },
   aaaremodels: {
     name: 'AAA Remodels LLC',
     slug: 'aaa-remodels-jacksonville-home-remodeling-seo-website',
@@ -339,8 +329,6 @@ export const industries: Industry[] = [
   { name: 'Cleaning', slug: 'cleaning', localSeoUrl: '/local-seo/cleaning' },
   { name: 'Moving', slug: 'moving', localSeoUrl: '/local-seo/moving' },
   { name: 'Locksmiths', slug: 'locksmiths', localSeoUrl: '/local-seo/locksmiths' },
-  { name: 'Painting Services', slug: 'painting', localSeoUrl: '/local-seo/construction' },
-  { name: 'Flooring', slug: 'flooring', localSeoUrl: '/local-seo/construction' },
 ]
 
 // Get industry by name (for matching client industries)
@@ -357,6 +345,41 @@ export const getClientsByIndustry = (industryName: string): Client[] => {
 export const getUniqueClientIndustries = (): string[] => {
   const industrySet = new Set(Object.values(clients).map(c => c.industry))
   return Array.from(industrySet)
+}
+
+// Industries that have dedicated local-seo pages (for nav menu)
+export const getIndustriesWithPages = (): Industry[] => {
+  const pagesExist = [
+    'plumbing', 'roofing', 'auto-detailing', 'hvac', 'electricians',
+    'construction', 'waste-management', 'landscaping', 'pest-control',
+    'cleaning', 'moving', 'locksmiths'
+  ]
+  return industries.filter(i => pagesExist.includes(i.slug))
+}
+
+// Case study short slug mapping (for nav dropdown)
+const caseStudyShortSlugs: Record<string, string> = {
+  'illyrian-group-plumbing-seo-web-development': 'illyrian-group',
+  'gimos-roofing-local-seo-website-design': 'gimos-roofing',
+  'albros-premium-detailing-seo-website-design': 'albros-detailing',
+  'northstar-home-improvement-seo-website-development': 'northstar',
+  '904-dumpster-rental-jacksonville-seo-website': '904-dumpster',
+  'gjej-pro-marketplace-web-application-seo': 'gjej-pro',
+  'paint-techs-painting-contractor-seo-website-redesign': 'paint-techs',
+  'msc-certification-web-application-development': 'msc-certification',
+  'aaa-remodels-jacksonville-home-remodeling-seo-website': 'aaa-remodels',
+}
+
+// Get featured case studies for nav dropdown (clients with results/SEO work)
+export const getFeaturedCaseStudies = () => {
+  return Object.values(clients)
+    .filter(c => c.results && caseStudyShortSlugs[c.slug])
+    .map(c => ({
+      name: c.name,
+      industry: c.industry,
+      url: `/case-studies/${caseStudyShortSlugs[c.slug]}`,
+      trafficIncrease: c.results!.trafficIncrease,
+    }))
 }
 
 // Navigation

@@ -1,0 +1,24 @@
+name: Scheduled Blog Publishing
+
+on:
+  schedule:
+    # Runs every day at 6:00 AM UTC (7 AM UK, 1 AM EST)
+    - cron: '0 6 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  check-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger deployment
+        run: |
+          echo "Triggering rebuild for scheduled blog posts"
+          echo "Posts with publishDate <= $(date +%Y-%m-%d) will now be visible"
+          # If using Vercel, this triggers a redeploy via deploy hook
+          # Set DEPLOY_HOOK_URL as a repository secret
+          if [ -n "${{ secrets.DEPLOY_HOOK_URL }}" ]; then
+            curl -X POST "${{ secrets.DEPLOY_HOOK_URL }}"
+            echo "Deploy hook triggered successfully"
+          else
+            echo "No DEPLOY_HOOK_URL secret set. Set this to your Vercel/Netlify deploy hook URL."
+          fi

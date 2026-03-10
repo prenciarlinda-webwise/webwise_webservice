@@ -15,7 +15,6 @@ const slugMap: Record<string, string> = {
   'kn-flooring': 'kn-flooring-contractor-website-design',
   'kryemadhi': 'kryemadhi-car-rental-albania-website-design',
   'gnt-remodeling': 'gnt-home-remodeling-contractor-website-design',
-  'eli-taxi': 'eli-taxi-durres-albania-website-design',
   'msc-certification': 'msc-certification-web-application-development',
   'aaa-remodels': 'aaa-remodels-jacksonville-home-remodeling-seo-website',
 }

@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8f9fa"/>
+      <stop offset="100%" stop-color="#e8edf2"/>
+    </linearGradient>
+    <filter id="sh" x="-4%" y="-4%" width="108%" height="116%">
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="520" fill="url(#bg)" rx="16"/>
+
+  <rect x="0" y="0" width="800" height="56" fill="#25274d" rx="16"/>
+  <rect x="0" y="30" width="800" height="26" fill="#25274d"/>
+  <text x="400" y="36" fill="white" font-size="18" font-weight="700" text-anchor="middle">What Does SEO Cost? Average Monthly Pricing for Small Business</text>
+
+  <rect x="40" y="76" width="720" height="420" rx="12" fill="white" filter="url(#sh)"/>
+
+  <!-- Column headers -->
+  <text x="255" y="108" fill="#6b7280" font-size="11" font-weight="600" text-anchor="middle">Monthly Cost</text>
+  <text x="420" y="108" fill="#6b7280" font-size="11" font-weight="600" text-anchor="middle">Best For</text>
+  <text x="610" y="108" fill="#6b7280" font-size="11" font-weight="600" text-anchor="middle">What You Get</text>
+
+  <line x1="60" y1="118" x2="740" y2="118" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Tier 1: Budget/DIY -->
+  <rect x="60" y="128" width="680" height="72" rx="8" fill="#f9fafb"/>
+  <rect x="60" y="128" width="5" height="72" rx="2" fill="#9ca3af"/>
+
+  <text x="80" y="152" fill="#25274d" font-size="14" font-weight="700">Budget / DIY</text>
+  <text x="80" y="168" fill="#9ca3af" font-size="10" font-weight="600">Self-service</text>
+
+  <text x="255" y="158" fill="#25274d" font-size="20" font-weight="800" text-anchor="middle">$0 - $200</text>
+  <text x="255" y="175" fill="#6b7280" font-size="10" text-anchor="middle">/month</text>
+
+  <text x="350" y="152" fill="#25274d" font-size="11">Solopreneurs with time</text>
+  <text x="350" y="168" fill="#25274d" font-size="11">to learn &amp; execute</text>
+
+  <text x="540" y="148" fill="#6b7280" font-size="10">• GBP setup only</text>
+  <text x="540" y="163" fill="#6b7280" font-size="10">• Basic on-page fixes</text>
+  <text x="540" y="178" fill="#6b7280" font-size="10">• No content or links</text>
+
+  <!-- Tier 2: Starter -->
+  <rect x="60" y="212" width="680" height="72" rx="8" fill="#f9fafb"/>
+  <rect x="60" y="212" width="5" height="72" rx="2" fill="#3b82f6"/>
+
+  <text x="80" y="236" fill="#25274d" font-size="14" font-weight="700">Starter Agency</text>
+  <text x="80" y="252" fill="#3b82f6" font-size="10" font-weight="600">Entry level</text>
+
+  <text x="255" y="242" fill="#25274d" font-size="20" font-weight="800" text-anchor="middle">$400 - $800</text>
+  <text x="255" y="259" fill="#6b7280" font-size="10" text-anchor="middle">/month</text>
+
+  <text x="350" y="236" fill="#25274d" font-size="11">Local businesses in</text>
+  <text x="350" y="252" fill="#25274d" font-size="11">low-competition markets</text>
+
+  <text x="540" y="232" fill="#6b7280" font-size="10">• GBP optimization</text>
+  <text x="540" y="247" fill="#6b7280" font-size="10">• On-page SEO</text>
+  <text x="540" y="262" fill="#6b7280" font-size="10">• Monthly reporting</text>
+
+  <!-- Tier 3: Growth (highlighted) -->
+  <rect x="56" y="292" width="688" height="80" rx="10" fill="#fff8f0" stroke="#ed7c21" stroke-width="2"/>
+  <rect x="56" y="292" width="6" height="80" rx="3" fill="#ed7c21"/>
+
+  <text x="80" y="318" fill="#25274d" font-size="14" font-weight="700">Growth Plan</text>
+  <rect x="80" y="324" width="88" height="18" rx="9" fill="#ed7c21"/>
+  <text x="124" y="337" fill="white" font-size="9" font-weight="700" text-anchor="middle">MOST POPULAR</text>
+
+  <text x="255" y="328" fill="#ed7c21" font-size="22" font-weight="800" text-anchor="middle">$800 - $1,500</text>
+  <text x="255" y="347" fill="#6b7280" font-size="10" text-anchor="middle">/month</text>
+
+  <text x="350" y="318" fill="#25274d" font-size="11">Most service businesses</text>
+  <text x="350" y="334" fill="#25274d" font-size="11">wanting real growth</text>
+  <text x="350" y="350" fill="#ed7c21" font-size="10" font-weight="600">Best ROI tier</text>
+
+  <text x="540" y="314" fill="#25274d" font-size="10" font-weight="600">• Everything in Starter</text>
+  <text x="540" y="329" fill="#25274d" font-size="10" font-weight="600">• Content creation</text>
+  <text x="540" y="344" fill="#25274d" font-size="10" font-weight="600">• City pages + citations</text>
+  <text x="540" y="359" fill="#25274d" font-size="10" font-weight="600">• Review generation</text>
+
+  <!-- Tier 4: Aggressive -->
+  <rect x="60" y="384" width="680" height="72" rx="8" fill="#f9fafb"/>
+  <rect x="60" y="384" width="5" height="72" rx="2" fill="#8b5cf6"/>
+
+  <text x="80" y="408" fill="#25274d" font-size="14" font-weight="700">Aggressive / Multi-Location</text>
+  <text x="80" y="424" fill="#8b5cf6" font-size="10" font-weight="600">Enterprise</text>
+
+  <text x="255" y="414" fill="#25274d" font-size="20" font-weight="800" text-anchor="middle">$1,500 - $5K+</text>
+  <text x="255" y="431" fill="#6b7280" font-size="10" text-anchor="middle">/month</text>
+
+  <text x="350" y="408" fill="#25274d" font-size="11">Competitive markets,</text>
+  <text x="350" y="424" fill="#25274d" font-size="11">multi-city targeting</text>
+
+  <text x="540" y="404" fill="#6b7280" font-size="10">• Everything in Growth</text>
+  <text x="540" y="419" fill="#6b7280" font-size="10">• Aggressive link building</text>
+  <text x="540" y="434" fill="#6b7280" font-size="10">• Weekly content</text>
+  <text x="540" y="449" fill="#6b7280" font-size="10">• Dedicated strategist</text>
+
+  <!-- Bottom note -->
+  <rect x="60" y="466" width="680" height="22" rx="4" fill="#fef3e8"/>
+  <text x="400" y="481" fill="#b45309" font-size="10" font-weight="600" text-anchor="middle">💡 Avoid agencies charging under $300/month — you get what you pay for. Results require real investment.</text>
+
+  <text x="770" y="508" fill="#25274d" font-size="9" font-weight="600" text-anchor="end" opacity="0.5">websiteandseoagency.com</text>
+</svg>

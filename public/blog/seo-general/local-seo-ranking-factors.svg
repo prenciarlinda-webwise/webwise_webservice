@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bg4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f8f9fa"/><stop offset="100%" stop-color="#e8edf2"/></linearGradient>
+    <filter id="sh4" x="-4%" y="-4%" width="108%" height="116%"><feDropShadow dx="0" dy="2" stdDeviation="6" flood-opacity="0.08"/></filter>
+  </defs>
+  <rect width="800" height="560" fill="url(#bg4)" rx="16"/>
+  <rect x="0" y="0" width="800" height="56" fill="#25274d" rx="16"/><rect x="0" y="30" width="800" height="26" fill="#25274d"/>
+  <text x="400" y="36" fill="white" font-size="18" font-weight="700" text-anchor="middle">What Determines Your Google Maps Ranking</text>
+  <rect x="40" y="76" width="720" height="460" rx="12" fill="white" filter="url(#sh4)"/>
+  <!-- GBP 32% -->
+  <rect x="70" y="100" width="330" height="130" rx="10" fill="#fff8f0" stroke="#ed7c21" stroke-width="1.5"/>
+  <rect x="70" y="100" width="330" height="36" rx="10" fill="#ed7c21"/><rect x="70" y="120" width="330" height="16" fill="#ed7c21"/>
+  <text x="85" y="122" fill="white" font-size="15" font-weight="700">Google Business Profile</text>
+  <text x="370" y="122" fill="white" font-size="22" font-weight="800" text-anchor="end">32%</text>
+  <text x="85" y="157" fill="#25274d" font-size="11" font-weight="600">Categories &amp; services configured</text>
+  <text x="85" y="174" fill="#25274d" font-size="11" font-weight="600">Complete profile with photos</text>
+  <text x="85" y="191" fill="#25274d" font-size="11" font-weight="600">Regular Google Posts</text>
+  <text x="85" y="208" fill="#25274d" font-size="11" font-weight="600">Q&amp;A section optimized</text>
+  <!-- Reviews 16% -->
+  <rect x="420" y="100" width="310" height="130" rx="10" fill="#f0f7ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <rect x="420" y="100" width="310" height="36" rx="10" fill="#3b82f6"/><rect x="420" y="120" width="310" height="16" fill="#3b82f6"/>
+  <text x="435" y="122" fill="white" font-size="15" font-weight="700">Reviews</text>
+  <text x="700" y="122" fill="white" font-size="22" font-weight="800" text-anchor="end">16%</text>
+  <text x="435" y="157" fill="#25274d" font-size="11" font-weight="600">50+ reviews minimum</text>
+  <text x="435" y="174" fill="#25274d" font-size="11" font-weight="600">4.7+ star rating</text>
+  <text x="435" y="191" fill="#25274d" font-size="11" font-weight="600">Recent reviews (last 30 days)</text>
+  <text x="435" y="208" fill="#25274d" font-size="11" font-weight="600">Owner responses to all reviews</text>
+  <text x="640" y="157" fill="#fbbc04" font-size="14">★★★★★</text>
+  <!-- On-Page 19% -->
+  <rect x="70" y="246" width="230" height="130" rx="10" fill="#f0fdf4" stroke="#10b981" stroke-width="1.5"/>
+  <rect x="70" y="246" width="230" height="36" rx="10" fill="#10b981"/><rect x="70" y="266" width="230" height="16" fill="#10b981"/>
+  <text x="85" y="268" fill="white" font-size="15" font-weight="700">On-Page SEO</text>
+  <text x="275" y="268" fill="white" font-size="22" font-weight="800" text-anchor="end">19%</text>
+  <text x="85" y="303" fill="#25274d" font-size="11" font-weight="600">Keyword-optimized pages</text>
+  <text x="85" y="320" fill="#25274d" font-size="11" font-weight="600">City-specific content</text>
+  <text x="85" y="337" fill="#25274d" font-size="11" font-weight="600">Mobile-first design</text>
+  <text x="85" y="354" fill="#25274d" font-size="11" font-weight="600">Fast load speed (90+)</text>
+  <!-- Citations 7% -->
+  <rect x="316" y="246" width="180" height="130" rx="10" fill="#faf5ff" stroke="#8b5cf6" stroke-width="1.5"/>
+  <rect x="316" y="246" width="180" height="36" rx="10" fill="#8b5cf6"/><rect x="316" y="266" width="180" height="16" fill="#8b5cf6"/>
+  <text x="331" y="268" fill="white" font-size="15" font-weight="700">Citations</text>
+  <text x="474" y="268" fill="white" font-size="22" font-weight="800" text-anchor="end">7%</text>
+  <text x="331" y="303" fill="#25274d" font-size="11" font-weight="600">NAP consistency</text>
+  <text x="331" y="320" fill="#25274d" font-size="11" font-weight="600">50+ directories</text>
+  <text x="331" y="337" fill="#25274d" font-size="11" font-weight="600">Industry directories</text>
+  <text x="331" y="354" fill="#25274d" font-size="11" font-weight="600">Data aggregators</text>
+  <!-- Links 11% -->
+  <rect x="512" y="246" width="218" height="130" rx="10" fill="#fefce8" stroke="#eab308" stroke-width="1.5"/>
+  <rect x="512" y="246" width="218" height="36" rx="10" fill="#eab308"/><rect x="512" y="266" width="218" height="16" fill="#eab308"/>
+  <text x="527" y="268" fill="white" font-size="15" font-weight="700">Links &amp; Authority</text>
+  <text x="708" y="268" fill="white" font-size="22" font-weight="800" text-anchor="end">11%</text>
+  <text x="527" y="303" fill="#25274d" font-size="11" font-weight="600">Quality backlinks</text>
+  <text x="527" y="320" fill="#25274d" font-size="11" font-weight="600">Local relevance</text>
+  <text x="527" y="337" fill="#25274d" font-size="11" font-weight="600">Domain authority</text>
+  <text x="527" y="354" fill="#25274d" font-size="11" font-weight="600">Internal linking</text>
+  <!-- Proximity 15% -->
+  <rect x="70" y="392" width="660" height="60" rx="10" fill="#25274d"/>
+  <text x="100" y="420" fill="white" font-size="15" font-weight="700">Proximity to Searcher</text>
+  <text x="710" y="420" fill="#ed7c21" font-size="24" font-weight="800" text-anchor="end">15%</text>
+  <text x="100" y="440" fill="#94a3b8" font-size="11">You can't change your location — but optimizing the other 85% lets you outrank closer competitors</text>
+  <!-- Legend bar -->
+  <rect x="70" y="468" width="660" height="8" rx="4" fill="#e5e7eb"/>
+  <rect x="70" y="468" width="211" height="8" rx="4" fill="#ed7c21"/>
+  <rect x="281" y="468" width="106" height="8" fill="#3b82f6"/>
+  <rect x="387" y="468" width="125" height="8" fill="#10b981"/>
+  <rect x="512" y="468" width="46" height="8" fill="#8b5cf6"/>
+  <rect x="558" y="468" width="73" height="8" fill="#eab308"/>
+  <rect x="631" y="468" width="99" height="8" rx="4" fill="#25274d"/>
+  <rect x="70" y="488" width="10" height="10" rx="2" fill="#ed7c21"/><text x="85" y="497" fill="#6b7280" font-size="10">GBP 32%</text>
+  <rect x="150" y="488" width="10" height="10" rx="2" fill="#3b82f6"/><text x="165" y="497" fill="#6b7280" font-size="10">Reviews 16%</text>
+  <rect x="250" y="488" width="10" height="10" rx="2" fill="#10b981"/><text x="265" y="497" fill="#6b7280" font-size="10">On-Page 19%</text>
+  <rect x="350" y="488" width="10" height="10" rx="2" fill="#8b5cf6"/><text x="365" y="497" fill="#6b7280" font-size="10">Citations 7%</text>
+  <rect x="440" y="488" width="10" height="10" rx="2" fill="#eab308"/><text x="455" y="497" fill="#6b7280" font-size="10">Links 11%</text>
+  <rect x="530" y="488" width="10" height="10" rx="2" fill="#25274d"/><text x="545" y="497" fill="#6b7280" font-size="10">Proximity 15%</text>
+  <text x="770" y="548" fill="#25274d" font-size="9" font-weight="600" text-anchor="end" opacity="0.5">websiteandseoagency.com</text>
+</svg>

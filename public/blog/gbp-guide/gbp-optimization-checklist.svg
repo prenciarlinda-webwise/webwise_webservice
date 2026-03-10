@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 580" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f8f9fa"/><stop offset="100%" stop-color="#e8edf2"/></linearGradient>
+    <filter id="sh" x="-4%" y="-4%" width="108%" height="116%"><feDropShadow dx="0" dy="2" stdDeviation="6" flood-opacity="0.08"/></filter>
+  </defs>
+  <rect width="800" height="580" fill="url(#bg)" rx="16"/>
+  <rect x="0" y="0" width="800" height="56" fill="#25274d" rx="16"/><rect x="0" y="30" width="800" height="26" fill="#25274d"/>
+  <text x="400" y="36" fill="white" font-size="18" font-weight="700" text-anchor="middle">Google Business Profile Optimization Checklist</text>
+  <rect x="40" y="76" width="720" height="480" rx="12" fill="white" filter="url(#sh)"/>
+
+  <!-- Section 1: Profile Basics -->
+  <rect x="60" y="96" width="340" height="200" rx="10" fill="#fff8f0" stroke="#ed7c21" stroke-width="1"/>
+  <rect x="60" y="96" width="340" height="32" rx="10" fill="#ed7c21"/><rect x="60" y="112" width="340" height="16" fill="#ed7c21"/>
+  <text x="230" y="118" fill="white" font-size="13" font-weight="700" text-anchor="middle">Profile Basics</text>
+  <circle cx="84" cy="150" r="9" fill="#22c55e" opacity="0.15"/><text x="84" y="154" fill="#22c55e" font-size="12" font-weight="700" text-anchor="middle">✓</text>
+  <text x="100" y="154" fill="#25274d" font-size="11" font-weight="600">Correct business name (no keyword stuffing)</text>
+  <circle cx="84" cy="174" r="9" fill="#22c55e" opacity="0.15"/><text x="84" y="178" fill="#22c55e" font-size="12" font-weight="700" text-anchor="middle">✓</text>
+  <text x="100" y="178" fill="#25274d" font-size="11" font-weight="600">Accurate address or service area set</text>
+  <circle cx="84" cy="198" r="9" fill="#22c55e" opacity="0.15"/><text x="84" y="202" fill="#22c55e" font-size="12" font-weight="700" text-anchor="middle">✓</text>
+  <text x="100" y="202" fill="#25274d" font-size="11" font-weight="600">Local phone number (not 800 number)</text>
+  <circle cx="84" cy="222" r="9" fill="#22c55e" opacity="0.15"/><text x="84" y="226" fill="#22c55e" font-size="12" font-weight="700" text-anchor="middle">✓</text>
+  <text x="100" y="226" fill="#25274d" font-size="11" font-weight="600">Website URL linked</text>
+  <circle cx="84" cy="246" r="9" fill="#22c55e" opacity="0.15"/><text x="84" y="250" fill="#22c55e" font-size="12" font-weight="700" text-anchor="middle">✓</text>
+  <text x="100" y="250" fill="#25274d" font-size="11" font-weight="600">Business hours current (including holidays)</text>
+  <circle cx="84" cy="270" r="9" fill="#22c55e" opacity="0.15"/><text x="84" y="274" fill="#22c55e" font-size="12" font-weight="700" text-anchor="middle">✓</text>
+  <text x="100" y="274" fill="#25274d" font-size="11" font-weight="600">Primary + secondary categories set</text>
+
+  <!-- Section 2: Content -->
+  <rect x="420" y="96" width="320" height="200" rx="10" fill="#f0f7ff" stroke="#3b82f6" stroke-width="1"/>
+  <rect x="420" y="96" width="320" height="32" rx="10" fill="#3b82f6"/><rect x="420" y="112" width="320" height="16" fill="#3b82f6"/>
+  <text x="580" y="118" fill="white" font-size="13" font-weight="700" text-anchor="middle">Content &amp; Media</text>
+  <circle cx="444" cy="150" r="9" fill="#22c55e" opacity="0.15"/><text x="444" y="154" fill="#22c55e" font-size="12" font-weight="700" text-anchor="middle">✓</text>
+  <text x="460" y="154" fill="#25274d" font-size="11" font-weight="600">750-character business description</text>
+  <circle cx="444" cy="174" r="9" fill="#22c55e" opacity="0.15"/><text x="444" y="178" fill="#22c55e" font-size="12" font-weight="700" text-anchor="middle">✓</text>
+  <text x="460" y="178" fill="#25274d" font-size="11" font-weight="600">20+ high-quality photos</text>
+  <circle cx="444" cy="198" r="9" fill="#22c55e" opacity="0.15"/><text x="444" y="202" fill="#22c55e" font-size="12" font-weight="700" text-anchor="middle">✓</text>
+  <text x="460" y="202" fill="#25274d" font-size="11" font-weight="600">All services listed with descriptions</text>
+  <circle cx="444" cy="222" r="9" fill="#22c55e" opacity="0.15"/><text x="444" y="226" fill="#22c55e" font-size="12" font-weight="700" text-anchor="middle">✓</text>
+  <text x="460" y="226" fill="#25274d" font-size="11" font-weight="600">Products/services with pricing</text>
+  <circle cx="444" cy="246" r="9" fill="#22c55e" opacity="0.15"/><text x="444" y="250" fill="#22c55e" font-size="12" font-weight="700" text-anchor="middle">✓</text>
+  <text x="460" y="250" fill="#25274d" font-size="11" font-weight="600">Q&amp;A section seeded with FAQs</text>
+  <circle cx="444" cy="270" r="9" fill="#22c55e" opacity="0.15"/><text x="444" y="274" fill="#22c55e" font-size="12" font-weight="700" text-anchor="middle">✓</text>
+  <text x="460" y="274" fill="#25274d" font-size="11" font-weight="600">Attributes &amp; highlights enabled</text>
+
+  <!-- Section 3: Ongoing -->
+  <rect x="60" y="308" width="340" height="150" rx="10" fill="#f0fdf4" stroke="#10b981" stroke-width="1"/>
+  <rect x="60" y="308" width="340" height="32" rx="10" fill="#10b981"/><rect x="60" y="324" width="340" height="16" fill="#10b981"/>
+  <text x="230" y="330" fill="white" font-size="13" font-weight="700" text-anchor="middle">Ongoing Activity</text>
+  <circle cx="84" cy="362" r="9" fill="#22c55e" opacity="0.15"/><text x="84" y="366" fill="#22c55e" font-size="12" font-weight="700" text-anchor="middle">✓</text>
+  <text x="100" y="366" fill="#25274d" font-size="11" font-weight="600">Weekly Google Posts (offers, updates)</text>
+  <circle cx="84" cy="386" r="9" fill="#22c55e" opacity="0.15"/><text x="84" y="390" fill="#22c55e" font-size="12" font-weight="700" text-anchor="middle">✓</text>
+  <text x="100" y="390" fill="#25274d" font-size="11" font-weight="600">New photos added monthly</text>
+  <circle cx="84" cy="410" r="9" fill="#22c55e" opacity="0.15"/><text x="84" y="414" fill="#22c55e" font-size="12" font-weight="700" text-anchor="middle">✓</text>
+  <text x="100" y="414" fill="#25274d" font-size="11" font-weight="600">Review responses within 24 hours</text>
+  <circle cx="84" cy="434" r="9" fill="#22c55e" opacity="0.15"/><text x="84" y="438" fill="#22c55e" font-size="12" font-weight="700" text-anchor="middle">✓</text>
+  <text x="100" y="438" fill="#25274d" font-size="11" font-weight="600">Seasonal hours updated</text>
+
+  <!-- Section 4: Reviews -->
+  <rect x="420" y="308" width="320" height="150" rx="10" fill="#faf5ff" stroke="#8b5cf6" stroke-width="1"/>
+  <rect x="420" y="308" width="320" height="32" rx="10" fill="#8b5cf6"/><rect x="420" y="324" width="320" height="16" fill="#8b5cf6"/>
+  <text x="580" y="330" fill="white" font-size="13" font-weight="700" text-anchor="middle">Review Strategy</text>
+  <circle cx="444" cy="362" r="9" fill="#22c55e" opacity="0.15"/><text x="444" y="366" fill="#22c55e" font-size="12" font-weight="700" text-anchor="middle">✓</text>
+  <text x="460" y="366" fill="#25274d" font-size="11" font-weight="600">Automated post-service review requests</text>
+  <circle cx="444" cy="386" r="9" fill="#22c55e" opacity="0.15"/><text x="444" y="390" fill="#22c55e" font-size="12" font-weight="700" text-anchor="middle">✓</text>
+  <text x="460" y="390" fill="#25274d" font-size="11" font-weight="600">Target: 5+ new reviews per month</text>
+  <circle cx="444" cy="410" r="9" fill="#22c55e" opacity="0.15"/><text x="444" y="414" fill="#22c55e" font-size="12" font-weight="700" text-anchor="middle">✓</text>
+  <text x="460" y="414" fill="#25274d" font-size="11" font-weight="600">Respond to ALL reviews (positive &amp; negative)</text>
+  <circle cx="444" cy="434" r="9" fill="#22c55e" opacity="0.15"/><text x="444" y="438" fill="#22c55e" font-size="12" font-weight="700" text-anchor="middle">✓</text>
+  <text x="460" y="438" fill="#25274d" font-size="11" font-weight="600">Monitor competitor review counts</text>
+
+  <!-- Impact stat -->
+  <rect x="60" y="470" width="680" height="66" rx="10" fill="#25274d"/>
+  <text x="400" y="496" fill="white" font-size="16" font-weight="700" text-anchor="middle">A fully optimized GBP drives 5x more calls than an incomplete profile</text>
+  <text x="400" y="518" fill="#94a3b8" font-size="12" text-anchor="middle">GBP signals account for 32% of local Map Pack ranking factors</text>
+
+  <text x="770" y="568" fill="#25274d" font-size="9" font-weight="600" text-anchor="end" opacity="0.5">websiteandseoagency.com</text>
+</svg>

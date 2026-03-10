@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8f9fa"/>
+      <stop offset="100%" stop-color="#e8edf2"/>
+    </linearGradient>
+    <filter id="sh" x="-4%" y="-4%" width="108%" height="116%">
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#bg)" rx="16"/>
+
+  <rect x="0" y="0" width="800" height="56" fill="#25274d" rx="16"/>
+  <rect x="0" y="30" width="800" height="26" fill="#25274d"/>
+  <text x="400" y="36" fill="white" font-size="18" font-weight="700" text-anchor="middle">SEO vs Lead Generation Platforms: Cost Per Lead Over 12 Months</text>
+
+  <rect x="40" y="76" width="720" height="400" rx="12" fill="white" filter="url(#sh)"/>
+
+  <!-- Y-axis: Cost per lead -->
+  <text x="90" y="118" fill="#6b7280" font-size="10" text-anchor="end">$80</text>
+  <text x="90" y="168" fill="#6b7280" font-size="10" text-anchor="end">$60</text>
+  <text x="90" y="218" fill="#6b7280" font-size="10" text-anchor="end">$40</text>
+  <text x="90" y="268" fill="#6b7280" font-size="10" text-anchor="end">$20</text>
+  <text x="90" y="318" fill="#6b7280" font-size="10" text-anchor="end">$10</text>
+  <text x="90" y="368" fill="#6b7280" font-size="10" text-anchor="end">$0</text>
+
+  <!-- Grid -->
+  <line x1="100" y1="114" x2="720" y2="114" stroke="#f0f0f0" stroke-width="1"/>
+  <line x1="100" y1="164" x2="720" y2="164" stroke="#f0f0f0" stroke-width="1"/>
+  <line x1="100" y1="214" x2="720" y2="214" stroke="#f0f0f0" stroke-width="1"/>
+  <line x1="100" y1="264" x2="720" y2="264" stroke="#f0f0f0" stroke-width="1"/>
+  <line x1="100" y1="314" x2="720" y2="314" stroke="#f0f0f0" stroke-width="1"/>
+  <line x1="100" y1="364" x2="720" y2="364" stroke="#9ca3af" stroke-width="1"/>
+
+  <!-- X-axis months -->
+  <text x="140" y="385" fill="#6b7280" font-size="9" text-anchor="middle">M1</text>
+  <text x="196" y="385" fill="#6b7280" font-size="9" text-anchor="middle">M2</text>
+  <text x="252" y="385" fill="#6b7280" font-size="9" text-anchor="middle">M3</text>
+  <text x="308" y="385" fill="#6b7280" font-size="9" text-anchor="middle">M4</text>
+  <text x="364" y="385" fill="#6b7280" font-size="9" text-anchor="middle">M5</text>
+  <text x="420" y="385" fill="#6b7280" font-size="9" text-anchor="middle">M6</text>
+  <text x="476" y="385" fill="#6b7280" font-size="9" text-anchor="middle">M7</text>
+  <text x="532" y="385" fill="#6b7280" font-size="9" text-anchor="middle">M8</text>
+  <text x="588" y="385" fill="#6b7280" font-size="9" text-anchor="middle">M9</text>
+  <text x="644" y="385" fill="#6b7280" font-size="9" text-anchor="middle">M10</text>
+  <text x="700" y="385" fill="#6b7280" font-size="9" text-anchor="middle">M11</text>
+
+  <!-- Lead gen line (flat/slightly rising - stays expensive) -->
+  <polyline points="140,139 196,139 252,145 308,139 364,145 420,139 476,133 532,139 588,145 644,139 700,133"
+    fill="none" stroke="#ef4444" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Lead gen dots -->
+  <circle cx="140" cy="139" r="4" fill="#ef4444"/>
+  <circle cx="252" cy="145" r="4" fill="#ef4444"/>
+  <circle cx="364" cy="145" r="4" fill="#ef4444"/>
+  <circle cx="476" cy="133" r="4" fill="#ef4444"/>
+  <circle cx="588" cy="145" r="4" fill="#ef4444"/>
+  <circle cx="700" cy="133" r="4" fill="#ef4444"/>
+
+  <!-- Lead gen label -->
+  <text x="710" y="126" fill="#ef4444" font-size="11" font-weight="700">$65/lead</text>
+
+  <!-- SEO line (starts high, drops dramatically) -->
+  <polyline points="140,96 196,114 252,151 308,189 364,226 420,258 476,289 532,308 588,321 644,327 700,330"
+    fill="none" stroke="#ed7c21" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- SEO area fill -->
+  <polygon points="140,96 196,114 252,151 308,189 364,226 420,258 476,289 532,308 588,321 644,327 700,330 700,364 140,364"
+    fill="#ed7c21" opacity="0.06"/>
+
+  <!-- SEO dots -->
+  <circle cx="140" cy="96" r="4" fill="#ed7c21"/>
+  <circle cx="252" cy="151" r="4" fill="#ed7c21"/>
+  <circle cx="364" cy="226" r="4" fill="#ed7c21"/>
+  <circle cx="476" cy="289" r="4" fill="#ed7c21"/>
+  <circle cx="588" cy="321" r="4" fill="#ed7c21"/>
+  <circle cx="700" cy="330" r="4" fill="#ed7c21"/>
+
+  <!-- SEO label -->
+  <text x="710" y="345" fill="#ed7c21" font-size="11" font-weight="700">$12/lead</text>
+
+  <!-- Crossover point annotation -->
+  <line x1="330" y1="100" x2="330" y2="370" stroke="#25274d" stroke-width="1" stroke-dasharray="4,4" opacity="0.3"/>
+  <rect x="270" y="196" width="120" height="24" rx="12" fill="#25274d"/>
+  <text x="330" y="212" fill="white" font-size="10" font-weight="600" text-anchor="middle">Break-even point</text>
+
+  <!-- Legend -->
+  <rect x="100" y="400" width="280" height="56" rx="8" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
+  <line x1="116" y1="420" x2="140" y2="420" stroke="#ef4444" stroke-width="3"/>
+  <circle cx="128" cy="420" r="3" fill="#ef4444"/>
+  <text x="148" y="424" fill="#25274d" font-size="12" font-weight="600">Angi / HomeAdvisor / Thumbtack</text>
+  <text x="148" y="440" fill="#6b7280" font-size="10">$40-75 per shared lead. Forever.</text>
+
+  <rect x="400" y="400" width="320" height="56" rx="8" fill="#fff8f0" stroke="#fed7aa" stroke-width="1"/>
+  <line x1="416" y1="420" x2="440" y2="420" stroke="#ed7c21" stroke-width="3"/>
+  <circle cx="428" cy="420" r="3" fill="#ed7c21"/>
+  <text x="448" y="424" fill="#25274d" font-size="12" font-weight="600">SEO (Organic Rankings)</text>
+  <text x="448" y="440" fill="#6b7280" font-size="10">Cost per lead drops every month. You own it.</text>
+
+  <text x="770" y="488" fill="#25274d" font-size="9" font-weight="600" text-anchor="end" opacity="0.5">websiteandseoagency.com</text>
+</svg>

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f8f9fa"/><stop offset="100%" stop-color="#e8edf2"/></linearGradient>
+    <filter id="sh" x="-4%" y="-4%" width="108%" height="116%"><feDropShadow dx="0" dy="2" stdDeviation="6" flood-opacity="0.08"/></filter>
+  </defs>
+  <rect width="800" height="480" fill="url(#bg)" rx="16"/>
+  <rect x="0" y="0" width="800" height="56" fill="#25274d" rx="16"/><rect x="0" y="30" width="800" height="26" fill="#25274d"/>
+  <text x="400" y="36" fill="white" font-size="18" font-weight="700" text-anchor="middle">Local Citation Building: The NAP Consistency Framework</text>
+  <rect x="40" y="76" width="720" height="380" rx="12" fill="white" filter="url(#sh)"/>
+
+  <!-- NAP explanation -->
+  <rect x="60" y="96" width="220" height="80" rx="10" fill="#fff8f0" stroke="#ed7c21" stroke-width="1.5"/>
+  <text x="170" y="120" fill="#ed7c21" font-size="20" font-weight="800" text-anchor="middle">N</text>
+  <text x="170" y="138" fill="#25274d" font-size="12" font-weight="700" text-anchor="middle">Business Name</text>
+  <text x="170" y="156" fill="#6b7280" font-size="10" text-anchor="middle">Exact match everywhere</text>
+
+  <rect x="295" y="96" width="220" height="80" rx="10" fill="#f0f7ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="405" y="120" fill="#3b82f6" font-size="20" font-weight="800" text-anchor="middle">A</text>
+  <text x="405" y="138" fill="#25274d" font-size="12" font-weight="700" text-anchor="middle">Address</text>
+  <text x="405" y="156" fill="#6b7280" font-size="10" text-anchor="middle">Consistent format, no variations</text>
+
+  <rect x="530" y="96" width="210" height="80" rx="10" fill="#f0fdf4" stroke="#10b981" stroke-width="1.5"/>
+  <text x="635" y="120" fill="#10b981" font-size="20" font-weight="800" text-anchor="middle">P</text>
+  <text x="635" y="138" fill="#25274d" font-size="12" font-weight="700" text-anchor="middle">Phone Number</text>
+  <text x="635" y="156" fill="#6b7280" font-size="10" text-anchor="middle">Local number, same format</text>
+
+  <!-- Arrow -->
+  <text x="400" y="200" fill="#25274d" font-size="16" text-anchor="middle">↓ Submit to 50+ directories ↓</text>
+
+  <!-- Directory tiers -->
+  <rect x="60" y="216" width="220" height="140" rx="10" fill="#25274d"/>
+  <text x="170" y="240" fill="#ed7c21" font-size="14" font-weight="700" text-anchor="middle">Tier 1: Big 4</text>
+  <text x="170" y="260" fill="white" font-size="11" text-anchor="middle">Google Business Profile</text>
+  <text x="170" y="278" fill="white" font-size="11" text-anchor="middle">Apple Maps</text>
+  <text x="170" y="296" fill="white" font-size="11" text-anchor="middle">Bing Places</text>
+  <text x="170" y="314" fill="white" font-size="11" text-anchor="middle">Facebook Business</text>
+  <rect x="110" y="326" width="120" height="20" rx="10" fill="#ed7c21"/>
+  <text x="170" y="340" fill="white" font-size="10" font-weight="700" text-anchor="middle">DO FIRST</text>
+
+  <rect x="295" y="216" width="220" height="140" rx="10" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="405" y="240" fill="#3b82f6" font-size="14" font-weight="700" text-anchor="middle">Tier 2: Data Aggregators</text>
+  <text x="405" y="260" fill="#25274d" font-size="11" text-anchor="middle">Foursquare / Factual</text>
+  <text x="405" y="278" fill="#25274d" font-size="11" text-anchor="middle">Data Axle (InfoUSA)</text>
+  <text x="405" y="296" fill="#25274d" font-size="11" text-anchor="middle">Neustar Localeze</text>
+  <text x="405" y="314" fill="#25274d" font-size="11" text-anchor="middle">Acxiom</text>
+  <rect x="345" y="326" width="120" height="20" rx="10" fill="#3b82f6"/>
+  <text x="405" y="340" fill="white" font-size="10" font-weight="700" text-anchor="middle">FEEDS 100s</text>
+
+  <rect x="530" y="216" width="210" height="140" rx="10" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="635" y="240" fill="#10b981" font-size="14" font-weight="700" text-anchor="middle">Tier 3: Industry</text>
+  <text x="635" y="260" fill="#25274d" font-size="11" text-anchor="middle">Yelp, BBB, Angi</text>
+  <text x="635" y="278" fill="#25274d" font-size="11" text-anchor="middle">HomeAdvisor, Thumbtack</text>
+  <text x="635" y="296" fill="#25274d" font-size="11" text-anchor="middle">Industry associations</text>
+  <text x="635" y="314" fill="#25274d" font-size="11" text-anchor="middle">Chamber of Commerce</text>
+  <rect x="575" y="326" width="120" height="20" rx="10" fill="#10b981"/>
+  <text x="635" y="340" fill="white" font-size="10" font-weight="700" text-anchor="middle">BUILDS TRUST</text>
+
+  <!-- Bottom stat -->
+  <rect x="60" y="374" width="680" height="66" rx="10" fill="#fef3e8"/>
+  <text x="400" y="400" fill="#b45309" font-size="13" font-weight="700" text-anchor="middle">Inconsistent NAP across directories confuses Google and drops your rankings</text>
+  <text x="400" y="420" fill="#b45309" font-size="11" text-anchor="middle">Businesses with 80%+ NAP consistency score rank 58% higher in the Map Pack</text>
+
+  <text x="770" y="468" fill="#25274d" font-size="9" font-weight="600" text-anchor="end" opacity="0.5">websiteandseoagency.com</text>
+</svg>

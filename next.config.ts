@@ -110,7 +110,7 @@ const nextConfig: NextConfig = {
       { source: '/portfolio/kn-flooring-contractor-website-design', destination: '/case-studies/kn-flooring', statusCode: 301 },
       { source: '/portfolio/kryemadhi-car-rental-albania-website-design', destination: '/case-studies/kryemadhi', statusCode: 301 },
       { source: '/portfolio/gnt-home-remodeling-contractor-website-design', destination: '/case-studies/gnt-remodeling', statusCode: 301 },
-      { source: '/portfolio/eli-taxi-durres-albania-website-design', destination: '/case-studies/eli-taxi', statusCode: 301 },
+      { source: '/portfolio/eli-taxi-durres-albania-website-design', destination: '/case-studies', statusCode: 301 },
       { source: '/portfolio/msc-certification-web-application-development', destination: '/case-studies/msc-certification', statusCode: 301 },
       { source: '/portfolio/aaa-remodels-jacksonville-home-remodeling-seo-website', destination: '/case-studies/aaa-remodels', statusCode: 301 },
 

@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8f9fa"/>
+      <stop offset="100%" stop-color="#e8edf2"/>
+    </linearGradient>
+    <filter id="sh" x="-4%" y="-4%" width="108%" height="116%">
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="460" fill="url(#bg)" rx="16"/>
+
+  <rect x="0" y="0" width="800" height="56" fill="#25274d" rx="16"/>
+  <rect x="0" y="30" width="800" height="26" fill="#25274d"/>
+  <text x="400" y="36" fill="white" font-size="18" font-weight="700" text-anchor="middle">Roofing Keyword Search Volume by Season</text>
+
+  <rect x="40" y="76" width="720" height="360" rx="12" fill="white" filter="url(#sh)"/>
+
+  <!-- 4 Season columns -->
+
+  <!-- Spring -->
+  <rect x="60" y="96" width="160" height="320" rx="8" fill="#f0fdf4" stroke="#10b981" stroke-width="1"/>
+  <rect x="60" y="96" width="160" height="36" rx="8" fill="#10b981"/>
+  <rect x="60" y="116" width="160" height="16" fill="#10b981"/>
+  <text x="140" y="118" fill="white" font-size="14" font-weight="700" text-anchor="middle">🌱 Spring</text>
+
+  <text x="140" y="156" fill="#10b981" font-size="24" font-weight="800" text-anchor="middle">PEAK</text>
+  <text x="140" y="172" fill="#6b7280" font-size="10" text-anchor="middle">Highest search volume</text>
+
+  <rect x="72" y="185" width="136" height="1" fill="#d1fae5"/>
+
+  <text x="80" y="204" fill="#25274d" font-size="10" font-weight="600">roof replacement</text>
+  <text x="80" y="222" fill="#25274d" font-size="10" font-weight="600">roof inspection</text>
+  <text x="80" y="240" fill="#25274d" font-size="10" font-weight="600">roof repair after winter</text>
+  <text x="80" y="258" fill="#25274d" font-size="10" font-weight="600">new roof cost</text>
+  <text x="80" y="276" fill="#25274d" font-size="10" font-weight="600">roofing contractor</text>
+
+  <rect x="72" y="290" width="136" height="1" fill="#d1fae5"/>
+
+  <rect x="80" y="304" width="120" height="50" rx="6" fill="#10b981" opacity="0.08"/>
+  <text x="140" y="322" fill="#10b981" font-size="10" font-weight="700" text-anchor="middle">Search vol: +60%</text>
+  <text x="140" y="340" fill="#10b981" font-size="9" font-weight="600" text-anchor="middle">Start SEO in winter</text>
+  <text x="140" y="352" fill="#10b981" font-size="9" font-weight="600" text-anchor="middle">to rank by spring</text>
+
+  <!-- Summer -->
+  <rect x="230" y="96" width="160" height="320" rx="8" fill="#fefce8" stroke="#eab308" stroke-width="1"/>
+  <rect x="230" y="96" width="160" height="36" rx="8" fill="#eab308"/>
+  <rect x="230" y="116" width="160" height="16" fill="#eab308"/>
+  <text x="310" y="118" fill="white" font-size="14" font-weight="700" text-anchor="middle">☀️ Summer</text>
+
+  <text x="310" y="156" fill="#eab308" font-size="24" font-weight="800" text-anchor="middle">HIGH</text>
+  <text x="310" y="172" fill="#6b7280" font-size="10" text-anchor="middle">Strong demand continues</text>
+
+  <rect x="242" y="185" width="136" height="1" fill="#fef08a"/>
+
+  <text x="250" y="204" fill="#25274d" font-size="10" font-weight="600">roof installation</text>
+  <text x="250" y="222" fill="#25274d" font-size="10" font-weight="600">metal roof cost</text>
+  <text x="250" y="240" fill="#25274d" font-size="10" font-weight="600">flat roof repair</text>
+  <text x="250" y="258" fill="#25274d" font-size="10" font-weight="600">solar roof panels</text>
+  <text x="250" y="276" fill="#25274d" font-size="10" font-weight="600">gutter installation</text>
+
+  <rect x="242" y="290" width="136" height="1" fill="#fef08a"/>
+
+  <rect x="250" y="304" width="120" height="50" rx="6" fill="#eab308" opacity="0.08"/>
+  <text x="310" y="322" fill="#b45309" font-size="10" font-weight="700" text-anchor="middle">Search vol: +40%</text>
+  <text x="310" y="340" fill="#b45309" font-size="9" font-weight="600" text-anchor="middle">Busiest install season</text>
+  <text x="310" y="352" fill="#b45309" font-size="9" font-weight="600" text-anchor="middle">Competition highest</text>
+
+  <!-- Fall -->
+  <rect x="400" y="96" width="160" height="320" rx="8" fill="#fff8f0" stroke="#ed7c21" stroke-width="1"/>
+  <rect x="400" y="96" width="160" height="36" rx="8" fill="#ed7c21"/>
+  <rect x="400" y="116" width="160" height="16" fill="#ed7c21"/>
+  <text x="480" y="118" fill="white" font-size="14" font-weight="700" text-anchor="middle">🍂 Fall</text>
+
+  <text x="480" y="156" fill="#ed7c21" font-size="24" font-weight="800" text-anchor="middle">MEDIUM</text>
+  <text x="480" y="172" fill="#6b7280" font-size="10" text-anchor="middle">Storm damage spikes</text>
+
+  <rect x="412" y="185" width="136" height="1" fill="#fed7aa"/>
+
+  <text x="420" y="204" fill="#25274d" font-size="10" font-weight="600">storm damage roof</text>
+  <text x="420" y="222" fill="#25274d" font-size="10" font-weight="600">emergency roof repair</text>
+  <text x="420" y="240" fill="#25274d" font-size="10" font-weight="600">roof leak repair</text>
+  <text x="420" y="258" fill="#25274d" font-size="10" font-weight="600">winter roof prep</text>
+  <text x="420" y="276" fill="#25274d" font-size="10" font-weight="600">roof insurance claim</text>
+
+  <rect x="412" y="290" width="136" height="1" fill="#fed7aa"/>
+
+  <rect x="420" y="304" width="120" height="50" rx="6" fill="#ed7c21" opacity="0.08"/>
+  <text x="480" y="322" fill="#c2410c" font-size="10" font-weight="700" text-anchor="middle">Emergency: +80%</text>
+  <text x="480" y="340" fill="#c2410c" font-size="9" font-weight="600" text-anchor="middle">Hurricane/storm season</text>
+  <text x="480" y="352" fill="#c2410c" font-size="9" font-weight="600" text-anchor="middle">Highest job values</text>
+
+  <!-- Winter -->
+  <rect x="570" y="96" width="160" height="320" rx="8" fill="#f0f7ff" stroke="#3b82f6" stroke-width="1"/>
+  <rect x="570" y="96" width="160" height="36" rx="8" fill="#3b82f6"/>
+  <rect x="570" y="116" width="160" height="16" fill="#3b82f6"/>
+  <text x="650" y="118" fill="white" font-size="14" font-weight="700" text-anchor="middle">❄️ Winter</text>
+
+  <text x="650" y="156" fill="#3b82f6" font-size="24" font-weight="800" text-anchor="middle">LOW</text>
+  <text x="650" y="172" fill="#6b7280" font-size="10" text-anchor="middle">Planning &amp; research</text>
+
+  <rect x="582" y="185" width="136" height="1" fill="#dbeafe"/>
+
+  <text x="590" y="204" fill="#25274d" font-size="10" font-weight="600">roof replacement cost</text>
+  <text x="590" y="222" fill="#25274d" font-size="10" font-weight="600">how much new roof</text>
+  <text x="590" y="240" fill="#25274d" font-size="10" font-weight="600">ice dam removal</text>
+  <text x="590" y="258" fill="#25274d" font-size="10" font-weight="600">roof financing</text>
+  <text x="590" y="276" fill="#25274d" font-size="10" font-weight="600">best roofing material</text>
+
+  <rect x="582" y="290" width="136" height="1" fill="#dbeafe"/>
+
+  <rect x="590" y="304" width="120" height="50" rx="6" fill="#3b82f6" opacity="0.08"/>
+  <text x="650" y="322" fill="#1d4ed8" font-size="10" font-weight="700" text-anchor="middle">Best time to start</text>
+  <text x="650" y="340" fill="#1d4ed8" font-size="9" font-weight="600" text-anchor="middle">SEO now = ranked</text>
+  <text x="650" y="352" fill="#1d4ed8" font-size="9" font-weight="600" text-anchor="middle">for spring rush</text>
+
+  <text x="770" y="448" fill="#25274d" font-size="9" font-weight="600" text-anchor="end" opacity="0.5">websiteandseoagency.com</text>
+</svg>

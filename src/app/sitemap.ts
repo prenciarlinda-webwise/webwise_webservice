@@ -19,7 +19,6 @@ const caseStudySlugMap: Record<string, string> = {
   'kn-flooring-contractor-website-design': 'kn-flooring',
   'kryemadhi-car-rental-albania-website-design': 'kryemadhi',
   'gnt-home-remodeling-contractor-website-design': 'gnt-remodeling',
-  'eli-taxi-durres-albania-website-design': 'eli-taxi',
   'msc-certification-web-application-development': 'msc-certification',
   'aaa-remodels-jacksonville-home-remodeling-seo-website': 'aaa-remodels',
 }

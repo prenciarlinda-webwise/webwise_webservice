@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import Script from 'next/script'
 import { ArrowLeft, ArrowRight, Calendar, User, Clock, Share2, HelpCircle, Award, Check, Rocket } from 'lucide-react'
-import { blogPosts, getPostBySlug, getRelatedPosts, getBlogPostUrl } from '@/data/blog'
+import { blogPosts, getPostBySlug, getRelatedPosts, getBlogPostUrl, getBlogPosts } from '@/data/blog'
 import { siteConfig, getWhatsAppUrl } from '@/data/site'
 
 // Only generate pages for slugs that don't have dedicated pages elsewhere
@@ -19,7 +19,7 @@ const excludedSlugs = [
 ]
 
 export async function generateStaticParams() {
-  return blogPosts
+  return getBlogPosts()
     .filter((post) => !excludedSlugs.includes(post.slug))
     .map((post) => ({ slug: post.slug }))
 }
@@ -231,13 +231,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </div>
             {post.image && (
               <div className="hidden lg:block">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-white/10 p-4">
                   <img
                     src={post.image}
                     alt={post.imageAlt || post.title}
-                    className="w-full h-[350px] object-cover"
+                    className="w-full rounded-xl"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent" />
                 </div>
               </div>
             )}
@@ -249,11 +248,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       {post.image && (
         <div className="lg:hidden -mt-8 px-6 pb-8">
           <div className="container">
-            <div className="rounded-2xl overflow-hidden shadow-xl">
+            <div className="rounded-2xl overflow-hidden shadow-xl bg-white p-3">
               <img
                 src={post.image}
                 alt={post.imageAlt || post.title}
-                className="w-full h-[200px] object-cover"
+                className="w-full rounded-xl"
               />
             </div>
           </div>
@@ -289,9 +288,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             {/* Main Content */}
             <article className="lg:col-span-3">
               <div className="prose prose-lg max-w-none prose-headings:text-primary prose-headings:font-bold prose-p:text-text-secondary prose-li:text-text-secondary prose-strong:text-primary prose-a:text-accent prose-a:no-underline hover:prose-a:underline">
-                {post.content.split('\n').map((paragraph, index) => {
-                  const trimmed = paragraph.trim()
-                  if (!trimmed) return null
+                {(() => {
+                  const lines = post.content.split('\n')
+                  const elements: React.ReactNode[] = []
 
                   // Parse inline markdown (bold and links)
                   const parseInlineMarkdown = (text: string) => {
@@ -300,9 +299,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     let keyCounter = 0
 
                     while (remaining) {
-                      // Check for markdown link [text](url)
                       const linkMatch = remaining.match(/\[([^\]]+)\]\(([^)]+)\)/)
-                      // Check for bold **text**
                       const boldMatch = remaining.match(/\*\*([^*]+)\*\*/)
 
                       if (linkMatch && (!boldMatch || remaining.indexOf(linkMatch[0]) < remaining.indexOf(boldMatch[0]))) {
@@ -327,20 +324,83 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     return parts.length > 0 ? parts : text
                   }
 
-                  if (trimmed.startsWith('## ')) {
-                    return <h2 key={index} className="text-2xl font-bold text-primary mt-10 mb-4">{parseInlineMarkdown(trimmed.replace('## ', ''))}</h2>
+                  let i = 0
+                  while (i < lines.length) {
+                    const trimmed = lines[i].trim()
+
+                    // Table detection: collect consecutive lines starting with |
+                    if (trimmed.startsWith('|') && trimmed.endsWith('|')) {
+                      const tableLines: string[] = []
+                      while (i < lines.length && lines[i].trim().startsWith('|') && lines[i].trim().endsWith('|')) {
+                        tableLines.push(lines[i].trim())
+                        i++
+                      }
+
+                      if (tableLines.length >= 2) {
+                        // Parse header row
+                        const headerCells = tableLines[0].split('|').slice(1, -1).map(c => c.trim())
+                        // Skip separator row (index 1), parse data rows
+                        const dataRows = tableLines.slice(2).map(row =>
+                          row.split('|').slice(1, -1).map(c => c.trim())
+                        )
+
+                        elements.push(
+                          <div key={`table-${i}`} className="overflow-x-auto my-6">
+                            <table className="w-full text-sm border-collapse">
+                              <thead>
+                                <tr className="border-b-2 border-primary/20">
+                                  {headerCells.map((cell, ci) => (
+                                    <th key={ci} className="text-left py-3 px-4 text-primary font-semibold">{cell}</th>
+                                  ))}
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {dataRows.map((row, ri) => (
+                                  <tr key={ri} className="border-b border-gray-200 hover:bg-gray-50">
+                                    {row.map((cell, ci) => (
+                                      <td key={ci} className="py-2.5 px-4 text-text-secondary">{parseInlineMarkdown(cell)}</td>
+                                    ))}
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        )
+                      }
+                      continue
+                    }
+
+                    if (!trimmed) { i++; continue }
+
+                    // Image: ![alt](src)
+                    const imgMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)$/)
+                    if (imgMatch) {
+                      elements.push(
+                        <figure key={i} className="my-8">
+                          <img src={imgMatch[2]} alt={imgMatch[1]} className="w-full rounded-xl border border-gray-200" loading="lazy" />
+                          {imgMatch[1] && <figcaption className="text-center text-sm text-muted mt-3">{imgMatch[1]}</figcaption>}
+                        </figure>
+                      )
+                      i++
+                      continue
+                    }
+
+                    if (trimmed.startsWith('## ')) {
+                      elements.push(<h2 key={i} className="text-2xl font-bold text-primary mt-10 mb-4">{parseInlineMarkdown(trimmed.replace('## ', ''))}</h2>)
+                    } else if (trimmed.startsWith('### ')) {
+                      elements.push(<h3 key={i} className="text-xl font-bold text-primary mt-8 mb-3">{parseInlineMarkdown(trimmed.replace('### ', ''))}</h3>)
+                    } else if (trimmed.startsWith('- ')) {
+                      elements.push(<li key={i} className="text-text-secondary ml-6 mb-1">{parseInlineMarkdown(trimmed.replace('- ', ''))}</li>)
+                    } else if (/^\d+\.\s/.test(trimmed)) {
+                      elements.push(<li key={i} className="text-text-secondary ml-6 mb-1 list-decimal">{parseInlineMarkdown(trimmed.replace(/^\d+\.\s/, ''))}</li>)
+                    } else {
+                      elements.push(<p key={i} className="text-text-secondary mb-4 leading-relaxed">{parseInlineMarkdown(trimmed)}</p>)
+                    }
+                    i++
                   }
-                  if (trimmed.startsWith('### ')) {
-                    return <h3 key={index} className="text-xl font-bold text-primary mt-8 mb-3">{parseInlineMarkdown(trimmed.replace('### ', ''))}</h3>
-                  }
-                  if (trimmed.startsWith('- ')) {
-                    return <li key={index} className="text-text-secondary ml-6 mb-1">{parseInlineMarkdown(trimmed.replace('- ', ''))}</li>
-                  }
-                  if (/^\d+\.\s/.test(trimmed)) {
-                    return <li key={index} className="text-text-secondary ml-6 mb-1 list-decimal">{parseInlineMarkdown(trimmed.replace(/^\d+\.\s/, ''))}</li>
-                  }
-                  return <p key={index} className="text-text-secondary mb-4 leading-relaxed">{parseInlineMarkdown(trimmed)}</p>
-                })}
+
+                  return elements
+                })()}
               </div>
 
               {/* Related Service CTA - Internal link to parent service */}
@@ -523,12 +583,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <div className="grid md:grid-cols-3 gap-8">
               {relatedPosts.map((relatedPost) => (
                 <Link key={relatedPost.slug} href={getBlogPostUrl(relatedPost.slug)} className="bg-white rounded-2xl border border-border overflow-hidden hover:shadow-lg transition-shadow group">
-                  <div className="h-40 bg-gradient-to-br from-bg-tertiary to-bg-secondary flex items-center justify-center overflow-hidden">
+                  <div className="h-48 bg-white flex items-center justify-center overflow-hidden p-3">
                     {relatedPost.image ? (
                       <img
                         src={relatedPost.image}
                         alt={relatedPost.imageAlt || relatedPost.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                       />
                     ) : (
                       <span className="text-2xl font-bold text-accent/20">{relatedPost.category}</span>

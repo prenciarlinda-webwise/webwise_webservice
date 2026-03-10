@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f8f9fa"/><stop offset="100%" stop-color="#e8edf2"/></linearGradient>
+    <filter id="sh" x="-4%" y="-4%" width="108%" height="116%"><feDropShadow dx="0" dy="2" stdDeviation="6" flood-opacity="0.08"/></filter>
+  </defs>
+  <rect width="800" height="480" fill="url(#bg)" rx="16"/>
+  <rect x="0" y="0" width="800" height="56" fill="#25274d" rx="16"/><rect x="0" y="30" width="800" height="26" fill="#25274d"/>
+  <text x="400" y="36" fill="white" font-size="18" font-weight="700" text-anchor="middle">How Google Reviews Impact Your Local Rankings</text>
+  <rect x="40" y="76" width="720" height="380" rx="12" fill="white" filter="url(#sh)"/>
+
+  <!-- 4 stat cards in a row -->
+  <rect x="60" y="96" width="155" height="110" rx="10" fill="#fff8f0" stroke="#ed7c21" stroke-width="1"/>
+  <text x="137" y="138" fill="#ed7c21" font-size="36" font-weight="800" text-anchor="middle">16%</text>
+  <text x="137" y="158" fill="#25274d" font-size="10" font-weight="600" text-anchor="middle">of local ranking</text>
+  <text x="137" y="172" fill="#25274d" font-size="10" font-weight="600" text-anchor="middle">factors are reviews</text>
+  <text x="137" y="194" fill="#6b7280" font-size="9" text-anchor="middle">Top 3 ranking signal</text>
+
+  <rect x="230" y="96" width="155" height="110" rx="10" fill="#f0f7ff" stroke="#3b82f6" stroke-width="1"/>
+  <text x="307" y="138" fill="#3b82f6" font-size="36" font-weight="800" text-anchor="middle">50+</text>
+  <text x="307" y="158" fill="#25274d" font-size="10" font-weight="600" text-anchor="middle">minimum reviews</text>
+  <text x="307" y="172" fill="#25274d" font-size="10" font-weight="600" text-anchor="middle">to compete in Map Pack</text>
+  <text x="307" y="194" fill="#6b7280" font-size="9" text-anchor="middle">Leaders have 150-300+</text>
+
+  <rect x="400" y="96" width="155" height="110" rx="10" fill="#f0fdf4" stroke="#10b981" stroke-width="1"/>
+  <text x="477" y="138" fill="#10b981" font-size="36" font-weight="800" text-anchor="middle">4.7+</text>
+  <text x="477" y="158" fill="#25274d" font-size="10" font-weight="600" text-anchor="middle">star rating sweet</text>
+  <text x="477" y="172" fill="#25274d" font-size="10" font-weight="600" text-anchor="middle">spot for conversions</text>
+  <text x="477" y="194" fill="#6b7280" font-size="9" text-anchor="middle">5.0 looks fake to buyers</text>
+
+  <rect x="570" y="96" width="170" height="110" rx="10" fill="#faf5ff" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="655" y="138" fill="#8b5cf6" font-size="36" font-weight="800" text-anchor="middle">30</text>
+  <text x="655" y="158" fill="#25274d" font-size="10" font-weight="600" text-anchor="middle">days — recency</text>
+  <text x="655" y="172" fill="#25274d" font-size="10" font-weight="600" text-anchor="middle">matters most</text>
+  <text x="655" y="194" fill="#6b7280" font-size="9" text-anchor="middle">New reviews beat old ones</text>
+
+  <!-- Comparison bars -->
+  <text x="60" y="236" fill="#25274d" font-size="13" font-weight="700">Review Count vs. Map Pack Position</text>
+
+  <text x="60" y="264" fill="#25274d" font-size="11" font-weight="600">Map Pack #1</text>
+  <rect x="175" y="252" width="500" height="18" rx="4" fill="#ed7c21"/>
+  <text x="685" y="266" fill="#25274d" font-size="11" font-weight="700">187 avg reviews</text>
+
+  <text x="60" y="294" fill="#25274d" font-size="11" font-weight="600">Map Pack #2</text>
+  <rect x="175" y="282" width="340" height="18" rx="4" fill="#ed7c21" opacity="0.65"/>
+  <text x="525" y="296" fill="#25274d" font-size="11" font-weight="600">124 avg reviews</text>
+
+  <text x="60" y="324" fill="#25274d" font-size="11" font-weight="600">Map Pack #3</text>
+  <rect x="175" y="312" width="240" height="18" rx="4" fill="#ed7c21" opacity="0.45"/>
+  <text x="425" y="326" fill="#25274d" font-size="11" font-weight="600">89 avg reviews</text>
+
+  <text x="60" y="354" fill="#6b7280" font-size="11" font-weight="600">Not in Map Pack</text>
+  <rect x="175" y="342" width="100" height="18" rx="4" fill="#d1d5db"/>
+  <text x="285" y="356" fill="#6b7280" font-size="11" font-weight="600">28 avg reviews</text>
+
+  <!-- Bottom insight -->
+  <rect x="60" y="380" width="680" height="56" rx="8" fill="#fef3e8"/>
+  <text x="400" y="402" fill="#b45309" font-size="12" font-weight="700" text-anchor="middle">Businesses with 100+ recent reviews are 2.7x more likely to appear in the Map Pack</text>
+  <text x="400" y="420" fill="#b45309" font-size="11" text-anchor="middle">Responding to reviews (positive and negative) sends additional ranking signals to Google</text>
+
+  <text x="770" y="468" fill="#25274d" font-size="9" font-weight="600" text-anchor="end" opacity="0.5">websiteandseoagency.com</text>
+</svg>

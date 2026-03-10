@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, X, ChevronDown, ArrowRight, Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart, Briefcase } from 'lucide-react'
-import { services, siteConfig, navigation, industries, getUniqueClientIndustries, getIndustryByName } from '@/data/site'
+import { services, siteConfig, navigation, industries, getUniqueClientIndustries, getIndustryByName, getIndustriesWithPages, getFeaturedCaseStudies } from '@/data/site'
 import WhatsAppButton from '@/components/ui/WhatsAppButton'
 
 const iconMap: { [key: string]: React.ElementType } = {
@@ -157,47 +157,48 @@ export default function Header() {
                 </div>
               </div>
 
-              {/* Case Studies Dropdown */}
+              {/* Industries Dropdown */}
               <div className="relative group">
-                <Link href="/case-studies" className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-text-primary hover:text-accent transition-colors">
-                  Case Studies
+                <Link href="/local-seo" className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-text-primary hover:text-accent transition-colors">
+                  Industries
                   <ChevronDown size={14} className="transition-transform group-hover:rotate-180" />
                 </Link>
 
-                {/* Dropdown Menu */}
                 <div className="absolute top-full left-0 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
-                  <div className="w-64 bg-white border border-border rounded-xl shadow-xl overflow-hidden">
+                  <div className="w-72 bg-white border border-border rounded-xl shadow-xl overflow-hidden">
                     <div className="p-2">
                       <Link
-                        href="/case-studies"
+                        href="/local-seo"
                         className="flex items-center gap-3 p-3 rounded-lg hover:bg-bg-secondary transition-colors"
                       >
                         <div className="w-8 h-8 flex items-center justify-center bg-accent/10 rounded-md text-accent">
-                          <Briefcase size={16} />
+                          <MapPin size={16} />
                         </div>
                         <div>
-                          <span className="text-sm font-semibold text-text-primary block">All Case Studies</span>
-                          <span className="text-xs text-text-muted">View our full portfolio</span>
+                          <span className="text-sm font-semibold text-text-primary block">All Industries</span>
+                          <span className="text-xs text-text-muted">Local SEO for every trade</span>
                         </div>
                       </Link>
                       <div className="border-t border-border my-2" />
-                      <p className="px-3 py-2 text-xs font-semibold text-text-muted uppercase tracking-wider">By Industry</p>
-                      {getUniqueClientIndustries().slice(0, 8).map((industryName) => {
-                        const industry = getIndustryByName(industryName)
-                        return (
+                      <div className="grid grid-cols-2 gap-0.5">
+                        {getIndustriesWithPages().map((industry) => (
                           <Link
-                            key={industryName}
-                            href={industry?.localSeoUrl || '/case-studies'}
-                            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-bg-secondary transition-colors"
+                            key={industry.slug}
+                            href={industry.localSeoUrl}
+                            className="px-3 py-2 rounded-lg hover:bg-bg-secondary transition-colors text-sm text-text-secondary hover:text-text-primary"
                           >
-                            <span className="text-sm text-text-secondary hover:text-text-primary">{industryName}</span>
+                            {industry.name}
                           </Link>
-                        )
-                      })}
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+
+              <Link href="/case-studies" className="px-4 py-2 text-sm font-medium text-text-primary hover:text-accent transition-colors">
+                Case Studies
+              </Link>
               <Link href="/pricing" className="px-4 py-2 text-sm font-medium text-text-primary hover:text-accent transition-colors">
                 Pricing
               </Link>
@@ -304,39 +305,39 @@ export default function Header() {
                 </div>
               ))}
 
-              {/* Case Studies with Industries */}
+              {/* Industries */}
               <div className="border-b border-border">
                 <button
-                  onClick={() => setOpenMobileSubmenu(openMobileSubmenu === 'case-studies' ? null : 'case-studies')}
+                  onClick={() => setOpenMobileSubmenu(openMobileSubmenu === 'industries' ? null : 'industries')}
                   className="flex items-center justify-between w-full py-4 text-lg font-medium text-text-primary"
                 >
-                  Case Studies
-                  <ChevronDown size={20} className={`transition-transform ${openMobileSubmenu === 'case-studies' ? 'rotate-180' : ''}`} />
+                  Industries
+                  <ChevronDown size={20} className={`transition-transform ${openMobileSubmenu === 'industries' ? 'rotate-180' : ''}`} />
                 </button>
-                <div className={`overflow-hidden transition-all duration-300 ${openMobileSubmenu === 'case-studies' ? 'max-h-96' : 'max-h-0'}`}>
+                <div className={`overflow-hidden transition-all duration-300 ${openMobileSubmenu === 'industries' ? 'max-h-[500px]' : 'max-h-0'}`}>
                   <Link
-                    href="/case-studies"
+                    href="/local-seo"
                     className="flex items-center gap-3 py-3 px-4 text-accent font-medium"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    <Briefcase size={18} />
-                    All Case Studies
+                    <MapPin size={18} />
+                    All Industries
                   </Link>
-                  {getUniqueClientIndustries().slice(0, 6).map((industryName) => {
-                    const industry = getIndustryByName(industryName)
-                    return (
-                      <Link
-                        key={industryName}
-                        href={industry?.localSeoUrl || '/case-studies'}
-                        className="flex items-center gap-3 py-3 px-4 text-text-secondary hover:text-text-primary"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        {industryName}
-                      </Link>
-                    )
-                  })}
+                  {getIndustriesWithPages().map((industry) => (
+                    <Link
+                      key={industry.slug}
+                      href={industry.localSeoUrl}
+                      className="flex items-center gap-3 py-3 px-4 text-text-secondary hover:text-text-primary"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {industry.name}
+                    </Link>
+                  ))}
                 </div>
               </div>
+              <Link href="/case-studies" className="block py-4 text-lg font-medium text-text-primary border-b border-border" onClick={() => setIsMobileMenuOpen(false)}>
+                Case Studies
+              </Link>
               <Link href="/pricing" className="block py-4 text-lg font-medium text-text-primary border-b border-border" onClick={() => setIsMobileMenuOpen(false)}>
                 Pricing
               </Link>

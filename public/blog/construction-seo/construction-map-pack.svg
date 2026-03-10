@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8f9fa"/>
+      <stop offset="100%" stop-color="#e8edf2"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ed7c21"/>
+      <stop offset="100%" stop-color="#d4690f"/>
+    </linearGradient>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="116%">
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="520" fill="url(#bg)" rx="16"/>
+
+  <!-- Title bar -->
+  <rect x="0" y="0" width="800" height="56" fill="#25274d" rx="16"/>
+  <rect x="0" y="30" width="800" height="26" fill="#25274d"/>
+  <text x="400" y="36" fill="white" font-size="18" font-weight="700" text-anchor="middle">Google Map Pack for Contractors: Where $10K-$100K Projects Start</text>
+
+  <!-- Map area -->
+  <rect x="30" y="76" width="360" height="420" rx="12" fill="#e8eee4" filter="url(#shadow)"/>
+  <line x1="30" y1="200" x2="390" y2="200" stroke="#d0d8c8" stroke-width="8" stroke-linecap="round"/>
+  <line x1="30" y1="300" x2="390" y2="300" stroke="#d0d8c8" stroke-width="8" stroke-linecap="round"/>
+  <line x1="30" y1="400" x2="390" y2="400" stroke="#d0d8c8" stroke-width="8" stroke-linecap="round"/>
+  <line x1="130" y1="76" x2="130" y2="496" stroke="#d0d8c8" stroke-width="8" stroke-linecap="round"/>
+  <line x1="240" y1="76" x2="240" y2="496" stroke="#d0d8c8" stroke-width="8" stroke-linecap="round"/>
+  <line x1="330" y1="76" x2="330" y2="496" stroke="#d0d8c8" stroke-width="6" stroke-linecap="round"/>
+
+  <text x="80" y="170" fill="#7a8a6e" font-size="10" font-weight="500" opacity="0.7">Main St</text>
+  <text x="170" y="270" fill="#7a8a6e" font-size="10" font-weight="500" opacity="0.7">Oak Ave</text>
+  <text x="280" y="370" fill="#7a8a6e" font-size="10" font-weight="500" opacity="0.7">Elm Blvd</text>
+
+  <!-- Map pin #1 - YOUR business (large, gold) -->
+  <g transform="translate(200, 230)">
+    <ellipse cx="0" cy="28" rx="14" ry="5" fill="rgba(0,0,0,0.15)"/>
+    <path d="M0-24 C-14-24-24-14-24 0 C-24 14 0 28 0 28 S24 14 24 0 C24-14 14-24 0-24Z" fill="url(#goldGrad)"/>
+    <circle cx="0" cy="-2" r="8" fill="white"/>
+    <text x="0" y="2" fill="#ed7c21" font-size="10" font-weight="800" text-anchor="middle">1</text>
+  </g>
+
+  <!-- Map pin #2 -->
+  <g transform="translate(110, 340)">
+    <ellipse cx="0" cy="20" rx="9" ry="3.5" fill="rgba(0,0,0,0.1)"/>
+    <path d="M0-16 C-9.5-16-16-9.5-16 0 C-16 9.5 0 20 0 20 S16 9.5 16 0 C16-9.5 9.5-16 0-16Z" fill="#5f6368"/>
+    <circle cx="0" cy="-1" r="5.5" fill="white"/>
+    <text x="0" y="2.5" fill="#5f6368" font-size="7" font-weight="700" text-anchor="middle">2</text>
+  </g>
+
+  <!-- Map pin #3 -->
+  <g transform="translate(310, 150)">
+    <ellipse cx="0" cy="20" rx="9" ry="3.5" fill="rgba(0,0,0,0.1)"/>
+    <path d="M0-16 C-9.5-16-16-9.5-16 0 C-16 9.5 0 20 0 20 S16 9.5 16 0 C16-9.5 9.5-16 0-16Z" fill="#5f6368"/>
+    <circle cx="0" cy="-1" r="5.5" fill="white"/>
+    <text x="0" y="2.5" fill="#5f6368" font-size="7" font-weight="700" text-anchor="middle">3</text>
+  </g>
+
+  <!-- Grey competitors -->
+  <g transform="translate(80, 440)">
+    <path d="M0-10 C-6-10-10-6-10 0 C-10 6 0 12 0 12 S10 6 10 0 C10-6 6-10 0-10Z" fill="#aab0b5"/>
+    <circle cx="0" cy="-1" r="3.5" fill="white"/>
+  </g>
+  <g transform="translate(350, 440)">
+    <path d="M0-10 C-6-10-10-6-10 0 C-10 6 0 12 0 12 S10 6 10 0 C10-6 6-10 0-10Z" fill="#aab0b5"/>
+    <circle cx="0" cy="-1" r="3.5" fill="white"/>
+  </g>
+  <g transform="translate(300, 260)">
+    <path d="M0-10 C-6-10-10-6-10 0 C-10 6 0 12 0 12 S10 6 10 0 C10-6 6-10 0-10Z" fill="#aab0b5"/>
+    <circle cx="0" cy="-1" r="3.5" fill="white"/>
+  </g>
+
+  <!-- Right panel -->
+  <rect x="410" y="76" width="360" height="420" rx="12" fill="white" filter="url(#shadow)"/>
+
+  <!-- Search bar -->
+  <rect x="430" y="92" width="320" height="36" rx="18" fill="#f1f3f4" stroke="#dfe1e5" stroke-width="1"/>
+  <text x="448" y="115" fill="#5f6368" font-size="13">general contractor near me</text>
+  <circle cx="726" cy="110" r="12" fill="#4285f4"/>
+  <circle cx="726" cy="108" r="4" fill="none" stroke="white" stroke-width="1.5"/>
+  <line x1="729" y1="111" x2="732" y2="114" stroke="white" stroke-width="1.5"/>
+
+  <!-- Result #1 -->
+  <rect x="430" y="142" width="320" height="100" rx="8" fill="#fff8f0" stroke="#ed7c21" stroke-width="1.5"/>
+  <rect x="430" y="142" width="4" height="100" rx="2" fill="#ed7c21"/>
+
+  <text x="448" y="164" fill="#25274d" font-size="15" font-weight="700">BuildRight Construction</text>
+  <text x="448" y="182" fill="#ed7c21" font-size="12" font-weight="600">★ ★ ★ ★ ★  4.8 (167 reviews)</text>
+  <text x="448" y="199" fill="#5f6368" font-size="11">General contractor · Licensed &amp; bonded</text>
+  <text x="448" y="215" fill="#5f6368" font-size="11">1.2 mi · Free estimates</text>
+  <text x="448" y="232" fill="#1a73e8" font-size="11" font-weight="600">📞 (555) 234-5678</text>
+
+  <rect x="680" y="148" width="60" height="24" rx="12" fill="#ed7c21"/>
+  <text x="710" y="164" fill="white" font-size="11" font-weight="700" text-anchor="middle">68%</text>
+  <text x="710" y="178" fill="#ed7c21" font-size="9" font-weight="600" text-anchor="middle">of leads</text>
+
+  <!-- Result #2 -->
+  <rect x="430" y="252" width="320" height="80" rx="8" fill="white" stroke="#e8eaed" stroke-width="1"/>
+  <text x="448" y="274" fill="#25274d" font-size="14" font-weight="600">Metro Builders Inc</text>
+  <text x="448" y="291" fill="#fbbc04" font-size="11">★ ★ ★ ★ ☆  4.4 (82 reviews)</text>
+  <text x="448" y="306" fill="#5f6368" font-size="11">General contractor</text>
+  <text x="448" y="321" fill="#5f6368" font-size="11">1.4 mi</text>
+
+  <!-- Result #3 -->
+  <rect x="430" y="342" width="320" height="80" rx="8" fill="white" stroke="#e8eaed" stroke-width="1"/>
+  <text x="448" y="364" fill="#25274d" font-size="14" font-weight="600">ProBuild Solutions</text>
+  <text x="448" y="381" fill="#fbbc04" font-size="11">★ ★ ★ ★ ☆  4.1 (45 reviews)</text>
+  <text x="448" y="396" fill="#5f6368" font-size="11">General contractor</text>
+  <text x="448" y="411" fill="#5f6368" font-size="11">2.3 mi</text>
+
+  <text x="590" y="448" fill="#1a73e8" font-size="12" font-weight="500" text-anchor="middle">More places ↓</text>
+
+  <rect x="430" y="458" width="320" height="30" rx="6" fill="#fef3e8"/>
+  <text x="590" y="478" fill="#b45309" font-size="10" font-weight="600" text-anchor="middle">⚠ 78% of homeowners choose a contractor from the first page of Google</text>
+
+  <text x="770" y="508" fill="#25274d" font-size="9" font-weight="600" text-anchor="end" opacity="0.5">websiteandseoagency.com</text>
+</svg>

@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8f9fa"/>
+      <stop offset="100%" stop-color="#e8edf2"/>
+    </linearGradient>
+    <filter id="sh" x="-4%" y="-4%" width="108%" height="116%">
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="480" fill="url(#bg)" rx="16"/>
+
+  <rect x="0" y="0" width="800" height="56" fill="#25274d" rx="16"/>
+  <rect x="0" y="30" width="800" height="26" fill="#25274d"/>
+  <text x="400" y="36" fill="white" font-size="18" font-weight="700" text-anchor="middle">Plumbing Keyword Value: Emergency vs. Planned Service Searches</text>
+
+  <rect x="40" y="76" width="720" height="380" rx="12" fill="white" filter="url(#sh)"/>
+
+  <!-- Two column comparison -->
+
+  <!-- LEFT: Emergency -->
+  <rect x="60" y="96" width="330" height="340" rx="10" fill="#fff8f0" stroke="#ed7c21" stroke-width="1"/>
+  <rect x="60" y="96" width="330" height="44" rx="10" fill="#ed7c21"/>
+  <rect x="60" y="120" width="330" height="20" fill="#ed7c21"/>
+  <text x="225" y="124" fill="white" font-size="16" font-weight="700" text-anchor="middle">🚨 Emergency Keywords</text>
+
+  <!-- Stats -->
+  <text x="225" y="170" fill="#ed7c21" font-size="36" font-weight="800" text-anchor="middle">$300-$800</text>
+  <text x="225" y="190" fill="#6b7280" font-size="12" text-anchor="middle">Average job value per call</text>
+
+  <line x1="90" y1="205" x2="360" y2="205" stroke="#fde8d0" stroke-width="1"/>
+
+  <!-- Keywords list -->
+  <text x="90" y="232" fill="#25274d" font-size="12" font-weight="600">plumber near me</text>
+  <text x="350" y="232" fill="#ed7c21" font-size="12" font-weight="700" text-anchor="end">1.2M/mo</text>
+
+  <text x="90" y="256" fill="#25274d" font-size="12" font-weight="600">emergency plumber</text>
+  <text x="350" y="256" fill="#ed7c21" font-size="12" font-weight="700" text-anchor="end">110K/mo</text>
+
+  <text x="90" y="280" fill="#25274d" font-size="12" font-weight="600">burst pipe repair</text>
+  <text x="350" y="280" fill="#ed7c21" font-size="12" font-weight="700" text-anchor="end">14.8K/mo</text>
+
+  <text x="90" y="304" fill="#25274d" font-size="12" font-weight="600">water heater repair near me</text>
+  <text x="350" y="304" fill="#ed7c21" font-size="12" font-weight="700" text-anchor="end">27K/mo</text>
+
+  <text x="90" y="328" fill="#25274d" font-size="12" font-weight="600">clogged drain service</text>
+  <text x="350" y="328" fill="#ed7c21" font-size="12" font-weight="700" text-anchor="end">18K/mo</text>
+
+  <line x1="90" y1="345" x2="360" y2="345" stroke="#fde8d0" stroke-width="1"/>
+
+  <!-- Conversion rate -->
+  <rect x="120" y="358" width="210" height="32" rx="16" fill="#ed7c21" opacity="0.1"/>
+  <text x="225" y="379" fill="#ed7c21" font-size="13" font-weight="700" text-anchor="middle">35-45% conversion rate</text>
+
+  <text x="225" y="418" fill="#b45309" font-size="11" font-weight="600" text-anchor="middle">Caller needs help NOW. Calls first result.</text>
+
+  <!-- RIGHT: Planned -->
+  <rect x="410" y="96" width="330" height="340" rx="10" fill="#f0f7ff" stroke="#3b82f6" stroke-width="1"/>
+  <rect x="410" y="96" width="330" height="44" rx="10" fill="#3b82f6"/>
+  <rect x="410" y="120" width="330" height="20" fill="#3b82f6"/>
+  <text x="575" y="124" fill="white" font-size="16" font-weight="700" text-anchor="middle">📋 Planned Service Keywords</text>
+
+  <text x="575" y="170" fill="#3b82f6" font-size="36" font-weight="800" text-anchor="middle">$150-$500</text>
+  <text x="575" y="190" fill="#6b7280" font-size="12" text-anchor="middle">Average job value per call</text>
+
+  <line x1="440" y1="205" x2="710" y2="205" stroke="#dbeafe" stroke-width="1"/>
+
+  <text x="440" y="232" fill="#25274d" font-size="12" font-weight="600">bathroom remodel plumber</text>
+  <text x="700" y="232" fill="#3b82f6" font-size="12" font-weight="700" text-anchor="end">8.1K/mo</text>
+
+  <text x="440" y="256" fill="#25274d" font-size="12" font-weight="600">water heater installation</text>
+  <text x="700" y="256" fill="#3b82f6" font-size="12" font-weight="700" text-anchor="end">22K/mo</text>
+
+  <text x="440" y="280" fill="#25274d" font-size="12" font-weight="600">sewer line replacement</text>
+  <text x="700" y="280" fill="#3b82f6" font-size="12" font-weight="700" text-anchor="end">9.9K/mo</text>
+
+  <text x="440" y="304" fill="#25274d" font-size="12" font-weight="600">tankless water heater cost</text>
+  <text x="700" y="304" fill="#3b82f6" font-size="12" font-weight="700" text-anchor="end">14.8K/mo</text>
+
+  <text x="440" y="328" fill="#25274d" font-size="12" font-weight="600">plumber for kitchen remodel</text>
+  <text x="700" y="328" fill="#3b82f6" font-size="12" font-weight="700" text-anchor="end">4.4K/mo</text>
+
+  <line x1="440" y1="345" x2="710" y2="345" stroke="#dbeafe" stroke-width="1"/>
+
+  <rect x="470" y="358" width="210" height="32" rx="16" fill="#3b82f6" opacity="0.1"/>
+  <text x="575" y="379" fill="#3b82f6" font-size="13" font-weight="700" text-anchor="middle">15-25% conversion rate</text>
+
+  <text x="575" y="418" fill="#1d4ed8" font-size="11" font-weight="600" text-anchor="middle">Compares 3-5 options. Reviews matter most.</text>
+
+  <text x="770" y="468" fill="#25274d" font-size="9" font-weight="600" text-anchor="end" opacity="0.5">websiteandseoagency.com</text>
+</svg>
