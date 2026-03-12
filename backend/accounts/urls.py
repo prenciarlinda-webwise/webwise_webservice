@@ -16,4 +16,5 @@ urlpatterns = [
     # Admin user management
     path('users/', views.UserListView.as_view(), name='user_list'),
     path('users/<int:pk>/', views.UserDetailView.as_view(), name='user_detail'),
+    path('admins/', views.AdminListView.as_view(), name='admin_list'),
 ]

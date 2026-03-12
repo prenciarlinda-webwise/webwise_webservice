@@ -20,6 +20,8 @@ class EmployeeProfileSerializer(serializers.ModelSerializer):
 
 
 class TaskLogSerializer(serializers.ModelSerializer):
+    employee = serializers.PrimaryKeyRelatedField(queryset=EmployeeProfile.objects.all(), required=False)
+    description = serializers.CharField(required=False, allow_blank=True, default='')
     employee_name = serializers.CharField(source='employee.user.get_full_name', read_only=True)
     client_name = serializers.CharField(source='client.business_name', read_only=True, default=None)
     deliverable_title = serializers.CharField(source='deliverable.title', read_only=True, default=None)

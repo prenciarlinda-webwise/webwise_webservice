@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { api } from '@/lib/api'
 import { useAuth } from '@/context/AuthContext'
@@ -11,16 +12,19 @@ import { Trash2, Plus } from 'lucide-react'
 
 interface Client {
   id: number
+  slug: string
   user: number
+  user_name: string
   business_name: string
   user_email: string
   business_email: string
   business_phone: string
-  projects: { id: number; name: string; status: string }[]
+  projects: { id: number; slug: string; name: string; status: string }[]
   created_at: string
 }
 
 export default function ClientsPage() {
+  const router = useRouter()
   const { user } = useAuth()
   const [clients, setClients] = useState<Client[]>([])
   const [showAdd, setShowAdd] = useState(false)
@@ -79,7 +83,7 @@ export default function ClientsPage() {
         <table className="w-full">
           <thead>
             <tr className="text-left text-xs text-text-muted border-b border-border">
-              <th className="px-6 py-3">Business Name</th>
+              <th className="px-6 py-3">Client</th>
               {user?.role !== 'employee' && <th className="px-6 py-3">Email</th>}
               <th className="px-6 py-3">Phone</th>
               <th className="px-6 py-3">Projects</th>
@@ -89,8 +93,11 @@ export default function ClientsPage() {
           </thead>
           <tbody>
             {clients.map(c => (
-              <tr key={c.id} className="border-b border-border last:border-0 hover:bg-bg-secondary/50">
-                <td className="px-6 py-4 font-medium">{c.business_name}</td>
+              <tr key={c.id} onClick={() => router.push(`/dashboard/clients/${c.slug}`)} className="border-b border-border last:border-0 hover:bg-bg-secondary/50 cursor-pointer">
+                <td className="px-6 py-4">
+                  <p className="font-medium">{c.user_name || c.business_name}</p>
+                  {c.user_name && <p className="text-xs text-text-muted">{c.business_name}</p>}
+                </td>
                 {user?.role !== 'employee' && <td className="px-6 py-4 text-sm text-text-secondary">{c.business_email || c.user_email}</td>}
                 <td className="px-6 py-4 text-sm text-text-secondary">{c.business_phone}</td>
                 <td className="px-6 py-4">
@@ -101,9 +108,8 @@ export default function ClientsPage() {
                 </td>
                 <td className="px-6 py-4 text-sm text-text-secondary">{new Date(c.created_at).toLocaleDateString()}</td>
                 <td className="px-6 py-4 flex items-center gap-2">
-                  <Link href={`/dashboard/clients/${c.id}`} className="text-sm text-accent hover:underline">View</Link>
                   {user?.role === 'admin' && (
-                    <button onClick={() => handleDelete(c.id, c.business_name)} className="text-red-400 hover:text-red-600"><Trash2 size={14} /></button>
+                    <button onClick={(e) => { e.stopPropagation(); handleDelete(c.id, c.business_name) }} className="text-red-400 hover:text-red-600"><Trash2 size={14} /></button>
                   )}
                 </td>
               </tr>

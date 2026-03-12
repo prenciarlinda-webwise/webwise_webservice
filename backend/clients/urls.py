@@ -5,11 +5,13 @@ urlpatterns = [
     # Client profiles
     path('', views.ClientProfileListView.as_view(), name='client_list'),
     path('<int:pk>/', views.ClientProfileDetailView.as_view(), name='client_detail'),
+    path('by-slug/<slug:slug>/', views.ClientProfileDetailView.as_view(), name='client_detail_slug'),
     path('me/', views.MyClientProfileView.as_view(), name='my_client_profile'),
 
     # Projects
     path('projects/', views.ProjectListCreateView.as_view(), name='project_list'),
     path('projects/<int:pk>/', views.ProjectDetailView.as_view(), name='project_detail'),
+    path('projects/by-slug/<slug:slug>/', views.ProjectDetailView.as_view(), name='project_detail_slug'),
 
     # Project services
     path('services/', views.ProjectServiceListCreateView.as_view(), name='service_list'),
@@ -29,10 +31,6 @@ urlpatterns = [
     path('templates/apply/', views.apply_template, name='apply_template'),
     path('template-items/', views.TemplateDeliverableListCreateView.as_view(), name='template_item_list'),
     path('template-items/<int:pk>/', views.TemplateDeliverableDetailView.as_view(), name='template_item_detail'),
-
-    # Metrics
-    path('metrics/', views.MonthlyMetricsCreateUpdateView.as_view(), name='metrics_create'),
-    path('metrics/<int:pk>/', views.MonthlyMetricsDetailView.as_view(), name='metrics_detail'),
 
     # Business catalog
     path('catalog/', views.BusinessCatalogListCreateView.as_view(), name='catalog_list'),

@@ -1,7 +1,8 @@
+from django.db import models
 from rest_framework import serializers
 from .models import (
     ClientProfile, Project, ProjectService, MonthlyPlan, Deliverable,
-    ServiceTemplate, TemplateDeliverable, MonthlyMetrics, BusinessCatalogItem,
+    ServiceTemplate, TemplateDeliverable, BusinessCatalogItem,
 )
 from reports.models import Report
 
@@ -20,34 +21,21 @@ class DeliverableSerializer(serializers.ModelSerializer):
     category_display = serializers.CharField(source='get_category_display', read_only=True)
     status_display = serializers.CharField(source='get_status_display', read_only=True)
     assigned_to_name = serializers.CharField(source='assigned_to.get_full_name', read_only=True, default=None)
+    logged_hours = serializers.SerializerMethodField()
 
     class Meta:
         model = Deliverable
         fields = [
             'id', 'monthly_plan', 'category', 'category_display', 'title', 'description',
             'target_keyword', 'status', 'status_display', 'frequency', 'quantity',
-            'assigned_to', 'assigned_to_name', 'link', 'live_url',
+            'estimated_minutes', 'logged_hours', 'assigned_to', 'assigned_to_name', 'link', 'live_url',
             'start_date', 'due_date', 'completed_date', 'notes', 'sort_order', 'created_at', 'updated_at',
         ]
         read_only_fields = ['id', 'created_at', 'updated_at']
 
-
-class MonthlyMetricsSerializer(serializers.ModelSerializer):
-    total_costs = serializers.DecimalField(max_digits=12, decimal_places=2, read_only=True)
-    profit_margin = serializers.DecimalField(max_digits=12, decimal_places=2, read_only=True)
-
-    class Meta:
-        model = MonthlyMetrics
-        fields = [
-            'id', 'monthly_plan',
-            'gbp_views', 'gbp_searches', 'gbp_calls', 'gbp_direction_requests', 'gbp_website_clicks',
-            'organic_sessions', 'organic_conversions',
-            'keywords_top_3', 'keywords_top_10', 'keywords_local_pack',
-            'total_reviews', 'average_rating', 'new_backlinks', 'domain_authority',
-            'monthly_retainer', 'content_writer_cost', 'tool_costs', 'link_building_spend', 'other_costs',
-            'total_costs', 'profit_margin',
-        ]
-        read_only_fields = ['id']
+    def get_logged_hours(self, obj):
+        total = obj.time_logs.aggregate(s=models.Sum('hours'))['s']
+        return str(total) if total else None
 
 
 class PlanReportSerializer(serializers.ModelSerializer):
@@ -61,21 +49,25 @@ class PlanReportSerializer(serializers.ModelSerializer):
 
 class MonthlyPlanSerializer(serializers.ModelSerializer):
     deliverables = DeliverableSerializer(many=True, read_only=True)
-    metrics = MonthlyMetricsSerializer(read_only=True)
     reports = PlanReportSerializer(many=True, read_only=True)
     service_name = serializers.CharField(source='project_service.name', read_only=True)
     project_name = serializers.CharField(source='project_service.project.name', read_only=True)
+    project_id = serializers.IntegerField(source='project_service.project.id', read_only=True)
     client_name = serializers.CharField(source='project_service.project.client.business_name', read_only=True)
     client_id = serializers.IntegerField(source='project_service.project.client.id', read_only=True)
     month_display = serializers.SerializerMethodField()
     progress = serializers.SerializerMethodField()
+    total_costs = serializers.DecimalField(max_digits=12, decimal_places=2, read_only=True)
+    profit_margin = serializers.DecimalField(max_digits=12, decimal_places=2, read_only=True)
 
     class Meta:
         model = MonthlyPlan
         fields = [
-            'id', 'project_service', 'service_name', 'project_name', 'client_name', 'client_id',
-            'month', 'month_display', 'status', 'notes', 'progress',
-            'deliverables', 'metrics', 'reports', 'created_at', 'updated_at',
+            'id', 'project_service', 'service_name', 'project_name', 'project_id', 'client_name', 'client_id',
+            'month', 'month_display', 'status', 'notes',
+            'monthly_retainer', 'content_writer_cost', 'tool_costs', 'link_building_spend', 'other_costs',
+            'total_costs', 'profit_margin',
+            'progress', 'deliverables', 'reports', 'created_at', 'updated_at',
         ]
         read_only_fields = ['id', 'created_at', 'updated_at']
 
@@ -101,17 +93,18 @@ class MonthlyPlanSerializer(serializers.ModelSerializer):
         data = super().to_representation(instance)
         request = self.context.get('request')
         role = getattr(request.user, 'role', None) if request else None
+        financial_fields = ['monthly_retainer', 'content_writer_cost', 'tool_costs', 'link_building_spend', 'other_costs', 'total_costs', 'profit_margin']
         if role == 'employee':
             # Employees only see their own assigned deliverables
             data['deliverables'] = [
                 d for d in data['deliverables']
                 if d.get('assigned_to') == request.user.id
             ]
-            # Strip all financial metrics
-            data.pop('metrics', None)
+            for f in financial_fields:
+                data.pop(f, None)
         elif role == 'client':
-            # Clients don't see internal cost breakdowns
-            data.pop('metrics', None)
+            for f in financial_fields:
+                data.pop(f, None)
         return data
 
 
@@ -158,17 +151,19 @@ class ProjectServiceDetailSerializer(serializers.ModelSerializer):
 class ProjectSerializer(serializers.ModelSerializer):
     services = ProjectServiceSerializer(many=True, read_only=True)
     catalog = BusinessCatalogItemSerializer(many=True, read_only=True)
+    client = serializers.PrimaryKeyRelatedField(queryset=ClientProfile.objects.all(), required=False)
 
     class Meta:
         model = Project
         fields = [
-            'id', 'client', 'name', 'business_phone', 'business_email', 'business_address',
+            'id', 'slug', 'client', 'name', 'business_phone', 'business_email', 'business_address',
             'website_url', 'business_hours', 'service_areas',
-            'google_business_url', 'facebook_url', 'instagram_url', 'google_drive_url',
+            'google_business_url', 'facebook_url', 'instagram_url', 'google_drive_url', 'image_folder_url',
+            'citations_url', 'booking_url',
             'industry', 'target_audience', 'competitors', 'usps', 'marketing_channels', 'nap_status',
             'status', 'notes', 'services', 'catalog', 'created_at', 'updated_at',
         ]
-        read_only_fields = ['id', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'slug', 'created_at', 'updated_at']
 
 
 class ProjectDetailSerializer(serializers.ModelSerializer):
@@ -177,29 +172,35 @@ class ProjectDetailSerializer(serializers.ModelSerializer):
     catalog = BusinessCatalogItemSerializer(many=True, read_only=True)
     client_name = serializers.CharField(source='client.business_name', read_only=True)
     client_id = serializers.IntegerField(source='client.id', read_only=True)
+    client_slug = serializers.CharField(source='client.slug', read_only=True)
 
     class Meta:
         model = Project
         fields = [
-            'id', 'client', 'client_name', 'client_id', 'name',
+            'id', 'slug', 'client', 'client_name', 'client_id', 'client_slug', 'name',
             'business_phone', 'business_email', 'business_address', 'website_url',
             'business_hours', 'service_areas',
-            'google_business_url', 'facebook_url', 'instagram_url', 'google_drive_url',
+            'google_business_url', 'facebook_url', 'instagram_url', 'google_drive_url', 'image_folder_url',
+            'citations_url', 'booking_url',
             'industry', 'target_audience', 'competitors', 'usps', 'marketing_channels', 'nap_status',
             'status', 'notes', 'services', 'catalog', 'created_at', 'updated_at',
         ]
-        read_only_fields = ['id', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'slug', 'created_at', 'updated_at']
 
 
 class ClientProfileSerializer(serializers.ModelSerializer):
     projects = ProjectSerializer(many=True, read_only=True)
     user_email = serializers.EmailField(source='user.email', read_only=True)
     user_name = serializers.CharField(source='user.get_full_name', read_only=True)
+    user_first_name = serializers.CharField(source='user.first_name', read_only=True)
+    user_last_name = serializers.CharField(source='user.last_name', read_only=True)
+    user_phone = serializers.CharField(source='user.phone', read_only=True)
 
     class Meta:
         model = ClientProfile
         fields = [
-            'id', 'user', 'user_email', 'user_name',
+            'id', 'slug', 'user', 'user_email', 'user_name',
+            'user_first_name', 'user_last_name', 'user_phone',
             'business_name', 'business_phone', 'business_email',
             'services', 'products', 'price_per_service',
             'service_locations', 'social_links', 'notes',
@@ -223,7 +224,7 @@ class ClientProfileSerializer(serializers.ModelSerializer):
 class TemplateDeliverableSerializer(serializers.ModelSerializer):
     class Meta:
         model = TemplateDeliverable
-        fields = ['id', 'template', 'category', 'title', 'description', 'frequency', 'quantity', 'week_due', 'sort_order']
+        fields = ['id', 'template', 'category', 'title', 'description', 'frequency', 'quantity', 'estimated_minutes', 'week_due', 'sort_order']
         read_only_fields = ['id']
 
 

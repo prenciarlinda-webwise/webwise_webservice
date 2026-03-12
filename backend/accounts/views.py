@@ -58,3 +58,12 @@ class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     permission_classes = [IsAdmin]
     queryset = User.objects.all()
+
+
+class AdminListView(generics.ListAPIView):
+    """Lightweight endpoint so employees can look up admins (e.g. for notifications)."""
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return User.objects.filter(role='admin').order_by('first_name')
