@@ -1,10 +1,12 @@
 from django.conf import settings
 from django.db import models
+from django.utils.text import slugify
 
 
 class ClientProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='client_profile')
     business_name = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=220, unique=True, blank=True)
     business_phone = models.CharField(max_length=20, blank=True)
     business_email = models.EmailField(blank=True)
     services = models.JSONField(default=list, blank=True, help_text='List of services offered')
@@ -15,6 +17,18 @@ class ClientProfile(models.Model):
     notes = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            full_name = self.user.get_full_name() or self.user.username
+            base = slugify(full_name) or 'client'
+            slug = base
+            n = 1
+            while ClientProfile.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f'{base}-{n}'
+                n += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.business_name
@@ -29,6 +43,7 @@ class Project(models.Model):
 
     client = models.ForeignKey(ClientProfile, on_delete=models.CASCADE, related_name='projects')
     name = models.CharField(max_length=200, help_text='e.g. "904 Dumpster", "Prenga Construction"')
+    slug = models.SlugField(max_length=220, unique=True, blank=True)
     business_phone = models.CharField(max_length=30, blank=True)
     business_email = models.EmailField(blank=True)
     business_address = models.CharField(max_length=300, blank=True)
@@ -40,6 +55,9 @@ class Project(models.Model):
     facebook_url = models.URLField(blank=True)
     instagram_url = models.URLField(blank=True)
     google_drive_url = models.URLField(blank=True, help_text='Internal Google Drive folder')
+    image_folder_url = models.URLField(blank=True, help_text='Image assets folder (Google Drive, Dropbox, etc.)')
+    citations_url = models.URLField(blank=True, help_text='Live citations spreadsheet link')
+    booking_url = models.URLField(blank=True, help_text='Booking/estimate request form URL')
     # Business intel
     industry = models.CharField(max_length=100, blank=True, help_text='e.g. "Waste Management", "Roofing"')
     target_audience = models.JSONField(default=list, blank=True, help_text='["General Contractors", "Homeowners"]')
@@ -52,6 +70,17 @@ class Project(models.Model):
     notes = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base = slugify(self.name) or 'project'
+            slug = base
+            n = 1
+            while Project.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f'{base}-{n}'
+                n += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.client.business_name} — {self.name}"
@@ -111,8 +140,26 @@ class MonthlyPlan(models.Model):
     month = models.DateField(help_text='First day of the month (e.g. 2026-03-01)')
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.PLANNED)
     notes = models.TextField(blank=True)
+    # Financials (per month per service)
+    monthly_retainer = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    content_writer_cost = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    tool_costs = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    link_building_spend = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    other_costs = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    @property
+    def total_costs(self):
+        costs = [self.content_writer_cost, self.tool_costs, self.link_building_spend, self.other_costs]
+        return sum(c for c in costs if c is not None)
+
+    @property
+    def profit_margin(self):
+        retainer = self.monthly_retainer or (self.project_service.monthly_price if self.project_service.monthly_price else None)
+        if retainer and self.total_costs:
+            return retainer - self.total_costs
+        return None
 
     def __str__(self):
         return f"{self.project_service} — {self.month.strftime('%B %Y')}"
@@ -143,6 +190,7 @@ class Deliverable(models.Model):
         BRANDING = 'branding', 'Branding'
         ADS = 'ads', 'Google Ads'
         LEADS = 'leads', 'Lead Platforms'
+        KEYWORD_RESEARCH = 'keyword_research', 'Keyword Research'
         COMPETITOR = 'competitor', 'Competitor Analysis'
         ACCOUNT = 'account', 'Account Management'
         QA = 'qa', 'QA'
@@ -172,6 +220,10 @@ class Deliverable(models.Model):
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.NOT_STARTED)
     frequency = models.CharField(max_length=15, choices=Frequency.choices, default=Frequency.ONCE)
     quantity = models.PositiveIntegerField(default=1)
+    estimated_minutes = models.PositiveIntegerField(
+        null=True, blank=True,
+        help_text='Expected time in minutes (e.g. 10 for a GBP post)',
+    )
     assigned_to = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL,
         null=True, blank=True, related_name='assigned_deliverables',
@@ -214,6 +266,10 @@ class TemplateDeliverable(models.Model):
     description = models.TextField(blank=True)
     frequency = models.CharField(max_length=15, choices=Deliverable.Frequency.choices, default='once')
     quantity = models.PositiveIntegerField(default=1)
+    estimated_minutes = models.PositiveIntegerField(
+        null=True, blank=True,
+        help_text='Expected time in minutes',
+    )
     week_due = models.CharField(max_length=20, blank=True, help_text='e.g. "Week 1", "Week 2", "Ongoing"')
     sort_order = models.PositiveIntegerField(default=0)
 
@@ -224,49 +280,3 @@ class TemplateDeliverable(models.Model):
         ordering = ['sort_order']
 
 
-# --- Monthly Performance Metrics ---
-
-class MonthlyMetrics(models.Model):
-    monthly_plan = models.OneToOneField(MonthlyPlan, on_delete=models.CASCADE, related_name='metrics')
-    # GBP metrics
-    gbp_views = models.IntegerField(null=True, blank=True)
-    gbp_searches = models.IntegerField(null=True, blank=True)
-    gbp_calls = models.IntegerField(null=True, blank=True)
-    gbp_direction_requests = models.IntegerField(null=True, blank=True)
-    gbp_website_clicks = models.IntegerField(null=True, blank=True)
-    # GA4
-    organic_sessions = models.IntegerField(null=True, blank=True)
-    organic_conversions = models.IntegerField(null=True, blank=True)
-    # Rankings
-    keywords_top_3 = models.IntegerField(null=True, blank=True)
-    keywords_top_10 = models.IntegerField(null=True, blank=True)
-    keywords_local_pack = models.IntegerField(null=True, blank=True)
-    # Reviews
-    total_reviews = models.IntegerField(null=True, blank=True)
-    average_rating = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
-    # Authority
-    new_backlinks = models.IntegerField(null=True, blank=True)
-    domain_authority = models.IntegerField(null=True, blank=True)
-    # Financials
-    monthly_retainer = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    content_writer_cost = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    tool_costs = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    link_building_spend = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    other_costs = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-
-    @property
-    def total_costs(self):
-        costs = [self.content_writer_cost, self.tool_costs, self.link_building_spend, self.other_costs]
-        return sum(c for c in costs if c is not None)
-
-    @property
-    def profit_margin(self):
-        if self.monthly_retainer and self.total_costs:
-            return self.monthly_retainer - self.total_costs
-        return None
-
-    def __str__(self):
-        return f"Metrics: {self.monthly_plan}"
-
-    class Meta:
-        verbose_name_plural = 'Monthly metrics'

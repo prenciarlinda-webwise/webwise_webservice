@@ -5,7 +5,7 @@ import { api } from '@/lib/api'
 import { useAuth } from '@/context/AuthContext'
 import PageHeader from '@/components/dashboard/PageHeader'
 import Modal from '@/components/dashboard/Modal'
-import { Bell, Check, CheckCheck, Send, AlertTriangle, Camera, Clock, MessageSquare } from 'lucide-react'
+import { Bell, Check, CheckCheck, Send, AlertTriangle, Camera, Clock, MessageSquare, ExternalLink } from 'lucide-react'
 
 interface Notification {
   id: number
@@ -19,6 +19,7 @@ interface Notification {
   priority: string
   title: string
   message: string
+  link: string
   is_read: boolean
   created_at: string
 }
@@ -56,6 +57,7 @@ export default function NotificationsPage() {
     priority: 'high',
     title: '',
     message: '',
+    link: '',
   })
 
   const reload = () => {
@@ -66,7 +68,7 @@ export default function NotificationsPage() {
     reload()
     api.get<{ results: Project[] }>('/clients/projects/').then(d => setProjects(d.results)).catch(() => {})
     if (user?.role === 'employee') {
-      api.get<{ results: { id: number; username: string; first_name: string; last_name: string }[] }>('/auth/users/?role=admin').then(d => setAdmins(d.results)).catch(() => {})
+      api.get<{ results: { id: number; username: string; first_name: string; last_name: string }[] }>('/auth/admins/').then(d => setAdmins(d.results)).catch(() => {})
     }
   }, [user?.role])
 
@@ -89,10 +91,11 @@ export default function NotificationsPage() {
       priority: form.priority,
       title: form.title,
       message: form.message,
+      link: form.link || '',
     })
     reload()
     setShowSend(false)
-    setForm({ recipient: '', project: '', category: 'photo_low', priority: 'high', title: '', message: '' })
+    setForm({ recipient: '', project: '', category: 'photo_low', priority: 'high', title: '', message: '', link: '' })
   }
 
   const quickAlert = (cat: string, projectId: number, projectName: string) => {
@@ -115,6 +118,7 @@ export default function NotificationsPage() {
       priority: 'high',
       title: t.title,
       message: t.message,
+      link: '',
     })
     setShowSend(true)
   }
@@ -187,6 +191,11 @@ export default function NotificationsPage() {
                   )}
                 </div>
                 <p className="text-sm text-text-secondary mb-2">{n.message}</p>
+                {n.link && (
+                  <a href={n.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs text-accent hover:underline mb-2">
+                    <ExternalLink size={11} /> {n.link.length > 60 ? n.link.slice(0, 60) + '…' : n.link}
+                  </a>
+                )}
                 <div className="flex items-center gap-3 text-xs text-text-muted">
                   <span>From: {n.sender_name || 'System'}</span>
                   <span>{new Date(n.created_at).toLocaleDateString()} {new Date(n.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
@@ -253,6 +262,10 @@ export default function NotificationsPage() {
           <div>
             <label className="block text-sm font-medium mb-1">Message *</label>
             <textarea rows={3} value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" required />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1">Link (optional)</label>
+            <input type="url" value={form.link} onChange={e => setForm(f => ({ ...f, link: e.target.value }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" placeholder="https://drive.google.com/... or live page URL" />
           </div>
           <div className="flex justify-end gap-3 pt-2">
             <button type="button" onClick={() => setShowSend(false)} className="px-4 py-2 text-sm text-text-secondary">Cancel</button>

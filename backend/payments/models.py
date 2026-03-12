@@ -5,6 +5,7 @@ from clients.models import ProjectService, Project, MonthlyPlan
 
 class Payment(models.Model):
     class Status(models.TextChoices):
+        PLANNED = 'planned', 'Planned'
         UPCOMING = 'upcoming', 'Upcoming'
         PENDING = 'pending', 'Pending'
         PAID = 'paid', 'Paid'
@@ -36,7 +37,8 @@ class Payment(models.Model):
 class ProjectCost(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='costs')
     description = models.CharField(max_length=300)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    planned_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, help_text='Budgeted/planned amount')
+    amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, help_text='Actual/done amount')
     date = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -91,3 +93,73 @@ class ExchangeRate(models.Model):
 
     def __str__(self):
         return f"1 {self.from_currency} = {self.rate} {self.to_currency}"
+
+
+class PersonalIncome(models.Model):
+    """Personal income sources (salary, owner's draw, freelance, etc.)."""
+    class Source(models.TextChoices):
+        SALARY = 'salary', 'Salary'
+        OWNERS_DRAW = 'owners_draw', "Owner's Draw"
+        FREELANCE = 'freelance', 'Freelance'
+        OTHER = 'other', 'Other'
+
+    source = models.CharField(max_length=15, choices=Source.choices)
+    description = models.CharField(max_length=300, help_text='e.g. "Quanta Core salary", "WebWise monthly draw"')
+    planned_amount = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True, help_text='Budgeted/planned amount')
+    amount = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True, help_text='Actual/received amount')
+    currency = models.CharField(max_length=5, default='LEK')
+    date = models.DateField(null=True, blank=True, help_text='Specific date of this income (e.g. 5th of the month)')
+    month = models.DateField(help_text='First day of the month this income applies to')
+    is_recurring = models.BooleanField(default=True)
+    recurring_day = models.PositiveSmallIntegerField(null=True, blank=True, help_text='Day of month for recurring items (e.g. 5 = 5th)')
+    notes = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-month', 'date', 'source']
+
+    def __str__(self):
+        return f"{self.description} — {self.amount} {self.currency} ({self.month.strftime('%B %Y')})"
+
+
+class PersonalExpense(models.Model):
+    """Personal monthly expenses tracked in LEK."""
+    class Category(models.TextChoices):
+        RENT = 'rent', 'Rent'
+        UTILITIES = 'utilities', 'Utilities'
+        GROCERIES = 'groceries', 'Groceries'
+        DINING = 'dining', 'Dining Out'
+        DELIVERY = 'delivery', 'Food Delivery'
+        TRANSPORT = 'transport', 'Transport'
+        GYM = 'gym', 'Gym/Fitness'
+        HEALTH = 'health', 'Health/Medical'
+        ENTERTAINMENT = 'entertainment', 'Entertainment'
+        CLOTHING = 'clothing', 'Clothing'
+        SUBSCRIPTIONS = 'subscriptions', 'Subscriptions'
+        EDUCATION = 'education', 'Education'
+        SAVINGS = 'savings', 'Savings/Investment'
+        DEBT = 'debt', 'Debt'
+        PERSONAL = 'personal', 'Personal'
+        HOME = 'home', 'Home'
+        GIFTS = 'gifts', 'Gifts'
+        PETS = 'pets', 'Pets'
+        TRAVEL = 'travel', 'Travel'
+        OTHER = 'other', 'Other'
+
+    category = models.CharField(max_length=20, choices=Category.choices)
+    description = models.CharField(max_length=300)
+    planned_amount = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True, help_text='Budgeted/planned amount')
+    amount = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True, help_text='Actual/paid amount')
+    currency = models.CharField(max_length=5, default='LEK')
+    date = models.DateField(null=True, blank=True, help_text='Specific date of this expense (e.g. 7th for rent)')
+    month = models.DateField(help_text='First day of the month this expense applies to')
+    is_recurring = models.BooleanField(default=False, help_text='If true, auto-suggested for future months')
+    recurring_day = models.PositiveSmallIntegerField(null=True, blank=True, help_text='Day of month for recurring items (e.g. 7 = 7th)')
+    notes = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-month', 'date', 'category']
+
+    def __str__(self):
+        return f"{self.description} — {self.amount} {self.currency} ({self.month.strftime('%B %Y')})"

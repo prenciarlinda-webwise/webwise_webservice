@@ -12,6 +12,7 @@ interface Deliverable {
   title: string
   status: string
   link: string
+  live_url: string
   completed_date: string | null
 }
 
@@ -34,6 +35,8 @@ const categoryColors: Record<string, string> = {
   technical: 'bg-orange-100 text-orange-700',
   review: 'bg-pink-100 text-pink-700',
   reporting: 'bg-cyan-100 text-cyan-700',
+  keyword_research: 'bg-teal-100 text-teal-700',
+  competitor: 'bg-slate-100 text-slate-700',
   design: 'bg-violet-100 text-violet-700',
   development: 'bg-emerald-100 text-emerald-700',
   other: 'bg-gray-100 text-gray-600',
@@ -94,7 +97,10 @@ export default function ClientProgressPage() {
                 </div>
                 <div className="flex items-center gap-4">
                   {d.link && (
-                    <a href={d.link} target="_blank" rel="noopener noreferrer" className="text-xs text-accent hover:underline">View</a>
+                    <a href={d.link} target="_blank" rel="noopener noreferrer" className="text-xs text-accent hover:underline">Draft</a>
+                  )}
+                  {d.live_url && (
+                    <a href={d.live_url} target="_blank" rel="noopener noreferrer" className="text-xs text-green-600 hover:underline">Live</a>
                   )}
                   <StatusBadge status={d.status} />
                 </div>

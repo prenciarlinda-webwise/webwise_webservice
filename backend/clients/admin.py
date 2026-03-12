@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (
     ClientProfile, Project, ProjectService, MonthlyPlan, Deliverable,
-    ServiceTemplate, TemplateDeliverable, MonthlyMetrics,
+    ServiceTemplate, TemplateDeliverable,
 )
 
 
@@ -20,12 +20,6 @@ class DeliverableInline(admin.TabularInline):
     model = Deliverable
     extra = 0
     fields = ['sort_order', 'category', 'title', 'status', 'assigned_to', 'link', 'live_url', 'due_date', 'completed_date']
-
-
-class MetricsInline(admin.StackedInline):
-    model = MonthlyMetrics
-    extra = 0
-    max_num = 1
 
 
 class TemplateDeliverableInline(admin.TabularInline):
@@ -59,7 +53,7 @@ class ProjectServiceAdmin(admin.ModelAdmin):
 class MonthlyPlanAdmin(admin.ModelAdmin):
     list_display = ['project_service', 'month', 'status']
     list_filter = ['status', 'month']
-    inlines = [DeliverableInline, MetricsInline]
+    inlines = [DeliverableInline]
 
 
 @admin.register(Deliverable)
@@ -73,8 +67,3 @@ class DeliverableAdmin(admin.ModelAdmin):
 class ServiceTemplateAdmin(admin.ModelAdmin):
     list_display = ['name', 'created_at']
     inlines = [TemplateDeliverableInline]
-
-
-@admin.register(MonthlyMetrics)
-class MonthlyMetricsAdmin(admin.ModelAdmin):
-    list_display = ['monthly_plan', 'gbp_views', 'organic_sessions', 'keywords_top_3']

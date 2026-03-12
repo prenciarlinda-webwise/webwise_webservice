@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { useParams } from 'next/navigation'
+import { useParams, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { api } from '@/lib/api'
 import { useAuth } from '@/context/AuthContext'
@@ -16,6 +16,7 @@ interface Deliverable {
   id: number; monthly_plan: number; category: string; category_display: string
   title: string; description: string; target_keyword: string
   status: string; frequency: string; quantity: number
+  estimated_minutes: number | null; logged_hours: string | null
   assigned_to: number | null; assigned_to_name: string | null
   link: string; live_url: string
   start_date: string | null; due_date: string | null; completed_date: string | null
@@ -52,10 +53,10 @@ interface CatalogItem {
 interface Competitor { name: string; notes?: string }
 
 interface Project {
-  id: number; client: number; client_name: string; client_id: number
+  id: number; slug: string; client: number; client_name: string; client_id: number; client_slug: string
   name: string; business_phone: string; business_email: string; business_address: string
   website_url: string; business_hours: string; service_areas: string[]
-  google_business_url: string; facebook_url: string; instagram_url: string; google_drive_url: string
+  google_business_url: string; facebook_url: string; instagram_url: string; google_drive_url: string; image_folder_url: string; citations_url: string; booking_url: string
   industry: string; target_audience: string[]; competitors: Competitor[]; usps: string[]
   marketing_channels: string[]; nap_status: string
   status: string; notes: string; services: Service[]; catalog: CatalogItem[]
@@ -105,7 +106,7 @@ const CATEGORIES = [
   { value: 'social', label: 'Social' }, { value: 'design', label: 'Design' },
   { value: 'development', label: 'Development' }, { value: 'logo', label: 'Logo' },
   { value: 'branding', label: 'Branding' }, { value: 'ads', label: 'Ads' },
-  { value: 'leads', label: 'Leads' }, { value: 'competitor', label: 'Competitor' },
+  { value: 'leads', label: 'Leads' }, { value: 'keyword_research', label: 'Keyword Research' }, { value: 'competitor', label: 'Competitor' },
   { value: 'account', label: 'Account' }, { value: 'qa', label: 'QA' },
   { value: 'other', label: 'Other' },
 ]
@@ -121,15 +122,19 @@ const STATUS_STYLE: Record<string, string> = {
 // ── Component ──────────────────────────────────────────
 
 export default function ProjectDetailPage() {
-  const { id } = useParams()
+  const { slug } = useParams()
+  const searchParams = useSearchParams()
+  const monthParam = searchParams.get('month') // e.g. "2026-02-01"
   const { user } = useAuth()
   const isAdmin = user?.role === 'admin'
   const isEmployee = user?.role === 'employee'
   const [project, setProject] = useState<Project | null>(null)
+  const projectId = project?.id // numeric ID for API calls
   const [employees, setEmployees] = useState<Employee[]>([])
   const [templates, setTemplates] = useState<ServiceTemplate[]>([])
   const [expandedService, setExpandedService] = useState<number | null>(null)
   const [expandedPlan, setExpandedPlan] = useState<number | null>(null)
+  const monthAppliedRef = useRef(false)
 
   // Modals
   const [showAddService, setShowAddService] = useState(false)
@@ -140,14 +145,14 @@ export default function ProjectDetailPage() {
   const [editDel, setEditDel] = useState<Deliverable | null>(null)
   const [delForm, setDelForm] = useState({
     category: 'other', title: '', description: '', target_keyword: '',
-    frequency: 'once', quantity: '1', assigned_to: '', status: 'not_started',
+    frequency: 'once', quantity: '1', estimated_minutes: '', assigned_to: '', status: 'not_started',
     link: '', live_url: '', start_date: '', due_date: '', completed_date: '', notes: '',
   })
   const [showEditProject, setShowEditProject] = useState(false)
   const [projForm, setProjForm] = useState({
     name: '', business_phone: '', business_email: '', business_address: '', website_url: '',
     business_hours: '', service_areas: '', google_business_url: '', facebook_url: '', instagram_url: '',
-    google_drive_url: '', industry: '', target_audience: '', competitors: '', usps: '',
+    google_drive_url: '', image_folder_url: '', citations_url: '', booking_url: '', industry: '', target_audience: '', competitors: '', usps: '',
     marketing_channels: '', nap_status: '', notes: '',
   })
   const [uploadPlanId, setUploadPlanId] = useState<number | null>(null)
@@ -164,35 +169,64 @@ export default function ProjectDetailPage() {
   const [ga4ByMonth, setGa4ByMonth] = useState<Record<string, GA4Metrics>>({})
   const [kwByMonth, setKwByMonth] = useState<Record<string, SearchTerm[]>>({})
   const [metricsTab, setMetricsTab] = useState<Record<number, 'gbp' | 'ga4' | 'keywords'>>({})
+  // Metrics modals
+  const [showGbpModal, setShowGbpModal] = useState<string | null>(null) // month string
+  const [gbpForm, setGbpForm] = useState({ calls: 0, chat_clicks: 0, bookings: 0, direction_clicks: 0, website_clicks: 0, total_interactions: 0, interactions_change_pct: '', profile_views: 0, profile_views_change_pct: '', search_desktop_pct: '', search_mobile_pct: '', maps_desktop_pct: '', maps_mobile_pct: '', photo_count: 0, review_count: 0, review_avg_rating: '', new_reviews: 0, posts_published: 0, notes: '' })
+  const [showGa4Modal, setShowGa4Modal] = useState<string | null>(null)
+  const [ga4Form, setGa4Form] = useState({ active_users: 0, new_users: 0, total_sessions: 0, avg_engagement_time_sec: 0, total_events: 0, page_views: 0, scrolls: 0, phone_clicks: 0, estimate_requests: 0, whatsapp_clicks: 0, email_clicks: 0, direction_clicks: 0, high_intent_pages: 0, financing_interest: 0, notes: '' })
+  const [showKwModal, setShowKwModal] = useState<string | null>(null)
+  const [kwForm, setKwForm] = useState({ source: 'gbp', keyword: '', impressions: 0, clicks: 0, avg_position: '', local_pack: false, notes: '' })
+  // Inline time logging for employee
+  const [logH, setLogH] = useState('')
+  const [logM, setLogM] = useState('')
+  const [logDesc, setLogDesc] = useState('')
+  const [logSaving, setLogSaving] = useState(false)
+  const [logSuccess, setLogSuccess] = useState('')
+
+  const loadMetrics = (pid: number) => {
+    if (isAdmin) {
+      api.get<{ results: typeof projectPayments }>(`/payments/?project=${pid}`).then(d => setProjectPayments(d.results))
+    }
+    api.get<{ results: GBPMetrics[] }>(`/reports/gbp/?project=${pid}`).then(d => {
+      const map: Record<string, GBPMetrics> = {}
+      d.results.forEach(g => { map[g.month] = g })
+      setGbpByMonth(map)
+    }).catch(() => {})
+    api.get<{ results: GA4Metrics[] }>(`/reports/ga4/?project=${pid}`).then(d => {
+      const map: Record<string, GA4Metrics> = {}
+      d.results.forEach(g => { map[g.month] = g })
+      setGa4ByMonth(map)
+    }).catch(() => {})
+    api.get<{ results: SearchTerm[] }>(`/reports/search-terms/?project=${pid}`).then(d => {
+      const map: Record<string, SearchTerm[]> = {}
+      d.results.forEach(k => { if (!map[k.month]) map[k.month] = []; map[k.month].push(k) })
+      setKwByMonth(map)
+    }).catch(() => {})
+  }
 
   const reload = () => {
-    api.get<Project>(`/clients/projects/${id}/`).then(p => {
+    api.get<Project>(`/clients/projects/by-slug/${slug}/`).then(p => {
       setProject(p)
-      if (p.services.length > 0 && expandedService === null) {
+      loadMetrics(p.id)
+      if (monthParam && !monthAppliedRef.current && p.services.length > 0) {
+        monthAppliedRef.current = true
+        for (const svc of p.services) {
+          const matchingPlan = svc.monthly_plans.find(mp => mp.month === monthParam)
+          if (matchingPlan) {
+            setExpandedService(svc.id)
+            setExpandedPlan(matchingPlan.id)
+            return
+          }
+        }
+        setExpandedService(p.services[0].id)
+        const firstPlan = p.services[0].monthly_plans[0]
+        if (firstPlan) setExpandedPlan(firstPlan.id)
+      } else if (p.services.length > 0 && expandedService === null) {
         setExpandedService(p.services[0].id)
         const firstPlan = p.services[0].monthly_plans[0]
         if (firstPlan) setExpandedPlan(firstPlan.id)
       }
     })
-    if (isAdmin) {
-      api.get<{ results: typeof projectPayments }>(`/payments/?project=${id}`).then(d => setProjectPayments(d.results))
-      // Fetch analytics metrics for this project
-      api.get<{ results: GBPMetrics[] }>(`/reports/gbp/?project=${id}`).then(d => {
-        const map: Record<string, GBPMetrics> = {}
-        d.results.forEach(g => { map[g.month] = g })
-        setGbpByMonth(map)
-      }).catch(() => {})
-      api.get<{ results: GA4Metrics[] }>(`/reports/ga4/?project=${id}`).then(d => {
-        const map: Record<string, GA4Metrics> = {}
-        d.results.forEach(g => { map[g.month] = g })
-        setGa4ByMonth(map)
-      }).catch(() => {})
-      api.get<{ results: SearchTerm[] }>(`/reports/search-terms/?project=${id}`).then(d => {
-        const map: Record<string, SearchTerm[]> = {}
-        d.results.forEach(k => { if (!map[k.month]) map[k.month] = []; map[k.month].push(k) })
-        setKwByMonth(map)
-      }).catch(() => {})
-    }
   }
 
   useEffect(() => {
@@ -201,14 +235,14 @@ export default function ProjectDetailPage() {
       api.get<{ results: Employee[] }>('/auth/users/?role=employee').then(d => setEmployees(d.results))
       api.get<{ results: ServiceTemplate[] }>('/clients/templates/').then(d => setTemplates(d.results))
     }
-  }, [id, isAdmin])
+  }, [slug, isAdmin]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Actions ────────────────────────────────────────
 
   const addService = async (e: React.FormEvent) => {
     e.preventDefault()
     await api.post('/clients/services/', {
-      project: Number(id), name: serviceForm.name, description: serviceForm.description,
+      project: projectId!, name: serviceForm.name, description: serviceForm.description,
       monthly_price: serviceForm.monthly_price || null,
       template_id: serviceForm.template_id ? Number(serviceForm.template_id) : undefined,
     })
@@ -242,11 +276,13 @@ export default function ProjectDetailPage() {
   }
 
   const openDelForm = (d?: Deliverable, planId?: number) => {
+    setLogH(''); setLogM(''); setLogDesc(''); setLogSuccess('')
     if (d) {
       setEditDel(d)
       setDelForm({
         category: d.category, title: d.title, description: d.description, target_keyword: d.target_keyword,
-        frequency: d.frequency, quantity: String(d.quantity), assigned_to: d.assigned_to ? String(d.assigned_to) : '',
+        frequency: d.frequency, quantity: String(d.quantity), estimated_minutes: d.estimated_minutes ? String(d.estimated_minutes) : '',
+        assigned_to: d.assigned_to ? String(d.assigned_to) : '',
         status: d.status, link: d.link, live_url: d.live_url,
         start_date: d.start_date || '', due_date: d.due_date || '', completed_date: d.completed_date || '', notes: d.notes,
       })
@@ -255,7 +291,7 @@ export default function ProjectDetailPage() {
       setShowAddDel(planId!)
       setDelForm({
         category: 'other', title: '', description: '', target_keyword: '',
-        frequency: 'once', quantity: '1', assigned_to: '', status: 'not_started',
+        frequency: 'once', quantity: '1', estimated_minutes: '', assigned_to: '', status: 'not_started',
         link: '', live_url: '', start_date: '', due_date: '', completed_date: '', notes: '',
       })
     }
@@ -269,6 +305,7 @@ export default function ProjectDetailPage() {
     const data = {
       ...delForm,
       quantity: Number(delForm.quantity) || 1,
+      estimated_minutes: delForm.estimated_minutes ? Number(delForm.estimated_minutes) : null,
       assigned_to: delForm.assigned_to ? Number(delForm.assigned_to) : null,
       start_date: delForm.start_date || null, due_date: delForm.due_date || null,
       completed_date: delForm.completed_date || null,
@@ -285,6 +322,30 @@ export default function ProjectDetailPage() {
       const msg = err && typeof err === 'object' && 'detail' in err ? String((err as Record<string, unknown>).detail) : 'Failed to save deliverable. Check all fields.'
       setDelError(msg)
     }
+  }
+
+  const logTimeForDel = async () => {
+    if (!editDel) return
+    const hours = (Number(logH) || 0) + (Number(logM) || 0) / 60
+    if (hours <= 0) return
+    setLogSaving(true)
+    try {
+      await api.post('/employees/tasks/', {
+        deliverable: editDel.id,
+        client: project?.client,
+        description: logDesc,
+        hours: Math.round(hours * 100) / 100,
+        date: new Date().toISOString().split('T')[0],
+        document_link: '', live_link: '',
+      })
+      const hPart = Number(logH) || 0
+      const mPart = Number(logM) || 0
+      setLogSuccess(`Logged ${hPart > 0 ? `${hPart}h ` : ''}${mPart > 0 ? `${mPart}min` : hPart > 0 ? '' : '0min'}`.trim())
+      setLogH(''); setLogM(''); setLogDesc('')
+      reload()
+      setTimeout(() => setLogSuccess(''), 3000)
+    } catch { setLogSuccess('Failed to log time') }
+    finally { setLogSaving(false) }
   }
 
   const deleteDel = async (did: number) => {
@@ -305,7 +366,7 @@ export default function ProjectDetailPage() {
       business_hours: project.business_hours || '', service_areas: (project.service_areas || []).join(', '),
       google_business_url: project.google_business_url || '', facebook_url: project.facebook_url || '',
       instagram_url: project.instagram_url || '', google_drive_url: project.google_drive_url || '',
-      industry: project.industry || '', target_audience: (project.target_audience || []).join(', '),
+      image_folder_url: project.image_folder_url || '', citations_url: project.citations_url || '', booking_url: project.booking_url || '', industry: project.industry || '', target_audience: (project.target_audience || []).join(', '),
       competitors: (project.competitors || []).map((c: Competitor) => c.notes ? `${c.name} — ${c.notes}` : c.name).join('\n'),
       usps: (project.usps || []).join('\n'), marketing_channels: (project.marketing_channels || []).join(', '),
       nap_status: project.nap_status || '', notes: project.notes,
@@ -320,7 +381,8 @@ export default function ProjectDetailPage() {
       business_address: projForm.business_address, website_url: projForm.website_url,
       business_hours: projForm.business_hours, google_business_url: projForm.google_business_url,
       facebook_url: projForm.facebook_url, instagram_url: projForm.instagram_url,
-      google_drive_url: projForm.google_drive_url, notes: projForm.notes,
+      google_drive_url: projForm.google_drive_url, image_folder_url: projForm.image_folder_url,
+      citations_url: projForm.citations_url, booking_url: projForm.booking_url, notes: projForm.notes,
       industry: projForm.industry, nap_status: projForm.nap_status,
       service_areas: projForm.service_areas.split(',').map(s => s.trim()).filter(Boolean),
       target_audience: projForm.target_audience.split(',').map(s => s.trim()).filter(Boolean),
@@ -331,7 +393,7 @@ export default function ProjectDetailPage() {
         return { name: name.trim(), notes: rest.join('—').trim() || undefined }
       }),
     }
-    await api.patch(`/clients/projects/${id}/`, data)
+    await api.patch(`/clients/projects/${projectId}/`, data)
     reload(); setShowEditProject(false)
   }
 
@@ -384,7 +446,7 @@ export default function ProjectDetailPage() {
       if (k && v.length) specs[k.trim()] = v.join(':').trim()
     })
     const data = {
-      project: Number(id), item_type: catalogForm.item_type, name: catalogForm.name,
+      project: projectId!, item_type: catalogForm.item_type, name: catalogForm.name,
       description: catalogForm.description, price: catalogForm.price || null,
       price_unit: catalogForm.price_unit, duration_days: catalogForm.duration_days ? Number(catalogForm.duration_days) : null,
       specifications: specs,
@@ -402,6 +464,65 @@ export default function ProjectDetailPage() {
     await api.delete(`/clients/catalog/${cid}/`); reload()
   }
 
+  // ── Metrics CRUD ──
+  const saveGbp = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!showGbpModal) return
+    const existing = gbpByMonth[showGbpModal]
+    const data = {
+      project: projectId!, month: showGbpModal,
+      calls: Number(gbpForm.calls), chat_clicks: Number(gbpForm.chat_clicks), bookings: Number(gbpForm.bookings),
+      direction_clicks: Number(gbpForm.direction_clicks), website_clicks: Number(gbpForm.website_clicks),
+      total_interactions: Number(gbpForm.total_interactions), interactions_change_pct: gbpForm.interactions_change_pct || null,
+      profile_views: Number(gbpForm.profile_views), profile_views_change_pct: gbpForm.profile_views_change_pct || null,
+      search_desktop_pct: gbpForm.search_desktop_pct || 0, search_mobile_pct: gbpForm.search_mobile_pct || 0,
+      maps_desktop_pct: gbpForm.maps_desktop_pct || 0, maps_mobile_pct: gbpForm.maps_mobile_pct || 0,
+      photo_count: Number(gbpForm.photo_count), review_count: Number(gbpForm.review_count),
+      review_avg_rating: gbpForm.review_avg_rating || 0, new_reviews: Number(gbpForm.new_reviews),
+      posts_published: Number(gbpForm.posts_published), notes: gbpForm.notes,
+    }
+    if (existing) await api.patch(`/reports/gbp/${existing.id}/`, data)
+    else await api.post('/reports/gbp/', data)
+    reload(); setShowGbpModal(null)
+  }
+
+  const saveGa4 = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!showGa4Modal) return
+    const existing = ga4ByMonth[showGa4Modal]
+    const data = {
+      project: projectId!, month: showGa4Modal,
+      active_users: Number(ga4Form.active_users), new_users: Number(ga4Form.new_users),
+      total_sessions: Number(ga4Form.total_sessions), avg_engagement_time_sec: Number(ga4Form.avg_engagement_time_sec),
+      total_events: Number(ga4Form.total_events), page_views: Number(ga4Form.page_views), scrolls: Number(ga4Form.scrolls),
+      phone_clicks: Number(ga4Form.phone_clicks), estimate_requests: Number(ga4Form.estimate_requests),
+      whatsapp_clicks: Number(ga4Form.whatsapp_clicks), email_clicks: Number(ga4Form.email_clicks),
+      direction_clicks: Number(ga4Form.direction_clicks), high_intent_pages: Number(ga4Form.high_intent_pages),
+      financing_interest: Number(ga4Form.financing_interest), notes: ga4Form.notes,
+    }
+    if (existing) await api.patch(`/reports/ga4/${existing.id}/`, data)
+    else await api.post('/reports/ga4/', data)
+    reload(); setShowGa4Modal(null)
+  }
+
+  const saveKw = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!showKwModal) return
+    await api.post('/reports/search-terms/', {
+      project: projectId!, month: showKwModal,
+      source: kwForm.source, keyword: kwForm.keyword,
+      impressions: Number(kwForm.impressions), clicks: Number(kwForm.clicks),
+      avg_position: kwForm.avg_position || null, local_pack: kwForm.local_pack, notes: kwForm.notes,
+    })
+    reload(); setShowKwModal(null)
+  }
+
+  const deleteKw = async (kwId: number) => {
+    if (!confirm('Delete this keyword?')) return
+    await api.delete(`/reports/search-terms/${kwId}/`)
+    reload()
+  }
+
   if (!project) return <div className="animate-pulse h-8 w-48 bg-bg-secondary rounded" />
 
   const totalDel = project.services.reduce((s, svc) => s + svc.monthly_plans.reduce((s2, p) => s2 + p.deliverables.length, 0), 0)
@@ -415,7 +536,7 @@ export default function ProjectDetailPage() {
         action={
           <div className="flex items-center gap-3">
             <StatusBadge status={project.status} />
-            <Link href={`/dashboard/clients/${project.client_id}`} className="text-sm text-text-muted hover:text-accent">← {project.client_name}</Link>
+            {isAdmin && <Link href={`/dashboard/clients/${project.client_slug}`} className="text-sm text-text-muted hover:text-accent">← {project.client_name}</Link>}
           </div>
         }
       />
@@ -426,11 +547,9 @@ export default function ProjectDetailPage() {
         <div className="px-5 py-4 border-b border-border flex items-center justify-between">
           <div className="flex items-center gap-3">
             <h2 className="font-semibold text-sm">Business Reference</h2>
-            {project.industry && <span className="text-xs bg-bg-secondary px-2 py-0.5 rounded">{project.industry}</span>}
-            {project.nap_status && <span className="text-xs bg-amber-50 text-amber-700 px-2 py-0.5 rounded">NAP: {project.nap_status}</span>}
           </div>
           <div className="flex items-center gap-4">
-            {isAdmin && <button onClick={openEditProject} className="text-xs text-text-muted hover:text-accent"><Pencil size={14} /></button>}
+            {(isAdmin || isEmployee) && <button onClick={openEditProject} className="text-xs text-text-muted hover:text-accent"><Pencil size={14} /></button>}
             <div className="flex items-center gap-2">
               <div className="w-24 h-2 bg-bg-secondary rounded-full overflow-hidden">
                 <div className="h-full bg-accent rounded-full" style={{ width: `${pct}%` }} />
@@ -444,101 +563,85 @@ export default function ProjectDetailPage() {
           {/* Left: Contact & NAP */}
           <div className="p-5 space-y-3 text-sm">
             <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2">
-              {project.website_url && (
-                <>
-                  <span className="text-xs font-medium text-text-muted">Website</span>
-                  <a href={project.website_url} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline text-sm truncate">{project.website_url}</a>
-                </>
-              )}
-              {project.business_phone && (
-                <>
-                  <span className="text-xs font-medium text-text-muted">Phone</span>
-                  <span>{project.business_phone}</span>
-                </>
-              )}
-              {project.business_email && (
-                <>
-                  <span className="text-xs font-medium text-text-muted">Email</span>
-                  <span>{project.business_email}</span>
-                </>
-              )}
-              {project.business_address && (
-                <>
-                  <span className="text-xs font-medium text-text-muted">Address</span>
-                  <span>{project.business_address}</span>
-                </>
-              )}
-              {project.business_hours && (
-                <>
-                  <span className="text-xs font-medium text-text-muted">Hours</span>
-                  <span>{project.business_hours}</span>
-                </>
-              )}
+              <span className="text-xs font-medium text-text-muted">Industry</span>
+              {project.industry ? <span>{project.industry}</span> : <span className="text-xs text-text-muted italic">Not set</span>}
+
+              <span className="text-xs font-medium text-text-muted">NAP Status</span>
+              {project.nap_status ? <span className="text-xs bg-amber-50 text-amber-700 px-2 py-0.5 rounded w-fit">{project.nap_status}</span> : <span className="text-xs text-text-muted italic">Not set</span>}
+
+              <span className="text-xs font-medium text-text-muted">Website</span>
+              {project.website_url ? <a href={project.website_url} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline text-sm truncate">{project.website_url}</a> : <span className="text-xs text-text-muted italic">Not set</span>}
+
+              <span className="text-xs font-medium text-text-muted">Phone</span>
+              {project.business_phone ? <span>{project.business_phone}</span> : <span className="text-xs text-text-muted italic">Not set</span>}
+
+              <span className="text-xs font-medium text-text-muted">Email</span>
+              {project.business_email ? <span>{project.business_email}</span> : <span className="text-xs text-text-muted italic">Not set</span>}
+
+              <span className="text-xs font-medium text-text-muted">Address</span>
+              {project.business_address ? <span>{project.business_address}</span> : <span className="text-xs text-text-muted italic">Not set</span>}
+
+              <span className="text-xs font-medium text-text-muted">Hours</span>
+              {project.business_hours ? <span>{project.business_hours}</span> : <span className="text-xs text-text-muted italic">Not set</span>}
             </div>
 
             {/* Digital profiles */}
-            {(project.google_business_url || project.facebook_url || project.instagram_url || project.google_drive_url) && (
-              <div className="pt-3 border-t border-border">
-                <p className="text-xs font-medium text-text-muted mb-2">Digital Profiles</p>
-                <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-sm">
-                  {project.google_business_url && (
-                    <>
-                      <span className="text-xs text-text-muted">GBP</span>
-                      <a href={project.google_business_url} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline truncate text-xs">{project.google_business_url}</a>
-                    </>
-                  )}
-                  {project.facebook_url && (
-                    <>
-                      <span className="text-xs text-text-muted">Facebook</span>
-                      <a href={project.facebook_url} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline truncate text-xs">{project.facebook_url}</a>
-                    </>
-                  )}
-                  {project.instagram_url && (
-                    <>
-                      <span className="text-xs text-text-muted">Instagram</span>
-                      <a href={project.instagram_url} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline truncate text-xs">{project.instagram_url}</a>
-                    </>
-                  )}
-                  {project.google_drive_url && (
-                    <>
-                      <span className="text-xs text-text-muted">Drive</span>
-                      <a href={project.google_drive_url} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline truncate text-xs">Google Drive Folder</a>
-                    </>
-                  )}
-                </div>
+            <div className="pt-3 border-t border-border">
+              <p className="text-xs font-medium text-text-muted mb-2">Digital Profiles</p>
+              <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-sm">
+                <span className="text-xs text-text-muted">GBP</span>
+                {project.google_business_url ? <a href={project.google_business_url} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline truncate text-xs">{project.google_business_url}</a> : <span className="text-xs text-text-muted italic">Not set</span>}
+
+                <span className="text-xs text-text-muted">Facebook</span>
+                {project.facebook_url ? <a href={project.facebook_url} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline truncate text-xs">{project.facebook_url}</a> : <span className="text-xs text-text-muted italic">Not set</span>}
+
+                <span className="text-xs text-text-muted">Instagram</span>
+                {project.instagram_url ? <a href={project.instagram_url} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline truncate text-xs">{project.instagram_url}</a> : <span className="text-xs text-text-muted italic">Not set</span>}
+
+                <span className="text-xs text-text-muted">Drive</span>
+                {project.google_drive_url ? <a href={project.google_drive_url} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline truncate text-xs">Google Drive Folder</a> : <span className="text-xs text-text-muted italic">Not set</span>}
+
+                <span className="text-xs text-text-muted">Images</span>
+                {project.image_folder_url ? <a href={project.image_folder_url} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline truncate text-xs">Image Folder</a> : <span className="text-xs text-text-muted italic">Not set</span>}
+
+                <span className="text-xs text-text-muted">Citations</span>
+                {project.citations_url ? <a href={project.citations_url} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline truncate text-xs">Live Citations</a> : <span className="text-xs text-text-muted italic">Not set</span>}
+
+                <span className="text-xs text-text-muted">Booking</span>
+                {project.booking_url ? <a href={project.booking_url} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline truncate text-xs">Booking Form</a> : <span className="text-xs text-text-muted italic">Not set</span>}
               </div>
-            )}
+            </div>
           </div>
 
           {/* Right: Intel */}
           <div className="p-5 space-y-3 text-xs">
-            {project.service_areas?.length > 0 && (
-              <div>
-                <p className="font-medium text-text-muted mb-1">Service Areas</p>
+            <div>
+              <p className="font-medium text-text-muted mb-1">Service Areas</p>
+              {project.service_areas?.length > 0 ? (
                 <div className="flex flex-wrap gap-1">
                   {project.service_areas.map((a: string) => <span key={a} className="bg-bg-secondary px-2 py-0.5 rounded">{a}</span>)}
                 </div>
-              </div>
-            )}
-            {project.target_audience?.length > 0 && (
-              <div>
-                <p className="font-medium text-text-muted mb-1">Target Audience</p>
+              ) : <span className="text-text-muted italic">Not set</span>}
+            </div>
+            <div>
+              <p className="font-medium text-text-muted mb-1">Target Audience</p>
+              {project.target_audience?.length > 0 ? (
                 <div className="flex flex-wrap gap-1">
                   {project.target_audience.map(a => <span key={a} className="bg-blue-50 text-blue-700 px-2 py-0.5 rounded">{a}</span>)}
                 </div>
-              </div>
-            )}
-            {project.usps?.length > 0 && (
-              <div>
-                <p className="font-medium text-text-muted mb-1">Unique Selling Points</p>
+              ) : <span className="text-text-muted italic">Not set</span>}
+            </div>
+            <div>
+              <p className="font-medium text-text-muted mb-1">Unique Selling Points</p>
+              {project.usps?.length > 0 ? (
                 <ul className="space-y-0.5">
                   {project.usps.map(u => <li key={u} className="text-text-secondary">• {u}</li>)}
                 </ul>
-              </div>
-            )}
-            {project.competitors?.length > 0 && (
-              <div>
-                <p className="font-medium text-text-muted mb-1">Competitors</p>
+              ) : <span className="text-text-muted italic">Not set</span>}
+            </div>
+            <div>
+              <p className="font-medium text-text-muted mb-1">Competitors</p>
+              {project.competitors?.length > 0 ? (
                 <div className="flex flex-wrap gap-1">
                   {project.competitors.map(c => (
                     <span key={c.name} className="bg-red-50 text-red-700 px-2 py-0.5 rounded" title={c.notes || ''}>
@@ -546,22 +649,20 @@ export default function ProjectDetailPage() {
                     </span>
                   ))}
                 </div>
-              </div>
-            )}
-            {project.marketing_channels?.length > 0 && (
-              <div>
-                <p className="font-medium text-text-muted mb-1">Marketing Channels</p>
+              ) : <span className="text-text-muted italic">Not set</span>}
+            </div>
+            <div>
+              <p className="font-medium text-text-muted mb-1">Marketing Channels</p>
+              {project.marketing_channels?.length > 0 ? (
                 <div className="flex flex-wrap gap-1">
                   {project.marketing_channels.map(ch => <span key={ch} className="bg-purple-50 text-purple-700 px-2 py-0.5 rounded">{ch}</span>)}
                 </div>
-              </div>
-            )}
-            {project.notes && !isEmployee && (
-              <div>
-                <p className="font-medium text-text-muted mb-1">Notes</p>
-                <p className="text-text-secondary">{project.notes}</p>
-              </div>
-            )}
+              ) : <span className="text-text-muted italic">Not set</span>}
+            </div>
+            <div>
+              <p className="font-medium text-text-muted mb-1">Notes</p>
+              {project.notes && !isEmployee ? <p className="text-text-secondary">{project.notes}</p> : <span className="text-text-muted italic">Not set</span>}
+            </div>
           </div>
         </div>
       </div>
@@ -636,66 +737,6 @@ export default function ProjectDetailPage() {
         </div>
       )}
 
-      {/* Payment Summary (admin only) */}
-      {isAdmin && projectPayments.length > 0 && (
-        <div className="bg-white rounded-xl border border-border mb-6 overflow-hidden">
-          <div className="px-5 py-3 border-b border-border flex items-center justify-between">
-            <h2 className="font-semibold text-sm">Payment History</h2>
-            <a href="/dashboard/payments" className="text-xs text-accent hover:underline">Manage all &rarr;</a>
-          </div>
-          <div className="grid grid-cols-4 gap-4 px-5 py-3 border-b border-border bg-bg-secondary/30">
-            <div>
-              <p className="text-xs text-text-muted">Paid</p>
-              <p className="text-sm font-semibold text-green-600">€{projectPayments.filter(p => p.status === 'paid').reduce((s, p) => s + Number(p.amount), 0).toLocaleString()}</p>
-            </div>
-            <div>
-              <p className="text-xs text-text-muted">Overdue</p>
-              <p className="text-sm font-semibold text-red-600">€{projectPayments.filter(p => p.status === 'overdue').reduce((s, p) => s + Number(p.amount), 0).toLocaleString()}</p>
-            </div>
-            <div>
-              <p className="text-xs text-text-muted">Pending</p>
-              <p className="text-sm font-semibold text-yellow-600">€{projectPayments.filter(p => p.status === 'pending').reduce((s, p) => s + Number(p.amount), 0).toLocaleString()}</p>
-            </div>
-            <div>
-              <p className="text-xs text-text-muted">Upcoming</p>
-              <p className="text-sm font-semibold text-blue-600">€{projectPayments.filter(p => p.status === 'upcoming').reduce((s, p) => s + Number(p.amount), 0).toLocaleString()}</p>
-            </div>
-          </div>
-          <table className="w-full">
-            <thead>
-              <tr className="text-left text-xs text-text-muted">
-                <th className="px-5 py-2">Service</th>
-                <th className="px-5 py-2">Description</th>
-                <th className="px-5 py-2">Amount</th>
-                <th className="px-5 py-2">Due</th>
-                <th className="px-5 py-2">Paid</th>
-                <th className="px-5 py-2">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {projectPayments.map(p => (
-                <tr key={p.id} className="border-t border-border hover:bg-bg-secondary/30">
-                  <td className="px-5 py-2 text-sm">{p.service_name}</td>
-                  <td className="px-5 py-2 text-sm text-text-secondary">{p.description || '—'}</td>
-                  <td className="px-5 py-2 text-sm font-medium">€{Number(p.amount).toLocaleString()}</td>
-                  <td className="px-5 py-2 text-sm text-text-secondary">{p.due_date || '—'}</td>
-                  <td className="px-5 py-2 text-sm text-text-secondary">{p.paid_date || '—'}</td>
-                  <td className="px-5 py-2">
-                    <span className={`text-xs font-medium rounded-full px-2 py-0.5 ${
-                      p.status === 'paid' ? 'bg-green-100 text-green-700' :
-                      p.status === 'overdue' ? 'bg-red-100 text-red-700' :
-                      p.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
-                      p.status === 'upcoming' ? 'bg-blue-100 text-blue-700' :
-                      'bg-gray-100 text-gray-500'
-                    }`}>{p.status}</span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-
       {/* Services header */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold">Services</h2>
@@ -708,7 +749,9 @@ export default function ProjectDetailPage() {
 
       {/* Services list */}
       <div className="space-y-3">
-        {project.services.map(service => {
+        {[...project.services]
+          .filter(s => !isEmployee || s.monthly_plans.some(p => p.deliverables.some(d => d.assigned_to === user?.id)))
+          .sort((a, b) => (a.status === 'completed' ? 1 : 0) - (b.status === 'completed' ? 1 : 0)).map(service => {
           const isExp = expandedService === service.id
           const sTotal = service.monthly_plans.reduce((s, p) => s + p.deliverables.length, 0)
           const sDone = service.monthly_plans.reduce((s, p) => s + p.deliverables.filter(d => d.status === 'completed' || d.status === 'published').length, 0)
@@ -766,9 +809,11 @@ export default function ProjectDetailPage() {
                                   <th className="px-5 py-2">Deliverable</th>
                                   {!isEmployee && <th className="px-5 py-2">Assigned</th>}
                                   <th className="px-5 py-2">Status</th>
+                                  <th className="px-5 py-2">Est.</th>
+                                  <th className="px-5 py-2">Logged</th>
                                   <th className="px-5 py-2">Due</th>
                                   <th className="px-5 py-2">Links</th>
-                                  {isAdmin && <th className="px-5 py-2 w-16"></th>}
+                                  {(isAdmin || isEmployee) && <th className="px-5 py-2 w-16"></th>}
                                 </tr>
                               </thead>
                               <tbody>
@@ -792,6 +837,8 @@ export default function ProjectDetailPage() {
                                         {d.status.replace(/_/g, ' ')}
                                       </span>
                                     </td>
+                                    <td className="px-5 py-2.5 text-xs text-text-muted">{d.estimated_minutes ? `${d.estimated_minutes}m` : '—'}</td>
+                                    <td className={`px-5 py-2.5 text-xs font-medium ${d.logged_hours && d.estimated_minutes && Number(d.logged_hours) * 60 > d.estimated_minutes ? 'text-red-500' : 'text-text-muted'}`}>{d.logged_hours ? (() => { const h = Number(d.logged_hours); const hrs = Math.floor(h); const mins = Math.round((h - hrs) * 60); return hrs > 0 ? `${hrs}h ${mins > 0 ? `${mins}m` : ''}` : `${mins}m` })() : '—'}</td>
                                     <td className="px-5 py-2.5 text-xs text-text-secondary">{d.due_date || '—'}</td>
                                     <td className="px-5 py-2.5" onClick={e => e.stopPropagation()}>
                                       <div className="flex gap-2">
@@ -800,32 +847,33 @@ export default function ProjectDetailPage() {
                                         {!d.link && !d.live_url && <span className="text-xs text-text-muted">—</span>}
                                       </div>
                                     </td>
-                                    {isAdmin && (
+                                    {(isAdmin || isEmployee) && (
                                       <td className="px-5 py-2.5" onClick={e => e.stopPropagation()}>
                                         <div className="flex items-center gap-1">
                                           <button onClick={() => openDelForm(d)} className="text-text-muted hover:text-accent"><Pencil size={12} /></button>
-                                          <button onClick={() => deleteDel(d.id)} className="text-red-400 hover:text-red-600"><Trash2 size={12} /></button>
+                                          {isAdmin && <button onClick={() => deleteDel(d.id)} className="text-red-400 hover:text-red-600"><Trash2 size={12} /></button>}
                                         </div>
                                       </td>
                                     )}
                                   </tr>
                                 ))}
                                 {(isEmployee ? plan.deliverables.filter(d => d.assigned_to === user?.id) : plan.deliverables).length === 0 && (
-                                  <tr><td colSpan={isAdmin ? 7 : isEmployee ? 5 : 6} className="px-5 py-6 text-center text-text-muted text-sm">{isEmployee ? 'No tasks assigned to you' : 'No deliverables yet'}</td></tr>
+                                  <tr><td colSpan={(isAdmin || isEmployee) ? 9 : 8} className="px-5 py-6 text-center text-text-muted text-sm">{isEmployee ? 'No tasks assigned to you' : 'No deliverables yet'}</td></tr>
                                 )}
                               </tbody>
                             </table>
-                            {isAdmin && (
+                            {(isAdmin || isEmployee) && (
                               <div className="px-5 py-2.5 border-t border-border">
                                 <button onClick={() => openDelForm(undefined, plan.id)} className="flex items-center gap-1 text-xs text-accent hover:underline"><Plus size={12} /> Add Deliverable</button>
                               </div>
                             )}
 
-                            {/* Reports section */}
+                            {/* Reports section — admin only */}
+                            {!isEmployee && (
                             <div className="px-5 py-3 border-t border-border bg-bg-secondary/30">
                               <div className="flex items-center justify-between mb-2">
                                 <span className="text-xs font-medium text-text-muted flex items-center gap-1"><FileText size={12} /> Reports</span>
-                                {(isAdmin || isEmployee) && (
+                                {isAdmin && (
                                   <button onClick={() => { setUploadPlanId(plan.id); setUploadTitle(`${plan.month_display} Report`) }} className="flex items-center gap-1 text-xs text-accent hover:underline">
                                     <Upload size={11} /> Upload Report
                                   </button>
@@ -855,9 +903,10 @@ export default function ProjectDetailPage() {
                                 <p className="text-xs text-text-muted">No reports uploaded yet</p>
                               )}
                             </div>
+                            )}
 
                             {/* Performance Metrics section */}
-                            {isAdmin && (() => {
+                            {(() => {
                               const gbp = gbpByMonth[plan.month]
                               const ga4 = ga4ByMonth[plan.month]
                               const kws = kwByMonth[plan.month] || []
@@ -867,9 +916,13 @@ export default function ProjectDetailPage() {
                                 <div className="px-5 py-3 border-t border-border bg-gradient-to-r from-blue-50/30 to-green-50/30">
                                   <div className="flex items-center justify-between mb-3">
                                     <span className="text-xs font-semibold text-text-muted flex items-center gap-1"><BarChart3 size={12} /> Performance Metrics</span>
-                                    <Link href="/dashboard/reports" className="text-xs text-accent hover:underline">
-                                      {hasData ? 'Edit in Reports →' : '+ Add metrics in Reports →'}
-                                    </Link>
+                                    {(isAdmin || isEmployee) && (
+                                      <div className="flex items-center gap-2">
+                                        <button onClick={() => { const g = gbpByMonth[plan.month]; setGbpForm(g ? { calls: g.calls, chat_clicks: g.chat_clicks, bookings: g.bookings, direction_clicks: g.direction_clicks, website_clicks: g.website_clicks, total_interactions: g.total_interactions, interactions_change_pct: g.interactions_change_pct || '', profile_views: g.profile_views, profile_views_change_pct: g.profile_views_change_pct || '', search_desktop_pct: String(g.search_desktop_pct), search_mobile_pct: String(g.search_mobile_pct), maps_desktop_pct: String(g.maps_desktop_pct), maps_mobile_pct: String(g.maps_mobile_pct), photo_count: g.photo_count, review_count: g.review_count, review_avg_rating: String(g.review_avg_rating), new_reviews: g.new_reviews, posts_published: g.posts_published, notes: g.notes } : { calls: 0, chat_clicks: 0, bookings: 0, direction_clicks: 0, website_clicks: 0, total_interactions: 0, interactions_change_pct: '', profile_views: 0, profile_views_change_pct: '', search_desktop_pct: '', search_mobile_pct: '', maps_desktop_pct: '', maps_mobile_pct: '', photo_count: 0, review_count: 0, review_avg_rating: '', new_reviews: 0, posts_published: 0, notes: '' }); setShowGbpModal(plan.month) }} className="text-[10px] text-accent hover:underline">{gbp ? 'Edit GBP' : '+ GBP'}</button>
+                                        {isAdmin && <button onClick={() => { const g = ga4ByMonth[plan.month]; setGa4Form(g ? { active_users: g.active_users, new_users: g.new_users, total_sessions: g.total_sessions, avg_engagement_time_sec: g.avg_engagement_time_sec, total_events: g.total_events, page_views: g.page_views, scrolls: g.scrolls, phone_clicks: g.phone_clicks, estimate_requests: g.estimate_requests, whatsapp_clicks: g.whatsapp_clicks, email_clicks: g.email_clicks, direction_clicks: g.direction_clicks, high_intent_pages: g.high_intent_pages, financing_interest: g.financing_interest, notes: g.notes } : { active_users: 0, new_users: 0, total_sessions: 0, avg_engagement_time_sec: 0, total_events: 0, page_views: 0, scrolls: 0, phone_clicks: 0, estimate_requests: 0, whatsapp_clicks: 0, email_clicks: 0, direction_clicks: 0, high_intent_pages: 0, financing_interest: 0, notes: '' }); setShowGa4Modal(plan.month) }} className="text-[10px] text-accent hover:underline">{ga4 ? 'Edit GA4' : '+ GA4'}</button>}
+                                        {isAdmin && <button onClick={() => { setKwForm({ source: 'gbp', keyword: '', impressions: 0, clicks: 0, avg_position: '', local_pack: false, notes: '' }); setShowKwModal(plan.month) }} className="text-[10px] text-accent hover:underline">+ Keyword</button>}
+                                      </div>
+                                    )}
                                   </div>
 
                                   {hasData && (
@@ -987,6 +1040,7 @@ export default function ProjectDetailPage() {
                                                 <th className="px-3 py-2">Clicks</th>
                                                 <th className="px-3 py-2">Position</th>
                                                 <th className="px-3 py-2">Local Pack</th>
+                                                {isAdmin && <th className="px-3 py-2"></th>}
                                               </tr>
                                             </thead>
                                             <tbody>
@@ -998,6 +1052,7 @@ export default function ProjectDetailPage() {
                                                   <td className="px-3 py-1.5">{k.clicks}</td>
                                                   <td className="px-3 py-1.5 font-medium">{k.avg_position || '—'}</td>
                                                   <td className="px-3 py-1.5">{k.local_pack ? <span className="text-green-600 font-medium">Yes</span> : '—'}</td>
+                                                  {isAdmin && <td className="px-3 py-1.5"><button onClick={() => deleteKw(k.id)} className="text-text-muted hover:text-red-500"><Trash2 size={12} /></button></td>}
                                                 </tr>
                                               ))}
                                             </tbody>
@@ -1008,7 +1063,7 @@ export default function ProjectDetailPage() {
                                     </>
                                   )}
 
-                                  {!hasData && <p className="text-xs text-text-muted">No metrics recorded yet. Add data in Reports to see results here.</p>}
+                                  {!hasData && <p className="text-xs text-text-muted">No metrics recorded yet.{isAdmin && ' Use the buttons above to add GBP, GA4, or keyword data.'}</p>}
                                 </div>
                               )
                             })()}
@@ -1038,6 +1093,67 @@ export default function ProjectDetailPage() {
         )}
       </div>
 
+      {/* Payment Summary (admin only) — below services */}
+      {isAdmin && projectPayments.length > 0 && (
+        <div className="bg-white rounded-xl border border-border mt-6 overflow-hidden">
+          <div className="px-5 py-3 border-b border-border flex items-center justify-between">
+            <h2 className="font-semibold text-sm">Payment History</h2>
+            <a href={`/dashboard/finances/business?project=${projectId}`} className="text-xs text-accent hover:underline">Manage all &rarr;</a>
+          </div>
+          <div className="grid grid-cols-4 gap-4 px-5 py-3 border-b border-border bg-bg-secondary/30">
+            <div>
+              <p className="text-xs text-text-muted">Paid</p>
+              <p className="text-sm font-semibold text-green-600">€{projectPayments.filter(p => p.status === 'paid').reduce((s, p) => s + Number(p.amount), 0).toLocaleString()}</p>
+            </div>
+            <div>
+              <p className="text-xs text-text-muted">Overdue</p>
+              <p className="text-sm font-semibold text-red-600">€{projectPayments.filter(p => p.status === 'overdue').reduce((s, p) => s + Number(p.amount), 0).toLocaleString()}</p>
+            </div>
+            <div>
+              <p className="text-xs text-text-muted">Pending</p>
+              <p className="text-sm font-semibold text-yellow-600">€{projectPayments.filter(p => p.status === 'pending').reduce((s, p) => s + Number(p.amount), 0).toLocaleString()}</p>
+            </div>
+            <div>
+              <p className="text-xs text-text-muted">Upcoming</p>
+              <p className="text-sm font-semibold text-blue-600">€{projectPayments.filter(p => p.status === 'upcoming').reduce((s, p) => s + Number(p.amount), 0).toLocaleString()}</p>
+            </div>
+          </div>
+          <table className="w-full">
+            <thead>
+              <tr className="text-left text-xs text-text-muted">
+                <th className="px-5 py-2">Service</th>
+                <th className="px-5 py-2">Description</th>
+                <th className="px-5 py-2">Amount</th>
+                <th className="px-5 py-2">Due</th>
+                <th className="px-5 py-2">Paid</th>
+                <th className="px-5 py-2">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {projectPayments.map(p => (
+                <tr key={p.id} className="border-t border-border hover:bg-bg-secondary/30">
+                  <td className="px-5 py-2 text-sm">{p.service_name}</td>
+                  <td className="px-5 py-2 text-sm text-text-secondary">{p.description || '—'}</td>
+                  <td className="px-5 py-2 text-sm font-medium">€{Number(p.amount).toLocaleString()}</td>
+                  <td className="px-5 py-2 text-sm text-text-secondary">{p.due_date || '—'}</td>
+                  <td className="px-5 py-2 text-sm text-text-secondary">{p.paid_date || '—'}</td>
+                  <td className="px-5 py-2">
+                    <span className={`text-xs font-medium rounded-full px-2 py-0.5 ${
+                      p.status === 'paid' ? 'bg-green-100 text-green-700' :
+                      p.status === 'overdue' ? 'bg-red-100 text-red-700' :
+                      p.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
+                      p.status === 'upcoming' ? 'bg-blue-100 text-blue-700' :
+                      p.status === 'planned' ? 'bg-purple-100 text-purple-700' :
+                      'bg-gray-100 text-gray-500'
+                    }`}>{p.status}</span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
       {/* ── Edit / Add Deliverable Modal ── */}
       <Modal open={editDel !== null || showAddDel !== null} onClose={() => { setEditDel(null); setShowAddDel(null) }} title={editDel ? (isEmployee ? 'Update Task' : 'Edit Deliverable') : 'Add Deliverable'} wide>
         <form onSubmit={saveDel} className="space-y-4">
@@ -1045,11 +1161,15 @@ export default function ProjectDetailPage() {
           {isEmployee ? (
             <>
               <div className="bg-bg-secondary/50 rounded-lg p-4">
-                <h3 className="font-semibold text-sm">{delForm.title}</h3>
+                <div>
+                  <label className="block text-[10px] font-medium text-text-muted mb-0.5">Title</label>
+                  <input value={delForm.title} onChange={e => setDelForm(f => ({ ...f, title: e.target.value }))} className="w-full px-2.5 py-1.5 border border-border rounded-lg text-sm font-semibold" />
+                </div>
                 <p className="text-xs text-text-muted mt-1">
                   {CATEGORIES.find(c => c.value === delForm.category)?.label}
                   {delForm.target_keyword && <> · <span className="italic">{delForm.target_keyword}</span></>}
                   {delForm.due_date && <> · Due: {delForm.due_date}</>}
+                  {delForm.estimated_minutes && <> · <span className="text-accent font-medium"><Clock size={10} className="inline" /> {delForm.estimated_minutes}min target</span></>}
                 </p>
               </div>
               <div>
@@ -1058,6 +1178,7 @@ export default function ProjectDetailPage() {
                   <option value="not_started">Not Started</option>
                   <option value="in_progress">In Progress</option>
                   <option value="completed">Completed</option>
+                  <option value="published">Published</option>
                 </select>
               </div>
               <div>
@@ -1078,6 +1199,31 @@ export default function ProjectDetailPage() {
                 <label className="block text-xs font-medium text-text-muted mb-1">Notes</label>
                 <textarea value={delForm.notes} onChange={e => setDelForm(f => ({ ...f, notes: e.target.value }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm h-16" placeholder="Any additional notes..." />
               </div>
+              {/* Inline time log */}
+              {editDel && (
+                <div className="border-t border-border pt-4">
+                  <label className="block text-xs font-semibold text-text-muted mb-2 flex items-center gap-1"><Clock size={12} /> Log Time for This Task</label>
+                  <div className="flex items-end gap-3">
+                    <div className="w-20">
+                      <label className="block text-[10px] text-text-muted mb-0.5">Hours</label>
+                      <input type="number" min="0" value={logH} onChange={e => setLogH(e.target.value)} className="w-full px-2.5 py-1.5 border border-border rounded-lg text-sm" placeholder="0" />
+                    </div>
+                    <div className="w-20">
+                      <label className="block text-[10px] text-text-muted mb-0.5">Minutes</label>
+                      <input type="number" min="0" max="59" value={logM} onChange={e => setLogM(e.target.value)} className="w-full px-2.5 py-1.5 border border-border rounded-lg text-sm" placeholder="0" />
+                    </div>
+                    <div className="flex-1">
+                      <label className="block text-[10px] text-text-muted mb-0.5">Description (optional)</label>
+                      <input value={logDesc} onChange={e => setLogDesc(e.target.value)} className="w-full px-2.5 py-1.5 border border-border rounded-lg text-sm" placeholder="What did you do?" />
+                    </div>
+                    <button type="button" onClick={logTimeForDel} disabled={logSaving || ((Number(logH) || 0) === 0 && (Number(logM) || 0) === 0)} className="px-4 py-1.5 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary/90 disabled:opacity-50 whitespace-nowrap">
+                      {logSaving ? 'Saving...' : 'Log'}
+                    </button>
+                  </div>
+                  {logSuccess && <p className={`text-xs mt-1 ${logSuccess.startsWith('Failed') ? 'text-red-500' : 'text-green-600'}`}>{logSuccess}</p>}
+                  {delForm.estimated_minutes && <p className="text-[10px] text-text-muted mt-1">Target: {Number(delForm.estimated_minutes) >= 60 ? `${Math.floor(Number(delForm.estimated_minutes) / 60)}h ${Number(delForm.estimated_minutes) % 60}min` : `${delForm.estimated_minutes}min`}</p>}
+                </div>
+              )}
             </>
           ) : (
             <>
@@ -1156,6 +1302,10 @@ export default function ProjectDetailPage() {
                 <div>
                   <label className="block text-xs font-medium text-text-muted mb-1">Quantity</label>
                   <input type="number" value={delForm.quantity} onChange={e => setDelForm(f => ({ ...f, quantity: e.target.value }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" min="1" />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-text-muted mb-1">Est. Minutes</label>
+                  <input type="number" value={delForm.estimated_minutes} onChange={e => setDelForm(f => ({ ...f, estimated_minutes: e.target.value }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" min="1" placeholder="e.g. 10" />
                 </div>
               </div>
               <div>
@@ -1304,6 +1454,18 @@ export default function ProjectDetailPage() {
               <label className="block text-xs font-medium text-text-muted mb-1">Google Drive URL</label>
               <input value={projForm.google_drive_url} onChange={e => setProjForm(f => ({ ...f, google_drive_url: e.target.value }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" placeholder="Internal drive folder link" />
             </div>
+            <div>
+              <label className="block text-xs font-medium text-text-muted mb-1">Image Folder URL</label>
+              <input value={projForm.image_folder_url} onChange={e => setProjForm(f => ({ ...f, image_folder_url: e.target.value }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" placeholder="Google Drive / Dropbox images link" />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-text-muted mb-1">Citations Spreadsheet URL</label>
+              <input value={projForm.citations_url} onChange={e => setProjForm(f => ({ ...f, citations_url: e.target.value }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" placeholder="Google Sheets citations link" />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-text-muted mb-1">Booking / Estimate Form URL</label>
+              <input value={projForm.booking_url} onChange={e => setProjForm(f => ({ ...f, booking_url: e.target.value }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" placeholder="Booking form link" />
+            </div>
           </div>
 
           <hr className="border-border" />
@@ -1387,6 +1549,143 @@ export default function ProjectDetailPage() {
           <div className="flex justify-end gap-3 pt-2">
             <button type="button" onClick={() => setShowCatalogModal(false)} className="px-4 py-2 text-sm text-text-secondary">Cancel</button>
             <button type="submit" className="px-6 py-2 bg-primary text-white text-sm font-medium rounded-lg">{editCatalog ? 'Save' : 'Add'}</button>
+          </div>
+        </form>
+      </Modal>
+
+      {/* ── GBP Metrics Modal ── */}
+      <Modal open={!!showGbpModal} onClose={() => setShowGbpModal(null)} title={`GBP Metrics — ${showGbpModal ? new Date(showGbpModal + 'T00:00').toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : ''}`}>
+        <form onSubmit={saveGbp} className="space-y-4 max-h-[70vh] overflow-y-auto pr-1">
+          <p className="text-xs font-semibold text-text-muted uppercase tracking-wide">Interactions</p>
+          <div className="grid grid-cols-3 gap-3">
+            {[
+              { key: 'calls', label: 'Calls' }, { key: 'chat_clicks', label: 'Chat Clicks' }, { key: 'bookings', label: 'Bookings' },
+              { key: 'direction_clicks', label: 'Directions' }, { key: 'website_clicks', label: 'Website Clicks' }, { key: 'total_interactions', label: 'Total Interactions' },
+            ].map(f => (
+              <div key={f.key}>
+                <label className="block text-xs font-medium mb-1">{f.label}</label>
+                <input type="number" value={(gbpForm as Record<string, unknown>)[f.key] as number} onChange={e => setGbpForm(prev => ({ ...prev, [f.key]: Number(e.target.value) }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" />
+              </div>
+            ))}
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-medium mb-1">Interactions Change %</label>
+              <input type="number" step="0.1" value={gbpForm.interactions_change_pct} onChange={e => setGbpForm(f => ({ ...f, interactions_change_pct: e.target.value }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" />
+            </div>
+            <div>
+              <label className="block text-xs font-medium mb-1">Profile Views</label>
+              <input type="number" value={gbpForm.profile_views} onChange={e => setGbpForm(f => ({ ...f, profile_views: Number(e.target.value) }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" />
+            </div>
+          </div>
+          <p className="text-xs font-semibold text-text-muted uppercase tracking-wide pt-2">Reviews & Posts</p>
+          <div className="grid grid-cols-4 gap-3">
+            <div>
+              <label className="block text-xs font-medium mb-1">Reviews</label>
+              <input type="number" value={gbpForm.review_count} onChange={e => setGbpForm(f => ({ ...f, review_count: Number(e.target.value) }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" />
+            </div>
+            <div>
+              <label className="block text-xs font-medium mb-1">Avg Rating</label>
+              <input type="number" step="0.1" value={gbpForm.review_avg_rating} onChange={e => setGbpForm(f => ({ ...f, review_avg_rating: e.target.value }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" />
+            </div>
+            <div>
+              <label className="block text-xs font-medium mb-1">New Reviews</label>
+              <input type="number" value={gbpForm.new_reviews} onChange={e => setGbpForm(f => ({ ...f, new_reviews: Number(e.target.value) }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" />
+            </div>
+            <div>
+              <label className="block text-xs font-medium mb-1">Posts Published</label>
+              <input type="number" value={gbpForm.posts_published} onChange={e => setGbpForm(f => ({ ...f, posts_published: Number(e.target.value) }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" />
+            </div>
+          </div>
+          <div>
+            <label className="block text-xs font-medium mb-1">Notes</label>
+            <textarea value={gbpForm.notes} onChange={e => setGbpForm(f => ({ ...f, notes: e.target.value }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" rows={2} />
+          </div>
+          <div className="flex justify-end gap-3 pt-2">
+            <button type="button" onClick={() => setShowGbpModal(null)} className="px-4 py-2 text-sm text-text-secondary">Cancel</button>
+            <button type="submit" className="px-6 py-2 bg-primary text-white text-sm font-medium rounded-lg">Save</button>
+          </div>
+        </form>
+      </Modal>
+
+      {/* ── GA4 Metrics Modal ── */}
+      <Modal open={!!showGa4Modal} onClose={() => setShowGa4Modal(null)} title={`GA4 Metrics — ${showGa4Modal ? new Date(showGa4Modal + 'T00:00').toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : ''}`}>
+        <form onSubmit={saveGa4} className="space-y-4 max-h-[70vh] overflow-y-auto pr-1">
+          <p className="text-xs font-semibold text-text-muted uppercase tracking-wide">Users & Sessions</p>
+          <div className="grid grid-cols-4 gap-3">
+            {[
+              { key: 'active_users', label: 'Active Users' }, { key: 'new_users', label: 'New Users' },
+              { key: 'total_sessions', label: 'Sessions' }, { key: 'avg_engagement_time_sec', label: 'Avg Engagement (s)' },
+            ].map(f => (
+              <div key={f.key}>
+                <label className="block text-xs font-medium mb-1">{f.label}</label>
+                <input type="number" value={(ga4Form as Record<string, unknown>)[f.key] as number} onChange={e => setGa4Form(prev => ({ ...prev, [f.key]: Number(e.target.value) }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" />
+              </div>
+            ))}
+          </div>
+          <p className="text-xs font-semibold text-text-muted uppercase tracking-wide pt-2">Events</p>
+          <div className="grid grid-cols-3 gap-3">
+            {[
+              { key: 'page_views', label: 'Page Views' }, { key: 'phone_clicks', label: 'Phone Clicks' },
+              { key: 'estimate_requests', label: 'Estimate Requests' }, { key: 'whatsapp_clicks', label: 'WhatsApp' },
+              { key: 'email_clicks', label: 'Email Clicks' }, { key: 'direction_clicks', label: 'Directions' },
+            ].map(f => (
+              <div key={f.key}>
+                <label className="block text-xs font-medium mb-1">{f.label}</label>
+                <input type="number" value={(ga4Form as Record<string, unknown>)[f.key] as number} onChange={e => setGa4Form(prev => ({ ...prev, [f.key]: Number(e.target.value) }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" />
+              </div>
+            ))}
+          </div>
+          <div>
+            <label className="block text-xs font-medium mb-1">Notes</label>
+            <textarea value={ga4Form.notes} onChange={e => setGa4Form(f => ({ ...f, notes: e.target.value }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" rows={2} />
+          </div>
+          <div className="flex justify-end gap-3 pt-2">
+            <button type="button" onClick={() => setShowGa4Modal(null)} className="px-4 py-2 text-sm text-text-secondary">Cancel</button>
+            <button type="submit" className="px-6 py-2 bg-primary text-white text-sm font-medium rounded-lg">Save</button>
+          </div>
+        </form>
+      </Modal>
+
+      {/* ── Keyword Modal ── */}
+      <Modal open={!!showKwModal} onClose={() => setShowKwModal(null)} title={`Add Keyword — ${showKwModal ? new Date(showKwModal + 'T00:00').toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : ''}`}>
+        <form onSubmit={saveKw} className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-medium mb-1">Source</label>
+              <select value={kwForm.source} onChange={e => setKwForm(f => ({ ...f, source: e.target.value }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm">
+                <option value="gbp">Google Business Profile</option>
+                <option value="gsc">Google Search Console</option>
+                <option value="brightlocal">BrightLocal</option>
+                <option value="ahrefs">Ahrefs</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs font-medium mb-1">Keyword *</label>
+              <input required value={kwForm.keyword} onChange={e => setKwForm(f => ({ ...f, keyword: e.target.value }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" />
+            </div>
+          </div>
+          <div className="grid grid-cols-3 gap-3">
+            <div>
+              <label className="block text-xs font-medium mb-1">Impressions</label>
+              <input type="number" value={kwForm.impressions} onChange={e => setKwForm(f => ({ ...f, impressions: Number(e.target.value) }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" />
+            </div>
+            <div>
+              <label className="block text-xs font-medium mb-1">Clicks</label>
+              <input type="number" value={kwForm.clicks} onChange={e => setKwForm(f => ({ ...f, clicks: Number(e.target.value) }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" />
+            </div>
+            <div>
+              <label className="block text-xs font-medium mb-1">Avg Position</label>
+              <input type="number" step="0.1" value={kwForm.avg_position} onChange={e => setKwForm(f => ({ ...f, avg_position: e.target.value }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" />
+            </div>
+          </div>
+          <label className="flex items-center gap-2 text-sm">
+            <input type="checkbox" checked={kwForm.local_pack} onChange={e => setKwForm(f => ({ ...f, local_pack: e.target.checked }))} />
+            Appears in Local Pack
+          </label>
+          <div className="flex justify-end gap-3 pt-2">
+            <button type="button" onClick={() => setShowKwModal(null)} className="px-4 py-2 text-sm text-text-secondary">Cancel</button>
+            <button type="submit" className="px-6 py-2 bg-primary text-white text-sm font-medium rounded-lg">Add</button>
           </div>
         </form>
       </Modal>

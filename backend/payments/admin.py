@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Payment, ProjectCost, BusinessExpense, ExchangeRate
+from .models import Payment, ProjectCost, BusinessExpense, ExchangeRate, PersonalIncome, PersonalExpense
 
 
 @admin.register(Payment)
@@ -26,3 +26,17 @@ class BusinessExpenseAdmin(admin.ModelAdmin):
 @admin.register(ExchangeRate)
 class ExchangeRateAdmin(admin.ModelAdmin):
     list_display = ['from_currency', 'to_currency', 'rate', 'updated_at']
+
+
+@admin.register(PersonalIncome)
+class PersonalIncomeAdmin(admin.ModelAdmin):
+    list_display = ['description', 'source', 'amount', 'currency', 'month', 'is_recurring']
+    list_filter = ['source', 'currency', 'is_recurring']
+    date_hierarchy = 'month'
+
+
+@admin.register(PersonalExpense)
+class PersonalExpenseAdmin(admin.ModelAdmin):
+    list_display = ['description', 'category', 'amount', 'currency', 'month', 'is_recurring']
+    list_filter = ['category', 'currency', 'is_recurring']
+    date_hierarchy = 'month'

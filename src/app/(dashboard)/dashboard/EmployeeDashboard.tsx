@@ -6,6 +6,7 @@ import { api } from '@/lib/api'
 import { useAuth } from '@/context/AuthContext'
 import PageHeader from '@/components/dashboard/PageHeader'
 import StatsCard from '@/components/dashboard/StatsCard'
+import StatusBadge from '@/components/dashboard/StatusBadge'
 
 interface Deliverable {
   id: number
@@ -13,49 +14,84 @@ interface Deliverable {
   category_display: string
   status: string
   due_date: string | null
-  plan?: { client_name: string; service_name: string }
+  assigned_to: number | null
+  plan?: { client_name: string; service_name: string; project_name: string; project_id: number }
 }
 
 interface MonthlyPlan {
   id: number
   service_name: string
   project_name: string
+  project_id: number
   client_name: string
   deliverables: Deliverable[]
+}
+
+interface EmpSummary {
+  month: string
+  total_hours: string
+  total_logs: number
+  active_tasks: number
+  completed_tasks: number
+  projects: { id: number; slug: string; name: string; status: string }[]
 }
 
 export default function EmployeeDashboard() {
   const { user } = useAuth()
   const [plans, setPlans] = useState<MonthlyPlan[]>([])
+  const [summary, setSummary] = useState<EmpSummary | null>(null)
 
   useEffect(() => {
     api.get<{ results: MonthlyPlan[] }>('/clients/plans/').then(d => setPlans(d.results))
+    api.get<EmpSummary>('/employees/summary/').then(setSummary)
   }, [])
 
-  const allDels = plans.flatMap(p => p.deliverables.map(d => ({ ...d, plan: p })))
+  const allDels = plans.flatMap(p => p.deliverables.map(d => ({ ...d, plan: { client_name: p.client_name, service_name: p.service_name, project_name: p.project_name, project_id: p.project_id } })))
   const todo = allDels.filter(d => d.status === 'not_started')
   const inProgress = allDels.filter(d => d.status === 'in_progress')
   const completed = allDels.filter(d => d.status === 'completed' || d.status === 'published')
   const today = new Date().toISOString().split('T')[0]
   const overdue = allDels.filter(d => d.due_date && d.due_date < today && d.status !== 'completed' && d.status !== 'published')
 
-  // Upcoming tasks sorted by due date
   const upcoming = allDels
     .filter(d => d.status !== 'completed' && d.status !== 'published')
     .sort((a, b) => (a.due_date || '9999').localeCompare(b.due_date || '9999'))
     .slice(0, 10)
 
+  const monthHours = summary ? Number(summary.total_hours) : 0
+
   return (
     <div>
-      <PageHeader title={`Welcome, ${user?.first_name}`} description="Your assigned tasks overview" />
+      <PageHeader title={`Welcome, ${user?.first_name}`} description="Your work overview" />
 
-      <div className="grid grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
         <StatsCard label="To Do" value={String(todo.length)} color="default" />
         <StatsCard label="In Progress" value={String(inProgress.length)} color="blue" />
         <StatsCard label="Overdue" value={String(overdue.length)} color="red" />
         <StatsCard label="Completed" value={String(completed.length)} color="green" />
+        <StatsCard label="Hours This Month" value={monthHours.toFixed(1)} color="default" />
       </div>
 
+      {/* My Projects */}
+      {summary && summary.projects.length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-lg font-semibold mb-4">My Projects</h2>
+          <div className="space-y-2">
+            {summary.projects.map(p => (
+              <Link
+                key={p.id}
+                href={`/dashboard/projects/${p.slug}`}
+                className="flex items-center justify-between bg-white rounded-xl border border-border p-4 hover:border-accent/30 hover:shadow-sm transition-all"
+              >
+                <h3 className="font-medium text-sm">{p.name}</h3>
+                <StatusBadge status={p.status} />
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Upcoming Tasks */}
       <div className="bg-white rounded-xl border border-border">
         <div className="px-6 py-4 border-b border-border flex items-center justify-between">
           <h2 className="font-semibold text-text-primary">Upcoming Tasks</h2>
@@ -64,7 +100,7 @@ export default function EmployeeDashboard() {
         <table className="w-full">
           <thead>
             <tr className="text-left text-xs text-text-muted border-b border-border">
-              <th className="px-6 py-3">Client</th>
+              <th className="px-6 py-3">Project</th>
               <th className="px-6 py-3">Task</th>
               <th className="px-6 py-3">Category</th>
               <th className="px-6 py-3">Status</th>
@@ -75,7 +111,7 @@ export default function EmployeeDashboard() {
             {upcoming.map(d => (
               <tr key={d.id} className="border-b border-border last:border-0 hover:bg-bg-secondary/50">
                 <td className="px-6 py-3">
-                  <p className="text-sm font-medium">{d.plan?.client_name}</p>
+                  <Link href={`/dashboard/projects/${d.plan?.project_id}`} className="text-sm font-medium hover:text-accent">{d.plan?.project_name}</Link>
                   <p className="text-xs text-text-muted">{d.plan?.service_name}</p>
                 </td>
                 <td className="px-6 py-3 text-sm">{d.title}</td>

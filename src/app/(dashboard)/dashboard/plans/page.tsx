@@ -7,6 +7,7 @@ import PageHeader from '@/components/dashboard/PageHeader'
 import StatusBadge from '@/components/dashboard/StatusBadge'
 import Modal from '@/components/dashboard/Modal'
 import { Plus, Trash2, ExternalLink } from 'lucide-react'
+import Link from 'next/link'
 
 interface Deliverable {
   id: number
@@ -29,17 +30,6 @@ interface Deliverable {
   sort_order: number
 }
 
-interface Metrics {
-  id: number
-  monthly_plan: number
-  gbp_views: number; gbp_searches: number; gbp_calls: number; gbp_direction_requests: number; gbp_website_clicks: number
-  organic_sessions: number; organic_conversions: number
-  keywords_top_3: number; keywords_top_10: number; keywords_local_pack: number
-  total_reviews: number; average_rating: string; new_backlinks: number; domain_authority: number
-  monthly_retainer: string; content_writer_cost: string; tool_costs: string; link_building_spend: string; other_costs: string
-  total_costs: string; profit_margin: string
-}
-
 interface MonthlyPlan {
   id: number
   project_service: number
@@ -47,13 +37,19 @@ interface MonthlyPlan {
   project_name: string
   client_name: string
   client_id: number
+  project_id: number
   month: string
   month_display: string
   status: string
   notes: string
   progress: { total: number; completed: number; in_progress: number; not_started: number; percent: number }
+  monthly_retainer: string | null
+  content_writer_cost: string | null
+  tool_costs: string | null
+  link_building_spend: string | null
+  other_costs: string | null
+  total_costs: string | null
   deliverables: Deliverable[]
-  metrics: Metrics | null
 }
 
 interface Employee { id: number; first_name: string; last_name: string }
@@ -80,6 +76,7 @@ const categoryColors: Record<string, string> = {
   branding: 'bg-fuchsia-100 text-fuchsia-700',
   ads: 'bg-red-100 text-red-700',
   leads: 'bg-lime-100 text-lime-700',
+  keyword_research: 'bg-teal-100 text-teal-700',
   competitor: 'bg-slate-100 text-slate-700',
   account: 'bg-stone-100 text-stone-700',
   qa: 'bg-sky-100 text-sky-700',
@@ -106,6 +103,7 @@ const CATEGORIES = [
   { value: 'branding', label: 'Branding' },
   { value: 'ads', label: 'Ads' },
   { value: 'leads', label: 'Leads' },
+  { value: 'keyword_research', label: 'Keyword Research' },
   { value: 'competitor', label: 'Competitor' },
   { value: 'account', label: 'Account' },
   { value: 'qa', label: 'QA' },
@@ -128,10 +126,6 @@ export default function MonthlyPlansPage() {
   // Add Deliverable state
   const [showAddDeliverable, setShowAddDeliverable] = useState<number | null>(null)
   const [delForm, setDelForm] = useState({ category: 'other', title: '', description: '', target_keyword: '', frequency: 'once', quantity: '1', assigned_to: '', due_date: '' })
-
-  // Metrics state
-  const [showMetrics, setShowMetrics] = useState<number | null>(null)
-  const [metricsForm, setMetricsForm] = useState<Record<string, string>>({})
 
   const reload = () => {
     api.get<{ results: MonthlyPlan[] }>('/clients/plans/').then(d => {
@@ -229,45 +223,6 @@ export default function MonthlyPlansPage() {
     }))
   }
 
-  const openMetrics = (plan: MonthlyPlan) => {
-    const m = plan.metrics
-    setMetricsForm({
-      monthly_plan: String(plan.id),
-      gbp_views: String(m?.gbp_views || 0),
-      gbp_searches: String(m?.gbp_searches || 0),
-      gbp_calls: String(m?.gbp_calls || 0),
-      gbp_direction_requests: String(m?.gbp_direction_requests || 0),
-      gbp_website_clicks: String(m?.gbp_website_clicks || 0),
-      organic_sessions: String(m?.organic_sessions || 0),
-      organic_conversions: String(m?.organic_conversions || 0),
-      keywords_top_3: String(m?.keywords_top_3 || 0),
-      keywords_top_10: String(m?.keywords_top_10 || 0),
-      keywords_local_pack: String(m?.keywords_local_pack || 0),
-      total_reviews: String(m?.total_reviews || 0),
-      average_rating: String(m?.average_rating || '0'),
-      new_backlinks: String(m?.new_backlinks || 0),
-      domain_authority: String(m?.domain_authority || 0),
-      monthly_retainer: String(m?.monthly_retainer || '0'),
-      content_writer_cost: String(m?.content_writer_cost || '0'),
-      tool_costs: String(m?.tool_costs || '0'),
-      link_building_spend: String(m?.link_building_spend || '0'),
-      other_costs: String(m?.other_costs || '0'),
-    })
-    setShowMetrics(plan.id)
-  }
-
-  const saveMetrics = async (e: React.FormEvent) => {
-    e.preventDefault()
-    const data: Record<string, number | string> = { monthly_plan: Number(metricsForm.monthly_plan) }
-    for (const [k, v] of Object.entries(metricsForm)) {
-      if (k === 'monthly_plan') continue
-      data[k] = ['average_rating', 'monthly_retainer', 'content_writer_cost', 'tool_costs', 'link_building_spend', 'other_costs'].includes(k) ? v : Number(v)
-    }
-    await api.post('/clients/metrics/', data)
-    reload()
-    setShowMetrics(null)
-  }
-
   return (
     <div>
       <PageHeader
@@ -303,9 +258,9 @@ export default function MonthlyPlansPage() {
                 </div>
                 <div className="text-xs text-text-muted">{plan.progress.completed}/{plan.progress.total} done</div>
                 <StatusBadge status={plan.status} />
+                <Link href={`/dashboard/projects/${plan.project_id}`} className="text-xs text-accent hover:underline">View Project</Link>
                 {isAdmin && (
                   <div className="flex items-center gap-1">
-                    <button onClick={() => openMetrics(plan)} className="text-xs text-accent hover:underline px-2">Metrics</button>
                     <button onClick={() => deletePlan(plan.id)} className="text-red-400 hover:text-red-600"><Trash2 size={14} /></button>
                   </div>
                 )}
@@ -315,15 +270,11 @@ export default function MonthlyPlansPage() {
             {/* Deliverables Table */}
             {expandedPlan === plan.id && (
               <div className="border-t border-border">
-                {/* Metrics summary if available */}
-                {plan.metrics && (
-                  <div className="px-6 py-3 bg-bg-secondary/30 border-b border-border grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 text-xs">
-                    <div><span className="text-text-muted">GBP Views</span><p className="font-semibold">{plan.metrics.gbp_views.toLocaleString()}</p></div>
-                    <div><span className="text-text-muted">GBP Calls</span><p className="font-semibold">{plan.metrics.gbp_calls}</p></div>
-                    <div><span className="text-text-muted">Organic Sessions</span><p className="font-semibold">{plan.metrics.organic_sessions.toLocaleString()}</p></div>
-                    <div><span className="text-text-muted">Top 3 Keywords</span><p className="font-semibold">{plan.metrics.keywords_top_3}</p></div>
-                    <div><span className="text-text-muted">Reviews</span><p className="font-semibold">{plan.metrics.total_reviews} ({plan.metrics.average_rating}★)</p></div>
-                    <div><span className="text-text-muted">Profit</span><p className="font-semibold text-green-600">€{Number(plan.metrics.profit_margin).toLocaleString()}</p></div>
+                {/* Financial summary if available */}
+                {(plan.monthly_retainer || plan.total_costs) && (
+                  <div className="px-6 py-2 bg-bg-secondary/30 border-b border-border flex items-center gap-4 text-xs text-text-muted">
+                    {plan.monthly_retainer && <span>Retainer: <span className="font-semibold text-text-primary">&euro;{Number(plan.monthly_retainer).toLocaleString()}</span></span>}
+                    {plan.total_costs && <span>Total Costs: <span className="font-semibold text-text-primary">&euro;{Number(plan.total_costs).toLocaleString()}</span></span>}
                   </div>
                 )}
 
@@ -543,59 +494,6 @@ export default function MonthlyPlansPage() {
         </form>
       </Modal>
 
-      {/* Metrics Modal */}
-      <Modal open={showMetrics !== null} onClose={() => setShowMetrics(null)} title="Monthly Metrics & Financials" wide>
-        <form onSubmit={saveMetrics} className="space-y-5">
-          <div>
-            <h4 className="text-sm font-semibold mb-2">Google Business Profile</h4>
-            <div className="grid grid-cols-3 gap-3">
-              {[['gbp_views', 'Views'], ['gbp_searches', 'Searches'], ['gbp_calls', 'Calls'], ['gbp_direction_requests', 'Directions'], ['gbp_website_clicks', 'Website Clicks']].map(([k, l]) => (
-                <div key={k}>
-                  <label className="block text-xs text-text-muted mb-0.5">{l}</label>
-                  <input type="number" value={metricsForm[k] || '0'} onChange={e => setMetricsForm(f => ({ ...f, [k]: e.target.value }))} className="w-full px-2 py-1.5 border border-border rounded text-sm" />
-                </div>
-              ))}
-            </div>
-          </div>
-          <div>
-            <h4 className="text-sm font-semibold mb-2">Google Analytics</h4>
-            <div className="grid grid-cols-2 gap-3">
-              {[['organic_sessions', 'Organic Sessions'], ['organic_conversions', 'Organic Conversions']].map(([k, l]) => (
-                <div key={k}>
-                  <label className="block text-xs text-text-muted mb-0.5">{l}</label>
-                  <input type="number" value={metricsForm[k] || '0'} onChange={e => setMetricsForm(f => ({ ...f, [k]: e.target.value }))} className="w-full px-2 py-1.5 border border-border rounded text-sm" />
-                </div>
-              ))}
-            </div>
-          </div>
-          <div>
-            <h4 className="text-sm font-semibold mb-2">Rankings & Authority</h4>
-            <div className="grid grid-cols-3 gap-3">
-              {[['keywords_top_3', 'Top 3 Keywords'], ['keywords_top_10', 'Top 10 Keywords'], ['keywords_local_pack', 'Local Pack'], ['total_reviews', 'Total Reviews'], ['average_rating', 'Avg Rating'], ['new_backlinks', 'New Backlinks'], ['domain_authority', 'Domain Authority']].map(([k, l]) => (
-                <div key={k}>
-                  <label className="block text-xs text-text-muted mb-0.5">{l}</label>
-                  <input type="number" step={k === 'average_rating' ? '0.1' : '1'} value={metricsForm[k] || '0'} onChange={e => setMetricsForm(f => ({ ...f, [k]: e.target.value }))} className="w-full px-2 py-1.5 border border-border rounded text-sm" />
-                </div>
-              ))}
-            </div>
-          </div>
-          <div>
-            <h4 className="text-sm font-semibold mb-2">Financials (€)</h4>
-            <div className="grid grid-cols-3 gap-3">
-              {[['monthly_retainer', 'Retainer'], ['content_writer_cost', 'Content Writer'], ['tool_costs', 'Tools'], ['link_building_spend', 'Link Building'], ['other_costs', 'Other Costs']].map(([k, l]) => (
-                <div key={k}>
-                  <label className="block text-xs text-text-muted mb-0.5">{l}</label>
-                  <input type="number" step="0.01" value={metricsForm[k] || '0'} onChange={e => setMetricsForm(f => ({ ...f, [k]: e.target.value }))} className="w-full px-2 py-1.5 border border-border rounded text-sm" />
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="flex justify-end gap-3 pt-2">
-            <button type="button" onClick={() => setShowMetrics(null)} className="px-4 py-2 text-sm text-text-secondary">Cancel</button>
-            <button type="submit" className="px-6 py-2 bg-primary text-white text-sm font-medium rounded-lg">Save Metrics</button>
-          </div>
-        </form>
-      </Modal>
     </div>
   )
 }

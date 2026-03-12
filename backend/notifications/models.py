@@ -32,6 +32,7 @@ class Notification(models.Model):
     priority = models.CharField(max_length=10, choices=Priority.choices, default=Priority.MEDIUM)
     title = models.CharField(max_length=300)
     message = models.TextField()
+    link = models.URLField(blank=True, help_text='Related URL (draft, live page, drive folder, etc.)')
     is_read = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 

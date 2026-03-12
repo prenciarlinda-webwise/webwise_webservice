@@ -3,42 +3,56 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { api } from '@/lib/api'
+import { useAuth } from '@/context/AuthContext'
 import PageHeader from '@/components/dashboard/PageHeader'
 import StatusBadge from '@/components/dashboard/StatusBadge'
 
 interface Service { id: number; name: string; status: string }
 interface Project {
-  id: number; client: number; name: string; website_url: string; status: string
+  id: number; slug: string; client: number; name: string; website_url: string; status: string
   services: Service[]; created_at: string
 }
 interface Client { id: number; business_name: string; projects: Project[] }
 
 export default function ProjectsPage() {
+  const { user } = useAuth()
   const [clients, setClients] = useState<Client[]>([])
+  const [empProjects, setEmpProjects] = useState<Project[]>([])
 
   useEffect(() => {
-    api.get<{ results: Client[] }>('/clients/').then(d => setClients(d.results))
-  }, [])
+    if (user?.role === 'employee') {
+      // Employees get projects directly (filtered by backend to only assigned)
+      api.get<{ results: Project[] }>('/clients/projects/').then(d => setEmpProjects(d.results))
+    } else {
+      api.get<{ results: Client[] }>('/clients/').then(d => setClients(d.results))
+    }
+  }, [user?.role])
 
-  const allProjects = clients.flatMap(c =>
-    c.projects.map(p => ({ ...p, client_name: c.business_name, client_id: c.id }))
-  )
+  const allProjects = user?.role === 'employee'
+    ? empProjects.map(p => ({ ...p, client_name: '', client_id: p.client }))
+    : clients.flatMap(c => c.projects.map(p => ({ ...p, client_name: c.business_name, client_id: c.id })))
 
   return (
     <div>
-      <PageHeader title="Projects" description={`${allProjects.length} projects across ${clients.length} clients`} />
+      <PageHeader
+        title="Projects"
+        description={user?.role === 'employee'
+          ? `${allProjects.length} project${allProjects.length !== 1 ? 's' : ''} assigned to you`
+          : `${allProjects.length} projects across ${clients.length} clients`
+        }
+      />
 
       <div className="space-y-3">
         {allProjects.map(project => (
           <Link
             key={project.id}
-            href={`/dashboard/projects/${project.id}`}
+            href={`/dashboard/projects/${project.slug}`}
             className="block bg-white rounded-xl border border-border p-5 hover:border-accent/30 hover:shadow-sm transition-all"
           >
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="font-semibold">{project.name}</h3>
-                <p className="text-sm text-text-secondary">{project.client_name}</p>
+                {project.client_name && <p className="text-sm text-text-secondary">{project.client_name}</p>}
                 {project.website_url && <p className="text-xs text-text-muted">{project.website_url}</p>}
               </div>
               <div className="flex items-center gap-4">
@@ -57,7 +71,7 @@ export default function ProjectsPage() {
         ))}
         {allProjects.length === 0 && (
           <div className="bg-white rounded-xl border border-border p-8 text-center text-text-muted">
-            No projects yet
+            {user?.role === 'employee' ? 'No projects assigned to you yet' : 'No projects yet'}
           </div>
         )}
       </div>

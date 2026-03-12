@@ -16,25 +16,28 @@ interface NavItem {
   href: string
   icon: React.ElementType
   roles: string[]
+  children?: { label: string; href: string }[]
 }
 
 const navItems: NavItem[] = [
   { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard, roles: ['admin', 'employee', 'client'] },
   // Admin
-  { label: 'Clients', href: '/dashboard/clients', icon: Users, roles: ['admin', 'employee'] },
+  { label: 'Clients', href: '/dashboard/clients', icon: Users, roles: ['admin'] },
   { label: 'Projects', href: '/dashboard/projects', icon: FolderOpen, roles: ['admin', 'employee'] },
-  { label: 'Payments', href: '/dashboard/payments', icon: CreditCard, roles: ['admin'] },
+  { label: 'Finances', href: '/dashboard/finances', icon: CreditCard, roles: ['admin'], children: [
+    { label: 'Business', href: '/dashboard/finances/business' },
+    { label: 'Personal', href: '/dashboard/finances/personal' },
+  ]},
   { label: 'Employees', href: '/dashboard/employees', icon: UserCog, roles: ['admin'] },
-  { label: 'Reports', href: '/dashboard/reports', icon: FileText, roles: ['admin'] },
+  { label: 'PDF Reports', href: '/dashboard/reports', icon: FileText, roles: ['admin'] },
   { label: 'Notifications', href: '/dashboard/notifications', icon: Bell, roles: ['admin', 'employee'] },
   // Employee
   { label: 'My Deliverables', href: '/dashboard/tasks', icon: ClipboardList, roles: ['employee'] },
   // Client
-  { label: 'My Profile', href: '/dashboard/profile', icon: Building2, roles: ['client'] },
-  { label: 'My Projects', href: '/dashboard/my-projects', icon: FolderOpen, roles: ['client'] },
+  { label: 'My Businesses', href: '/dashboard/my-projects', icon: Building2, roles: ['client'] },
   { label: 'Progress', href: '/dashboard/progress', icon: CalendarDays, roles: ['client'] },
-  { label: 'My Payments', href: '/dashboard/my-payments', icon: Receipt, roles: ['client'] },
-  { label: 'My Reports', href: '/dashboard/my-reports', icon: Briefcase, roles: ['client'] },
+  { label: 'Reports', href: '/dashboard/my-reports', icon: FileText, roles: ['client'] },
+  { label: 'Billing', href: '/dashboard/my-payments', icon: Receipt, roles: ['client'] },
 ]
 
 export default function DashboardSidebar() {
@@ -57,18 +60,36 @@ export default function DashboardSidebar() {
         {filteredNav.map(item => {
           const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname?.startsWith(item.href))
           return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`flex items-center gap-3 px-6 py-3 text-sm font-medium transition-colors ${
-                isActive
-                  ? 'bg-white/15 text-white border-r-3 border-accent'
-                  : 'text-white/70 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              <item.icon size={18} />
-              {item.label}
-            </Link>
+            <div key={item.href}>
+              <Link
+                href={item.children ? item.children[0].href : item.href}
+                className={`flex items-center gap-3 px-6 py-3 text-sm font-medium transition-colors ${
+                  isActive
+                    ? 'bg-white/15 text-white border-r-3 border-accent'
+                    : 'text-white/70 hover:text-white hover:bg-white/5'
+                }`}
+              >
+                <item.icon size={18} />
+                {item.label}
+              </Link>
+              {item.children && isActive && (
+                <div className="ml-10 border-l border-white/10">
+                  {item.children.map(child => (
+                    <Link
+                      key={child.href}
+                      href={child.href}
+                      className={`block px-4 py-2 text-xs font-medium transition-colors ${
+                        pathname === child.href || pathname?.startsWith(child.href + '/')
+                          ? 'text-accent'
+                          : 'text-white/50 hover:text-white/80'
+                      }`}
+                    >
+                      {child.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           )
         })}
       </nav>
