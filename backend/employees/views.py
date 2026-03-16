@@ -43,6 +43,10 @@ class TaskLogListCreateView(generics.ListCreateAPIView):
         client = self.request.query_params.get('client')
         if client:
             qs = qs.filter(client_id=client)
+        month = self.request.query_params.get('month')
+        if month:
+            ref = date.fromisoformat(month)
+            qs = qs.filter(date__year=ref.year, date__month=ref.month)
         return qs.select_related('employee__user', 'client')
 
     def perform_create(self, serializer):

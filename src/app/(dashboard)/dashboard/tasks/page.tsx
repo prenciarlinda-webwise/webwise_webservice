@@ -122,13 +122,19 @@ export default function EmployeeTasksPage() {
   const [editLogDesc, setEditLogDesc] = useState('')
   const [editLogSaving, setEditLogSaving] = useState(false)
   const [editLogMsg, setEditLogMsg] = useState('')
+  const [selectedMonth, setSelectedMonth] = useState(() => {
+    const d = new Date()
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
+  })
+
+  const monthParam = `${selectedMonth}-01`
 
   const reload = () => {
-    api.get<{ results: MonthlyPlan[] }>('/clients/plans/').then(d => setPlans(d.results))
-    api.get<{ results: TaskLog[] }>('/employees/tasks/').then(d => setTaskLogs(d.results))
+    api.get<{ results: MonthlyPlan[] }>(`/clients/plans/?month=${monthParam}`).then(d => setPlans(d.results))
+    api.get<{ results: TaskLog[] }>(`/employees/tasks/?month=${monthParam}`).then(d => setTaskLogs(d.results))
   }
 
-  useEffect(() => { reload() }, [])
+  useEffect(() => { reload() }, [selectedMonth])
 
   const allDeliverables = plans.flatMap(p => p.deliverables.map(d => ({ ...d, plan: p })))
   const todo = allDeliverables.filter(d => d.status !== 'completed' && d.status !== 'published')
@@ -282,9 +288,17 @@ export default function EmployeeTasksPage() {
         title="My Deliverables"
         description="Tasks assigned to you across all clients"
         action={
-          <button onClick={() => openLogTime()} className="px-4 py-2 bg-accent text-white text-sm font-medium rounded-lg hover:bg-accent/90">
-            Log Time
-          </button>
+          <div className="flex items-center gap-3">
+            <input
+              type="month"
+              value={selectedMonth}
+              onChange={e => setSelectedMonth(e.target.value)}
+              className="px-3 py-2 border border-border rounded-lg text-sm"
+            />
+            <button onClick={() => openLogTime()} className="px-4 py-2 bg-accent text-white text-sm font-medium rounded-lg hover:bg-accent/90">
+              Log Time
+            </button>
+          </div>
         }
       />
 
