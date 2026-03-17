@@ -31,32 +31,40 @@ export default function ClientsPage() {
   const [form, setForm] = useState({ username: '', email: '', password: '', first_name: '', last_name: '', phone: '', business_name: '', business_phone: '', business_email: '' })
 
   useEffect(() => {
-    api.get<{ results: Client[] }>('/clients/').then(d => setClients(d.results))
+    api.get<{ results: Client[] }>('/clients/').then(d => setClients(d.results)).catch(e => console.error('Failed to load clients:', e))
   }, [])
+
+  const [error, setError] = useState('')
 
   const handleAddClient = async (e: React.FormEvent) => {
     e.preventDefault()
-    // 1. Create user account
-    const newUser = await api.post<{ id: number }>('/auth/register/', {
-      username: form.username,
-      email: form.email,
-      password: form.password,
-      first_name: form.first_name,
-      last_name: form.last_name,
-      phone: form.phone,
-    })
-    // 2. Create client profile
-    await api.post('/clients/', {
-      user: newUser.id,
-      business_name: form.business_name,
-      business_phone: form.business_phone,
-      business_email: form.business_email,
-    })
-    // Refresh
-    const data = await api.get<{ results: Client[] }>('/clients/')
-    setClients(data.results)
-    setShowAdd(false)
-    setForm({ username: '', email: '', password: '', first_name: '', last_name: '', phone: '', business_name: '', business_phone: '', business_email: '' })
+    setError('')
+    try {
+      // 1. Create user account
+      const newUser = await api.post<{ id: number }>('/auth/register/', {
+        username: form.username,
+        email: form.email,
+        password: form.password,
+        first_name: form.first_name,
+        last_name: form.last_name,
+        phone: form.phone,
+      })
+      // 2. Create client profile
+      await api.post('/clients/', {
+        user: newUser.id,
+        business_name: form.business_name,
+        business_phone: form.business_phone,
+        business_email: form.business_email,
+      })
+      // Refresh
+      const data = await api.get<{ results: Client[] }>('/clients/')
+      setClients(data.results)
+      setShowAdd(false)
+      setForm({ username: '', email: '', password: '', first_name: '', last_name: '', phone: '', business_name: '', business_phone: '', business_email: '' })
+    } catch (err: any) {
+      const detail = err?.username?.[0] || err?.email?.[0] || err?.detail || err?.message || JSON.stringify(err)
+      setError(typeof detail === 'string' ? detail : 'Failed to create client. Check the form and try again.')
+    }
   }
 
   const handleDelete = async (id: number, name: string) => {
@@ -118,8 +126,9 @@ export default function ClientsPage() {
         </table>
       </div>
 
-      <Modal open={showAdd} onClose={() => setShowAdd(false)} title="Add New Client" wide>
+      <Modal open={showAdd} onClose={() => { setShowAdd(false); setError('') }} title="Add New Client" wide>
         <form onSubmit={handleAddClient} className="space-y-4">
+          {error && <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-600">{error}</div>}
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium mb-1">First Name *</label>
