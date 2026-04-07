@@ -240,8 +240,8 @@ export const clients: Record<string, Client> = {
   painttechs: {
     name: 'Paint-Techs LLC',
     slug: 'paint-techs-painting-contractor-seo-website-redesign',
-    url: 'https://www.paint-techs.us',
-    image: getScreenshot('https://www.paint-techs.us'),
+    url: 'https://www.paint-techs.com',
+    image: getScreenshot('https://www.paint-techs.com'),
     industry: 'Painting Services',
     services: ['SEO', 'Website Redesign'],
     description: 'Professional painting contractor offering residential and commercial painting services. Redesigned their website with a modern look and optimized for search engines to increase visibility and generate more leads.',
@@ -304,6 +304,15 @@ export const clients: Record<string, Client> = {
       leadsIncrease: '275%',
       rankingKeywords: '48+',
     },
+  },
+  torragips: {
+    name: 'Torra Gips',
+    slug: 'torra-gips-construction-company-website-design',
+    url: 'https://www.torragips.com/sq/',
+    image: getScreenshot('https://www.torragips.com/sq/'),
+    industry: 'Construction',
+    services: ['Website Design'],
+    description: 'Albanian construction and gypsum services company specializing in interior finishing, drywall installation, and decorative plasterwork. Built a bilingual website showcasing their project portfolio, service offerings, and contact system to reach residential and commercial clients across Albania.',
   },
 }
 

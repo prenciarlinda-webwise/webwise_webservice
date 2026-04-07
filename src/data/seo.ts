@@ -166,6 +166,208 @@ export const pageSEO: Record<string, PageSEO> = {
     keywords: ['seo vs ppc', 'seo or ppc', 'organic vs paid search', 'search marketing strategy'],
   },
 
+  // Industry SEO guides
+  'blog/local-seo-for-plumbers-complete-guide': {
+    title: 'SEO for Plumbers: Get More Emergency Calls From Google',
+    description: 'Plumber SEO strategies that deliver 290%+ traffic increases. Dominate Google Maps, rank for emergency keywords, and fill your schedule with high-value calls.',
+    keywords: ['seo for plumbers', 'plumber seo', 'plumbing seo', 'local seo for plumbers'],
+  },
+
+  'blog/roofing-company-seo-strategy': {
+    title: 'Roofing SEO: Generate More Leads for Your Roofing Company',
+    description: 'SEO for roofers that generates roof replacement inquiries and emergency repair calls. Proven strategies for Google Maps and organic rankings.',
+    keywords: ['roofing seo', 'seo for roofers', 'roofing marketing agency', 'roofing contractor seo'],
+  },
+
+  'blog/hvac-seo-complete-guide': {
+    title: 'HVAC SEO: Year-Round Lead Generation for HVAC Companies',
+    description: 'HVAC SEO strategies that keep your schedule full through summer cooling rushes and winter heating emergencies. Seasonal keyword targeting and Map Pack domination.',
+    keywords: ['hvac seo', 'seo for hvac companies', 'hvac marketing', 'ac repair seo'],
+  },
+
+  'blog/electrician-seo-guide': {
+    title: 'Electrician SEO: Get More Service Calls From Google',
+    description: 'SEO for electricians that generates consistent leads. From emergency calls to EV charger installations, rank higher and book more jobs.',
+    keywords: ['electrician seo', 'seo for electricians', 'electrical contractor marketing', 'electrician leads'],
+  },
+
+  'blog/construction-company-seo-strategy': {
+    title: 'Construction SEO: Win More Bids With Better Google Rankings',
+    description: 'SEO for construction companies and general contractors. Generate high-value project inquiries for residential, commercial, and specialty work.',
+    keywords: ['construction seo', 'general contractor seo', 'contractor marketing', 'construction leads'],
+  },
+
+  'blog/landscaping-seo-grow-your-business': {
+    title: 'Landscaping SEO: 80+ Keywords & Complete Ranking Guide for 2026',
+    description: 'The complete landscaping SEO guide with 80+ keywords by season, service-specific page strategies, and a month-by-month process to dominate local search.',
+    keywords: ['landscaping seo', 'landscaper seo', 'lawn care seo', 'seo for landscaping company'],
+  },
+
+  'blog/pest-control-seo-strategy': {
+    title: 'Pest Control SEO: Get More Calls From Google',
+    description: 'SEO for pest control companies that captures emergency treatments and recurring prevention customers. Dominate local search in your service area.',
+    keywords: ['pest control seo', 'exterminator marketing', 'pest control marketing', 'pest control leads'],
+  },
+
+  'blog/cleaning-company-seo-guide': {
+    title: 'Cleaning Service SEO: Get More Clients From Google in 2026',
+    description: 'SEO for cleaning companies covering residential, commercial, and carpet cleaning. Proven strategies to generate consistent leads from Google.',
+    keywords: ['cleaning service seo', 'cleaning company seo', 'carpet cleaning seo', 'seo for cleaning company'],
+  },
+
+  'blog/moving-company-seo-guide': {
+    title: 'Moving Company SEO: Get More Quote Requests From Google',
+    description: 'SEO for moving companies that brings in local, long-distance, and specialty moving clients. Rank higher and book more moves.',
+    keywords: ['moving company seo', 'movers marketing', 'moving company marketing', 'moving leads'],
+  },
+
+  'blog/auto-detailing-seo-get-more-customers': {
+    title: 'Auto Detailing SEO: Book More Appointments From Google',
+    description: 'SEO for auto detailing businesses. Rank for ceramic coating, mobile detailing, and interior cleaning keywords to fill your booking calendar.',
+    keywords: ['auto detailing seo', 'car detailing marketing', 'mobile detailing seo', 'ceramic coating seo'],
+  },
+
+  'blog/dumpster-rental-seo-dominate-local-search': {
+    title: 'Dumpster Rental SEO: Dominate Local Search & Get More Rentals',
+    description: 'SEO for dumpster rental companies. Capture contractor, homeowner, and commercial rental inquiries with proven local search strategies.',
+    keywords: ['dumpster rental seo', 'roll off dumpster marketing', 'waste management seo', 'dumpster company marketing'],
+  },
+
+  'blog/locksmith-seo-guide': {
+    title: 'Locksmith SEO: Get More Emergency Calls From Google',
+    description: 'SEO for locksmiths that delivers 24/7 visibility for emergency lockout calls. Dominate Google Maps and stop paying per-lead fees.',
+    keywords: ['locksmith seo', 'seo for locksmiths', 'locksmith marketing', 'emergency locksmith seo'],
+  },
+
+  // Keyword research guides
+  'blog/plumber-keywords-for-seo': {
+    title: 'Plumber Keywords for SEO: 100+ High-Intent Keywords for 2026',
+    description: '100+ plumber keywords organized by service type, search intent, and conversion potential. Emergency, residential, commercial, and seasonal plumbing keywords.',
+    keywords: ['plumber keywords', 'plumbing keywords for seo', 'plumbing seo keywords', 'plumber search terms'],
+  },
+
+  'blog/locksmith-keywords-for-seo': {
+    title: 'Locksmith Keywords for SEO: 100+ Keywords That Drive Calls',
+    description: '100+ locksmith keywords organized by service category and conversion potential. Emergency, residential, commercial, and automotive locksmith terms.',
+    keywords: ['locksmith keywords', 'locksmith keywords for seo', 'locksmith seo keywords', 'locksmith search terms'],
+  },
+
+  'blog/electrician-keywords-for-seo': {
+    title: 'Electrician Keywords for SEO: 100+ High-Intent Keywords for 2026',
+    description: '100+ electrician keywords organized by service type and search intent. Residential, commercial, emergency, and specialty electrical keywords with volumes.',
+    keywords: ['electrician keywords', 'electrician keywords for seo', 'electrician seo keywords', 'electrician search terms'],
+  },
+
+  'blog/roofing-keywords-for-seo': {
+    title: 'Roofing Keywords for SEO: 100+ Keywords for Year-Round Leads',
+    description: '100+ roofing keywords organized by service type, material, and season. Storm damage, roof replacement, repair, and commercial roofing search terms.',
+    keywords: ['roofing keywords', 'roofing keywords for seo', 'roofing seo keywords', 'roofer search terms'],
+  },
+
+  'blog/hvac-keywords-for-seo': {
+    title: 'HVAC Keywords for SEO: 100+ Keywords for Year-Round Leads',
+    description: '100+ HVAC keywords organized by service type, season, and conversion potential. AC repair, furnace, heating, cooling, and commercial HVAC search terms.',
+    keywords: ['hvac keywords', 'hvac keywords for seo', 'hvac seo keywords', 'heating cooling keywords'],
+  },
+
+  // Marketing and advertising guides
+  'blog/plumber-marketing-ideas': {
+    title: '15 Plumber Marketing Ideas That Actually Generate Calls in 2026',
+    description: 'Proven plumber advertising and marketing ideas for any budget. From GBP optimization to digital marketing for plumbers, these strategies bring in emergency calls.',
+    keywords: ['plumber marketing ideas', 'marketing for plumbers', 'plumber advertising ideas', 'digital marketing for plumbers'],
+  },
+
+  'blog/roofing-leads': {
+    title: 'How to Get Roofing Leads: 12 Proven Strategies for 2026',
+    description: '12 proven strategies to generate roofing leads consistently. SEO, Google Ads, referrals, storm chasing, and more. Average roofing project: $8-$20K.',
+    keywords: ['how to get roofing leads', 'roofing lead generation', 'roofing leads', 'roofing marketing'],
+  },
+
+  'blog/hvac-marketing-ideas': {
+    title: '15 HVAC Marketing Ideas to Fill Your Schedule Year-Round',
+    description: 'Seasonal HVAC marketing strategies for consistent leads through summer cooling and winter heating. Proven ideas for HVAC companies of all sizes.',
+    keywords: ['hvac marketing ideas', 'hvac advertising', 'marketing for hvac companies', 'hvac business marketing'],
+  },
+
+  // SEO strategy and education guides
+  'blog/local-citations-guide': {
+    title: 'Local Citations: Complete Guide to Building & Managing Citations',
+    description: 'Everything about local citations: what they are, why they matter, top citation sources, and how to audit and fix NAP consistency issues.',
+    keywords: ['local citations', 'citation building', 'NAP consistency', 'local seo citations'],
+  },
+
+  'blog/local-seo-checklist': {
+    title: 'Local SEO Checklist: 47 Steps to Higher Rankings in 2026',
+    description: 'Step-by-step local SEO checklist covering GBP, on-page SEO, citations, reviews, and link building. 47 actionable steps for better local rankings.',
+    keywords: ['local seo checklist', 'local seo audit checklist', 'local seo steps', 'local search optimization'],
+  },
+
+  'blog/local-link-building': {
+    title: 'Local Link Building: 15 Strategies for Better Local Rankings',
+    description: '15 proven local link building strategies with outreach templates. Earn backlinks from local sources that boost your local SEO rankings.',
+    keywords: ['local link building', 'local backlinks', 'local seo link building', 'local link building strategies'],
+  },
+
+  'blog/best-free-ahrefs-alternatives': {
+    title: '7 Free Ahrefs Alternatives That Actually Work in 2026',
+    description: 'Powerful SEO tools without the Ahrefs price tag. Free keyword research, backlink analysis, and rank tracking tools for small businesses.',
+    keywords: ['ahrefs alternative free', 'free seo tools', 'affordable seo tools', 'free keyword research tool'],
+  },
+
+  'blog/how-to-use-keywords-for-seo': {
+    title: 'How to Use Keywords for SEO: Placement, Density & Best Practices',
+    description: 'Where to place keywords on your pages, how many to target per page, and how to avoid keyword stuffing. Practical keyword usage guide for 2026.',
+    keywords: ['how to use keywords for seo', 'keyword placement', 'how many keywords per page', 'keyword optimization'],
+  },
+
+  'blog/on-page-vs-off-page-seo': {
+    title: 'On-Page vs Off-Page SEO: What Actually Matters in 2026',
+    description: 'The difference between on-page and off-page SEO, which matters more, and how to build a strategy that covers both. Includes actionable checklists.',
+    keywords: ['on page vs off page seo', 'on page seo', 'off page seo', 'seo ranking factors'],
+  },
+
+  'blog/best-cms-for-seo': {
+    title: 'Best CMS for SEO in 2026: WordPress vs Next.js vs Shopify & More',
+    description: 'WordPress, Next.js, Shopify, Wix, Squarespace, and Webflow compared for SEO. Find the best CMS for your business to rank on Google.',
+    keywords: ['best cms for seo', 'wordpress seo', 'nextjs seo', 'best seo cms platform'],
+  },
+
+  'blog/best-ecommerce-platform-for-seo': {
+    title: 'Best Ecommerce Platform for SEO in 2026: Shopify vs WooCommerce',
+    description: 'Shopify, WooCommerce, BigCommerce, and Magento compared for SEO. Which platform helps online stores rank higher and convert organic traffic.',
+    keywords: ['best ecommerce platform for seo', 'shopify seo vs woocommerce', 'ecommerce seo platform', 'search engine friendly ecommerce'],
+  },
+
+  'blog/seo-reputation-management-guide': {
+    title: 'SEO Reputation Management: Control What Google Shows About You',
+    description: 'How to push down negative search results and build a positive brand presence on Google. Practical reputation management strategies for businesses.',
+    keywords: ['seo reputation management', 'online reputation management', 'negative search results', 'brand reputation seo'],
+  },
+
+  'blog/local-seo-audit-guide': {
+    title: 'Local SEO Audit: Find & Fix What Hurts Your Rankings',
+    description: 'Step-by-step local SEO audit guide. Find broken citations, GBP issues, on-page problems, and link gaps costing you rankings and leads.',
+    keywords: ['local seo audit', 'local seo audit checklist', 'local search audit', 'how to audit local seo'],
+  },
+
+  'blog/skyscraper-technique-link-building': {
+    title: 'Skyscraper Technique: Does It Still Work for Link Building?',
+    description: 'Is the skyscraper technique still effective in the age of AI content? What works, what changed, and modern alternatives that deliver better results.',
+    keywords: ['skyscraper technique', 'skyscraper link building', 'content marketing link building', 'seo skyscraper technique'],
+  },
+
+  'blog/buyer-intent-keywords-guide': {
+    title: 'Buyer Intent Keywords: How to Find Keywords That Convert',
+    description: 'How to identify keywords that signal purchase readiness. Difference between informational and transactional intent, plus a strategy that drives revenue.',
+    keywords: ['buyer intent keywords', 'transactional keywords', 'commercial intent keywords', 'purchase keywords'],
+  },
+
+  'blog/keyword-clustering-guide': {
+    title: 'Keyword Clustering: Group Keywords for Maximum SEO Impact',
+    description: 'What keyword clustering is, why it prevents cannibalization, and how to group keywords into topic clusters. Free and paid tool recommendations included.',
+    keywords: ['keyword clustering', 'topic clusters seo', 'keyword grouping', 'keyword cannibalization'],
+  },
+
   // ============================================
   // STATIC PAGES
   // ============================================

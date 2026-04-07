@@ -22,6 +22,7 @@ const caseStudyUrlMap: Record<string, string> = {
   'gnt-home-remodeling-contractor-website-design': '/case-studies/gnt-remodeling',
   'msc-certification-web-application-development': '/case-studies/msc-certification',
   'aaa-remodels-jacksonville-home-remodeling-seo-website': '/case-studies/aaa-remodels',
+  'torra-gips-construction-company-website-design': '/case-studies/torra-gips',
 }
 
 const seoData = pageSEO['case-studies']

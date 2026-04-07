@@ -17,6 +17,7 @@ const slugMap: Record<string, string> = {
   'gnt-remodeling': 'gnt-home-remodeling-contractor-website-design',
   'msc-certification': 'msc-certification-web-application-development',
   'aaa-remodels': 'aaa-remodels-jacksonville-home-remodeling-seo-website',
+  'torra-gips': 'torra-gips-construction-company-website-design',
 }
 
 export async function generateStaticParams() {

@@ -6,6 +6,11 @@ export interface BlogFAQ {
   answer: string
 }
 
+export interface BlogHowToStep {
+  name: string
+  text: string
+}
+
 export interface BlogPost {
   slug: string
   title: string
@@ -26,6 +31,9 @@ export interface BlogPost {
   faqs?: BlogFAQ[]
   content: string
   publishDate?: string  // ISO date (YYYY-MM-DD) for scheduled publishing. Post is hidden until this date.
+  lastModified?: string  // ISO date when post was last updated, used for sitemap and schema dateModified
+  howToSteps?: BlogHowToStep[]  // Optional structured steps for HowTo schema (step-based guides)
+  howToName?: string  // Optional name for the HowTo (defaults to post title)
 }
 
 export const blogPosts: BlogPost[] = [
@@ -1130,6 +1138,19 @@ Stop losing high-value roof replacement jobs to competitors with better Google v
       'Add 3-5 new photos weekly to signal an active, trustworthy business',
       'Respond to every review within 24-48 hours - response rate impacts rankings',
       'Post weekly updates to keep your profile fresh and engage potential customers',
+    ],
+    howToName: 'How to Optimize Your Google Business Profile for Local Search',
+    howToSteps: [
+      { name: 'Claim and verify your Google Business Profile', text: 'Sign in to Google Business Profile, search for your business, and complete verification by postcard, phone, email, or video. Verification proves you own the business and unlocks all profile features.' },
+      { name: 'Choose the right primary category', text: 'Select the most specific primary category that describes your core service. Your primary category is the strongest signal Google uses to decide which searches you appear for. Add up to 9 secondary categories for additional services.' },
+      { name: 'Complete every profile field', text: 'Fill in your business name (exactly as it appears on your storefront), address, phone, website, hours, service area, attributes, and business description. Incomplete profiles rank lower than fully completed ones.' },
+      { name: 'Write a keyword-rich business description', text: 'Use the full 750-character business description to describe your services, service areas, and what makes you different. Include your primary keywords naturally without stuffing.' },
+      { name: 'Add high-quality photos and videos', text: 'Upload at least 10 photos covering exterior, interior, team, products, and completed work. Add new photos weekly to signal an active business. Geotag photos when possible.' },
+      { name: 'Add all your services with descriptions', text: 'List every service you offer in the Services section with detailed descriptions and prices when applicable. Each service entry is an opportunity to target additional keywords.' },
+      { name: 'Set up messaging and booking features', text: 'Enable messaging, booking, and quote request features so customers can contact you directly from your profile. Faster response times correlate with better rankings.' },
+      { name: 'Generate and respond to reviews', text: 'Build a systematic review generation process. Ask every happy customer for a review and respond to every review (positive and negative) within 24-48 hours. Aim for 4.5+ stars and 20+ reviews.' },
+      { name: 'Post weekly updates', text: 'Publish at least one Google Post per week with offers, events, products, or company updates. Active profiles signal Google that the business is open and engaged.' },
+      { name: 'Monitor insights and refine', text: 'Use the Performance section to track searches, calls, direction requests, and website clicks. Identify what is working and double down on it. Refine your categories, photos, and posts based on data.' },
     ],
     faqs: [
       { question: 'How long does it take to see results from GBP optimization?', answer: 'Most businesses see improvements in Map Pack visibility within 2-4 weeks of comprehensive optimization. Full results, including review accumulation and consistent rankings, typically take 2-3 months of ongoing effort.' },
@@ -2289,186 +2310,387 @@ Stop losing service calls to competitors with better Google visibility. Let's di
   },
   {
     slug: 'landscaping-seo-grow-your-business',
-    title: 'SEO Services for Landscapers - Grow Your Client Base',
-    excerpt: 'We help landscaping and lawn care businesses generate year-round leads. Our seasonal SEO strategies keep your schedule full from spring cleanup to snow removal.',
+    title: 'Landscaping SEO: The Complete Guide to Ranking Your Landscaping Business in 2026',
+    excerpt: 'The complete landscaping SEO guide with 80+ keywords, seasonal strategies, and a step-by-step process to dominate local search. We help landscaping and lawn care businesses generate year-round leads.',
     category: 'Local SEO',
     author: 'Web Wise Team',
     authorBio: 'The Web Wise Team has helped landscaping and lawn care companies across the US and UK achieve top Google rankings and consistent lead generation.',
     date: 'Nov 4, 2024',
-    readTime: '8 min read',
+    lastModified: '2026-04-07',
+    readTime: '18 min read',
     featured: false,
     image: '/blog/landscaping-seo/landscaping-map-pack.svg',
     imageAlt: 'Google Map Pack for landscapers showing where premium clients search',
-    keywords: ['landscaping SEO', 'landscaping SEO services', 'lawn care marketing', 'landscaper marketing agency', 'lawn service SEO', 'landscaping leads'],
-    relatedServiceUrl: '/local-seo',
-    relatedServiceName: 'Local SEO Services',
+    keywords: ['landscaping SEO', 'landscaping SEO services', 'lawn care SEO', 'landscaper SEO', 'SEO for landscaping company', 'landscaping company SEO agency', 'landscaping SEO company', 'lawn care marketing', 'landscaper marketing agency', 'lawn service SEO', 'landscaping leads', 'landscaping keywords'],
+    relatedServiceUrl: '/local-seo/landscaping',
+    relatedServiceName: 'Landscaping SEO Services',
     tldr: [
-      'We optimize your presence for seasonal keywords-spring cleanup, lawn care, fall cleanup, and snow removal',
-      'Our Google Business Profile management showcases your best landscape transformations',
-      'We create service pages for every landscaping and lawn care service you offer',
-      'Strong reviews build the reputation that wins recurring clients',
-      'Most landscaping clients see significant ranking improvements within 90 days',
+      'Landscaping SEO targets 80+ seasonal and service-specific keywords that property owners search when they need lawn care, hardscaping, and outdoor living services',
+      'Seasonal keyword strategy is critical because landscaping demand shifts quarterly and you need to rank before each season hits, not after',
+      'Google Business Profile optimization with before/after photos drives Map Pack rankings, which capture 42% of local search clicks',
+      'Service-specific landing pages for each offering (lawn care, hardscaping, irrigation, tree care) prevent keyword cannibalization and improve relevance',
+      'City and neighborhood pages let you rank in every area you serve without competing against yourself',
+      'Most landscaping clients see Google Business Profile improvements within 2-4 weeks and meaningful organic ranking gains within 90 days',
     ],
     faqs: [
-      { question: 'How much does landscaping SEO cost?', answer: 'Our landscaping SEO packages start at $480/month, with most landscapers choosing our $780/month Growth plan. This includes seasonal content strategy, Google Business Profile management, citation building, and monthly reporting.' },
-      { question: 'How do you handle seasonal landscaping keywords?', answer: 'We build proactive strategies that target spring keywords in late winter, summer maintenance keywords in spring, and fall/winter keywords before those seasons hit. This means you\'re already ranking when customers start searching.' },
-      { question: 'How long until my landscaping company ranks on Google?', answer: 'Most landscaping clients see Google Business Profile improvements within 2-4 weeks and meaningful ranking gains within 90 days. Full market visibility typically takes 6-12 months of consistent work.' },
-      { question: 'Do you help with both residential and commercial landscaping?', answer: 'Yes. We create separate strategies and landing pages for residential and commercial services, targeting the specific keywords each customer type searches for.' },
-      { question: 'Can you help with snow removal SEO too?', answer: 'Absolutely. Many landscaping companies offer snow removal in winter. We build year-round strategies that capture landscaping clients in peak season and snow removal clients in winter.' },
+      { question: 'How much does landscaping SEO cost?', answer: 'Our landscaping SEO packages start at $480/month, with most landscapers choosing our $780/month Growth plan. This includes seasonal content strategy, Google Business Profile management, citation building, and monthly reporting. Enterprise landscaping companies with multiple locations typically invest $1,100-$1,500/month.' },
+      { question: 'How do you handle seasonal landscaping keywords?', answer: 'We build proactive strategies that target spring keywords in late winter, summer maintenance keywords in spring, and fall/winter keywords before those seasons hit. This means you\'re already ranking when customers start searching. For example, we start optimizing for "spring cleanup services" in January so you\'re on page one by March when search volume peaks.' },
+      { question: 'How long until my landscaping company ranks on Google?', answer: 'Most landscaping clients see Google Business Profile improvements within 2-4 weeks and meaningful ranking gains within 90 days. Full market visibility typically takes 6-12 months of consistent work. The timeline depends on your local competition, current website authority, and how many services and cities you\'re targeting.' },
+      { question: 'Do you help with both residential and commercial landscaping?', answer: 'Yes. We create separate strategies and landing pages for residential and commercial services, targeting the specific keywords each customer type searches for. Commercial landscaping keywords like "commercial landscape maintenance" have different intent and competition than residential terms like "backyard landscaping near me."' },
+      { question: 'Can you help with snow removal SEO too?', answer: 'Absolutely. Many landscaping companies offer snow removal in winter. We build year-round strategies that capture landscaping clients in peak season and snow removal clients in winter. This includes dedicated snow removal landing pages, seasonal GBP updates, and content targeting terms like "snow plowing services [city]" and "ice management near me."' },
+      { question: 'What landscaping keywords should I target first?', answer: 'Start with high-intent, location-modified keywords like "landscaping services [your city]" and "lawn care near me." These have the highest conversion rates because searchers are ready to hire. Then expand to service-specific terms like "patio installation [city]" and "irrigation repair near me" to capture more specific leads.' },
+      { question: 'Is landscaping SEO better than paying for leads on HomeAdvisor or Thumbtack?', answer: 'SEO delivers a much better long-term ROI. Lead platforms charge $15-$75 per lead and you\'re competing with 3-5 other companies for each one. With SEO, once you rank, every click is free and the customer found you specifically. Our landscaping clients typically see cost-per-lead drop below $10 within 6 months of consistent SEO work.' },
+      { question: 'How do I get my landscaping company in the Google Map Pack?', answer: 'The Google Map Pack depends on three factors: relevance (how well your profile matches the search), distance (how close you are to the searcher), and prominence (reviews, citations, and website authority). We optimize all three by completing your GBP profile, building consistent citations, generating review strategies, and creating location-specific content on your website.' },
     ],
-    content: `## Landscaping SEO Services That Grow Your Business Year-Round
+    content: `## Landscaping SEO: Why It Matters More Than Ever in 2026
 
-We specialize in helping landscaping and lawn care businesses dominate local search and generate consistent leads through every season. When property owners search "landscaping services near me" or "lawn care [city]," our clients show up first. Our [SEO services](/seo-services) are built for seasonal businesses like landscaping.
+The landscaping industry in the US alone is worth over $176 billion, and competition for local customers has never been fiercer. When a homeowner searches "landscaping services near me" or "lawn care [city]," the businesses that show up on page one capture over 90% of the clicks. Everyone else is invisible.
 
-Landscaping is seasonal and competitive, but that creates opportunity. Ranking in the Google Maps Pack ensures you're visible for spring cleanup, summer maintenance, fall services, AND winter snow removal.
+Landscaping SEO is the process of optimizing your online presence so your business ranks at the top of Google when potential customers search for the services you offer. Unlike paid ads or lead generation platforms like HomeAdvisor, SEO delivers compounding returns: once you rank, every click is free, and your cost per lead drops month after month.
 
-**The result?** Landscaping businesses that work with us see consistent lead flow and build recurring client relationships.
+Our [SEO services](/seo-services) are built specifically for seasonal, service-area businesses like landscaping. We understand that your marketing needs shift with the seasons, and your SEO strategy should too.
+
+**The result?** Landscaping businesses that invest in SEO see consistent lead flow, lower customer acquisition costs, and recurring client relationships that grow year after year.
 
 ![Google Map Pack for landscapers showing where premium clients search](/blog/landscaping-seo/landscaping-map-pack.svg)
 
-## What's Included in Our Landscaping SEO Services?
+## Landscaping Keywords: 80+ High-Intent Search Terms by Category
 
-### Seasonal Keyword Strategy
+Effective landscaping SEO starts with targeting the right keywords. We organize landscaping keywords into categories based on service type, season, and intent so every page on your site targets a specific cluster of terms.
 
-We build proactive campaigns for each season:
+### Core Landscaping Keywords
 
-**Spring (Peak Season)**
+| Keyword | Monthly Search Volume | Competition | Intent |
+|---------|----------------------|-------------|--------|
+| landscaping services near me | 18,100 | High | Transactional |
+| landscaping companies near me | 14,800 | High | Transactional |
+| lawn care services near me | 12,100 | High | Transactional |
+| landscaping [city] | 2,400-8,100 | Medium | Transactional |
+| lawn care [city] | 1,600-6,600 | Medium | Transactional |
+| landscape design near me | 5,400 | Medium | Transactional |
+| landscaping estimate | 2,900 | Medium | Transactional |
+| landscaping cost | 4,400 | Low | Informational |
+
+### Residential Landscaping Keywords
+
+| Keyword | Monthly Search Volume | Competition |
+|---------|----------------------|-------------|
+| backyard landscaping ideas | 22,200 | Low |
+| front yard landscaping | 18,100 | Low |
+| backyard landscaping near me | 3,600 | Medium |
+| residential landscaping services | 2,400 | Medium |
+| garden design services | 1,900 | Medium |
+| flower bed installation | 1,300 | Low |
+| yard cleanup services | 2,400 | Medium |
+| lawn mowing service near me | 8,100 | High |
+
+### Commercial Landscaping Keywords
+
+| Keyword | Monthly Search Volume | Competition |
+|---------|----------------------|-------------|
+| commercial landscaping services | 2,900 | High |
+| commercial lawn care | 1,600 | Medium |
+| commercial landscape maintenance | 1,300 | Medium |
+| HOA landscaping services | 880 | Medium |
+| office landscaping | 590 | Low |
+| apartment complex landscaping | 480 | Low |
+| property management landscaping | 720 | Low |
+
+### Hardscaping and Specialty Keywords
+
+| Keyword | Monthly Search Volume | Competition |
+|---------|----------------------|-------------|
+| patio installation near me | 4,400 | High |
+| retaining wall contractors | 3,600 | High |
+| outdoor kitchen installation | 2,900 | Medium |
+| fire pit installation | 2,400 | Medium |
+| walkway installation | 1,600 | Medium |
+| drainage solutions near me | 1,900 | Medium |
+| irrigation installation | 2,400 | Medium |
+| sprinkler system repair | 3,600 | Medium |
+
+### Tree and Shrub Keywords
+
+| Keyword | Monthly Search Volume | Competition |
+|---------|----------------------|-------------|
+| tree trimming near me | 14,800 | High |
+| tree removal near me | 12,100 | High |
+| shrub trimming service | 1,900 | Medium |
+| hedge trimming near me | 2,400 | Medium |
+| tree planting service | 1,300 | Low |
+| stump grinding near me | 6,600 | High |
+
+**Pro tip:** If your landscaping company offers tree services, create a dedicated tree care page rather than lumping these keywords onto your main landscaping page. Google rewards topical specificity.
+
+## Seasonal Landscaping Keywords: The Key to Year-Round Leads
+
+The biggest mistake landscapers make with SEO is treating it as a one-time effort. Landscaping demand shifts dramatically with the seasons, and your keyword targeting needs to shift with it. Here is the seasonal breakdown we use for every landscaping client:
+
+### Spring Keywords (Peak Season — March to May)
+
+Spring is when search volume explodes. Property owners are eager to get their yards in shape after winter. These keywords need to be optimized by January so you are ranking when demand arrives.
+
 - Lawn care services [city]
-- Spring cleanup services
+- Spring cleanup services near me
 - Mulching services near me
 - Landscaping design [city]
-- Sod installation
+- Sod installation near me
+- Garden bed preparation
+- Lawn fertilization service
+- Dethatching service
+- Power raking near me
+- Spring planting services
 
-**Summer**
+**Search volume increase:** Spring keywords see 300-500% higher search volume compared to winter months.
+
+### Summer Keywords (June to August)
+
+Summer is about maintenance and outdoor living projects. Homeowners want their yards looking great and are investing in larger projects.
+
 - Lawn maintenance [city]
-- Irrigation installation
-- Outdoor living spaces
-- Patio installation
+- Irrigation installation near me
+- Outdoor living spaces [city]
+- Patio installation near me
 - Weekly lawn service
+- Lawn treatment service
+- Mosquito control for yards
+- Landscape lighting installation
+- Sod repair near me
+- Drought-resistant landscaping
 
-**Fall**
+### Fall Keywords (September to November)
+
+Fall is your second peak. Cleanup services drive strong demand, and proactive property owners are preparing for winter.
+
 - Fall cleanup services [city]
 - Leaf removal near me
 - Winterization services
-- Fall planting
-- Lawn aeration
+- Fall planting services
+- Lawn aeration near me
+- Overseeding service
+- Gutter cleaning with leaf removal
+- Fall fertilization
+- Perennial planting
 
-**Winter**
+### Winter Keywords (December to February)
+
+Winter is when most landscapers slow down, but smart ones capture snow removal and holiday lighting revenue.
+
 - Snow removal [city]
-- Snow plowing services
-- Ice management
+- Snow plowing services near me
+- Ice management services
 - Holiday lighting installation
+- Winter lawn care
+- Snow shoveling service
+- Salt spreading service
+- Commercial snow removal
 
-### Visual-First Google Business Profile
+**The strategy:** We start building content for each season 2-3 months before demand peaks. By the time property owners start searching, your pages have already been indexed and are gaining authority.
 
-Landscaping sells on visuals. We optimize your GBP accordingly:
+## How We Optimize Your Landscaping Website for SEO
 
-- Before/after transformation photos
-- Weekly project uploads
-- Seasonal showcase galleries
-- Drone footage integration
-- Trust signals highlighting quality work
+### 1. Google Business Profile Optimization
 
-### Service-Specific Landing Pages
+Your Google Business Profile (GBP) is the single most important factor for ranking in the Map Pack, which appears at the top of local searches and captures 42% of all clicks. For landscaping companies, GBP optimization is especially powerful because the visual nature of your work creates compelling before/after content.
 
-We create dedicated pages for every service:
+**What we do:**
+- Complete every section of your profile with keyword-rich descriptions
+- Upload before/after transformation photos weekly
+- Create seasonal photo galleries showcasing your best work
+- Add drone footage and video walkthroughs of completed projects
+- Manage and respond to every review within 24 hours
+- Post weekly GBP updates with seasonal tips, project highlights, and promotions
+- Add every service you offer as a GBP service with descriptions
+- Optimize your service area settings for maximum visibility
 
-- Lawn care and maintenance
+**Why it matters:** Landscaping businesses with complete, active GBP profiles with 50+ photos receive 520% more calls than profiles with fewer than 10 photos, according to BrightLocal research.
+
+### 2. Service-Specific Landing Pages
+
+One of the most common mistakes we see on landscaping websites is cramming all services onto a single page. Google cannot rank one page for "lawn care," "hardscaping," "irrigation," and "tree removal" simultaneously. Each service needs its own dedicated page.
+
+**Pages we create for landscaping clients:**
+- Lawn care and weekly maintenance
 - Landscape design and installation
-- Hardscaping and patios
-- Irrigation systems
+- Hardscaping (patios, retaining walls, walkways)
+- Irrigation system installation and repair
 - Tree and shrub care
-- Seasonal cleanup services
-- Snow removal (where applicable)
+- Seasonal cleanup (spring and fall)
+- Snow removal and ice management
+- Outdoor living (kitchens, fire pits, pergolas)
+- Sod installation and lawn renovation
+- Drainage and grading solutions
+- Commercial landscaping services
 
-### City and Service Area Pages
+Each page targets a specific keyword cluster, includes unique content about your approach to that service, showcases relevant project photos, and has a clear call-to-action.
 
-For landscapers serving multiple areas:
+### 3. City and Service Area Pages
 
-- Unique content for each city
-- Local plant and climate references
-- Neighborhood-specific targeting
-- HOA and commercial area pages
+Most landscaping companies serve 5-15 cities or towns within a metro area. Without dedicated city pages, you are only visible in searches for your headquarters city. We build location-specific pages that help you rank in every area you serve.
 
-## Our Landscaping SEO Process
+**What makes our city pages different:**
+- Unique content for each location referencing local landmarks, neighborhoods, and climate conditions
+- Local plant and soil references specific to each area (e.g., "clay soil drainage solutions in [city]")
+- Neighborhood-specific content for HOA communities and upscale subdivisions
+- Embedded Google Maps showing your service area
+- Local testimonials from customers in that city
+- Information about local regulations, water restrictions, or HOA requirements
 
-### Month 1: Foundation
+**Important:** We never create thin, duplicate city pages that just swap city names. Google penalizes this approach. Every city page has genuinely unique content that serves the local audience.
 
-- Complete online presence audit
-- Competitor analysis
-- Google Business Profile optimization
-- Website technical improvements
-- Seasonal strategy development
+### 4. Technical SEO for Landscaping Websites
 
-### Month 2-3: Content & Visibility
+Even the best content will not rank if your website has technical problems. We audit and fix:
 
-- Service page creation
-- City landing pages
-- Photo gallery optimization
-- Review profile optimization
-- Citation building
+- **Page speed:** Landscaping sites are image-heavy. We optimize images, implement lazy loading, and use modern formats (WebP/AVIF) to keep load times under 2.5 seconds
+- **Mobile optimization:** 68% of landscaping searches happen on mobile. Your site needs to load fast and look great on every phone
+- **Schema markup:** We add LocalBusiness, Service, and FAQ structured data so Google displays rich results for your listings
+- **Internal linking:** We connect service pages, city pages, and blog content into a logical structure that helps Google understand your site
+- **Crawlability:** We ensure Google can access and index all your important pages
 
-### Month 4-6: Growth & Clients
+### 5. Review Generation Strategy
 
-- Ranking improvements
-- Lead increases
-- Client acquisition tracking
-- Strategy refinement
-- Expanded service targeting
+Reviews are the third-ranking factor for the Google Map Pack, and landscaping is a visual business where social proof matters enormously. We help you build a review generation system that runs on autopilot.
+
+**Our review strategy includes:**
+- Automated review request emails after job completion
+- Text-based review links for on-the-spot requests
+- Photo review encouragement (before/after shots from customers)
+- Review response templates for positive and negative reviews
+- Monitoring across Google, Yelp, Facebook, and Angi
+
+**Target:** Landscaping companies that consistently generate 5+ new reviews per month see steady Map Pack ranking improvements within 90 days.
+
+### 6. Citation Building and NAP Consistency
+
+Citations are mentions of your business name, address, and phone number (NAP) across the internet. Inconsistent citations confuse Google and hurt your rankings.
+
+**We build and clean citations on:**
+- Google Business Profile
+- Yelp, Angi, HomeAdvisor, Thumbtack
+- BBB, local Chamber of Commerce
+- Industry directories (National Association of Landscape Professionals, state associations)
+- Local business directories specific to your metro area
+- Social profiles (Facebook, Instagram, LinkedIn, Nextdoor)
 
 ![How Google reviews impact local rankings with stats on review count vs Map Pack position](/blog/reviews-guide/review-impact-rankings.svg)
 
-## Why Seasonal SEO Planning Matters
+## Our Landscaping SEO Process: Month by Month
 
-Most landscapers wait until spring to think about marketing. By then, it's too late-customers are already searching and choosing competitors.
+### Month 1: Audit and Foundation
 
-**Our approach:**
-- Build spring content in winter
-- Develop summer content in spring
-- Create fall content in summer
-- Prepare winter content in fall
+- Complete website and online presence audit
+- Competitor analysis (who ranks for your target keywords and why)
+- Google Business Profile setup or optimization
+- NAP consistency audit and citation cleanup
+- Keyword research and seasonal strategy development
+- Technical SEO fixes (speed, mobile, schema)
 
-This means you're already ranking when each season's demand hits, capturing customers before competitors even start trying.
+### Month 2-3: Content and Visibility
+
+- Service-specific landing pages built and optimized
+- City landing pages for your top 3-5 service areas
+- Photo gallery optimization on GBP and website
+- Review generation system setup
+- Citation building across 30+ directories
+- First round of blog content targeting long-tail keywords
+
+### Month 4-6: Growth and Optimization
+
+- Ranking improvements tracked and reported
+- Lead tracking with call recording and form tracking
+- Content expansion to additional cities and services
+- Seasonal content published ahead of demand shifts
+- Link building through local partnerships and sponsorships
+- Strategy refinement based on performance data
+
+### Month 7-12: Domination
+
+- Multi-city expansion to cover your full service area
+- Advanced content targeting competitor comparison keywords
+- Commercial landscaping keyword targeting
+- Video content optimization for YouTube and GBP
+- Ongoing review generation and reputation management
+- Quarterly strategy reviews with ROI reporting
+
+## Common Landscaping SEO Mistakes to Avoid
+
+**1. Waiting until spring to start SEO.** SEO takes 2-3 months to show results. If you start in March, you will not rank until June, missing the entire spring rush. Start in January at the latest.
+
+**2. Using one page for all services.** A single "Services" page cannot rank for lawn care, hardscaping, irrigation, and tree removal. Each service needs its own optimized page.
+
+**3. Ignoring winter keywords.** If you offer snow removal, holiday lighting, or winter lawn care, you are leaving money on the table by not targeting these keywords during your "off season."
+
+**4. Buying leads instead of investing in SEO.** Lead platforms charge $15-$75 per shared lead. SEO delivers exclusive leads at a fraction of the cost after the initial investment period.
+
+**5. Neglecting your Google Business Profile.** Your GBP is often the first thing potential customers see. An incomplete profile with few photos and no recent posts signals an inactive or unprofessional business.
+
+**6. Creating thin city pages.** Pages that only swap the city name are penalized by Google. Each city page needs unique, locally relevant content.
+
+**7. Not asking for reviews.** Happy customers rarely leave reviews unprompted. A systematic review request process is essential for Map Pack rankings and conversion rates.
 
 ![SEO vs lead generation platforms cost per lead comparison over 12 months](/blog/seo-general/seo-vs-lead-gen-cost.svg)
+
+## Landscaping SEO vs. Lead Generation Platforms
+
+Many landscapers rely on HomeAdvisor, Thumbtack, or Angi for leads. Here is how SEO compares:
+
+| Factor | SEO | Lead Platforms |
+|--------|-----|----------------|
+| Cost per lead (month 1-3) | $25-$50 | $15-$75 |
+| Cost per lead (month 6+) | $5-$15 | $15-$75 |
+| Lead exclusivity | 100% exclusive | Shared with 3-5 competitors |
+| Long-term value | Compounds over time | Resets each month |
+| Brand building | Strong | Minimal |
+| Customer quality | Higher (they found YOU) | Mixed |
+| Monthly cost | Fixed investment | Variable, scales with volume |
+
+**The bottom line:** Lead platforms can supplement your pipeline, but SEO should be your primary lead generation strategy for long-term profitability.
 
 ## Landscaping SEO Pricing
 
 **Starter - $480/month**
 - Google Business Profile optimization
-- Basic on-page SEO
+- Basic on-page SEO (5 pages)
 - Monthly reporting
-- Best for: Small service areas
+- NAP consistency audit
+- Best for: Small landscaping businesses with a single service area
 
 **Growth - $780/month** (Most Popular)
 - Everything in Starter
 - Seasonal content strategy
-- Service landing pages
-- Review profile optimization
-- Best for: Most landscaping companies
+- Service-specific landing pages (10+ pages)
+- City pages for up to 5 locations
+- Review generation system
+- Citation building (30+ directories)
+- Best for: Growing landscaping companies ready to dominate their market
 
 **Domination - $1,100/month**
 - Everything in Growth
-- Multi-city targeting
-- Commercial client focus
+- Multi-city targeting (10+ locations)
+- Commercial landscaping keyword targeting
+- Blog content (2 posts/month)
 - Year-round comprehensive strategy
-- Best for: Large service areas, growth-focused
+- Quarterly strategy reviews
+- Best for: Established companies with large service areas and growth goals
 
 ## Why Landscapers Choose Web Wise
 
-**Seasonal Understanding:** We know landscaping demand patterns and build strategies that get you ranking before peak seasons hit.
+**Seasonal Understanding:** We know landscaping demand shifts quarterly. Our strategies get you ranking before each season hits, not after your competitors have already captured the leads.
 
-**Visual Focus:** Landscaping sells on before/afters. Our strategies prioritize visual content that showcases your work quality.
+**Visual-First Approach:** Landscaping sells on before/after transformations. We prioritize visual content across your GBP, website, and social profiles to showcase work quality and drive conversions.
 
-**Proven Results:** Our landscaping clients achieve Map Pack rankings and consistent lead generation. We'll share case studies.
+**Proven Process:** Our month-by-month landscaping SEO process has been refined across dozens of landscaping clients. We know what works, what to prioritize, and how to measure success.
 
-**Year-Round Strategy:** We don't just optimize for spring. Our comprehensive approach captures leads in every season.
+**Year-Round Strategy:** We do not just optimize for spring. Our comprehensive approach captures leads in every season, including snow removal, holiday lighting, and winter lawn care for companies that offer these services.
+
+**Transparent Reporting:** Every month you receive a report showing your keyword rankings, Map Pack positions, website traffic, lead volume, and cost per lead. No vanity metrics, just the numbers that matter to your business.
 
 ## Ready to Grow Your Landscaping Business?
 
-Stop losing clients to competitors with better Google visibility. Let's discuss how we can help your landscaping business dominate local search year-round.
+Stop losing clients to competitors with better Google visibility. Whether you are a solo operator looking to fill your schedule or a multi-crew company ready to dominate your metro area, landscaping SEO delivers the consistent, high-quality leads your business needs to grow.
 
-[Get Your Free Landscaping SEO Audit](/contact) - We'll analyze your current presence, identify seasonal opportunities, and show you how to outrank your competition.
+[Get Your Free Landscaping SEO Audit](/contact) - We will analyze your current online presence, identify your biggest keyword opportunities by season, and show you exactly how to outrank your competition in the Google Map Pack and organic results.
     `,
   },
   {
@@ -2667,8 +2889,8 @@ Stop losing emergency calls to competitors with better Google visibility. Let's 
     image: '/blog/cleaning-seo/cleaning-map-pack.svg',
     imageAlt: 'Google Map Pack for cleaning companies showing where recurring clients search',
     keywords: ['seo for cleaning company', 'cleaning company seo', 'cleaning service seo', 'carpet cleaning seo', 'seo for carpet cleaners', 'house cleaning seo company', 'cleaning company seo experts', 'janitorial seo'],
-    relatedServiceUrl: '/local-seo',
-    relatedServiceName: 'Local SEO Services',
+    relatedServiceUrl: '/local-seo/cleaning',
+    relatedServiceName: 'Cleaning Company SEO Services',
     tldr: [
       'SEO for cleaning company works by targeting the exact phrases your customers search, like "house cleaning near me" and "carpet cleaning [city]"',
       'We build service-specific landing pages for every cleaning type you offer, from residential to commercial to carpet cleaning',
@@ -3132,8 +3354,8 @@ Stop losing jobs to competitors with better Google visibility. Let's discuss how
     image: '/blog/locksmith-keywords/locksmith-keywords-hero.svg',
     imageAlt: 'Locksmith keywords for SEO: 100+ high-intent keywords organized by category with search volumes and conversion rates',
     keywords: ['locksmith keywords', 'locksmith keywords for seo', 'locksmith seo keywords', 'seo for locksmiths', 'locksmith seo', 'locksmith search terms', 'locksmith keyword research', 'best locksmith keywords'],
-    relatedServiceUrl: '/local-seo',
-    relatedServiceName: 'Local SEO Services',
+    relatedServiceUrl: '/local-seo/locksmiths',
+    relatedServiceName: 'Locksmith SEO Services',
     tldr: [
       'Emergency lockout keywords like "locksmith near me" and "locked out of house" have the highest conversion rates at 40%+ because customers need help immediately',
       'Targeting city-specific locksmith keywords is essential because 93% of locksmith searches have local intent and Google prioritizes businesses near the searcher',
@@ -5896,6 +6118,16 @@ Need professional help? Our [local SEO services](/local-seo) include comprehensi
       'NAP consistency (Name, Address, Phone) across your website, GBP, and all citations is the most common local SEO issue we find in audits',
       'Most local businesses can complete 70% of this checklist themselves, the remaining 30% (link building, technical SEO, ongoing content) is where professional help delivers the most value',
       'Work through this checklist in order: GBP first, then on-page, then citations, then reviews, then link building, each section builds on the previous one',
+    ],
+    howToName: 'How to Run a Complete Local SEO Audit and Optimization',
+    howToSteps: [
+      { name: 'Audit and optimize your Google Business Profile', text: 'Verify your GBP listing, complete every field, choose the right primary and secondary categories, write a keyword-rich description, and upload at least 10 photos. This is the highest-impact section of the checklist.' },
+      { name: 'Fix NAP consistency across the web', text: 'Ensure your business Name, Address, and Phone number are identical on your website, Google Business Profile, and every citation site. Inconsistent NAP is the most common local SEO issue we find in audits.' },
+      { name: 'Optimize on-page SEO for local intent', text: 'Add city and service keywords to your title tags, meta descriptions, H1s, and body content. Create dedicated service pages and city pages. Add LocalBusiness schema markup to every page.' },
+      { name: 'Build local citations on top directories', text: 'Submit your business to at least 30 high-quality citation sites including Yelp, Bing Places, Apple Maps, Yellow Pages, and industry-specific directories. Maintain consistent NAP across all listings.' },
+      { name: 'Generate and manage reviews systematically', text: 'Set up a review request process for every completed job. Ask via email and SMS. Respond to every review within 24-48 hours. Aim for 20+ reviews and a 4.5+ star average to compete in the Map Pack.' },
+      { name: 'Build local backlinks from relevant sources', text: 'Earn backlinks from local newspapers, chamber of commerce, sponsorships, partnerships, and industry directories. Local links carry more weight than generic backlinks for local SEO.' },
+      { name: 'Track rankings and refine your strategy', text: 'Monitor your rankings for target keywords using a local rank tracker. Track Map Pack positions, organic positions, and conversions. Identify what is moving the needle and double down on those tactics.' },
     ],
     faqs: [
       { question: 'How long does it take to complete a local SEO checklist?', answer: 'A thorough local SEO audit and implementation takes 2-4 weeks for the initial setup (GBP optimization, on-page fixes, citation building). Ongoing tasks like review management, content creation, and link building are monthly activities. Most businesses see initial ranking improvements within 30-60 days of completing the foundational items on this checklist.' },
@@ -9221,6 +9453,17 @@ Our [SEO services](/seo-services) include reputation monitoring, review manageme
       'NAP inconsistencies across directories are the number one issue we find in local SEO audits, affecting over 70% of businesses we analyze',
       'Free tools like Google Search Console, Google Business Profile Insights, and PageSpeed Insights can power most of your audit',
       'Run a full local SEO audit quarterly and a quick check monthly to catch problems before they impact rankings significantly',
+    ],
+    howToName: 'How to Run a Local SEO Audit Step by Step',
+    howToSteps: [
+      { name: 'Audit your Google Business Profile', text: 'Check that your GBP is verified, every field is complete, your primary category is correct, your hours are accurate, and your photos are recent. Look for any suspended or duplicate listings that could be hurting visibility.' },
+      { name: 'Check NAP consistency across citations', text: 'Compare your business Name, Address, and Phone number across your top 20 citation sites. Inconsistencies are the number one issue we find in audits, affecting over 70% of businesses we analyze.' },
+      { name: 'Audit on-page local SEO factors', text: 'Review title tags, meta descriptions, H1s, and body content for local keyword targeting. Verify LocalBusiness schema is present and correct. Check that every service and city you target has a dedicated page.' },
+      { name: 'Analyze your citation profile', text: 'Use a tool like BrightLocal or Whitespark to identify missing citations on top directories and find duplicate listings. Prioritize the top 30 citation sources for your industry and location.' },
+      { name: 'Review your review profile', text: 'Compare your review count, average rating, and response rate against your top 3 local competitors. Identify gaps and build a review generation system to close them.' },
+      { name: 'Check technical SEO and page speed', text: 'Run Google PageSpeed Insights on your top pages. Fix any Core Web Vitals issues. Verify mobile usability in Google Search Console. Ensure your site is crawlable and indexed.' },
+      { name: 'Audit your local backlink profile', text: 'Use Google Search Console or a backlink tool to identify your existing local links. Compare against competitors to find link gaps from local newspapers, chambers of commerce, sponsorships, and partnerships.' },
+      { name: 'Document findings and prioritize fixes', text: 'Create an action plan ranked by impact and effort. Tackle the highest-impact, lowest-effort fixes first (typically GBP and NAP issues). Schedule a follow-up audit in 90 days to measure improvement.' },
     ],
     faqs: [
       { question: 'How do I audit my local SEO?', answer: 'Start by auditing your Google Business Profile for completeness and accuracy. Then check NAP consistency across your top 20 citations. Review your website for local keyword optimization, page speed, and mobile experience. Analyze your backlink profile for local link opportunities. Finally, compare your review profile against top competitors. This guide walks through each step in detail.' },

@@ -21,6 +21,7 @@ const caseStudySlugMap: Record<string, string> = {
   'gnt-home-remodeling-contractor-website-design': 'gnt-remodeling',
   'msc-certification-web-application-development': 'msc-certification',
   'aaa-remodels-jacksonville-home-remodeling-seo-website': 'aaa-remodels',
+  'torra-gips-construction-company-website-design': 'torra-gips',
 }
 
 // Old paths that only exist as redirect stubs — never include in sitemap
@@ -88,14 +89,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: getPriority(urlPath),
   }))
 
-  // 2. Blog posts with real publish dates
+  // 2. Blog posts with real publish dates (prefer lastModified when available)
   const blogPosts = getBlogPosts()
-  const blogDateMap = new Map(blogPosts.map(post => [getBlogPostUrl(post.slug), post.date]))
+  const blogDateMap = new Map(blogPosts.map(post => [getBlogPostUrl(post.slug), post.lastModified || post.date]))
   const blogPages: MetadataRoute.Sitemap = blogPosts.map(post => {
     const urlPath = getBlogPostUrl(post.slug)
     return {
       url: `${baseUrl}${urlPath}`,
-      lastModified: new Date(post.date),
+      lastModified: new Date(post.lastModified || post.date),
       changeFrequency: 'weekly' as const,
       priority: 0.8,
     }

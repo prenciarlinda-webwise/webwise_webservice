@@ -5,6 +5,7 @@ import Script from 'next/script'
 import { ArrowLeft, ArrowRight, Calendar, User, Clock, Share2, HelpCircle, Award, Check, Rocket } from 'lucide-react'
 import { blogPosts, getPostBySlug, getRelatedPosts, getBlogPostUrl, getBlogPosts } from '@/data/blog'
 import { siteConfig, getWhatsAppUrl } from '@/data/site'
+import { getBlogPostSEO } from '@/data/seo'
 
 // Only generate pages for slugs that don't have dedicated pages elsewhere
 const excludedSlugs = [
@@ -28,16 +29,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params
   const post = getPostBySlug(slug)
   if (!post) return { title: 'Post Not Found' }
+  const seo = getBlogPostSEO(slug)
   return {
-    title: post.title,
-    description: post.excerpt,
-    keywords: post.keywords || [post.category, 'SEO', 'local business', 'web design'],
+    title: seo?.title || post.title,
+    description: seo?.description || post.excerpt,
+    keywords: seo?.keywords || post.keywords || [post.category, 'SEO', 'local business', 'web design'],
     authors: [{ name: post.author }],
     openGraph: {
       title: post.title,
       description: post.excerpt,
       type: 'article',
       publishedTime: post.date,
+      modifiedTime: post.lastModified || post.date,
       authors: [post.author],
       section: post.category,
       images: post.image ? [{ url: post.image, alt: post.imageAlt || post.title }] : undefined,
@@ -84,7 +87,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       },
     },
     datePublished: post.date,
-    dateModified: post.date,
+    dateModified: post.lastModified || post.date,
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": canonicalUrl,
@@ -125,24 +128,70 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       url: siteConfig.url,
       telephone: siteConfig.phone,
       email: siteConfig.email,
+      priceRange: "$480-$1500",
     },
     areaServed: [
       { "@type": "Country", name: "United States" },
       { "@type": "Country", name: "United Kingdom" },
     ],
+    offers: {
+      "@type": "AggregateOffer",
+      priceCurrency: "USD",
+      lowPrice: "480",
+      highPrice: "1500",
+      offerCount: "3",
+    },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Local SEO Services",
       itemListElement: [
         {
           "@type": "Offer",
+          name: "Starter Plan",
+          price: "480",
+          priceCurrency: "USD",
           itemOffered: {
             "@type": "Service",
-            name: serviceType,
+            name: `${serviceType} - Starter`,
+          },
+        },
+        {
+          "@type": "Offer",
+          name: "Growth Plan",
+          price: "780",
+          priceCurrency: "USD",
+          itemOffered: {
+            "@type": "Service",
+            name: `${serviceType} - Growth`,
+          },
+        },
+        {
+          "@type": "Offer",
+          name: "Domination Plan",
+          price: "1100",
+          priceCurrency: "USD",
+          itemOffered: {
+            "@type": "Service",
+            name: `${serviceType} - Domination`,
           },
         },
       ],
     },
+  } : null
+
+  // HowTo Schema - only when post has structured steps
+  const howToSchema = post.howToSteps && post.howToSteps.length > 0 ? {
+    "@type": "HowTo",
+    "@id": `${canonicalUrl}#howto`,
+    name: post.howToName || post.title,
+    description: post.excerpt,
+    image: post.image || undefined,
+    step: post.howToSteps.map((step, index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      name: step.name,
+      text: step.text,
+    })),
   } : null
 
   // BreadcrumbList Schema
@@ -193,6 +242,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       breadcrumbSchema,
       ...(serviceSchema ? [serviceSchema] : []),
       ...(faqSchema ? [faqSchema] : []),
+      ...(howToSchema ? [howToSchema] : []),
     ],
   }
 
@@ -226,6 +276,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               <div className="flex flex-wrap items-center gap-6 text-sm text-white/70">
                 <span className="flex items-center gap-2"><User size={16} /> {post.author}</span>
                 <span className="flex items-center gap-2"><Calendar size={16} /> {post.date}</span>
+                {post.lastModified && (
+                  <span className="flex items-center gap-2 text-accent-light">
+                    Updated {new Date(post.lastModified).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                  </span>
+                )}
                 <span className="flex items-center gap-2"><Clock size={16} /> {post.readTime}</span>
               </div>
             </div>
