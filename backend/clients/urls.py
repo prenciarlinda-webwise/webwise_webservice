@@ -21,6 +21,13 @@ urlpatterns = [
     path('plans/', views.MonthlyPlanListCreateView.as_view(), name='plan_list'),
     path('plans/<int:pk>/', views.MonthlyPlanDetailView.as_view(), name='plan_detail'),
 
+    # Quarterly plans
+    path('quarterly-plans/', views.QuarterlyPlanListCreateView.as_view(), name='quarterly_plan_list'),
+    path('quarterly-plans/<int:pk>/', views.QuarterlyPlanDetailView.as_view(), name='quarterly_plan_detail'),
+
+    # DataForSEO location picker (read-only)
+    path('locations/', views.LocationListView.as_view(), name='location_list'),
+
     # Deliverables
     path('deliverables/', views.DeliverableListCreateView.as_view(), name='deliverable_list'),
     path('deliverables/<int:pk>/', views.DeliverableDetailView.as_view(), name='deliverable_detail'),

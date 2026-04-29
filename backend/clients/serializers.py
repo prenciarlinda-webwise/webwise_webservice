@@ -3,6 +3,7 @@ from rest_framework import serializers
 from .models import (
     ClientProfile, Project, ProjectService, MonthlyPlan, Deliverable,
     ServiceTemplate, TemplateDeliverable, BusinessCatalogItem,
+    QuarterlyPlan, Location,
 )
 from reports.models import Report
 
@@ -64,6 +65,7 @@ class MonthlyPlanSerializer(serializers.ModelSerializer):
         model = MonthlyPlan
         fields = [
             'id', 'project_service', 'service_name', 'project_name', 'project_id', 'client_name', 'client_id',
+            'quarterly_plan',
             'month', 'month_display', 'status', 'notes',
             'monthly_retainer', 'content_writer_cost', 'tool_costs', 'link_building_spend', 'other_costs',
             'total_costs', 'profit_margin',
@@ -161,6 +163,14 @@ class ProjectSerializer(serializers.ModelSerializer):
             'google_business_url', 'facebook_url', 'instagram_url', 'google_drive_url', 'image_folder_url',
             'citations_url', 'booking_url',
             'industry', 'target_audience', 'competitors', 'usps', 'marketing_channels', 'nap_status',
+            # SEO targeting + structured NAP + GBP IDs + tracking flags
+            'domain', 'city', 'state', 'zip_code', 'country',
+            'google_business_name', 'google_place_id', 'google_cid',
+            'location_code', 'location_name', 'language_code',
+            'track_organic', 'track_mobile', 'track_maps',
+            'discovery_enabled', 'max_discovery_keywords',
+            'tags', 'monthly_budget_usd', 'contract_start_date', 'contract_end_date',
+            'is_seo_tracked',
             'status', 'notes', 'services', 'catalog', 'created_at', 'updated_at',
         ]
         read_only_fields = ['id', 'slug', 'created_at', 'updated_at']
@@ -183,6 +193,14 @@ class ProjectDetailSerializer(serializers.ModelSerializer):
             'google_business_url', 'facebook_url', 'instagram_url', 'google_drive_url', 'image_folder_url',
             'citations_url', 'booking_url',
             'industry', 'target_audience', 'competitors', 'usps', 'marketing_channels', 'nap_status',
+            # SEO targeting + structured NAP + GBP IDs + tracking flags
+            'domain', 'city', 'state', 'zip_code', 'country',
+            'google_business_name', 'google_place_id', 'google_cid',
+            'location_code', 'location_name', 'language_code',
+            'track_organic', 'track_mobile', 'track_maps',
+            'discovery_enabled', 'max_discovery_keywords',
+            'tags', 'monthly_budget_usd', 'contract_start_date', 'contract_end_date',
+            'is_seo_tracked',
             'status', 'notes', 'services', 'catalog', 'created_at', 'updated_at',
         ]
         read_only_fields = ['id', 'slug', 'created_at', 'updated_at']
@@ -235,3 +253,37 @@ class ServiceTemplateSerializer(serializers.ModelSerializer):
         model = ServiceTemplate
         fields = ['id', 'name', 'description', 'deliverables', 'created_at']
         read_only_fields = ['id', 'created_at']
+
+
+# ----- Quarterly plan -----
+
+class QuarterlyPlanSerializer(serializers.ModelSerializer):
+    project_name = serializers.CharField(source='project.name', read_only=True)
+    client_id = serializers.IntegerField(source='project.client.id', read_only=True)
+    client_name = serializers.CharField(source='project.client.business_name', read_only=True)
+    status_display = serializers.CharField(source='get_status_display', read_only=True)
+    progress_pct = serializers.IntegerField(read_only=True)
+    monthly_plans_count = serializers.SerializerMethodField()
+    created_by_name = serializers.CharField(source='created_by.get_full_name', read_only=True, default=None)
+
+    class Meta:
+        model = QuarterlyPlan
+        fields = [
+            'id', 'project', 'project_name', 'client_id', 'client_name',
+            'name', 'status', 'status_display',
+            'quarter_start', 'quarter_end', 'goals', 'notes',
+            'progress_pct', 'monthly_plans_count',
+            'created_by', 'created_by_name', 'created_at', 'updated_at',
+        ]
+        read_only_fields = ['id', 'created_at', 'updated_at', 'created_by']
+
+    def get_monthly_plans_count(self, obj):
+        return obj.monthly_plans.count()
+
+
+# ----- DataForSEO location lookup (read-only picker) -----
+
+class LocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Location
+        fields = ['location_code', 'location_name', 'location_type', 'country_iso_code', 'location_code_parent']

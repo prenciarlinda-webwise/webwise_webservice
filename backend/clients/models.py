@@ -1,3 +1,5 @@
+from urllib.parse import urlparse
+
 from django.conf import settings
 from django.db import models
 from django.utils.text import slugify
@@ -65,6 +67,35 @@ class Project(models.Model):
     usps = models.JSONField(default=list, blank=True, help_text='["Same-day delivery", "Driveway friendly"]')
     marketing_channels = models.JSONField(default=list, blank=True, help_text='["GMB", "Facebook Ads", "Citations"]')
     nap_status = models.CharField(max_length=50, blank=True, help_text='e.g. "High", "Cleaning in progress"')
+    # --- SEO targeting (DataForSEO) ---
+    domain = models.CharField(
+        max_length=255, blank=True, db_index=True,
+        help_text='Bare domain for SEO tracking (e.g. "example.com"). Auto-derived from website_url if blank.',
+    )
+    # --- Structured NAP (in addition to unstructured business_address) ---
+    city = models.CharField(max_length=100, blank=True)
+    state = models.CharField(max_length=100, blank=True)
+    zip_code = models.CharField(max_length=20, blank=True)
+    country = models.CharField(max_length=100, default='United States', blank=True)
+    # --- Google Business Profile identifiers ---
+    google_business_name = models.CharField(max_length=255, blank=True, help_text='Display name on the GBP listing')
+    google_place_id = models.CharField(max_length=255, blank=True, db_index=True)
+    google_cid = models.CharField(max_length=255, blank=True, db_index=True)
+    # --- DataForSEO targeting defaults ---
+    location_code = models.IntegerField(default=2840, help_text='DataForSEO location code (2840 = United States)')
+    location_name = models.CharField(max_length=255, default='United States')
+    language_code = models.CharField(max_length=10, default='en')
+    # --- Tracking flags (which SEO data to collect) ---
+    track_organic = models.BooleanField(default=True)
+    track_mobile = models.BooleanField(default=True)
+    track_maps = models.BooleanField(default=False)
+    discovery_enabled = models.BooleanField(default=True)
+    max_discovery_keywords = models.IntegerField(default=1000)
+    # --- Tagging & contract metadata ---
+    tags = models.JSONField(default=list, blank=True, help_text='["plumber", "florida", "high-priority"]')
+    monthly_budget_usd = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    contract_start_date = models.DateField(null=True, blank=True)
+    contract_end_date = models.DateField(null=True, blank=True)
     # Meta
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.ACTIVE)
     notes = models.TextField(blank=True)
@@ -80,7 +111,23 @@ class Project(models.Model):
                 slug = f'{base}-{n}'
                 n += 1
             self.slug = slug
+        # Derive bare domain from website_url for DataForSEO targeting.
+        if not self.domain and self.website_url:
+            netloc = urlparse(self.website_url).netloc.lower()
+            if netloc.startswith('www.'):
+                netloc = netloc[4:]
+            self.domain = netloc
         super().save(*args, **kwargs)
+
+    @property
+    def is_seo_tracked(self):
+        """True if this project has SEO tracking enabled and minimum config."""
+        return self.status == self.Status.ACTIVE and bool(self.domain) and (
+            self.track_organic or self.track_mobile or self.track_maps
+        )
+
+    class Meta:
+        ordering = ['-created_at']
 
     def __str__(self):
         return f"{self.client.business_name} — {self.name}"
@@ -130,6 +177,51 @@ class ProjectService(models.Model):
         verbose_name_plural = 'Project services'
 
 
+class QuarterlyPlan(models.Model):
+    """High-level 3-month plan for a project. Monthly plans roll up under it."""
+    class Status(models.TextChoices):
+        DRAFT = 'draft', 'Draft'
+        ACTIVE = 'active', 'Active'
+        COMPLETED = 'completed', 'Completed'
+        ARCHIVED = 'archived', 'Archived'
+
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='quarterly_plans')
+    name = models.CharField(max_length=200, help_text='e.g. "Q2 2026" or "Spring 2026 — Repipe push"')
+    status = models.CharField(max_length=20, choices=Status.choices, default=Status.DRAFT)
+    quarter_start = models.DateField(help_text='First day of the quarter')
+    quarter_end = models.DateField(help_text='Last day of the quarter')
+    goals = models.JSONField(
+        default=list, blank=True,
+        help_text='["Reach 50 ranked keywords", "Get 20 GBP reviews"]',
+    )
+    notes = models.TextField(blank=True)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL,
+        null=True, blank=True, related_name='created_quarterly_plans',
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-quarter_start']
+        unique_together = ['project', 'quarter_start']
+
+    def __str__(self):
+        return f"{self.project.name} — {self.name}"
+
+    @property
+    def progress_pct(self):
+        """Percent of all child deliverables that are completed/published."""
+        # Local import: Deliverable is defined later in this module.
+        from clients.models import Deliverable
+        deliverables = Deliverable.objects.filter(monthly_plan__quarterly_plan=self)
+        total = deliverables.count()
+        if total == 0:
+            return 0
+        completed = deliverables.filter(status__in=['completed', 'published']).count()
+        return round((completed / total) * 100)
+
+
 class MonthlyPlan(models.Model):
     class Status(models.TextChoices):
         PLANNED = 'planned', 'Planned'
@@ -137,6 +229,11 @@ class MonthlyPlan(models.Model):
         COMPLETED = 'completed', 'Completed'
 
     project_service = models.ForeignKey(ProjectService, on_delete=models.CASCADE, related_name='monthly_plans')
+    quarterly_plan = models.ForeignKey(
+        QuarterlyPlan, on_delete=models.SET_NULL,
+        null=True, blank=True, related_name='monthly_plans',
+        help_text='Optional roll-up to a quarterly plan',
+    )
     month = models.DateField(help_text='First day of the month (e.g. 2026-03-01)')
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.PLANNED)
     notes = models.TextField(blank=True)
@@ -278,5 +375,25 @@ class TemplateDeliverable(models.Model):
 
     class Meta:
         ordering = ['sort_order']
+
+
+class Location(models.Model):
+    """Cached DataForSEO location reference for the SERP / Maps targeting picker.
+    Populated by a sync command (added when SEO apps are ported in Phase 4).
+    """
+    location_code = models.IntegerField(unique=True, db_index=True)
+    location_name = models.CharField(max_length=500, db_index=True)
+    location_type = models.CharField(max_length=50, blank=True)
+    country_iso_code = models.CharField(max_length=10, blank=True, db_index=True)
+    location_code_parent = models.IntegerField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['location_name']
+        indexes = [
+            models.Index(fields=['country_iso_code', 'location_name']),
+        ]
+
+    def __str__(self):
+        return f"{self.location_name} ({self.location_code})"
 
 

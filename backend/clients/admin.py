@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import (
     ClientProfile, Project, ProjectService, MonthlyPlan, Deliverable,
     ServiceTemplate, TemplateDeliverable,
+    QuarterlyPlan, Location,
 )
 
 
@@ -28,6 +29,13 @@ class TemplateDeliverableInline(admin.TabularInline):
     fields = ['sort_order', 'category', 'title', 'description', 'frequency', 'quantity', 'week_due']
 
 
+class MonthlyPlanInline(admin.TabularInline):
+    model = MonthlyPlan
+    extra = 0
+    show_change_link = True
+    fields = ['project_service', 'month', 'status']
+
+
 @admin.register(ClientProfile)
 class ClientProfileAdmin(admin.ModelAdmin):
     list_display = ['business_name', 'user', 'business_email', 'business_phone', 'created_at']
@@ -37,9 +45,56 @@ class ClientProfileAdmin(admin.ModelAdmin):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ['name', 'client', 'status', 'website_url', 'created_at']
-    list_filter = ['status']
-    search_fields = ['name', 'client__business_name']
+    list_display = ['name', 'client', 'status', 'domain', 'is_seo_tracked', 'website_url', 'created_at']
+    list_filter = ['status', 'track_organic', 'track_maps', 'discovery_enabled']
+    search_fields = ['name', 'domain', 'client__business_name', 'google_place_id']
+    readonly_fields = ['slug', 'is_seo_tracked', 'created_at', 'updated_at']
+    fieldsets = (
+        (None, {
+            'fields': ('client', 'name', 'slug', 'status', 'industry', 'notes'),
+        }),
+        ('Contact / NAP', {
+            'fields': (
+                'business_phone', 'business_email', 'business_address',
+                'city', 'state', 'zip_code', 'country',
+                'business_hours',
+            ),
+        }),
+        ('Web presence', {
+            'fields': (
+                'website_url', 'domain',
+                'google_business_url', 'google_business_name', 'google_place_id', 'google_cid',
+                'facebook_url', 'instagram_url',
+            ),
+        }),
+        ('SEO targeting (DataForSEO)', {
+            'fields': (
+                'location_code', 'location_name', 'language_code',
+                'track_organic', 'track_mobile', 'track_maps',
+                'discovery_enabled', 'max_discovery_keywords',
+                'is_seo_tracked',
+            ),
+        }),
+        ('Internal links / assets', {
+            'classes': ('collapse',),
+            'fields': ('google_drive_url', 'image_folder_url', 'citations_url', 'booking_url'),
+        }),
+        ('Business intel', {
+            'classes': ('collapse',),
+            'fields': (
+                'service_areas', 'target_audience', 'competitors', 'usps',
+                'marketing_channels', 'nap_status', 'tags',
+            ),
+        }),
+        ('Contract', {
+            'classes': ('collapse',),
+            'fields': ('monthly_budget_usd', 'contract_start_date', 'contract_end_date'),
+        }),
+        ('Timestamps', {
+            'classes': ('collapse',),
+            'fields': ('created_at', 'updated_at'),
+        }),
+    )
     inlines = [ProjectServiceInline]
 
 
@@ -49,10 +104,21 @@ class ProjectServiceAdmin(admin.ModelAdmin):
     list_filter = ['status']
 
 
+@admin.register(QuarterlyPlan)
+class QuarterlyPlanAdmin(admin.ModelAdmin):
+    list_display = ['project', 'name', 'status', 'quarter_start', 'quarter_end', 'progress_pct']
+    list_filter = ['status', 'quarter_start']
+    search_fields = ['name', 'project__name', 'project__client__business_name']
+    autocomplete_fields = ['project']
+    readonly_fields = ['progress_pct', 'created_by', 'created_at', 'updated_at']
+    inlines = [MonthlyPlanInline]
+
+
 @admin.register(MonthlyPlan)
 class MonthlyPlanAdmin(admin.ModelAdmin):
-    list_display = ['project_service', 'month', 'status']
+    list_display = ['project_service', 'month', 'status', 'quarterly_plan']
     list_filter = ['status', 'month']
+    autocomplete_fields = ['quarterly_plan']
     inlines = [DeliverableInline]
 
 
@@ -67,3 +133,10 @@ class DeliverableAdmin(admin.ModelAdmin):
 class ServiceTemplateAdmin(admin.ModelAdmin):
     list_display = ['name', 'created_at']
     inlines = [TemplateDeliverableInline]
+
+
+@admin.register(Location)
+class LocationAdmin(admin.ModelAdmin):
+    list_display = ['location_code', 'location_name', 'location_type', 'country_iso_code']
+    list_filter = ['location_type', 'country_iso_code']
+    search_fields = ['location_name', 'location_code']

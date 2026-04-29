@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from .models import (
     ClientProfile, Project, ProjectService, MonthlyPlan, Deliverable,
     ServiceTemplate, TemplateDeliverable, BusinessCatalogItem,
+    QuarterlyPlan, Location,
 )
 from .serializers import (
     ClientProfileSerializer, ProjectSerializer, ProjectDetailSerializer,
@@ -15,6 +16,7 @@ from .serializers import (
     MonthlyPlanSerializer, DeliverableSerializer,
     ServiceTemplateSerializer, TemplateDeliverableSerializer,
     BusinessCatalogItemSerializer,
+    QuarterlyPlanSerializer, LocationSerializer,
 )
 from accounts.permissions import IsAdmin, IsAdminOrEmployee, IsClient
 
@@ -442,3 +444,69 @@ class BusinessCatalogDetailView(generics.RetrieveUpdateDestroyAPIView):
         if user.role in ('admin', 'employee'):
             return BusinessCatalogItem.objects.all()
         return BusinessCatalogItem.objects.filter(project__client__user=user)
+
+
+# --- Quarterly Plans ---
+
+class QuarterlyPlanListCreateView(generics.ListCreateAPIView):
+    serializer_class = QuarterlyPlanSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        if self.request.user.role == 'client':
+            raise PermissionDenied('Clients cannot create quarterly plans.')
+        serializer.save(created_by=self.request.user)
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.role in ('admin', 'employee'):
+            qs = QuarterlyPlan.objects.all()
+        else:
+            qs = QuarterlyPlan.objects.filter(project__client__user=user)
+        project = self.request.query_params.get('project')
+        if project:
+            qs = qs.filter(project_id=project)
+        status_q = self.request.query_params.get('status')
+        if status_q:
+            qs = qs.filter(status=status_q)
+        return qs.select_related('project__client', 'created_by').prefetch_related('monthly_plans')
+
+
+class QuarterlyPlanDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = QuarterlyPlanSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.role in ('admin', 'employee'):
+            return QuarterlyPlan.objects.all()
+        return QuarterlyPlan.objects.filter(project__client__user=user)
+
+    def perform_update(self, serializer):
+        if self.request.user.role == 'client':
+            raise PermissionDenied('Clients cannot modify quarterly plans.')
+        serializer.save()
+
+    def perform_destroy(self, instance):
+        if self.request.user.role == 'client':
+            raise PermissionDenied('Clients cannot delete quarterly plans.')
+        instance.delete()
+
+
+# --- DataForSEO Location picker (read-only lookup) ---
+
+class LocationListView(generics.ListAPIView):
+    """Search locations for the SERP / Maps targeting picker."""
+    serializer_class = LocationSerializer
+    permission_classes = [IsAuthenticated]
+    pagination_class = None  # picker is autocomplete-style; client paginates by query
+
+    def get_queryset(self):
+        qs = Location.objects.all()
+        q = self.request.query_params.get('q')
+        if q:
+            qs = qs.filter(location_name__icontains=q)
+        country = self.request.query_params.get('country')
+        if country:
+            qs = qs.filter(country_iso_code__iexact=country)
+        return qs[:50]
