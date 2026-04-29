@@ -4,7 +4,8 @@ from .models import EmployeeProfile, TaskLog
 
 @admin.register(EmployeeProfile)
 class EmployeeProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'hourly_rate', 'created_at']
+    list_display = ['user', 'category', 'hourly_rate', 'is_active', 'created_at']
+    list_filter = ['category', 'is_active']
     search_fields = ['user__first_name', 'user__last_name', 'user__email']
 
 

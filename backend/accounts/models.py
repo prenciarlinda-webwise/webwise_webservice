@@ -25,3 +25,20 @@ class User(AbstractUser):
     @property
     def is_client(self):
         return self.role == self.Role.CLIENT
+
+    @property
+    def is_supervisor(self):
+        # Admin always counts as supervisor. Employees count only if their
+        # profile category is 'supervisor'. Avoid importing EmployeeProfile
+        # here to keep accounts decoupled from employees.
+        if self.role == self.Role.ADMIN:
+            return True
+        if self.role != self.Role.EMPLOYEE:
+            return False
+        try:
+            return self.employee_profile.category == 'supervisor'
+        except Exception:
+            return False
+
+    def can_supervise(self):
+        return self.is_supervisor

@@ -67,7 +67,14 @@ class ProjectListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         if self.request.user.role == 'client':
-            profile = ClientProfile.objects.get(user=self.request.user)
+            profile, _ = ClientProfile.objects.get_or_create(
+                user=self.request.user,
+                defaults={
+                    'business_name': self.request.user.get_full_name() or self.request.user.username,
+                    'business_email': self.request.user.email,
+                    'business_phone': self.request.user.phone,
+                },
+            )
             serializer.save(client=profile)
         else:
             serializer.save()

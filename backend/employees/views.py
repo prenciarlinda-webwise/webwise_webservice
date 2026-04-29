@@ -51,7 +51,7 @@ class TaskLogListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         if self.request.user.role == 'employee':
-            profile = self.request.user.employee_profile
+            profile, _ = EmployeeProfile.objects.get_or_create(user=self.request.user)
             serializer.save(employee=profile)
         else:
             serializer.save()
@@ -83,7 +83,7 @@ class EmployeeMonthlySummaryView(APIView):
             profile = EmployeeProfile.objects.get(id=employee_id)
             target_user = profile.user
         else:
-            profile = user.employee_profile
+            profile, _ = EmployeeProfile.objects.get_or_create(user=user)
             target_user = user
 
         month_str = request.query_params.get('month')

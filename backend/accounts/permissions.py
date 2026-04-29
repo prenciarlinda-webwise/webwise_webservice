@@ -19,3 +19,9 @@ class IsClient(BasePermission):
 class IsAdminOrEmployee(BasePermission):
     def has_permission(self, request, view):
         return request.user.is_authenticated and request.user.role in ('admin', 'employee')
+
+
+class IsSupervisor(BasePermission):
+    """Admin OR employee whose EmployeeProfile.category == 'supervisor'."""
+    def has_permission(self, request, view):
+        return request.user.is_authenticated and request.user.is_supervisor
