@@ -51,19 +51,13 @@ INSTALLED_APPS = [
     "reports",
     "employees",
     "notifications",
-    # SEO tool apps (apps.* namespace) — enabled in Phase 4
-    # "apps.seo_clients",
-    # "apps.keywords",
-    # "apps.rankings",
-    # "apps.discovery",
-    # "apps.gmb",
-    # "apps.analytics",
-    # "apps.backlinks",
-    # "apps.onpage",
-    # "apps.competitors",
-    # "apps.content_analysis",
-    # "apps.plans",
-    # "apps.citations",
+    # SEO tool apps (apps.* namespace), retargeted to clients.Project
+    "apps.keywords",
+    "apps.rankings",
+    "apps.discovery",
+    "apps.competitors",
+    "apps.content_analysis",
+    "apps.citations",
 ]
 
 MIDDLEWARE = [
