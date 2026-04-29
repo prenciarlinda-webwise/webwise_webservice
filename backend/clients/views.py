@@ -30,6 +30,21 @@ class ClientProfileListView(generics.ListCreateAPIView):
     def get_queryset(self):
         return ClientProfile.objects.select_related('user').prefetch_related('projects__services').all()
 
+    def create(self, request, *args, **kwargs):
+        # Upsert by user FK. RegisterSerializer auto-creates an empty profile
+        # when role=client; the frontend's "Add client" flow follows up with
+        # a POST /clients/ to fill the business fields. Treat that as an update
+        # instead of a duplicate-insert error.
+        user_id = request.data.get('user')
+        if user_id:
+            existing = ClientProfile.objects.filter(user_id=user_id).first()
+            if existing:
+                serializer = self.get_serializer(existing, data=request.data, partial=True)
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+        return super().create(request, *args, **kwargs)
+
 
 class ClientProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ClientProfileSerializer

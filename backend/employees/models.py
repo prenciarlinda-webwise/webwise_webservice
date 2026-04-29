@@ -28,6 +28,9 @@ class EmployeeProfile(models.Model):
     def __str__(self):
         return f"{self.user.get_full_name() or self.user.username} ({self.get_category_display()})"
 
+    class Meta:
+        ordering = ['user__first_name', 'user__last_name']
+
 
 class TaskLog(models.Model):
     employee = models.ForeignKey(EmployeeProfile, on_delete=models.CASCADE, related_name='task_logs')

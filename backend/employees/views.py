@@ -1,6 +1,6 @@
 from datetime import date
 from decimal import Decimal
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -15,6 +15,21 @@ class EmployeeListView(generics.ListCreateAPIView):
     serializer_class = EmployeeProfileSerializer
     permission_classes = [IsAdmin]
     queryset = EmployeeProfile.objects.select_related('user').all()
+
+    def create(self, request, *args, **kwargs):
+        # Upsert by user FK. RegisterSerializer auto-creates an empty profile
+        # when role=employee; the frontend's "Add employee" flow follows up
+        # with POST /employees/ to set hourly_rate. Update instead of inserting
+        # a duplicate.
+        user_id = request.data.get('user')
+        if user_id:
+            existing = EmployeeProfile.objects.filter(user_id=user_id).first()
+            if existing:
+                serializer = self.get_serializer(existing, data=request.data, partial=True)
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+        return super().create(request, *args, **kwargs)
 
 
 class EmployeeDetailView(generics.RetrieveUpdateDestroyAPIView):

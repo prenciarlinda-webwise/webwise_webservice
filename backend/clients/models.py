@@ -35,6 +35,9 @@ class ClientProfile(models.Model):
     def __str__(self):
         return self.business_name
 
+    class Meta:
+        ordering = ['business_name']
+
 
 class Project(models.Model):
     class Status(models.TextChoices):
