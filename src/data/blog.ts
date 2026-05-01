@@ -71,7 +71,7 @@ export const blogPosts: BlogPost[] = [
 
 Professional [SEO services](/seo-services) for small businesses typically cost between $480 and $1,100 per month, with most local service businesses investing around $780/month for comprehensive campaigns. This investment covers keyword research, on-page optimization, Google Business Profile management, content creation, local citation building, and monthly performance reporting.
 
-The price range exists because SEO is not one-size-fits-all. A plumber in a small town faces different challenges than an HVAC company competing in a major metro area. Your specific situation determines the right investment level,and so does [how long SEO takes to show results](/blog/seo-timeline).
+The price range exists because SEO is not one-size-fits-all. A plumber in a small town faces different challenges than an HVAC company competing in a major metro area. Your specific situation determines the right investment level, and so does [how long SEO takes to show results](/blog/seo-timeline). For industry-specific pricing breakdowns, see our [SEO for plumbing companies](/local-seo/plumbers), [HVAC SEO services](/local-seo/hvac), and [roofing SEO services](/local-seo/roofing) pages.
 
 Want to know what SEO would cost for your specific business? Our [local SEO services](/local-seo) include a free competitive analysis that shows exactly what you are up against and what it takes to win.
 
@@ -85,7 +85,7 @@ Several key factors determine how much you should invest in SEO. Understanding t
 
 The competitiveness of your market is the biggest price factor. A roofer in Dallas or London faces dozens of competitors all fighting for the same keywords. This requires more aggressive strategies, more content, and more time to achieve rankings.
 
-A plumber in a smaller market might achieve page-one rankings with less investment. Before pricing SEO, any good agency should analyze your specific competitive landscape and show you what top competitors are doing.
+A plumber in a smaller market might achieve page-one rankings with less investment than a competitor in a major metro. If you run a plumbing business, see our dedicated [local SEO for plumbers](/local-seo/plumbers) page for pricing and what's included. Before pricing SEO, any good agency should analyze your specific competitive landscape and show you what top competitors are doing.
 
 **How to assess your competition:**
 - Search your main keywords and count businesses on page one
@@ -180,6 +180,7 @@ Different industries have different competitive landscapes. Here is what busines
 - Competition level: High (emergency services are valuable)
 - Key focus: Map Pack visibility, emergency keywords
 - Expected timeline: 3-4 months for initial results
+- See: [plumbing SEO](/local-seo/plumbers) and [HVAC SEO](/local-seo/hvac) packages
 
 ### Roofers and Contractors
 - Average investment: $700-$1,000/month
@@ -297,7 +298,7 @@ When done correctly, SEO delivers exceptional returns. Here is what our clients 
 
 ### ROI Calculation Example
 
-Consider a plumber investing $780/month in SEO:
+Consider a plumber investing $780/month in [plumber SEO services](/local-seo/plumbers):
 
 **Costs:**
 - Monthly SEO: $780
@@ -347,6 +348,12 @@ Before hiring, ask these questions:
 The right SEO investment depends on your market, goals, and timeline. We help local service businesses cut through the noise and build sustainable organic visibility.
 
 Our [local SEO services](/local-seo) have helped plumbers, roofers, HVAC companies, and other contractors achieve 300%+ traffic increases and consistent lead flow.
+
+## Related Reading
+
+- [How long does SEO take to work?](/blog/seo-timeline) - What to expect in month 1, 3, and 6.
+- [SEO vs PPC: Which is better for small business?](/blog/seo-vs-ppc) - Cost, speed, and ROI compared.
+- [Plumber keywords for SEO](/blog/plumber-keywords-for-seo) and [locksmith SEO guide](/blog/locksmith-keywords-for-seo) - Industry-specific keyword breakdowns.
 
 [Get a Free SEO Consultation](/contact) and we will analyze your market, show you what competitors are doing, and recommend the right approach for your goals and budget. No obligation, no pressure, just honest advice.
     `,
@@ -413,6 +420,20 @@ Most plumbing companies only think about one or two of these. A complete plumber
 Why does this matter specifically for plumbing? Because your customers are searching with high urgency. When someone has a flooded basement at 2 AM, they are not browsing five websites and comparing reviews. They are calling the first plumber that appears on Google. If your plumbing SEO is not covering all four areas, you are invisible to those customers, and your competitors are getting those calls instead.
 
 ![Plumbing keyword value comparison: emergency vs planned service searches with conversion rates](/blog/plumber-seo/plumber-keyword-value.svg)
+
+## Curiosity About Our Clients?
+
+Here's what real plumber SEO results look like. [Illyrian Plumber](https://www.illyrianplumber.com), an East Brunswick, NJ plumbing company we work with, currently ranks:
+
+- **#1 organic on Google** for "PEX repiping NJ", "whole house repiping NJ", and "gas appliance hookup NJ" - all five-figure jobs
+- **#2 organic** for "boiler repair East Brunswick NJ", "gas line repair East Brunswick NJ", and "bathroom remodeling plumber East Brunswick"
+- **#2 in the local 3-pack** for "PEX repiping NJ", with #1 in Google Maps for "whole house repiping NJ"
+- **Cited directly inside Google AI Overviews**, ChatGPT, and Perplexity for multiple high-value NJ plumbing searches - a moat almost no plumbing competitor has built yet
+- **+553% Google Search Console impressions** in the last 90 days
+
+These are the searches that fund a plumbing business: repiping projects worth $5,500-$27,000, gas line work, emergency service calls. Illyrian wins them now because we focused on them deliberately, not on vanity keywords with no buying intent.
+
+[See the full Illyrian Plumber case study with live ranking screenshots →](/case-studies/illyrian-group#ranking-screenshots)
 
 ## Why Plumbing SEO Is One of the Highest-ROI Investments
 
@@ -546,8 +567,32 @@ We recently worked with [Illyrian Plumber](/case-studies/illyrian-group), an Eas
 - **98/100 PageSpeed scores** on both mobile and desktop
 - **Local Pack top 5** for "emergency plumber" keywords across multiple NJ cities
 - **20+ keywords ranking** including high-value emergency and service terms
-- **AI visibility** - the site is now cited by ChatGPT and Perplexity AI
+- **AI visibility** - the site is now cited by ChatGPT, Perplexity AI, and Google AI Overviews
 - **DR increased from 5 to 14** with quality backlink building
+
+### Live Keyword Rankings
+
+These are real positions Illyrian Plumber holds on Google today, capturing high-intent customers across organic search, the local map pack, and AI Overview citations:
+
+| Keyword | Organic SERP | Local Pack | Maps Pack | AI Overview |
+|---|---|---|---|---|
+| PEX repiping NJ | **#1** | **#2** | **#2** | Suggested |
+| whole house repiping NJ | **#1** | — | **#1** | Cited as NJ specialist |
+| gas appliance hookup NJ | **#1** | — | — | Cited as key provider |
+| boiler repair East Brunswick NJ | **#2** | — | — | — |
+| gas line repair East Brunswick NJ | **#2** | — | — | — |
+| bathroom remodeling plumber East Brunswick | **#2** | — | — | — |
+| 24 hour plumber East Brunswick NJ | **#3** | — | — | — |
+| water heater repair East Brunswick NJ | **#3** | — | — | — |
+| emergency plumber cost East Brunswick | #8 | — | #13 | Suggested |
+| plumber East Brunswick NJ | #14 | — | — | — |
+| gas leak repair NJ | #23 | — | — | — |
+
+These rankings translate directly into phone calls. PEX repiping and whole-house repiping are five-figure jobs - ranking #1 organically and in the maps pack means Illyrian sees those leads before any competitor does. Being cited in Google's AI Overview for "gas appliance hookup NJ" and "emergency plumber cost East Brunswick" puts the brand directly in front of customers using AI search, a channel most plumbers haven't even started competing in yet.
+
+[See the full Illyrian Plumber case study with screenshots →](/case-studies/illyrian-group#ranking-screenshots)
+
+### How We Did It
 
 The key was combining a fast, well-structured website with aggressive local SEO targeting emergency plumber searches throughout their service area. By focusing on emergency plumbing keywords first, we helped Illyrian capture the most profitable searches in their market before going after broader terms.
 
@@ -2690,6 +2735,12 @@ Many landscapers rely on HomeAdvisor, Thumbtack, or Angi for leads. Here is how 
 
 Stop losing clients to competitors with better Google visibility. Whether you are a solo operator looking to fill your schedule or a multi-crew company ready to dominate your metro area, landscaping SEO delivers the consistent, high-quality leads your business needs to grow.
 
+## Related Reading
+
+- [HVAC marketing ideas](/blog/hvac-marketing-ideas) - Seasonal strategies that mirror the landscaping calendar.
+- [How much does SEO cost per month?](/blog/seo-pricing) - Pricing breakdown for local service businesses.
+- [How long does SEO take?](/blog/seo-timeline) - What to expect at 30, 60, and 90 days.
+
 [Get Your Free Landscaping SEO Audit](/contact) - We will analyze your current online presence, identify your biggest keyword opportunities by season, and show you exactly how to outrank your competition in the Google Map Pack and organic results.
     `,
   },
@@ -3773,6 +3824,12 @@ This keyword list is your roadmap. The next step is implementing a strategy that
 
 If you want professional help building and executing a locksmith keyword strategy that generates measurable calls and revenue, our team specializes in [SEO for locksmiths](/local-seo/locksmiths). We have helped locksmith businesses across the US and UK achieve first-page rankings and break free from expensive lead generation platforms.
 
+## Related Reading
+
+- [Complete locksmith SEO guide](/local-seo/locksmiths) - Full strategy walkthrough beyond keywords.
+- [Plumber keywords for SEO](/blog/plumber-keywords-for-seo) - See how another 24/7 emergency service builds a keyword list.
+- [How much does SEO cost per month?](/blog/seo-pricing) - What locksmiths should expect to invest.
+
 [Get a Free Locksmith SEO Audit](/contact) - We will analyze your current keyword rankings, identify the highest-opportunity terms in your market, and show you exactly what it takes to outrank your competition.
     `,
   },
@@ -4047,6 +4104,14 @@ All plans include a comprehensive locksmith SEO audit in month one. We analyze y
 ## Ready to Stop Paying for Shared Leads?
 
 Get a free locksmith SEO audit and discover exactly what it takes to rank #1 in your city. Whether you are a single-van operation or a multi-location locksmith business, we have a proven process to get you ranking and generating exclusive calls directly from Google.
+
+## Related Reading
+
+- [Locksmith keywords for SEO](/blog/locksmith-keywords-for-seo) - 80+ high-intent terms with volumes.
+- [How much does SEO cost per month?](/blog/seo-pricing) - Compare the cost of SEO to buying shared locksmith leads.
+- [How long does SEO take to work?](/blog/seo-timeline) - Realistic timeline for a locksmith business.
+
+Run a plumbing-and-locksmith combo or referring a plumber friend? Our [plumber SEO company](/local-seo/plumbers) page covers the same emergency-service playbook for plumbing businesses.
 
 [Get Your Free Locksmith SEO Audit](/contact) - We will analyze your current online presence, identify the most profitable keyword opportunities in your market, and show you exactly what it takes to outrank your competition and stop paying for shared leads.
     `,
@@ -5099,6 +5164,12 @@ Start with the free tactics: optimize your Google Business Profile, implement a 
 
 When you are ready to invest in growth, professional plumber marketing services deliver the best long-term ROI by building sustainable visibility that generates calls month after month. Whether you need [SEO for plumbers](/local-seo/plumbers), a [new website](/development), or a complete [digital marketing strategy](/digital-marketing), we have the experience and proven results to grow your plumbing business.
 
+## Related Reading
+
+- [Plumber keywords for SEO](/blog/plumber-keywords-for-seo) - 100+ high-intent plumbing search terms.
+- [HVAC marketing ideas](/blog/hvac-marketing-ideas) - Tactics that translate directly to seasonal plumbing promotions.
+- [How to get roofing leads](/blog/roofing-leads) - Lead-generation framework for another high-ticket service business.
+
 [Get a Free Plumber Marketing Consultation](/contact) and we will review your current online marketing, identify the biggest opportunities, and recommend a strategy that fits your budget.
     `,
   },
@@ -5386,6 +5457,14 @@ The roofing companies that grow fastest are the ones that stop relying on third-
 Start with the foundations: optimize your Google Business Profile, build your review profile, and create a website that converts. Then layer on SEO, advertising, and partnerships to scale.
 
 Want professional help building your roofing lead generation system? Our [roofing SEO services](/local-seo/roofing) help contractors build sustainable, high-ROI lead generation that fills the pipeline year-round.
+
+## Related Reading
+
+- [HVAC marketing ideas](/blog/hvac-marketing-ideas) - 15 seasonal tactics that work identically for storm-season roofing.
+- [Plumber marketing ideas](/blog/plumber-marketing-ideas) - Proven lead-generation ideas from another emergency service industry.
+- [How much does SEO cost per month?](/blog/seo-pricing) - Compare the cost of building organic leads vs. buying shared leads.
+
+Looking for the plumbing equivalent of this guide? See our [plumber SEO agency](/local-seo/plumbers) services - same emergency-lead framework, applied to plumbing keywords.
 
 [Get a Free Roofing Lead Generation Consultation](/contact) and we will analyze your market, review your competition, and show you exactly how to generate more high-value roofing leads.
     `,
@@ -5735,6 +5814,14 @@ The most successful HVAC companies plan their marketing 3-6 months ahead. Here i
 Start with the strategies that require the least investment: optimize your Google Business Profile seasonally, activate a review generation system, and email your past customer list about seasonal specials. These three actions alone can significantly increase your lead volume.
 
 When you are ready for professional help, our [HVAC marketing and SEO services](/local-seo/hvac) build sustainable lead generation systems designed specifically for the seasonal demands of heating and cooling businesses.
+
+## Related Reading
+
+- [Plumber marketing ideas](/blog/plumber-marketing-ideas) - Complementary tactics for plumbing + HVAC combo businesses.
+- [How to get roofing leads](/blog/roofing-leads) - Storm-season lead playbook with big parallels to HVAC emergencies.
+- [How much does SEO cost per month?](/blog/seo-pricing) - What HVAC companies typically invest.
+
+Run a plumbing + HVAC combo business? Our [SEO for plumbing companies](/local-seo/plumbers) page covers pricing and deliverables specifically for plumbers, with the same Map Pack and emergency-keyword playbook we apply to HVAC.
 
 [Get a Free HVAC Marketing Consultation](/contact) and we will analyze your current marketing, identify seasonal opportunities, and recommend a strategy that keeps your schedule full year-round.
     `,
@@ -7129,6 +7216,12 @@ This keyword list is your roadmap. The next step is implementing a strategy that
 If you want professional help building and executing a plumber keyword strategy that generates measurable calls and revenue, our team specializes in [SEO for plumbers](/local-seo/plumbers). We have helped plumbing businesses across the US and UK achieve first-page rankings and consistent lead flow without expensive pay-per-lead platforms.
 
 Ready to take your [SEO strategy](/seo-services) to the next level? We build complete keyword-driven campaigns tailored to your service area and specialties.
+
+## Related Reading
+
+- [Plumber marketing ideas](/blog/plumber-marketing-ideas) - Turn these keywords into full campaigns.
+- [Locksmith keywords for SEO](/blog/locksmith-keywords-for-seo) - See how another emergency service builds its keyword list.
+- [How much does SEO cost per month?](/blog/seo-pricing) - Investment levels for plumbing SEO.
 
 [Get a Free Plumber SEO Audit](/contact) - We will analyze your current keyword rankings, identify the highest-opportunity terms in your market, and show you exactly what it takes to outrank your competition.
 

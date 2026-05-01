@@ -4,7 +4,7 @@ from django.db import models
 class SERPResult(models.Model):
     """One organic SERP snapshot for one keyword on one date and device."""
     keyword = models.ForeignKey("keywords.Keyword", on_delete=models.CASCADE, related_name="serp_results")
-    project = models.ForeignKey("clients.Project", on_delete=models.CASCADE, related_name="serp_results")
+    business = models.ForeignKey("clients.Business", on_delete=models.CASCADE, related_name="serp_results")
 
     checked_at = models.DateField(db_index=True)
     device = models.CharField(max_length=10, default="desktop")
@@ -59,8 +59,8 @@ class SERPResult(models.Model):
         ordering = ["-checked_at"]
         indexes = [
             models.Index(fields=["keyword", "-checked_at"]),
-            models.Index(fields=["project", "-checked_at"]),
-            models.Index(fields=["project", "checked_at", "is_found"]),
+            models.Index(fields=["business", "-checked_at"]),
+            models.Index(fields=["business", "checked_at", "is_found"]),
         ]
 
     def __str__(self):
@@ -70,7 +70,7 @@ class SERPResult(models.Model):
 class MapsRankResult(models.Model):
     """Local Pack result — the 3-pack shown on organic SERP."""
     keyword = models.ForeignKey("keywords.Keyword", on_delete=models.CASCADE, related_name="maps_results")
-    project = models.ForeignKey("clients.Project", on_delete=models.CASCADE, related_name="maps_results")
+    business = models.ForeignKey("clients.Business", on_delete=models.CASCADE, related_name="maps_results")
 
     checked_at = models.DateField(db_index=True)
 
@@ -129,7 +129,7 @@ class MapsRankResult(models.Model):
         ordering = ["-checked_at"]
         indexes = [
             models.Index(fields=["keyword", "-checked_at"]),
-            models.Index(fields=["project", "-checked_at"]),
+            models.Index(fields=["business", "-checked_at"]),
         ]
 
     def __str__(self):
@@ -139,7 +139,7 @@ class MapsRankResult(models.Model):
 class LocalFinderResult(models.Model):
     """Local Finder result — the full Maps/Local listing page (20+ results)."""
     keyword = models.ForeignKey("keywords.Keyword", on_delete=models.CASCADE, related_name="local_finder_results")
-    project = models.ForeignKey("clients.Project", on_delete=models.CASCADE, related_name="local_finder_results")
+    business = models.ForeignKey("clients.Business", on_delete=models.CASCADE, related_name="local_finder_results")
 
     checked_at = models.DateField(db_index=True)
 
@@ -183,7 +183,7 @@ class LocalFinderResult(models.Model):
         ordering = ["-checked_at"]
         indexes = [
             models.Index(fields=["keyword", "-checked_at"]),
-            models.Index(fields=["project", "-checked_at"]),
+            models.Index(fields=["business", "-checked_at"]),
         ]
 
     def __str__(self):

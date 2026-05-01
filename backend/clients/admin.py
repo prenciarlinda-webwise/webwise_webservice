@@ -1,13 +1,13 @@
 from django.contrib import admin
 from .models import (
-    ClientProfile, Project, ProjectService, MonthlyPlan, Deliverable,
+    ClientProfile, Business, Project, ProjectService, MonthlyPlan, Deliverable,
     ServiceTemplate, TemplateDeliverable,
     QuarterlyPlan, Location,
 )
 
 
 class ProjectInline(admin.TabularInline):
-    model = Project
+    model = Business
     extra = 0
     show_change_link = True
 
@@ -43,7 +43,7 @@ class ClientProfileAdmin(admin.ModelAdmin):
     inlines = [ProjectInline]
 
 
-@admin.register(Project)
+@admin.register(Business)
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ['name', 'client', 'status', 'domain', 'is_seo_tracked', 'website_url', 'created_at']
     list_filter = ['status', 'track_organic', 'track_maps', 'discovery_enabled']
@@ -100,16 +100,16 @@ class ProjectAdmin(admin.ModelAdmin):
 
 @admin.register(ProjectService)
 class ProjectServiceAdmin(admin.ModelAdmin):
-    list_display = ['name', 'project', 'monthly_price', 'status', 'created_at']
+    list_display = ['name', 'business', 'project', 'monthly_price', 'status', 'created_at']
     list_filter = ['status']
 
 
 @admin.register(QuarterlyPlan)
 class QuarterlyPlanAdmin(admin.ModelAdmin):
-    list_display = ['project', 'name', 'status', 'quarter_start', 'quarter_end', 'progress_pct']
+    list_display = ['business', 'project', 'name', 'status', 'quarter_start', 'quarter_end', 'progress_pct']
     list_filter = ['status', 'quarter_start']
-    search_fields = ['name', 'project__name', 'project__client__business_name']
-    autocomplete_fields = ['project']
+    search_fields = ['name', 'business__name', 'business__client__business_name']
+    autocomplete_fields = ['business', 'project']
     readonly_fields = ['progress_pct', 'created_by', 'created_at', 'updated_at']
     inlines = [MonthlyPlanInline]
 
@@ -126,7 +126,16 @@ class MonthlyPlanAdmin(admin.ModelAdmin):
 class DeliverableAdmin(admin.ModelAdmin):
     list_display = ['title', 'category', 'monthly_plan', 'status', 'assigned_to', 'due_date']
     list_filter = ['category', 'status']
-    search_fields = ['title', 'monthly_plan__project_service__project__client__business_name']
+    search_fields = ['title', 'monthly_plan__project_service__business__client__business_name']
+
+
+@admin.register(Project)
+class ProjectEngagementAdmin(admin.ModelAdmin):
+    list_display = ['business', 'kind', 'slug', 'status', 'start_date', 'end_date', 'monthly_budget_usd']
+    list_filter = ['kind', 'status']
+    search_fields = ['business__name', 'business__client__business_name', 'name']
+    autocomplete_fields = ['business']
+    readonly_fields = ['slug', 'created_at', 'updated_at']
 
 
 @admin.register(ServiceTemplate)

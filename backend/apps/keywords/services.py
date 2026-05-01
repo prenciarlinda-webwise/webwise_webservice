@@ -32,9 +32,18 @@ class RefreshResult:
     labs_hits: int
     ads_hits: int
     no_data: int
+    api_errors: list = None  # populated when DataForSEO returns 40x/50x
+
+    def __post_init__(self):
+        if self.api_errors is None:
+            self.api_errors = []
 
     @property
     def message(self) -> str:
+        # API-level failures take priority — these mean the user needs to fix
+        # something (balance, credentials, quota) before any refresh works.
+        if self.api_errors:
+            return "DataForSEO call failed: " + " · ".join(self.api_errors)
         msg = (
             f"Updated {self.updated} of {self.checked} keywords"
             f" (Labs {self.labs_hits}, Google Ads {self.ads_hits})."
@@ -74,6 +83,7 @@ def refresh_keyword_metrics(keywords: list[Keyword], project) -> RefreshResult:
     lang = project.language_code
 
     updated = labs_hits = ads_hits = 0
+    api_errors: list[str] = []
 
     # Chunk to keep request payloads sane (Labs accepts ~700; Ads similar).
     for chunk_start in range(0, len(keywords), 100):
@@ -86,7 +96,10 @@ def refresh_keyword_metrics(keywords: list[Keyword], project) -> RefreshResult:
             res = labs.get_keyword_overview(keywords=texts, location_code=loc, language_code=lang)
             labs_by_text = {item.get("keyword", "").lower(): item for item in res.get("items", [])}
         except Exception as e:
-            logger.warning("metrics: Labs failed: %s", e)
+            err = f"Labs: {e}"
+            logger.warning("metrics: %s", err)
+            if str(e) not in (a.replace("Labs: ", "").replace("Google Ads: ", "") for a in api_errors):
+                api_errors.append(err)
 
         # Pass 2 — Google Ads, only for keywords Labs gave no volume for
         uncovered = [
@@ -101,7 +114,10 @@ def refresh_keyword_metrics(keywords: list[Keyword], project) -> RefreshResult:
                 )
                 ads_by_text = {item.get("keyword", "").lower(): item for item in res.get("items", [])}
             except Exception as e:
-                logger.warning("metrics: Google Ads failed: %s", e)
+                err = f"Google Ads: {e}"
+                logger.warning("metrics: %s", err)
+                if str(e) not in (a.replace("Labs: ", "").replace("Google Ads: ", "") for a in api_errors):
+                    api_errors.append(err)
 
         for kw in chunk:
             key = kw.keyword_text.lower()
@@ -143,10 +159,11 @@ def refresh_keyword_metrics(keywords: list[Keyword], project) -> RefreshResult:
         labs_hits=labs_hits,
         ads_hits=ads_hits,
         no_data=len(keywords) - updated,
+        api_errors=api_errors,
     )
 
 
 def refresh_missing_for_client(project) -> RefreshResult:
     """Convenience: refresh every keyword for ``project`` that has no volume yet."""
-    qs = Keyword.objects.filter(project=project, search_volume__isnull=True)
+    qs = Keyword.objects.filter(business=project, search_volume__isnull=True)
     return refresh_keyword_metrics(list(qs), project)

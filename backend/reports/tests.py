@@ -2,7 +2,7 @@ from datetime import date
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from rest_framework.test import APIClient
-from clients.models import ClientProfile, Project, ProjectService, MonthlyPlan
+from clients.models import ClientProfile, Business, ProjectService, MonthlyPlan
 from .models import Report, GBPMetrics, GA4Metrics, SearchTermSnapshot
 
 User = get_user_model()
@@ -15,7 +15,7 @@ class BaseTestCase(TestCase):
         self.cli = User.objects.create_user(username='cli', password='Client12!', role='client')
 
         self.profile = ClientProfile.objects.create(user=self.cli, business_name='Test Biz')
-        self.project = Project.objects.create(client=self.profile, name='Test SEO')
+        self.project = Business.objects.create(client=self.profile, name='Test SEO')
         self.service = ProjectService.objects.create(project=self.project, name='Local SEO')
         self.plan = MonthlyPlan.objects.create(project_service=self.service, month=date(2026, 3, 1))
 
@@ -159,7 +159,7 @@ class ReportPDFTest(BaseTestCase):
     def test_client_cannot_see_other_reports(self):
         other_user = User.objects.create_user(username='other', password='Other123!', role='client')
         other_profile = ClientProfile.objects.create(user=other_user, business_name='Other')
-        other_project = Project.objects.create(client=other_profile, name='Other SEO')
+        other_project = Business.objects.create(client=other_profile, name='Other SEO')
         Report.objects.create(
             client=other_profile, project=other_project, title='Other Report',
             uploaded_by=self.admin)

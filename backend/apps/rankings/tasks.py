@@ -15,7 +15,7 @@ def weekly_rank_tracking(project_id=None):
         project_id: Optional — if provided, only check this project.
                    Otherwise check all active clients.
     """
-    from clients.models import Project
+    from clients.models import Business
     from apps.keywords.models import Keyword, KeywordStatus
     from apps.keywords.services import refresh_missing_for_client
     from services.dataforseo import DataForSEOClient, LocalFinderService, MapsService, SERPService
@@ -31,15 +31,16 @@ def weekly_rank_tracking(project_id=None):
     screenshot_service = ScreenshotService(api_client)
 
     today = date.today()
-    clients = Project.objects.filter(status='active')
+    clients = Business.objects.filter(status='active')
     if project_id:
         clients = clients.filter(id=project_id)
 
     total_checked = 0
+    api_errors: list[str] = []  # surface DataForSEO failures (balance, auth, quota) to caller
 
     for project in clients:
         keywords = Keyword.objects.filter(
-            project=project,
+            business=project,
             status=KeywordStatus.TRACKED,
         )
 
@@ -47,7 +48,7 @@ def weekly_rank_tracking(project_id=None):
             try:
                 _check_keyword_rankings(
                     keyword=keyword,
-                    project=project,
+                    business=project,
                     today=today,
                     serp_service=serp_service,
                     maps_service=maps_service,
@@ -55,23 +56,36 @@ def weekly_rank_tracking(project_id=None):
                     local_finder_service=local_finder_service,
                 )
                 total_checked += 1
-            except Exception:
+            except Exception as e:
+                err_str = str(e)
+                # Capture meaningful API errors so the polling endpoint can
+                # show "Insufficient balance" / "Auth failed" instead of a
+                # vague success when nothing actually updated.
+                if "DataForSEO API error" in err_str or "Payment Required" in err_str:
+                    if err_str not in api_errors:
+                        api_errors.append(err_str)
                 logger.exception(
-                    "Failed to check rankings for keyword=%s project=%s",
+                    "Failed to check rankings for keyword=%s business=%s",
                     keyword.keyword_text,
                     project.domain,
                 )
 
-        # Auto-refresh metrics for any keyword still missing volume/KD —
-        # cheap (Labs is fractions of a cent), and means the dashboard is
-        # always as complete as DataForSEO can make it.
         try:
             refresh_missing_for_client(project)
-        except Exception:
-            logger.exception("Metrics refresh failed for project=%s", project.domain)
+        except Exception as e:
+            err_str = str(e)
+            if "DataForSEO API error" in err_str:
+                if err_str not in api_errors:
+                    api_errors.append(err_str)
+            logger.exception("Metrics refresh failed for business=%s", project.domain)
 
     logger.info("Rank tracking complete: %d keywords checked", total_checked)
-    return {"keywords_checked": total_checked}
+    result = {"keywords_checked": total_checked}
+    if api_errors:
+        # Returned via Celery's result backend → polling endpoint shows it.
+        result["api_errors"] = api_errors
+        result["status"] = "error"
+    return result
 
 
 def _store_competitor_positions(project, keyword, task_result, serp_service, today):
@@ -79,7 +93,7 @@ def _store_competitor_positions(project, keyword, task_result, serp_service, tod
     from apps.competitors.models import Competitor, CompetitorKeywordOverlap
     from urllib.parse import urlparse
 
-    competitors = Competitor.objects.filter(project=project)
+    competitors = Competitor.objects.filter(business=project)
     if not competitors.exists():
         return
 
@@ -96,7 +110,7 @@ def _store_competitor_positions(project, keyword, task_result, serp_service, tod
     for clean_domain, comp in comp_lookup.items():
         rank = all_positions.get(clean_domain)
         CompetitorKeywordOverlap.objects.update_or_create(
-            project=project,
+            business=project,
             competitor=comp,
             date=today,
             keyword_text=keyword.keyword_text,
@@ -125,7 +139,7 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
 
         if not task_result:
             logger.warning(
-                "Empty SERP result for keyword=%s project=%s",
+                "Empty SERP result for keyword=%s business=%s",
                 keyword.keyword_text,
                 project.domain,
             )
@@ -208,8 +222,10 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
                     screenshots = [{"page": 1, "url": page1}] if page1 else []
 
                 if screenshots:
-                    serp_result.screenshot_url = screenshots[0]["url"]
-                    serp_result.screenshot_urls = screenshots
+                    from apps.rankings.storage import persist_screenshot
+                    persisted = [{"page": s["page"], "url": persist_screenshot(s["url"], "serp")} for s in screenshots]
+                    serp_result.screenshot_url = persisted[0]["url"]
+                    serp_result.screenshot_urls = persisted
                     serp_result.save(update_fields=["screenshot_url", "screenshot_urls"])
             except Exception:
                 logger.warning("Failed to capture SERP screenshots for keyword=%s", keyword.keyword_text)
@@ -218,20 +234,35 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
         # previous_rank comes from the SERPResult lookup (most recent scan
         # before today) — same source as rank_change — so the two stay
         # consistent even on same-day re-scans.
+        # System-level data-integrity check — warn loudly if the scan looks
+        # suspicious so we catch bad data BEFORE it shows up in the dashboard.
+        new_rank = position["rank_absolute"]
+        if new_rank and previous_rank and abs(new_rank - previous_rank) > 25:
+            logger.warning(
+                "Rank jump >25 positions for kw=%s business=%s (%s → %s) — verify location_code=%s is correct",
+                keyword.keyword_text, project.domain, previous_rank, new_rank, location_code,
+            )
+        if new_rank and not position.get("rank_group"):
+            logger.warning(
+                "Got rank_absolute=%s but no rank_group for kw=%s — UI will fall back to absolute",
+                new_rank, keyword.keyword_text,
+            )
+
         keyword.previous_organic_rank = previous_rank
         keyword.current_organic_rank = position["rank_absolute"]
+        keyword.current_organic_rank_group = position.get("rank_group")
         keyword.current_organic_url = position["url"]
         keyword.rank_change = rank_change
         keyword.last_checked_at = today
         keyword.save(update_fields=[
-            "previous_organic_rank", "current_organic_rank",
+            "previous_organic_rank", "current_organic_rank", "current_organic_rank_group",
             "current_organic_url", "rank_change", "last_checked_at",
             "updated_at",
         ])
 
         # Extract and store competitor positions from the same SERP data
         _store_competitor_positions(
-            project=project,
+            business=project,
             keyword=keyword,
             task_result=task_result,
             serp_service=serp_service,
@@ -249,7 +280,7 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
 
         if not mobile_task_result:
             logger.warning(
-                "Empty mobile SERP result for keyword=%s project=%s",
+                "Empty mobile SERP result for keyword=%s business=%s",
                 keyword.keyword_text,
                 project.domain,
             )
@@ -332,8 +363,10 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
                     screenshots = [{"page": 1, "url": page1}] if page1 else []
 
                 if screenshots:
-                    mobile_serp_result.screenshot_url = screenshots[0]["url"]
-                    mobile_serp_result.screenshot_urls = screenshots
+                    from apps.rankings.storage import persist_screenshot
+                    persisted = [{"page": s["page"], "url": persist_screenshot(s["url"], "serp-mobile")} for s in screenshots]
+                    mobile_serp_result.screenshot_url = persisted[0]["url"]
+                    mobile_serp_result.screenshot_urls = persisted
                     mobile_serp_result.save(update_fields=["screenshot_url", "screenshot_urls"])
             except Exception:
                 logger.warning("Failed to capture mobile SERP screenshots for keyword=%s", keyword.keyword_text)
@@ -343,10 +376,11 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
         # previous_mobile_rank and mobile_rank_change in sync.
         keyword.previous_mobile_rank = mobile_previous_rank
         keyword.current_mobile_rank = mobile_position["rank_absolute"]
+        keyword.current_mobile_rank_group = mobile_position.get("rank_group")
         keyword.current_mobile_url = mobile_position["url"]
         keyword.mobile_rank_change = mobile_rank_change
         keyword.save(update_fields=[
-            "previous_mobile_rank", "current_mobile_rank",
+            "previous_mobile_rank", "current_mobile_rank", "current_mobile_rank_group",
             "current_mobile_url", "mobile_rank_change",
             "updated_at",
         ])
@@ -361,7 +395,7 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
 
         if not task_result:
             logger.warning(
-                "Empty Maps result for keyword=%s project=%s",
+                "Empty Maps result for keyword=%s business=%s",
                 keyword.keyword_text,
                 project.domain,
             )
@@ -436,7 +470,8 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
                     position["check_url"],
                 )
                 if maps_screenshot:
-                    maps_result.screenshot_url = maps_screenshot
+                    from apps.rankings.storage import persist_screenshot
+                    maps_result.screenshot_url = persist_screenshot(maps_screenshot, "maps")
                     maps_result.save(update_fields=["screenshot_url"])
             except Exception:
                 logger.warning(
@@ -462,7 +497,7 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
 
         if not task_result:
             logger.warning(
-                "Empty Local Finder result for keyword=%s project=%s",
+                "Empty Local Finder result for keyword=%s business=%s",
                 keyword.keyword_text,
                 project.domain,
             )

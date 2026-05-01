@@ -15,14 +15,16 @@ interface Deliverable {
   status: string
   due_date: string | null
   assigned_to: number | null
-  plan?: { client_name: string; service_name: string; project_name: string; project_id: number }
+  approval_state?: 'draft' | 'submitted' | 'approved' | 'rejected'
+  rejection_reason?: string
+  plan?: { client_name: string; service_name: string; project_name: string; business_slug: string }
 }
 
 interface MonthlyPlan {
   id: number
   service_name: string
   project_name: string
-  project_id: number
+  business_slug: string
   client_name: string
   deliverables: Deliverable[]
 }
@@ -46,12 +48,13 @@ export default function EmployeeDashboard() {
     api.get<EmpSummary>('/employees/summary/').then(setSummary)
   }, [])
 
-  const allDels = plans.flatMap(p => p.deliverables.map(d => ({ ...d, plan: { client_name: p.client_name, service_name: p.service_name, project_name: p.project_name, project_id: p.project_id } })))
+  const allDels = plans.flatMap(p => p.deliverables.map(d => ({ ...d, plan: { client_name: p.client_name, service_name: p.service_name, project_name: p.project_name, business_slug: p.business_slug } })))
   const todo = allDels.filter(d => d.status === 'not_started')
   const inProgress = allDels.filter(d => d.status === 'in_progress')
   const completed = allDels.filter(d => d.status === 'completed' || d.status === 'published')
   const today = new Date().toISOString().split('T')[0]
   const overdue = allDels.filter(d => d.due_date && d.due_date < today && d.status !== 'completed' && d.status !== 'published')
+  const rejected = allDels.filter(d => d.approval_state === 'rejected')
 
   const upcoming = allDels
     .filter(d => d.status !== 'completed' && d.status !== 'published')
@@ -72,6 +75,22 @@ export default function EmployeeDashboard() {
         <StatsCard label="Hours This Month" value={monthHours.toFixed(1)} color="default" />
       </div>
 
+      {rejected.length > 0 && (
+        <div className="mb-6 bg-red-50 border border-red-200 rounded-xl p-4">
+          <h2 className="text-sm font-semibold text-red-900 mb-2">Needs rework — {rejected.length} rejected</h2>
+          <ul className="space-y-1.5">
+            {rejected.slice(0, 5).map(d => (
+              <li key={d.id} className="text-sm">
+                <Link href={`/dashboard/${d.plan?.business_slug}`} className="text-red-900 hover:underline">
+                  {d.title}
+                </Link>
+                {d.rejection_reason && <span className="text-xs text-red-700 ml-2">— {d.rejection_reason}</span>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {/* My Projects */}
       {summary && summary.projects.length > 0 && (
         <div className="mb-8">
@@ -80,7 +99,7 @@ export default function EmployeeDashboard() {
             {summary.projects.map(p => (
               <Link
                 key={p.id}
-                href={`/dashboard/projects/${p.slug}`}
+                href={`/dashboard/${p.slug}`}
                 className="flex items-center justify-between bg-white rounded-xl border border-border p-4 hover:border-accent/30 hover:shadow-sm transition-all"
               >
                 <h3 className="font-medium text-sm">{p.name}</h3>
@@ -111,7 +130,7 @@ export default function EmployeeDashboard() {
             {upcoming.map(d => (
               <tr key={d.id} className="border-b border-border last:border-0 hover:bg-bg-secondary/50">
                 <td className="px-6 py-3">
-                  <Link href={`/dashboard/projects/${d.plan?.project_id}`} className="text-sm font-medium hover:text-accent">{d.plan?.project_name}</Link>
+                  <Link href={`/dashboard/${d.plan?.business_slug}`} className="text-sm font-medium hover:text-accent">{d.plan?.project_name}</Link>
                   <p className="text-xs text-text-muted">{d.plan?.service_name}</p>
                 </td>
                 <td className="px-6 py-3 text-sm">{d.title}</td>

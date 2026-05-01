@@ -13,7 +13,7 @@ from .serializers import (
     PaymentSummarySerializer, ExchangeRateSerializer,
     PersonalIncomeSerializer, PersonalExpenseSerializer, PersonalSummarySerializer,
 )
-from accounts.permissions import IsAdmin
+from accounts.permissions import IsAdmin, IsEconomist
 from clients.models import ClientProfile
 
 
@@ -27,18 +27,19 @@ class PaymentListCreateView(generics.ListCreateAPIView):
         if self.request.user.role == 'admin':
             qs = Payment.objects.all()
         else:
-            qs = Payment.objects.filter(project_service__project__client__user=self.request.user)
+            qs = Payment.objects.filter(project_service__business__client__user=self.request.user)
 
         status = self.request.query_params.get('status')
         if status:
             qs = qs.filter(status=status)
-        project = self.request.query_params.get('project')
-        if project:
-            qs = qs.filter(project_service__project_id=project)
+        # ?business= preferred; ?project= treated as Business id during the transition.
+        business = self.request.query_params.get('business') or self.request.query_params.get('project')
+        if business:
+            qs = qs.filter(project_service__business_id=business)
         client = self.request.query_params.get('client')
         if client:
-            qs = qs.filter(project_service__project__client_id=client)
-        return qs.select_related('project_service__project__client')
+            qs = qs.filter(project_service__business__client_id=client)
+        return qs.select_related('project_service__business__client')
 
 
 class PaymentDetailView(generics.RetrieveUpdateDestroyAPIView):
@@ -50,42 +51,56 @@ class PaymentDetailView(generics.RetrieveUpdateDestroyAPIView):
             return Payment.objects.none()
         if self.request.user.role == 'admin':
             return Payment.objects.all()
-        return Payment.objects.filter(project_service__project__client__user=self.request.user)
+        return Payment.objects.filter(project_service__business__client__user=self.request.user)
 
 
 class ProjectCostListCreateView(generics.ListCreateAPIView):
     serializer_class = ProjectCostSerializer
-    permission_classes = [IsAdmin]
+    permission_classes = [IsEconomist]
+
+    def perform_create(self, serializer):
+        # Auto-fill engagement (project) FK if caller passed only business.
+        if not serializer.validated_data.get('project'):
+            from clients.models import Project
+            biz = serializer.validated_data.get('business')
+            if biz is not None:
+                default_project = (
+                    Project.objects.filter(business=biz, status='active').order_by('id').first()
+                    or Project.objects.filter(business=biz).order_by('id').first()
+                )
+                if default_project:
+                    serializer.validated_data['project'] = default_project
+        serializer.save()
 
     def get_queryset(self):
         qs = ProjectCost.objects.all()
-        project = self.request.query_params.get('project')
-        if project:
-            qs = qs.filter(project_id=project)
-        return qs.select_related('project')
+        business = self.request.query_params.get('business') or self.request.query_params.get('project')
+        if business:
+            qs = qs.filter(business_id=business)
+        return qs.select_related('business')
 
 
 class ProjectCostDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProjectCostSerializer
-    permission_classes = [IsAdmin]
+    permission_classes = [IsEconomist]
     queryset = ProjectCost.objects.all()
 
 
 class BusinessExpenseListCreateView(generics.ListCreateAPIView):
     serializer_class = BusinessExpenseSerializer
-    permission_classes = [IsAdmin]
+    permission_classes = [IsEconomist]
     queryset = BusinessExpense.objects.all()
 
 
 class BusinessExpenseDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BusinessExpenseSerializer
-    permission_classes = [IsAdmin]
+    permission_classes = [IsEconomist]
     queryset = BusinessExpense.objects.all()
 
 
 class ExchangeRateListView(APIView):
     """Get all exchange rates or create/update one."""
-    permission_classes = [IsAdmin]
+    permission_classes = [IsEconomist]
 
     def get(self, request):
         rates = ExchangeRate.objects.all()
@@ -103,8 +118,8 @@ class ExchangeRateListView(APIView):
 
 
 class DashboardSummaryView(APIView):
-    """Admin dashboard: payment + cost summary. Accepts ?month=YYYY-MM-01 to scope 'this month' calculations."""
-    permission_classes = [IsAdmin]
+    """Admin/economist finance dashboard summary. Accepts ?month=YYYY-MM-01."""
+    permission_classes = [IsEconomist]
 
     def get(self, request):
         payments = Payment.objects.all()

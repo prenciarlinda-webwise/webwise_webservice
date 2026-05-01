@@ -1,7 +1,8 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import Script from 'next/script'
 import { notFound } from 'next/navigation'
-import { ArrowRight, ExternalLink, Target, Zap, Star, Check } from 'lucide-react'
+import { ArrowRight, ExternalLink, Target, Zap, Star, TrendingUp, MapPin, Sparkles, Trophy } from 'lucide-react'
 import { clients, siteConfig } from '@/data/site'
 import { generateBreadcrumbSchema } from '@/lib/schemas'
 import WebsitePreview from '@/components/ui/WebsitePreview'
@@ -25,6 +26,43 @@ const caseStudyUrlMap: Record<string, string> = {
 
 function getCanonicalUrl(slug: string): string {
   return caseStudyUrlMap[slug] ? `${siteConfig.url}${caseStudyUrlMap[slug]}` : `${siteConfig.url}/case-studies/${slug}`
+}
+
+function firstSentence(text: string): string {
+  const idx = text.indexOf('. ')
+  return idx > 0 ? text.slice(0, idx + 1) : text
+}
+
+type Section = { title?: string; body: string }
+
+function parseSections(text: string): Section[] {
+  const blocks = text.split(/\n\s*\n/).map((b) => b.trim()).filter(Boolean)
+  return blocks.map((block) => {
+    let m = block.match(/^\*\*(.+?):\*\*\s+([\s\S]+)$/)
+    if (m) return { title: m[1].trim(), body: m[2].trim() }
+    m = block.match(/^(Phase\s+\d+\s*[-–—]\s*[^:]+):\s*([\s\S]+)$/)
+    if (m) return { title: m[1].trim(), body: m[2].trim() }
+    return { body: block }
+  })
+}
+
+function SectionList({ sections }: { sections: Section[] }) {
+  return (
+    <div className="space-y-5">
+      {sections.map((s, i) =>
+        s.title ? (
+          <div key={i}>
+            <h4 className="font-semibold text-primary mb-1.5">{s.title}</h4>
+            <p className="text-text-secondary leading-relaxed">{s.body}</p>
+          </div>
+        ) : (
+          <p key={i} className="text-text-secondary leading-relaxed">
+            {s.body}
+          </p>
+        ),
+      )}
+    </div>
+  )
 }
 
 export async function generateStaticParams() {
@@ -135,8 +173,8 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
               <span className="inline-block px-3 py-1 bg-white/10 text-white rounded-full text-sm mb-4">
                 {client.industry}
               </span>
-              <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">{client.name}</h1>
-              <p className="text-lg text-white/80 mb-6">{client.description}</p>
+              <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 text-balance">{client.name}</h1>
+              <p className="text-lg text-white/80 mb-6">{firstSentence(client.description)}</p>
               <div className="flex flex-wrap gap-2 mb-8">
                 {client.services.map((s, i) => (
                   <span key={i} className="px-3 py-1 bg-white/10 text-white rounded-full text-sm">
@@ -169,40 +207,32 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
       </section>
 
       {/* Challenge & Solution */}
-      <section className="py-24">
-        <div className="container px-6">
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white border border-border rounded-2xl p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 flex items-center justify-center bg-accent/10 rounded-lg text-accent">
-                  <Target size={20} />
+      {client.challenge && client.solution && (
+        <section className="py-24">
+          <div className="container px-6">
+            <div className="grid lg:grid-cols-2 gap-8">
+              <div className="bg-white border border-border rounded-2xl p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 flex items-center justify-center bg-accent/10 rounded-lg text-accent">
+                    <Target size={20} />
+                  </div>
+                  <h2 className="text-xl font-bold text-primary">The Challenge</h2>
                 </div>
-                <h3 className="text-xl font-bold text-primary">The Challenge</h3>
+                <SectionList sections={parseSections(client.challenge)} />
               </div>
-              <p className="text-text-secondary leading-relaxed">
-                {client.name} came to us struggling with low online visibility and minimal organic traffic.
-                Despite offering excellent services in the {client.industry.toLowerCase()} space, they were losing
-                potential customers to competitors who ranked higher in search results. Their existing website wasn&apos;t
-                optimized for search engines or conversions.
-              </p>
-            </div>
-            <div className="bg-white border border-border rounded-2xl p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 flex items-center justify-center bg-accent/10 rounded-lg text-accent">
-                  <Zap size={20} />
+              <div className="bg-white border border-border rounded-2xl p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 flex items-center justify-center bg-accent/10 rounded-lg text-accent">
+                    <Zap size={20} />
+                  </div>
+                  <h2 className="text-xl font-bold text-primary">Our Solution</h2>
                 </div>
-                <h3 className="text-xl font-bold text-primary">Our Solution</h3>
+                <SectionList sections={parseSections(client.solution)} />
               </div>
-              <p className="text-text-secondary leading-relaxed">
-                We took careful consideration from the ground up - planning the website structure for easy navigation,
-                optimal indexing, and SEO optimization, combined with a perfect design tailored to {client.name}&apos;s
-                requirements. We built a solid technical SEO foundation with comprehensive on-page optimization,
-                and implemented ongoing monthly SEO strategies to continuously grow their local visibility.
-              </p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Live Website Preview */}
       <section className="py-24 bg-bg-secondary">
@@ -211,100 +241,146 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Live Preview</span>
             <h2 className="text-3xl font-bold text-primary mb-4">See the Website in Action</h2>
             <p className="text-text-secondary max-w-2xl mx-auto">
-              Toggle between desktop and mobile views to see how the website looks across different devices.
-              This is a live preview that reflects the current state of the website.
+              Toggle between desktop and mobile to see how {client.name} looks on every screen.
             </p>
           </div>
           <WebsitePreview url={client.url} name={client.name} nofollow={client.nofollow} />
         </div>
       </section>
 
-      {/* What We Delivered */}
-      <section className="py-24">
-        <div className="container px-6">
-          <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Scope of Work</span>
-            <h2 className="text-3xl font-bold text-primary">What We Delivered</h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {client.services.map((service, i) => {
-              const workItems: { [key: string]: string[] } = {
-                'Local SEO': ['Google Business optimization', 'Local citation building', 'Monthly SEO strategies', 'Local visibility growth'],
-                'Website Design': ['Strategic site structure', 'Easy navigation planning', 'SEO-optimized design', 'Mobile-first approach'],
-                'SEO': ['Technical SEO structure', 'On-page optimization', 'Indexing optimization', 'Monthly SEO strategies'],
-                'Web Development': ['Careful site architecture', 'CMS integration', 'Performance optimization', 'Clean code structure'],
-                'PPC': ['Campaign setup', 'Ad copywriting', 'Bid optimization', 'Conversion tracking'],
-                'Content Marketing': ['Strategic content plan', 'Service pages', 'Local content', 'Link building'],
-                'Web Application': ['Custom features', 'Database design', 'API integration', 'User authentication'],
-                'Review Management': ['Review generation', 'Response strategy', 'Reputation monitoring', 'Review widgets'],
-                'Google Ads': ['Search campaigns', 'Display ads', 'Remarketing', 'Performance max'],
-              }
-              const items = workItems[service] || ['Research & analysis', 'Strategy development', 'Implementation', 'Ongoing optimization']
-              return (
-                <div key={i} className="bg-white rounded-xl p-6 border border-border">
-                  <h4 className="font-semibold text-primary mb-4">{service}</h4>
-                  <div className="space-y-2">
-                    {items.map((item, j) => (
-                      <div key={j} className="flex items-center gap-2 text-sm text-text-secondary">
-                        <Check size={14} className="text-accent" />
-                        {item}
+      {/* Keyword Ranking Wins */}
+      {client.keywordRankings && client.keywordRankings.length > 0 && (
+        <section className="py-24 bg-bg-secondary">
+          <div className="container px-6">
+            <div className="text-center mb-12">
+              <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Live Rankings</span>
+              <h2 className="text-3xl font-bold text-primary mb-4">Keywords {client.name} Ranks For Today</h2>
+              <p className="text-text-secondary max-w-2xl mx-auto">
+                Real positions pulled from Google search results, the local map pack, and AI Overview citations.
+                These are searches sending qualified, high-intent customers to {client.name} every day.
+              </p>
+            </div>
+
+            <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-4">
+              {client.keywordRankings.map((rank, i) => (
+                <div key={i} className="bg-white rounded-2xl border border-border p-6 hover:shadow-lg transition-shadow">
+                  <div className="flex items-start justify-between gap-4 mb-4">
+                    <h3 className="font-semibold text-primary text-lg leading-snug">&quot;{rank.keyword}&quot;</h3>
+                    {rank.serp === 1 || rank.localPack === 1 || rank.mapsPack === 1 ? (
+                      <div className="flex-shrink-0 w-9 h-9 flex items-center justify-center bg-accent/10 rounded-lg text-accent" title="#1 ranking">
+                        <Trophy size={18} />
                       </div>
-                    ))}
+                    ) : null}
                   </div>
+
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {rank.serp !== undefined && (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-bg-secondary border border-border rounded-full text-xs font-medium text-primary">
+                        <TrendingUp size={12} className="text-accent" />
+                        SERP <span className="font-bold text-accent">#{rank.serp}</span>
+                      </span>
+                    )}
+                    {rank.localPack !== undefined && (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-bg-secondary border border-border rounded-full text-xs font-medium text-primary">
+                        <MapPin size={12} className="text-accent" />
+                        Local Pack <span className="font-bold text-accent">#{rank.localPack}</span>
+                      </span>
+                    )}
+                    {rank.mapsPack !== undefined && (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-bg-secondary border border-border rounded-full text-xs font-medium text-primary">
+                        <MapPin size={12} className="text-accent" />
+                        Maps <span className="font-bold text-accent">#{rank.mapsPack}</span>
+                      </span>
+                    )}
+                    {rank.aiOverview && (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-accent text-white rounded-full text-xs font-semibold">
+                        <Sparkles size={12} />
+                        AI Overview {rank.aiOverview === 'cited' ? 'cited' : rank.aiOverview === 'suggestion' ? 'suggested' : rank.aiOverview}
+                      </span>
+                    )}
+                  </div>
+
+                  {rank.note && (
+                    <p className="text-sm text-text-muted leading-relaxed">{rank.note}</p>
+                  )}
                 </div>
-              )
-            })}
+              ))}
+            </div>
+
+            {/* Optional ranking screenshots */}
+            {client.rankingScreenshots && client.rankingScreenshots.length > 0 && (
+              <div id="ranking-screenshots" className="max-w-5xl mx-auto mt-16 scroll-mt-24">
+                <h3 className="text-2xl font-bold text-primary text-center mb-8">Ranking Screenshots</h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {client.rankingScreenshots.map((shot, i) => (
+                    <figure key={i} className="bg-white rounded-2xl border border-border overflow-hidden">
+                      <div className="relative w-full aspect-[16/10] bg-bg-tertiary">
+                        <Image
+                          src={shot.src}
+                          alt={shot.alt}
+                          fill
+                          className="object-contain"
+                          sizes="(min-width: 768px) 50vw, 100vw"
+                        />
+                      </div>
+                      {shot.caption && (
+                        <figcaption className="p-4 text-sm text-text-secondary border-t border-border">
+                          {shot.caption}
+                        </figcaption>
+                      )}
+                    </figure>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Timeline */}
-      <section className="py-24">
-        <div className="container px-6">
-          <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">The Journey</span>
-            <h2 className="text-3xl font-bold text-primary">Results Timeline</h2>
-          </div>
-          <div className="grid md:grid-cols-4 gap-8">
-            {[
-              { step: '1', title: 'Month 1-2', desc: 'Foundation building: audit, strategy development, and initial optimizations.' },
-              { step: '2', title: 'Month 3-4', desc: 'Early wins: first page rankings for key terms, traffic starting to grow.' },
-              { step: '3', title: 'Month 5-6', desc: 'Momentum: significant traffic increase, leads growing consistently.' },
-              { step: '4', title: 'Month 6+', desc: client.results ? `Scaling: dominant rankings, ${client.results.trafficIncrease} traffic growth achieved.` : 'Scaling: dominant rankings, sustained traffic growth achieved.' },
-            ].map((item, i) => (
-              <div key={i} className="text-center">
-                <div className="w-12 h-12 flex items-center justify-center bg-accent text-white font-bold rounded-full mx-auto mb-4">
-                  {item.step}
+      {client.timelineSteps && client.timelineSteps.length > 0 && (
+        <section className="py-24">
+          <div className="container px-6">
+            <div className="text-center mb-16">
+              <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">The Journey</span>
+              <h2 className="text-3xl font-bold text-primary">Results Timeline</h2>
+            </div>
+            <div className="grid md:grid-cols-4 gap-8">
+              {client.timelineSteps.map((item, i) => (
+                <div key={i} className="text-center">
+                  <div className="w-12 h-12 flex items-center justify-center bg-accent text-white font-bold rounded-full mx-auto mb-4">
+                    {item.step}
+                  </div>
+                  <h4 className="font-semibold text-primary mb-2">{item.title}</h4>
+                  <p className="text-sm text-text-secondary">{item.desc}</p>
                 </div>
-                <h4 className="font-semibold text-primary mb-2">{item.title}</h4>
-                <p className="text-sm text-text-secondary">{item.desc}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Testimonial */}
-      <section className="py-24 bg-bg-secondary">
-        <div className="container px-6">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="bg-white rounded-2xl p-12 shadow-lg">
-              <div className="flex justify-center text-yellow-400 mb-6">
-                {[...Array(5)].map((_, i) => <Star key={i} size={24} fill="currentColor" />)}
-              </div>
-              <blockquote className="text-xl text-text-secondary mb-8 leading-relaxed">
-                &quot;Web Wise completely transformed our online presence. The results speak for themselves -
-                {client.results ? ` we've seen a ${client.results.trafficIncrease} increase in traffic and` : ''} our phone
-                hasn&apos;t stopped ringing. Highly recommended!&quot;
-              </blockquote>
-              <div>
-                <h4 className="font-semibold text-primary">Owner</h4>
-                <p className="text-text-muted">{client.name}</p>
+      {client.testimonial && (
+        <section className="py-24 bg-bg-secondary">
+          <div className="container px-6">
+            <div className="max-w-3xl mx-auto text-center">
+              <div className="bg-white rounded-2xl p-12 shadow-lg">
+                <div className="flex justify-center text-yellow-400 mb-6">
+                  {[...Array(5)].map((_, i) => <Star key={i} size={24} fill="currentColor" />)}
+                </div>
+                <blockquote className="text-xl text-text-secondary mb-8 leading-relaxed">
+                  &quot;{client.testimonial.quote}&quot;
+                </blockquote>
+                <div>
+                  <h4 className="font-semibold text-primary">{client.testimonial.author}</h4>
+                  <p className="text-text-muted">{client.testimonial.role}</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Other Projects */}
       <section className="py-24">

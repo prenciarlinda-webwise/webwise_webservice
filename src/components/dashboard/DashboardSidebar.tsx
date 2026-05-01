@@ -6,39 +6,57 @@ import { usePathname } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
 import { siteConfig } from '@/data/site'
 import {
-  LayoutDashboard, Users, FolderOpen, CreditCard, FileText,
-  UserCog, ClipboardList, Building2, Briefcase, Receipt, LogOut,
-  CalendarDays, Bell
+  LayoutDashboard, Users, CreditCard, FileText,
+  UserCog, ClipboardList, Building2, Receipt, LogOut,
+  CalendarDays, Bell, Inbox
 } from 'lucide-react'
+
+type Surface = 'admin' | 'supervisor' | 'economist' | 'employee' | 'client'
 
 interface NavItem {
   label: string
   href: string
   icon: React.ElementType
-  roles: string[]
+  surfaces: Surface[]
   children?: { label: string; href: string }[]
 }
 
 const navItems: NavItem[] = [
-  { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard, roles: ['admin', 'employee', 'client'] },
-  // Admin
-  { label: 'Clients', href: '/dashboard/clients', icon: Users, roles: ['admin'] },
-  { label: 'Projects', href: '/dashboard/projects', icon: FolderOpen, roles: ['admin', 'employee'] },
-  { label: 'Finances', href: '/dashboard/finances', icon: CreditCard, roles: ['admin'], children: [
+  { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard, surfaces: ['admin', 'supervisor', 'economist', 'employee', 'client'] },
+  { label: 'Clients', href: '/dashboard/clients', icon: Users, surfaces: ['admin', 'supervisor', 'economist'] },
+  { label: 'My Businesses', href: '/dashboard', icon: Building2, surfaces: ['client'] },
+  { label: 'Finances', href: '/dashboard/finances', icon: CreditCard, surfaces: ['admin', 'economist'], children: [
     { label: 'Business', href: '/dashboard/finances/business' },
     { label: 'Personal', href: '/dashboard/finances/personal' },
   ]},
-  { label: 'Employees', href: '/dashboard/employees', icon: UserCog, roles: ['admin'] },
-  { label: 'PDF Reports', href: '/dashboard/reports', icon: FileText, roles: ['admin'] },
-  { label: 'Notifications', href: '/dashboard/notifications', icon: Bell, roles: ['admin', 'employee'] },
-  // Employee
-  { label: 'My Deliverables', href: '/dashboard/tasks', icon: ClipboardList, roles: ['employee'] },
-  // Client
-  { label: 'My Businesses', href: '/dashboard/my-projects', icon: Building2, roles: ['client'] },
-  { label: 'Progress', href: '/dashboard/progress', icon: CalendarDays, roles: ['client'] },
-  { label: 'Reports', href: '/dashboard/my-reports', icon: FileText, roles: ['client'] },
-  { label: 'Billing', href: '/dashboard/my-payments', icon: Receipt, roles: ['client'] },
+  { label: 'Employees', href: '/dashboard/employees', icon: UserCog, surfaces: ['admin', 'supervisor'] },
+  { label: 'Review queue', href: '/dashboard/review', icon: Inbox, surfaces: ['admin', 'supervisor'] },
+  { label: 'My Deliverables', href: '/dashboard/tasks', icon: ClipboardList, surfaces: ['employee'] },
+  { label: 'Progress', href: '/dashboard/progress', icon: CalendarDays, surfaces: ['client'] },
+  { label: 'Reports', href: '/dashboard/reports', icon: FileText, surfaces: ['admin', 'supervisor', 'economist'] },
+  { label: 'My Reports', href: '/dashboard/my-reports', icon: FileText, surfaces: ['client'] },
+  { label: 'Billing', href: '/dashboard/my-payments', icon: Receipt, surfaces: ['client'] },
+  { label: 'Notifications', href: '/dashboard/notifications', icon: Bell, surfaces: ['admin', 'supervisor', 'employee'] },
 ]
+
+/**
+ * The "supervisor" sidebar applies to admin OR an employee with category=supervisor.
+ * "economist" — admin OR employee with category=economist. Admin sees admin variant
+ * (full surface). Other employees see the basic employee surface.
+ */
+function effectiveSurface(user: {
+  role: string
+  is_supervisor?: boolean
+  is_economist?: boolean
+  employee_category?: string | null
+}): Surface {
+  if (user.role === 'admin') return 'admin'
+  if (user.role === 'client') return 'client'
+  // Employee branch: prefer category-specific surface if set.
+  if (user.employee_category === 'supervisor') return 'supervisor'
+  if (user.employee_category === 'economist') return 'economist'
+  return 'employee'
+}
 
 export default function DashboardSidebar() {
   const { user, logout } = useAuth()
@@ -46,7 +64,14 @@ export default function DashboardSidebar() {
 
   if (!user) return null
 
-  const filteredNav = navItems.filter(item => item.roles.includes(user.role))
+  const surface = effectiveSurface(user)
+  const filteredNav = navItems.filter(item => item.surfaces.includes(surface))
+
+  const surfaceLabel = surface === 'supervisor'
+    ? 'Supervisor'
+    : surface === 'economist'
+    ? 'Economist'
+    : user.role.charAt(0).toUpperCase() + user.role.slice(1)
 
   return (
     <aside className="fixed left-0 top-0 bottom-0 w-64 bg-primary text-white flex flex-col">
@@ -60,7 +85,7 @@ export default function DashboardSidebar() {
         {filteredNav.map(item => {
           const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname?.startsWith(item.href))
           return (
-            <div key={item.href}>
+            <div key={`${item.label}-${item.href}`}>
               <Link
                 href={item.children ? item.children[0].href : item.href}
                 className={`flex items-center gap-3 px-6 py-3 text-sm font-medium transition-colors ${
@@ -97,7 +122,7 @@ export default function DashboardSidebar() {
       <div className="p-4 border-t border-white/10">
         <div className="px-2 mb-3">
           <p className="text-sm font-medium truncate">{user.first_name} {user.last_name}</p>
-          <p className="text-xs text-white/50 capitalize">{user.role}</p>
+          <p className="text-xs text-white/50">{surfaceLabel}</p>
         </div>
         <button
           onClick={logout}

@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.test import APIClient
 from rest_framework import status
 from .models import (
-    ClientProfile, Project, ProjectService, MonthlyPlan, Deliverable,
+    ClientProfile, Business, ProjectService, MonthlyPlan, Deliverable,
     ServiceTemplate, TemplateDeliverable, MonthlyMetrics, BusinessCatalogItem,
 )
 
@@ -26,7 +26,7 @@ class BaseTestCase(TestCase):
         self.client_profile = ClientProfile.objects.create(
             user=self.client_user, business_name="Gimo's Roofing",
             business_phone='555-1234', business_email='gimo@test.com')
-        self.project = Project.objects.create(
+        self.project = Business.objects.create(
             client=self.client_profile, name="Gimo's Roofing SEO", status='active',
             industry='Roofing', website_url='https://gimos.com')
         self.service = ProjectService.objects.create(
@@ -104,7 +104,7 @@ class ClientProfileTest(BaseTestCase):
         self.assertEqual(self.client_profile.business_phone, '999-0000')
 
 
-# ── Project CRUD ──────────────────────────────────────
+# ── Business CRUD ──────────────────────────────────────
 
 class ProjectTest(BaseTestCase):
     def test_admin_list_projects(self):
@@ -116,7 +116,7 @@ class ProjectTest(BaseTestCase):
     def test_admin_create_project(self):
         api = self.auth('admin', 'Admin123!')
         resp = api.post('/api/clients/projects/', {
-            'client': self.client_profile.id, 'name': 'New Project', 'industry': 'Plumbing',
+            'client': self.client_profile.id, 'name': 'New Business', 'industry': 'Plumbing',
         }, format='json')
         self.assertEqual(resp.status_code, 201)
 
@@ -132,7 +132,7 @@ class ProjectTest(BaseTestCase):
     def test_client_sees_only_own_projects(self):
         other_user = User.objects.create_user(username='other', password='Other123!', role='client')
         other_profile = ClientProfile.objects.create(user=other_user, business_name='Other Biz')
-        Project.objects.create(client=other_profile, name='Other Project')
+        Business.objects.create(client=other_profile, name='Other Business')
 
         api = self.auth('clientuser', 'Client12!')
         resp = api.get('/api/clients/projects/')

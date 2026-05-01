@@ -25,7 +25,7 @@ class Notification(models.Model):
         related_name='received_notifications',
     )
     project = models.ForeignKey(
-        'clients.Project', on_delete=models.CASCADE,
+        'clients.Business', on_delete=models.CASCADE,
         null=True, blank=True, related_name='notifications',
     )
     category = models.CharField(max_length=20, choices=Category.choices, default=Category.GENERAL)

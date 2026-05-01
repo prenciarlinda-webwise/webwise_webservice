@@ -3,7 +3,7 @@ from decimal import Decimal
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from rest_framework.test import APIClient
-from clients.models import ClientProfile, Project, ProjectService, MonthlyPlan
+from clients.models import ClientProfile, Business, ProjectService, MonthlyPlan
 from .models import Payment, ProjectCost, BusinessExpense, ExchangeRate
 
 User = get_user_model()
@@ -16,7 +16,7 @@ class BaseTestCase(TestCase):
         self.cli_user = User.objects.create_user(username='cli', password='Client12!', role='client')
 
         self.profile = ClientProfile.objects.create(user=self.cli_user, business_name='Test Biz')
-        self.project = Project.objects.create(client=self.profile, name='Test SEO')
+        self.project = Business.objects.create(client=self.profile, name='Test SEO')
         self.service = ProjectService.objects.create(
             project=self.project, name='Local SEO', monthly_price='500.00')
         self.plan = MonthlyPlan.objects.create(

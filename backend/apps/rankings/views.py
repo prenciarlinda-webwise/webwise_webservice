@@ -6,10 +6,11 @@ from django.utils import timezone
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from accounts.permissions import IsSupervisor
 
 from apps.competitors.models import Competitor
 from apps.keywords.models import Keyword, KeywordStatus
-from clients.models import Project
+from clients.models import Business
 
 from .models import LocalFinderResult, MapsRankResult, SERPResult
 from .serializers import (
@@ -28,17 +29,18 @@ class RefreshRankingsView(APIView):
     Runs asynchronously via Celery; returns the task id so the frontend
     can poll for status.
     """
-    def post(self, request, project_slug):
+    permission_classes = [IsSupervisor]
+    def post(self, request, business_slug):
         from apps.rankings.tasks import weekly_rank_tracking
 
-        project = get_object_or_404(Project, slug=project_slug)
+        project = get_object_or_404(Business, slug=business_slug)
         if not project.is_seo_tracked:
             return Response(
-                {"detail": "Project SEO tracking is disabled. Set status=active and configure a domain + tracking flags."},
+                {"detail": "Business SEO tracking is disabled. Set status=active and configure a domain + tracking flags."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
         tracked_count = Keyword.objects.filter(
-            project=project, status=KeywordStatus.TRACKED,
+            business=project, status=KeywordStatus.TRACKED,
         ).count()
         if tracked_count == 0:
             return Response(
@@ -49,7 +51,7 @@ class RefreshRankingsView(APIView):
         return Response({
             "task_id": async_result.id,
             "project_id": project.id,
-            "project_slug": project.slug,
+            "business_slug": project.slug,
             "keywords_to_refresh": tracked_count,
             "status": "queued",
             "message": f"Refresh queued for {tracked_count} keywords. Poll the task status endpoint or check rankings list in a few minutes.",
@@ -58,6 +60,7 @@ class RefreshRankingsView(APIView):
 
 class RefreshStatusView(APIView):
     """GET task status by id (for polling after a refresh request)."""
+    permission_classes = [IsSupervisor]
     def get(self, request, task_id):
         from celery.result import AsyncResult
 
@@ -76,13 +79,14 @@ class RefreshStatusView(APIView):
 
 
 class OrganicRankListView(generics.ListAPIView):
+    permission_classes = [IsSupervisor]
     serializer_class = SERPResultSerializer
     filterset_fields = ["keyword", "is_found", "checked_at", "device"]
     ordering_fields = ["checked_at", "rank_absolute"]
 
     def get_queryset(self):
         qs = SERPResult.objects.filter(
-            project__slug=self.kwargs["project_slug"]
+            business__slug=self.kwargs["business_slug"]
         ).select_related("keyword")
         date_from = self.request.query_params.get("date_from")
         date_to = self.request.query_params.get("date_to")
@@ -94,13 +98,14 @@ class OrganicRankListView(generics.ListAPIView):
 
 
 class MapsRankListView(generics.ListAPIView):
+    permission_classes = [IsSupervisor]
     serializer_class = MapsRankResultSerializer
     filterset_fields = ["keyword", "is_found", "checked_at"]
     ordering_fields = ["checked_at", "rank_group"]
 
     def get_queryset(self):
         qs = MapsRankResult.objects.filter(
-            project__slug=self.kwargs["project_slug"]
+            business__slug=self.kwargs["business_slug"]
         ).select_related("keyword")
         date_from = self.request.query_params.get("date_from")
         date_to = self.request.query_params.get("date_to")
@@ -112,13 +117,14 @@ class MapsRankListView(generics.ListAPIView):
 
 
 class LocalFinderListView(generics.ListAPIView):
+    permission_classes = [IsSupervisor]
     serializer_class = LocalFinderResultSerializer
     filterset_fields = ["keyword", "is_found", "checked_at"]
     ordering_fields = ["checked_at", "rank"]
 
     def get_queryset(self):
         qs = LocalFinderResult.objects.filter(
-            project__slug=self.kwargs["project_slug"]
+            business__slug=self.kwargs["business_slug"]
         ).select_related("keyword")
         date_from = self.request.query_params.get("date_from")
         date_to = self.request.query_params.get("date_to")
@@ -133,12 +139,13 @@ class LatestRankView(APIView):
     """Primary rank view — reads from Keyword denormalized fields.
     This is the single source of truth that Dashboard, Pages, and Rank Tracker all use.
     SERP URLs and screenshots come from the latest SERPResult records."""
+    permission_classes = [IsSupervisor]
 
-    def get(self, request, project_slug):
+    def get(self, request, business_slug):
         from clients.models import Location
 
         keywords = Keyword.objects.filter(
-            project__slug=project_slug, status=KeywordStatus.TRACKED,
+            business__slug=business_slug, status=KeywordStatus.TRACKED,
         ).order_by("keyword_text")
         kw_ids = list(keywords.values_list("id", flat=True))
 
@@ -190,8 +197,13 @@ class LatestRankView(APIView):
 
         data = []
         for kw in keywords:
-            organic_rank = kw.current_organic_rank
-            mobile_rank = kw.current_mobile_rank
+            # Prefer rank_group (organic-only position) over rank_absolute (full
+            # SERP position counting Local Pack/AI Overview/PAA/etc). This is
+            # what users mean when they say "I'm ranked #4".
+            organic_rank = kw.current_organic_rank_group or kw.current_organic_rank
+            organic_rank_absolute = kw.current_organic_rank
+            mobile_rank = kw.current_mobile_rank_group or kw.current_mobile_rank
+            mobile_rank_absolute = kw.current_mobile_rank
             maps_rank = kw.current_maps_rank
             finder_obj = latest_finder.get(kw.id)
             finder_rank = finder_obj.rank if finder_obj else None
@@ -232,14 +244,16 @@ class LatestRankView(APIView):
                 "keyword_difficulty": kw.keyword_difficulty,
                 "location_code": kw.location_code,
                 "location_name": location_names.get(kw.location_code, "") if kw.location_code else "",
-                "organic_rank": organic_rank,
+                "organic_rank": organic_rank,                       # primary — rank_group (organic only)
+                "organic_rank_absolute": organic_rank_absolute,     # secondary — counts all SERP elements
                 "organic_url": kw.current_organic_url,
                 "organic_rank_change": org_change,
                 "organic_serp_url": serp_obj.serp_url if serp_obj else "",
                 "organic_screenshot_url": serp_obj.screenshot_url if serp_obj else "",
                 # Multi-page gallery: pages 1 → N where N is the page containing the rank.
                 "organic_screenshot_urls": serp_obj.screenshot_urls if serp_obj and serp_obj.screenshot_urls else [],
-                "mobile_rank": mobile_rank,
+                "mobile_rank": mobile_rank,                         # primary — rank_group on mobile
+                "mobile_rank_absolute": mobile_rank_absolute,       # secondary
                 "mobile_url": kw.current_mobile_url,
                 "mobile_rank_change": mob_change,
                 "mobile_serp_url": mob_obj.serp_url if mob_obj else "",
@@ -293,8 +307,8 @@ class LatestRankView(APIView):
         }
 
         # Client location for constructing localized SERP URLs
-        from clients.models import Project
-        project = Project.objects.get(slug=project_slug)
+        from clients.models import Business
+        project = Business.objects.get(slug=business_slug)
         location = ""
         if project.city and project.state:
             location = f"{project.city}, {project.state}"
@@ -309,9 +323,10 @@ class LatestRankView(APIView):
 
 
 class RankChangesView(APIView):
-    def get(self, request, project_slug):
+    permission_classes = [IsSupervisor]
+    def get(self, request, business_slug):
         keywords = Keyword.objects.filter(
-            project__slug=project_slug, status=KeywordStatus.TRACKED,
+            business__slug=business_slug, status=KeywordStatus.TRACKED,
             rank_change__isnull=False,
         ).exclude(rank_change=0).order_by("-rank_change")
         data = [
@@ -338,19 +353,20 @@ class RankChangesView(APIView):
 
 
 class CheckDatesView(APIView):
-    def get(self, request, project_slug):
+    permission_classes = [IsSupervisor]
+    def get(self, request, business_slug):
         from django.db.models import Count
 
         organic_dates = list(
-            SERPResult.objects.filter(project__slug=project_slug)
+            SERPResult.objects.filter(business__slug=business_slug)
             .values_list("checked_at", flat=True).distinct().order_by("-checked_at")[:20]
         )
         maps_dates = list(
-            MapsRankResult.objects.filter(project__slug=project_slug)
+            MapsRankResult.objects.filter(business__slug=business_slug)
             .values_list("checked_at", flat=True).distinct().order_by("-checked_at")[:20]
         )
         finder_dates = list(
-            LocalFinderResult.objects.filter(project__slug=project_slug)
+            LocalFinderResult.objects.filter(business__slug=business_slug)
             .values_list("checked_at", flat=True).distinct().order_by("-checked_at")[:20]
         )
         all_dates = sorted(set(organic_dates + maps_dates + finder_dates), reverse=True)
@@ -358,7 +374,7 @@ class CheckDatesView(APIView):
         # Include keyword count per date so frontend can pick the most complete date
         date_counts = {}
         for row in (
-            SERPResult.objects.filter(project__slug=project_slug, device="desktop")
+            SERPResult.objects.filter(business__slug=business_slug, device="desktop")
             .values("checked_at")
             .annotate(cnt=Count("id"))
         ):
@@ -409,14 +425,15 @@ class RankComparisonView(APIView):
     Returns per-type summaries (Desktop, Mobile, Local Pack, Local Finder)
     with TRUE movement for the selected period.
     """
+    permission_classes = [IsSupervisor]
 
-    def get(self, request, project_slug):
+    def get(self, request, business_slug):
         date_current = request.query_params.get("date_current")
         date_previous = request.query_params.get("date_previous")
         max_rank = request.query_params.get("max_rank")
 
         keywords = Keyword.objects.filter(
-            project__slug=project_slug, status=KeywordStatus.TRACKED,
+            business__slug=business_slug, status=KeywordStatus.TRACKED,
         ).order_by("keyword_text")
         kw_ids = list(keywords.values_list("id", flat=True))
 
@@ -551,15 +568,16 @@ class CompetitorRankingsView(APIView):
     Returns competitor ranking positions from CompetitorKeywordOverlap,
     populated during rank tracking from the full SERP data.
     """
+    permission_classes = [IsSupervisor]
 
-    def get(self, request, project_slug):
+    def get(self, request, business_slug):
         from apps.competitors.models import CompetitorKeywordOverlap
 
         date_current = request.query_params.get("date_current")
         date_previous = request.query_params.get("date_previous")
 
         competitors = list(
-            Competitor.objects.filter(project__slug=project_slug).values("id", "domain", "name")
+            Competitor.objects.filter(business__slug=business_slug).values("id", "domain", "name")
         )
         if not competitors or not date_current:
             return Response({"keywords": [], "competitors": []})
@@ -567,25 +585,25 @@ class CompetitorRankingsView(APIView):
         comp_ids = [c["id"] for c in competitors]
 
         keywords = Keyword.objects.filter(
-            project__slug=project_slug, status=KeywordStatus.TRACKED,
+            business__slug=business_slug, status=KeywordStatus.TRACKED,
         ).order_by("keyword_text")
 
-        # Get the project_id for overlap filtering (already resolved by slug)
-        project_id = keywords.first().project_id if keywords.exists() else None
-        if not project_id:
+        # Get the business_id for overlap filtering (already resolved by slug)
+        business_id = keywords.first().business_id if keywords.exists() else None
+        if not business_id:
             return Response({"keywords": [], "competitors": competitors})
 
         # Index overlaps: (competitor_id, keyword_text) -> overlap
         overlaps_current = {}
         for o in CompetitorKeywordOverlap.objects.filter(
-            project_id=project_id, competitor_id__in=comp_ids, date=date_current,
+            business_id=business_id, competitor_id__in=comp_ids, date=date_current,
         ):
             overlaps_current[(o.competitor_id, o.keyword_text)] = o
 
         overlaps_previous = {}
         if date_previous and date_previous != date_current:
             for o in CompetitorKeywordOverlap.objects.filter(
-                project_id=project_id, competitor_id__in=comp_ids, date=date_previous,
+                business_id=business_id, competitor_id__in=comp_ids, date=date_previous,
             ):
                 overlaps_previous[(o.competitor_id, o.keyword_text)] = o
 
@@ -657,22 +675,22 @@ def _resolve_window(request, default_days=180):
     return cutoff, days
 
 
-def _result_qs_for_device(project_slug, device, cutoff):
+def _result_qs_for_device(business_slug, device, cutoff):
     """Returns (queryset, rank_field) for the chosen device."""
     if device == "mobile":
         return SERPResult.objects.filter(
-            project__slug=project_slug, device="mobile", checked_at__gte=cutoff,
+            business__slug=business_slug, device="mobile", checked_at__gte=cutoff,
         ), "rank_absolute"
     if device == "local_pack":
         return MapsRankResult.objects.filter(
-            project__slug=project_slug, checked_at__gte=cutoff,
+            business__slug=business_slug, checked_at__gte=cutoff,
         ), "rank_group"
     if device == "local_finder":
         return LocalFinderResult.objects.filter(
-            project__slug=project_slug, checked_at__gte=cutoff,
+            business__slug=business_slug, checked_at__gte=cutoff,
         ), "rank"
     return SERPResult.objects.filter(
-        project__slug=project_slug, device="desktop", checked_at__gte=cutoff,
+        business__slug=business_slug, device="desktop", checked_at__gte=cutoff,
     ), "rank_absolute"
 
 
@@ -688,16 +706,17 @@ class PositionDistributionView(APIView):
         device: desktop (default) | mobile | local_pack | local_finder
         days:   window size (default 180, clamped 7–730)
     """
+    permission_classes = [IsSupervisor]
 
-    def get(self, request, project_slug):
+    def get(self, request, business_slug):
         device = (request.query_params.get("device") or "desktop").lower()
         cutoff, days = _resolve_window(request)
 
         total_tracked = Keyword.objects.filter(
-            project__slug=project_slug, status=KeywordStatus.TRACKED,
+            business__slug=business_slug, status=KeywordStatus.TRACKED,
         ).count()
 
-        qs, rank_field = _result_qs_for_device(project_slug, device, cutoff)
+        qs, rank_field = _result_qs_for_device(business_slug, device, cutoff)
 
         # Aggregate: for each (date, keyword) take the latest rank value if there
         # were multiple same-day scans, then bucket it.
@@ -742,8 +761,9 @@ class AvgPositionHistoryView(APIView):
     Query params:
         days: window size (default 180, clamped 7–730)
     """
+    permission_classes = [IsSupervisor]
 
-    def get(self, request, project_slug):
+    def get(self, request, business_slug):
         cutoff, days = _resolve_window(request)
 
         def _avg_per_date(qs, rank_field):
@@ -761,19 +781,19 @@ class AvgPositionHistoryView(APIView):
             return out
 
         desktop = _avg_per_date(
-            SERPResult.objects.filter(project__slug=project_slug, device="desktop", checked_at__gte=cutoff),
+            SERPResult.objects.filter(business__slug=business_slug, device="desktop", checked_at__gte=cutoff),
             "rank_absolute",
         )
         mobile = _avg_per_date(
-            SERPResult.objects.filter(project__slug=project_slug, device="mobile", checked_at__gte=cutoff),
+            SERPResult.objects.filter(business__slug=business_slug, device="mobile", checked_at__gte=cutoff),
             "rank_absolute",
         )
         local_pack = _avg_per_date(
-            MapsRankResult.objects.filter(project__slug=project_slug, checked_at__gte=cutoff),
+            MapsRankResult.objects.filter(business__slug=business_slug, checked_at__gte=cutoff),
             "rank_group",
         )
         local_finder = _avg_per_date(
-            LocalFinderResult.objects.filter(project__slug=project_slug, checked_at__gte=cutoff),
+            LocalFinderResult.objects.filter(business__slug=business_slug, checked_at__gte=cutoff),
             "rank",
         )
 

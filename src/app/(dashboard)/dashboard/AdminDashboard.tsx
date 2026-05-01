@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { api } from '@/lib/api'
 import StatusBadge from '@/components/dashboard/StatusBadge'
-import { ArrowRight, Wallet, Briefcase, Filter } from 'lucide-react'
+import { ArrowRight, Wallet, Briefcase, Filter, Inbox } from 'lucide-react'
 
 interface Summary {
   total_revenue: string; total_paid: string; total_pending: string; total_upcoming: string
@@ -20,7 +20,7 @@ interface PSummary {
   income_by_source: Record<string, { planned: string; actual: string }>; expenses_by_category: Record<string, { planned: string; actual: string }>
 }
 interface Deliverable { id: number; title: string; status: string; due_date: string | null; assigned_to_name: string | null; category_display: string }
-interface MonthlyPlan { id: number; client_name: string; service_name: string; project_id: number; month: string; month_display: string; progress: { total: number; completed: number; percent: number }; deliverables: Deliverable[] }
+interface MonthlyPlan { id: number; client_name: string; service_name: string; business_slug: string; month: string; month_display: string; progress: { total: number; completed: number; percent: number }; deliverables: Deliverable[] }
 
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
@@ -30,6 +30,7 @@ export default function AdminDashboard() {
   const [expenses, setExpenses] = useState<Expense[]>([])
   const [plans, setPlans] = useState<MonthlyPlan[]>([])
   const [pSummary, setPSummary] = useState<PSummary | null>(null)
+  const [pendingReview, setPendingReview] = useState(0)
 
   const now = new Date()
   const [selectedMonth, setSelectedMonth] = useState(`${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`)
@@ -46,7 +47,13 @@ export default function AdminDashboard() {
     ]).then(([p, o]) => setActionPayments([...o.results, ...p.results]))
   }
 
-  useEffect(() => { loadData(selectedMonth) }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    loadData(selectedMonth)
+    api.get<{ results: { id: number }[] } | { id: number }[]>('/clients/deliverables/?approval_state=submitted').then(d => {
+      const list = Array.isArray(d) ? d : (d.results ?? [])
+      setPendingReview(list.length)
+    }).catch(() => setPendingReview(0))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const changeMonth = (m: string) => { setSelectedMonth(m); loadData(m) }
 
@@ -93,6 +100,16 @@ export default function AdminDashboard() {
           <input type="month" value={selectedMonth} onChange={e => changeMonth(e.target.value)} className="px-3 py-2 border border-border rounded-lg text-sm" />
         </div>
       </div>
+
+      {pendingReview > 0 && (
+        <Link href="/dashboard/review" className="flex items-center justify-between gap-3 px-4 py-3 mb-4 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors">
+          <div className="flex items-center gap-3">
+            <Inbox size={18} className="text-blue-700" />
+            <span className="text-sm font-medium text-blue-900">{pendingReview} deliverable{pendingReview === 1 ? '' : 's'} awaiting your review</span>
+          </div>
+          <ArrowRight size={14} className="text-blue-700" />
+        </Link>
+      )}
 
       {/* ═══ FINANCIAL OVERVIEW — Two separate boxes ═══ */}
       <div className="grid lg:grid-cols-2 gap-4 mb-6">
@@ -295,7 +312,7 @@ export default function AdminDashboard() {
                 d.status !== 'completed' && d.status !== 'published'
               ).length
               return (
-                <Link key={plan.id} href={`/dashboard/projects/${plan.project_id}?month=${monthStr}`} className="bg-white rounded-xl border border-border p-3 flex items-center justify-between hover:border-accent/40 transition-colors">
+                <Link key={plan.id} href={`/dashboard/${plan.business_slug}?month=${monthStr}`} className="bg-white rounded-xl border border-border p-3 flex items-center justify-between hover:border-accent/40 transition-colors">
                   <div>
                     <p className="text-sm font-semibold">{plan.client_name}</p>
                     <p className="text-xs text-text-muted">{plan.service_name}</p>

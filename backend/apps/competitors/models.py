@@ -3,7 +3,7 @@ from django.db import models
 
 class Competitor(models.Model):
     """A competitor domain being tracked for a project."""
-    project = models.ForeignKey("clients.Project", on_delete=models.CASCADE, related_name="seo_competitors")
+    business = models.ForeignKey("clients.Business", on_delete=models.CASCADE, related_name="seo_competitors")
     domain = models.CharField(max_length=255, db_index=True)
     name = models.CharField(max_length=255, blank=True)
     is_auto_discovered = models.BooleanField(default=False)
@@ -11,16 +11,16 @@ class Competitor(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = [("project", "domain")]
+        unique_together = [("business", "domain")]
         ordering = ["domain"]
 
     def __str__(self):
-        return f"{self.domain} (competitor of {self.project.domain})"
+        return f"{self.domain} (competitor of {self.business.domain})"
 
 
 class CompetitorSnapshot(models.Model):
     """Periodic competitive analysis snapshot."""
-    project = models.ForeignKey("clients.Project", on_delete=models.CASCADE, related_name="competitor_snapshots")
+    business = models.ForeignKey("clients.Business", on_delete=models.CASCADE, related_name="competitor_snapshots")
     competitor = models.ForeignKey(Competitor, on_delete=models.CASCADE, related_name="snapshots")
     date = models.DateField(db_index=True)
 
@@ -40,7 +40,7 @@ class CompetitorSnapshot(models.Model):
     class Meta:
         unique_together = [("competitor", "date")]
         ordering = ["-date"]
-        indexes = [models.Index(fields=["project", "-date"])]
+        indexes = [models.Index(fields=["business", "-date"])]
 
     def __str__(self):
         return f"{self.competitor.domain} snapshot @ {self.date}"
@@ -48,7 +48,7 @@ class CompetitorSnapshot(models.Model):
 
 class CompetitorKeywordOverlap(models.Model):
     """Keywords where project and competitor both rank."""
-    project = models.ForeignKey("clients.Project", on_delete=models.CASCADE, related_name="competitor_overlaps")
+    business = models.ForeignKey("clients.Business", on_delete=models.CASCADE, related_name="competitor_overlaps")
     competitor = models.ForeignKey(Competitor, on_delete=models.CASCADE, related_name="overlaps")
     date = models.DateField(db_index=True)
 
@@ -63,7 +63,7 @@ class CompetitorKeywordOverlap(models.Model):
     class Meta:
         ordering = ["-search_volume"]
         indexes = [
-            models.Index(fields=["project", "competitor", "-date"]),
+            models.Index(fields=["business", "competitor", "-date"]),
         ]
 
     def __str__(self):

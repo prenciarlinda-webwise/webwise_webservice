@@ -1,6 +1,6 @@
 from decimal import Decimal
 from django.db import models
-from clients.models import ProjectService, Project, MonthlyPlan
+from clients.models import ProjectService, Business, MonthlyPlan
 
 
 class Payment(models.Model):
@@ -35,7 +35,11 @@ class Payment(models.Model):
 
 
 class ProjectCost(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='costs')
+    business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name='costs')
+    project = models.ForeignKey(
+        'clients.Project', on_delete=models.CASCADE, related_name='costs',
+        null=True, blank=True,
+    )
     description = models.CharField(max_length=300)
     planned_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, help_text='Budgeted/planned amount')
     amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, help_text='Actual/done amount')
@@ -43,7 +47,7 @@ class ProjectCost(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.project} — €{self.amount} cost"
+        return f"{self.project or self.business} — €{self.amount} cost"
 
     class Meta:
         ordering = ['-date']

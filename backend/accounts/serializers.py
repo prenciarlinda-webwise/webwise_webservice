@@ -6,10 +6,23 @@ User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
+    is_supervisor = serializers.BooleanField(read_only=True)
+    is_economist = serializers.BooleanField(read_only=True)
+    employee_category = serializers.SerializerMethodField()
+
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'role', 'phone', 'date_joined']
-        read_only_fields = ['id', 'date_joined']
+        fields = [
+            'id', 'username', 'email', 'first_name', 'last_name', 'role', 'phone',
+            'is_supervisor', 'is_economist', 'employee_category', 'date_joined',
+        ]
+        read_only_fields = ['id', 'date_joined', 'is_supervisor', 'is_economist', 'employee_category']
+
+    def get_employee_category(self, obj):
+        try:
+            return obj.employee_profile.category
+        except Exception:
+            return None
 
 
 class RegisterSerializer(serializers.ModelSerializer):

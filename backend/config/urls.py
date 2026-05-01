@@ -11,12 +11,11 @@ urlpatterns = [
     path('api/reports/', include('reports.urls')),
     path('api/employees/', include('employees.urls')),
     path('api/notifications/', include('notifications.urls')),
-    # SEO module — DataForSEO-backed rankings, keywords, discovery, competitors, citations.
+    # SEO module — DataForSEO-backed rankings only (plus keyword/competitor/discovery deps).
     path('api/seo/', include('apps.keywords.urls')),
     path('api/seo/', include('apps.rankings.urls')),
     path('api/seo/', include('apps.discovery.urls')),
     path('api/seo/', include('apps.competitors.urls')),
-    path('api/seo/', include('apps.citations.urls')),
 ]
 
 if settings.DEBUG:

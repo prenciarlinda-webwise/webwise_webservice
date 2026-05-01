@@ -29,7 +29,7 @@ class KeywordTag(models.Model):
 
 
 class Keyword(models.Model):
-    project = models.ForeignKey("clients.Project", on_delete=models.CASCADE, related_name="keywords")
+    business = models.ForeignKey("clients.Business", on_delete=models.CASCADE, related_name="keywords")
 
     # Core keyword data
     keyword_text = models.CharField(max_length=500, db_index=True)
@@ -63,14 +63,19 @@ class Keyword(models.Model):
     estimated_traffic = models.FloatField(null=True, blank=True)      # Monthly organic traffic for this keyword
     estimated_traffic_cost = models.FloatField(null=True, blank=True) # Traffic value in USD
 
-    # Current rank snapshot (denormalized)
-    current_organic_rank = models.IntegerField(null=True, blank=True)
+    # Current rank snapshot (denormalized).
+    # rank_absolute = position counting EVERY SERP element (Local Pack, AI
+    # Overview, PAA, image cards, ads...). rank_group = position WITHIN
+    # organic web results — what users mean by "I'm #4". Both stored.
+    current_organic_rank = models.IntegerField(null=True, blank=True, help_text='rank_absolute (entire SERP page)')
+    current_organic_rank_group = models.IntegerField(null=True, blank=True, help_text='rank_group (organic-only position)')
     current_organic_url = models.URLField(max_length=2048, blank=True)
     current_maps_rank = models.IntegerField(null=True, blank=True)
     previous_organic_rank = models.IntegerField(null=True, blank=True)
     previous_maps_rank = models.IntegerField(null=True, blank=True)
     rank_change = models.IntegerField(null=True, blank=True)
-    current_mobile_rank = models.IntegerField(null=True, blank=True)
+    current_mobile_rank = models.IntegerField(null=True, blank=True, help_text='rank_absolute on mobile')
+    current_mobile_rank_group = models.IntegerField(null=True, blank=True, help_text='rank_group on mobile (organic-only)')
     previous_mobile_rank = models.IntegerField(null=True, blank=True)
     mobile_rank_change = models.IntegerField(null=True, blank=True)
     current_mobile_url = models.URLField(max_length=2048, blank=True)
@@ -89,21 +94,21 @@ class Keyword(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        unique_together = [("project", "keyword_text", "location_code")]
+        unique_together = [("business", "keyword_text", "location_code")]
         ordering = ["keyword_text"]
         indexes = [
-            models.Index(fields=["project", "status"]),
-            models.Index(fields=["project", "status", "-search_volume"]),
-            models.Index(fields=["project", "-current_organic_rank"]),
+            models.Index(fields=["business", "status"]),
+            models.Index(fields=["business", "status", "-search_volume"]),
+            models.Index(fields=["business", "-current_organic_rank"]),
         ]
 
     def __str__(self):
-        return f"{self.keyword_text} ({self.project.domain})"
+        return f"{self.keyword_text} ({self.business.domain})"
 
     @property
     def effective_location_code(self):
-        return self.location_code or self.project.location_code
+        return self.location_code or self.business.location_code
 
     @property
     def effective_language_code(self):
-        return self.language_code or self.project.language_code
+        return self.language_code or self.business.language_code

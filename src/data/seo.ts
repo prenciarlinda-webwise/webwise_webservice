@@ -20,8 +20,8 @@ export const pageSEO: Record<string, PageSEO> = {
   // MAIN SERVICE PAGES
   // ============================================
   'seo-services': {
-    title: 'SEO Services for Small Business - Packages from $480/mo',
-    description: 'Data-driven SEO for small businesses. Keyword research, on-page optimization, link building, monthly reporting. Packages from $480/month. Free audit.',
+    title: 'SEO Services for Small Business in 2026 | From $480/mo',
+    description: 'Results-driven SEO services for small businesses and contractors. Packages from $480/month. Free audit, transparent reporting, 3-month measurable roadmap.',
     keywords: ['seo services for small business', 'affordable seo services', 'small business seo services', 'professional seo services'],
   },
 
@@ -125,9 +125,9 @@ export const pageSEO: Record<string, PageSEO> = {
   // BLOG POSTS - Unique keywords per post
   // ============================================
   'blog/seo-pricing': {
-    title: 'How Much Does SEO Cost for a Small Business in 2026?',
-    description: 'SEO pricing breakdown for local service businesses. Packages from $480-$1,100/month. What affects cost, what to expect, and how to budget.',
-    keywords: ['seo pricing', 'seo cost small business', 'how much does seo cost', 'seo pricing packages'],
+    title: 'How Much Does SEO Cost Per Month? 2026 Pricing for Small Business',
+    description: 'SEO costs $480-$1,100 per month for small businesses in 2026. Full pricing breakdown, what affects cost, what to expect, and how to budget for real ROI.',
+    keywords: ['how much does seo cost per month', 'seo pricing', 'seo cost small business', 'how much does seo cost', 'seo pricing packages'],
   },
 
   'blog/gbp-optimization': {
@@ -247,9 +247,9 @@ export const pageSEO: Record<string, PageSEO> = {
   },
 
   'blog/locksmith-keywords-for-seo': {
-    title: 'Locksmith Keywords for SEO: 100+ Keywords That Drive Calls',
-    description: '100+ locksmith keywords organized by service category and conversion potential. Emergency, residential, commercial, and automotive locksmith terms.',
-    keywords: ['locksmith keywords', 'locksmith keywords for seo', 'locksmith seo keywords', 'locksmith search terms'],
+    title: 'Locksmith SEO: 100+ Keywords That Drive Calls in 2026',
+    description: '100+ locksmith keywords organized by service category and conversion potential. Emergency, residential, commercial, and automotive locksmith terms with volumes.',
+    keywords: ['locksmith seo', 'locksmith keywords', 'locksmith keywords for seo', 'locksmith seo keywords', 'locksmith search terms'],
   },
 
   'blog/electrician-keywords-for-seo': {
@@ -284,9 +284,9 @@ export const pageSEO: Record<string, PageSEO> = {
   },
 
   'blog/hvac-marketing-ideas': {
-    title: '15 HVAC Marketing Ideas to Fill Your Schedule Year-Round',
-    description: 'Seasonal HVAC marketing strategies for consistent leads through summer cooling and winter heating. Proven ideas for HVAC companies of all sizes.',
-    keywords: ['hvac marketing ideas', 'hvac advertising', 'marketing for hvac companies', 'hvac business marketing'],
+    title: '15 HVAC Marketing & Advertising Ideas That Work in 2026',
+    description: '15 proven HVAC marketing and advertising ideas for 2026. Seasonal strategies that deliver cooling-season and heating-season leads. Any budget, any company size.',
+    keywords: ['hvac marketing ideas', 'hvac advertising', 'hvac advertising ideas', 'marketing for hvac companies', 'hvac business marketing'],
   },
 
   // SEO strategy and education guides

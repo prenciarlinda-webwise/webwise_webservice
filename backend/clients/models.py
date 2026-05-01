@@ -39,14 +39,14 @@ class ClientProfile(models.Model):
         ordering = ['business_name']
 
 
-class Project(models.Model):
+class Business(models.Model):
     class Status(models.TextChoices):
         ACTIVE = 'active', 'Active'
         PAUSED = 'paused', 'Paused'
         COMPLETED = 'completed', 'Completed'
         CANCELLED = 'cancelled', 'Cancelled'
 
-    client = models.ForeignKey(ClientProfile, on_delete=models.CASCADE, related_name='projects')
+    client = models.ForeignKey(ClientProfile, on_delete=models.CASCADE, related_name='businesses')
     name = models.CharField(max_length=200, help_text='e.g. "904 Dumpster", "Prenga Construction"')
     slug = models.SlugField(max_length=220, unique=True, blank=True)
     business_phone = models.CharField(max_length=30, blank=True)
@@ -107,10 +107,10 @@ class Project(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            base = slugify(self.name) or 'project'
+            base = slugify(self.name) or 'business'
             slug = base
             n = 1
-            while Project.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+            while Business.objects.filter(slug=slug).exclude(pk=self.pk).exists():
                 slug = f'{base}-{n}'
                 n += 1
             self.slug = slug
@@ -124,16 +124,76 @@ class Project(models.Model):
 
     @property
     def is_seo_tracked(self):
-        """True if this project has SEO tracking enabled and minimum config."""
+        """True if this business has SEO tracking enabled and minimum config."""
         return self.status == self.Status.ACTIVE and bool(self.domain) and (
             self.track_organic or self.track_mobile or self.track_maps
         )
 
     class Meta:
         ordering = ['-created_at']
+        verbose_name_plural = 'Businesses'
 
     def __str__(self):
         return f"{self.client.business_name} — {self.name}"
+
+
+class Project(models.Model):
+    """An engagement under a Business — e.g. a website build, ongoing local SEO,
+    a Google Ads campaign. A Business can have multiple Projects running in
+    parallel; finished ones stay attached read-only.
+    """
+
+    class Kind(models.TextChoices):
+        WEBSITE_BUILD = 'website_build', 'Website Build'
+        LOCAL_SEO = 'local_seo', 'Local SEO'
+        GOOGLE_ADS = 'google_ads', 'Google Ads'
+        CONTENT = 'content', 'Content'
+        SOCIAL_MEDIA = 'social_media', 'Social Media'
+        ONE_OFF = 'one_off', 'One-off'
+
+    class Status(models.TextChoices):
+        ACTIVE = 'active', 'Active'
+        PAUSED = 'paused', 'Paused'
+        COMPLETED = 'completed', 'Completed'
+        ARCHIVED = 'archived', 'Archived'
+
+    business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name='projects')
+    kind = models.CharField(max_length=20, choices=Kind.choices, default=Kind.LOCAL_SEO)
+    slug = models.SlugField(max_length=120, blank=True)
+    name = models.CharField(max_length=200, blank=True, help_text='Optional override; defaults to "<Kind label>"')
+    status = models.CharField(max_length=20, choices=Status.choices, default=Status.ACTIVE)
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+    monthly_budget_usd = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    notes = models.TextField(blank=True)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL,
+        null=True, blank=True, related_name='created_projects',
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    FORBIDDEN_SLUGS = {'rankings', 'events', 'deliverables', 'settings'}
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base = slugify(self.kind.replace('_', '-')) or 'project'
+            slug = base
+            n = 1
+            qs = Project.objects.filter(business=self.business, slug=slug)
+            while slug in self.FORBIDDEN_SLUGS or qs.exclude(pk=self.pk).exists():
+                slug = f'{base}-{n}'
+                n += 1
+                qs = Project.objects.filter(business=self.business, slug=slug)
+            self.slug = slug
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.business.name} — {self.get_kind_display()}"
+
+    class Meta:
+        ordering = ['-status', '-created_at']
+        unique_together = [('business', 'slug')]
 
 
 class BusinessCatalogItem(models.Model):
@@ -142,7 +202,7 @@ class BusinessCatalogItem(models.Model):
         PRODUCT = 'product', 'Product'
         SERVICE = 'service', 'Service'
 
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='catalog')
+    business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name='catalog')
     item_type = models.CharField(max_length=10, choices=ItemType.choices, default=ItemType.SERVICE)
     name = models.CharField(max_length=200, help_text='e.g. "10 Yard Dumpster", "Interior Painting"')
     description = models.TextField(blank=True)
@@ -154,7 +214,7 @@ class BusinessCatalogItem(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.project.name} — {self.name}"
+        return f"{self.business.name} — {self.name}"
 
     class Meta:
         ordering = ['sort_order', 'name']
@@ -166,7 +226,12 @@ class ProjectService(models.Model):
         IN_PROGRESS = 'in_progress', 'In Progress'
         COMPLETED = 'completed', 'Completed'
 
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='services')
+    business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name='services')
+    project = models.ForeignKey(
+        'Project', on_delete=models.CASCADE, related_name='services',
+        null=True, blank=True,
+        help_text='The engagement (Project) this service belongs to. Null during migration; required after data backfill.',
+    )
     name = models.CharField(max_length=200, help_text='e.g. "Local SEO", "Website Redesign"')
     description = models.TextField(blank=True)
     monthly_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
@@ -174,7 +239,7 @@ class ProjectService(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.project} — {self.name}"
+        return f"{self.project or self.business} — {self.name}"
 
     class Meta:
         verbose_name_plural = 'Project services'
@@ -188,7 +253,11 @@ class QuarterlyPlan(models.Model):
         COMPLETED = 'completed', 'Completed'
         ARCHIVED = 'archived', 'Archived'
 
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='quarterly_plans')
+    business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name='quarterly_plans')
+    project = models.ForeignKey(
+        'Project', on_delete=models.CASCADE, related_name='quarterly_plans',
+        null=True, blank=True,
+    )
     name = models.CharField(max_length=200, help_text='e.g. "Q2 2026" or "Spring 2026 — Repipe push"')
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.DRAFT)
     quarter_start = models.DateField(help_text='First day of the quarter')
@@ -207,10 +276,10 @@ class QuarterlyPlan(models.Model):
 
     class Meta:
         ordering = ['-quarter_start']
-        unique_together = ['project', 'quarter_start']
+        unique_together = ['business', 'quarter_start']
 
     def __str__(self):
-        return f"{self.project.name} — {self.name}"
+        return f"{self.business.name} — {self.name}"
 
     @property
     def progress_pct(self):
@@ -312,8 +381,16 @@ class Deliverable(models.Model):
         DAILY = 'daily', 'Daily'
         AS_NEEDED = 'as_needed', 'As Needed'
 
+    class Kind(models.TextChoices):
+        WORK = 'work', 'Work'
+        CONFIGURATION = 'configuration', 'Configuration'
+        METRIC_COLLECTION = 'metric_collection', 'Metric Collection'
+        CRAWL_REQUEST = 'crawl_request', 'Crawl Request'
+        REPORT = 'report', 'Report'
+
     monthly_plan = models.ForeignKey(MonthlyPlan, on_delete=models.CASCADE, related_name='deliverables')
     category = models.CharField(max_length=20, choices=Category.choices)
+    kind = models.CharField(max_length=20, choices=Kind.choices, default=Kind.WORK)
     title = models.CharField(max_length=300)
     description = models.TextField(blank=True, help_text='Details / specs')
     target_keyword = models.CharField(max_length=200, blank=True)
@@ -335,6 +412,31 @@ class Deliverable(models.Model):
     completed_date = models.DateField(null=True, blank=True)
     notes = models.TextField(blank=True)
     sort_order = models.PositiveIntegerField(default=0)
+
+    # Approval gate (Phase 5).
+    # Default requires_approval=False so existing rows stay client-visible without
+    # explicit sign-off; supervisors opt new deliverables into the gate per-row
+    # or per-template.
+    requires_approval = models.BooleanField(
+        default=False,
+        help_text='If True, a supervisor must approve before the client sees this.',
+    )
+    client_visible = models.BooleanField(
+        default=True,
+        help_text='If False, the client never sees this deliverable regardless of approval.',
+    )
+    submitted_at = models.DateTimeField(null=True, blank=True)
+    submitted_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL,
+        null=True, blank=True, related_name='submitted_deliverables',
+    )
+    approved_at = models.DateTimeField(null=True, blank=True)
+    approved_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL,
+        null=True, blank=True, related_name='approved_deliverables',
+    )
+    rejection_reason = models.TextField(blank=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -343,6 +445,24 @@ class Deliverable(models.Model):
 
     class Meta:
         ordering = ['due_date', 'sort_order']
+
+    @property
+    def approval_state(self):
+        if self.approved_at:
+            return 'approved'
+        if self.submitted_at and self.rejection_reason and not self.approved_at:
+            return 'rejected'
+        if self.submitted_at:
+            return 'submitted'
+        return 'draft'
+
+    @property
+    def is_client_visible(self):
+        if not self.client_visible:
+            return False
+        if not self.requires_approval:
+            return True
+        return self.approved_at is not None
 
 
 # --- Service Templates (predefined deliverable lists per package) ---

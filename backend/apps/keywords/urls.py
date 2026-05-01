@@ -7,6 +7,6 @@ router = DefaultRouter()
 router.register(r"keywords", KeywordViewSet, basename="keyword")
 
 urlpatterns = [
-    path("projects/<slug:project_slug>/", include(router.urls)),
-    path("projects/<slug:project_slug>/pages/", PagesView.as_view(), name="pages"),
+    path("businesses/<slug:business_slug>/", include(router.urls)),
+    path("businesses/<slug:business_slug>/pages/", PagesView.as_view(), name="pages"),
 ]

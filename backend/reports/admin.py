@@ -11,18 +11,18 @@ class ReportAdmin(admin.ModelAdmin):
 
 @admin.register(GBPMetrics)
 class GBPMetricsAdmin(admin.ModelAdmin):
-    list_display = ['project', 'month', 'total_interactions', 'profile_views', 'calls', 'website_clicks', 'review_count']
-    list_filter = ['month', 'project']
+    list_display = ['business', 'month', 'total_interactions', 'profile_views', 'calls', 'website_clicks', 'review_count']
+    list_filter = ['month', 'business']
 
 
 @admin.register(GA4Metrics)
 class GA4MetricsAdmin(admin.ModelAdmin):
-    list_display = ['project', 'month', 'active_users', 'new_users', 'total_sessions', 'page_views', 'phone_clicks', 'estimate_requests']
-    list_filter = ['month', 'project']
+    list_display = ['business', 'month', 'active_users', 'new_users', 'total_sessions', 'page_views', 'phone_clicks', 'estimate_requests']
+    list_filter = ['month', 'business']
 
 
 @admin.register(SearchTermSnapshot)
 class SearchTermSnapshotAdmin(admin.ModelAdmin):
-    list_display = ['project', 'month', 'source', 'keyword', 'impressions', 'clicks', 'avg_position', 'local_pack']
-    list_filter = ['month', 'source', 'project']
+    list_display = ['business', 'month', 'source', 'keyword', 'impressions', 'clicks', 'avg_position', 'local_pack']
+    list_filter = ['month', 'source', 'business']
     search_fields = ['keyword']

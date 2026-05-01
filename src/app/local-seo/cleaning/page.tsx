@@ -3,14 +3,16 @@ import { siteConfig } from '@/data/site'
 import BlogPostPage from '@/app/blog/[slug]/page'
 
 export async function generateMetadata(): Promise<Metadata> {
+  const title = 'Cleaning Service SEO: Get More Clients From Google in 2026'
+  const description = 'SEO for cleaning companies that turns Google search into recurring residential and commercial contracts. Rank for "cleaning service near me" and stop relying on Thumbtack.'
   return {
-    title: 'Cleaning Service SEO',
-    description: 'We help cleaning companies rank higher on Google and generate consistent leads. From residential to commercial, our proven SEO strategies deliver real results.',
-    keywords: ['seo for cleaning company', 'cleaning company seo', 'cleaning service seo', 'carpet cleaning seo', 'house cleaning seo company', 'cleaning company seo experts', 'seo for carpet cleaners'],
+    title,
+    description,
+    keywords: ['cleaning service seo', 'seo for cleaning company', 'cleaning company seo', 'carpet cleaning seo', 'house cleaning seo company', 'cleaning company seo experts', 'seo for carpet cleaners'],
     alternates: { canonical: `${siteConfig.url}/local-seo/cleaning` },
     openGraph: {
-      title: 'Cleaning Service SEO',
-      description: 'We help cleaning companies rank higher on Google and generate consistent leads. Proven SEO strategies that deliver real results.',
+      title,
+      description,
       url: `${siteConfig.url}/local-seo/cleaning`,
     },
   }

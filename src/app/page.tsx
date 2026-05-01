@@ -294,9 +294,15 @@ export default function Home() {
               Web Wise is a web development and digital marketing agency that helps contractors
               and small businesses grow online. We build custom, high-performance websites that
               load fast and convert visitors into customers. We implement local SEO strategies
-              that put you at the top of Google Maps. And we run digital marketing campaigns, 
-              PPC, content, and social,  that generate measurable leads. We specialize in
-              plumbers, roofers, HVAC companies, and service businesses across the UK and USA.
+              that put you at the top of Google Maps. And we run digital marketing campaigns,
+              PPC, content, and social,  that generate measurable leads. We specialize in{' '}
+              <Link href="/local-seo/plumbers" className="text-accent hover:underline">plumbers</Link>,{' '}
+              <Link href="/local-seo/roofing" className="text-accent hover:underline">roofers</Link>,{' '}
+              <Link href="/local-seo/hvac" className="text-accent hover:underline">HVAC companies</Link>,{' '}
+              <Link href="/local-seo/landscaping" className="text-accent hover:underline">landscapers</Link>,{' '}
+              <Link href="/local-seo/locksmiths" className="text-accent hover:underline">locksmiths</Link>,{' '}
+              <Link href="/local-seo/cleaning" className="text-accent hover:underline">cleaning services</Link>,
+              and other service businesses across the UK and USA.
             </p>
             <p className="text-text-secondary font-medium">
               <strong className="text-primary">We&apos;re not a generalist agency.</strong> We only work with small businesses and
@@ -481,6 +487,45 @@ export default function Home() {
             <Link href="/contact" className="inline-flex items-center gap-2 text-accent font-medium hover:gap-3 transition-all">
               Don&apos;t see your industry? We probably still work with you <ArrowRight size={16} />
             </Link>
+          </div>
+
+          {/* Popular industry guides - internal linking for SEO */}
+          <div className="max-w-5xl mx-auto mt-16 pt-10 border-t border-border">
+            <p className="text-center text-sm font-semibold text-primary uppercase tracking-wider mb-5">
+              Free Industry SEO Guides
+            </p>
+            <div className="flex flex-wrap justify-center gap-2">
+              <Link href="/blog/plumber-keywords-for-seo" className="px-4 py-2 bg-white border border-border rounded-full text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors">
+                Plumbing SEO keywords
+              </Link>
+              <Link href="/local-seo/plumbers" className="px-4 py-2 bg-white border border-border rounded-full text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors">
+                Plumber SEO agency
+              </Link>
+              <Link href="/local-seo/plumbers" className="px-4 py-2 bg-white border border-border rounded-full text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors">
+                Local SEO for plumbers
+              </Link>
+              <Link href="/blog/locksmith-keywords-for-seo" className="px-4 py-2 bg-white border border-border rounded-full text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors">
+                Locksmith SEO guide
+              </Link>
+              <Link href="/blog/hvac-marketing-ideas" className="px-4 py-2 bg-white border border-border rounded-full text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors">
+                HVAC marketing ideas
+              </Link>
+              <Link href="/blog/plumber-marketing-ideas" className="px-4 py-2 bg-white border border-border rounded-full text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors">
+                Marketing for plumbers
+              </Link>
+              <Link href="/blog/roofing-leads" className="px-4 py-2 bg-white border border-border rounded-full text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors">
+                How to get roofing leads
+              </Link>
+              <Link href="/local-seo/landscaping" className="px-4 py-2 bg-white border border-border rounded-full text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors">
+                SEO for landscapers
+              </Link>
+              <Link href="/local-seo/cleaning" className="px-4 py-2 bg-white border border-border rounded-full text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors">
+                Cleaning service SEO
+              </Link>
+              <Link href="/blog/seo-pricing" className="px-4 py-2 bg-white border border-border rounded-full text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors">
+                How much does SEO cost per month
+              </Link>
+            </div>
           </div>
         </div>
       </section>

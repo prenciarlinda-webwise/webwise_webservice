@@ -121,6 +121,33 @@ export const services = {
 const getScreenshot = (url: string) => `https://s.wordpress.com/mshots/v1/${encodeURIComponent(url)}?w=800&h=600`
 
 // Client type definition
+export interface KeywordRanking {
+  keyword: string
+  serp?: number
+  localPack?: number
+  mapsPack?: number
+  aiOverview?: 'cited' | 'suggestion' | string
+  note?: string
+}
+
+export interface RankingScreenshot {
+  src: string
+  alt: string
+  caption?: string
+}
+
+export interface CaseStudyTimelineStep {
+  step: string
+  title: string
+  desc: string
+}
+
+export interface CaseStudyTestimonial {
+  quote: string
+  author: string
+  role?: string
+}
+
 export interface Client {
   name: string
   slug: string
@@ -134,6 +161,12 @@ export interface Client {
     leadsIncrease: string
     rankingKeywords: string
   }
+  keywordRankings?: KeywordRanking[]
+  rankingScreenshots?: RankingScreenshot[]
+  challenge?: string
+  solution?: string
+  timelineSteps?: CaseStudyTimelineStep[]
+  testimonial?: CaseStudyTestimonial
   nofollow?: boolean
 }
 
@@ -160,12 +193,156 @@ export const clients: Record<string, Client> = {
     image: getScreenshot('https://www.illyrianplumber.com'),
     industry: 'Plumbing',
     services: ['Local SEO', 'Website Design', 'Brand Strategy'],
-    description: 'Complete website redesign and local SEO for this East Brunswick, NJ plumbing company. We built a lightning-fast website achieving 98/100 PageSpeed scores on both mobile and desktop. Within just 2 months, Illyrian Plumber ranked in the Local Pack top 5 for critical emergency plumber keywords across multiple NJ cities including East Brunswick, Old Bridge, South River, and North Brunswick. The site is now cited by ChatGPT and Perplexity AI, driving organic visibility in the age of AI search.',
+    description: 'Local SEO and a brand-new high-performance website for this East Brunswick, NJ plumbing company. Today, Illyrian Plumber ranks #1 organic on Google for "PEX repiping NJ", "whole house repiping NJ", and "gas appliance hookup NJ" - five-figure jobs that competitors used to win. The site is cited directly inside Google AI Overviews, ChatGPT, and Perplexity, and Search Console shows a +553% jump in impressions over the last 90 days. From a near-zero starting point to dominating the highest-value plumbing searches in Middlesex County, all without paying per-lead platforms.',
     results: {
-      trafficIncrease: '290%',
+      trafficIncrease: '+553%',
       leadsIncrease: '245%',
       rankingKeywords: '20+',
     },
+    keywordRankings: [
+      {
+        keyword: 'PEX repiping NJ',
+        serp: 1,
+        localPack: 2,
+        mapsPack: 2,
+        aiOverview: 'suggestion',
+        note: 'Suggested in Google AI Overview alongside national chains',
+      },
+      {
+        keyword: 'whole house repiping NJ',
+        serp: 1,
+        mapsPack: 1,
+        aiOverview: 'cited',
+        note: 'Cited as Central/Northern NJ specialist in AI Overview',
+      },
+      {
+        keyword: 'gas appliance hookup NJ',
+        serp: 1,
+        aiOverview: 'cited',
+        note: 'Cited as a key NJ provider in AI Overview',
+      },
+      {
+        keyword: 'boiler repair East Brunswick NJ',
+        serp: 2,
+        note: 'Search Console shows +553% impressions in 90 days for this query cluster',
+      },
+      {
+        keyword: 'gas line repair East Brunswick NJ',
+        serp: 2,
+      },
+      {
+        keyword: 'bathroom remodeling plumber East Brunswick',
+        serp: 2,
+      },
+      {
+        keyword: '24 hour plumber East Brunswick NJ',
+        serp: 3,
+      },
+      {
+        keyword: 'water heater repair East Brunswick NJ',
+        serp: 3,
+      },
+      {
+        keyword: 'emergency plumber cost East Brunswick',
+        serp: 8,
+        mapsPack: 13,
+        aiOverview: 'suggestion',
+        note: 'Suggested in AI Overview emergency plumber list',
+      },
+      {
+        keyword: 'plumber East Brunswick NJ',
+        serp: 14,
+      },
+      {
+        keyword: 'gas leak repair NJ',
+        serp: 23,
+      },
+    ],
+    challenge: `Illyrian came to us as a newer plumbing business in one of the most saturated local markets in the country. Middlesex County, NJ is dominated by long-established competitors with thousands of reviews (NJ Pipe Doctor, Roto-Rooter, RA Nichols), national chains buying every paid slot, and Yelp/HomeAdvisor directories occupying the rest of page one.
+
+The existing online presence was effectively invisible: no consistent rankings, no Google Business Profile authority, almost no Search Console impressions, and a website that wasn't built to convert the high-value repiping and gas-line work the business actually wants. Every emergency call that should have been theirs was being intercepted by competitors with bigger ad budgets and older domains.`,
+    solution: `We rebuilt the foundation, then attacked the most profitable searches first.
+
+Phase 1 - Technical foundation: A new Next.js website built for speed and intent, hitting 98/100 PageSpeed on mobile and desktop. Schema, internal linking, and dedicated service pages for each money keyword (repiping, gas line, water heater, boiler, emergency plumbing).
+
+Phase 2 - Local authority: Full Google Business Profile rebuild, NAP consistency across 20+ directories, weekly GBP posts, structured review generation. Anchored in East Brunswick and surrounding municipalities (Old Bridge, South River, North Brunswick).
+
+Phase 3 - Money-keyword focus: Instead of chasing every plumbing term, we targeted the searches with the highest job value first - PEX repiping, whole house repiping, gas appliance hookup. These are five-figure projects, and most competitors weren't optimizing for them.
+
+Phase 4 - AI-first content: Long-form, structured service pages designed to be cited by Google AI Overviews, ChatGPT, and Perplexity. Today, Illyrian is named directly inside the AI Overview for multiple high-value NJ searches - a moat most plumbing competitors haven't even started building.`,
+    timelineSteps: [
+      { step: '1', title: 'Month 1', desc: 'New website launched at 98/100 PageSpeed. GBP rebuilt. Schema, internal linking, and dedicated service pages live.' },
+      { step: '2', title: 'Month 2', desc: 'First Map Pack appearances for emergency plumber terms across East Brunswick, Old Bridge, South River, North Brunswick.' },
+      { step: '3', title: 'Months 3-4', desc: 'Money-keyword wins: #1 organic for "whole house repiping NJ", #1 organic and #2 local pack for "PEX repiping NJ".' },
+      { step: '4', title: 'Now', desc: 'Cited inside Google AI Overviews + ChatGPT + Perplexity for multiple NJ plumbing searches. Search Console shows +553% impressions in 90 days.' },
+    ],
+    testimonial: {
+      quote: "Web Wise rebuilt our website and our SEO from the ground up. We're now ranking #1 on Google for the jobs that actually pay - whole house repiping, PEX, gas line work. Our phone rings with the right kind of calls now, and we're the only plumber in our area being recommended by Google's AI directly. Worth every dollar.",
+      author: 'Illyrian Plumber',
+      role: 'Owner',
+    },
+    rankingScreenshots: [
+      {
+        src: '/case-studies/illyrian-plumber/pex-repiping-nj-serp.png',
+        alt: 'Illyrian Plumber ranking #1 organic on Google for PEX repiping NJ',
+        caption: '"PEX repiping NJ" — Illyrian Plumber owns the #1 organic result on Google.',
+      },
+      {
+        src: '/case-studies/illyrian-plumber/pex-repiping-nj-local-pack.png',
+        alt: 'Illyrian Plumber ranking #2 in the local pack for PEX repiping NJ',
+        caption: '"PEX repiping NJ" — #2 in the local 3-pack, beating most established NJ plumbers.',
+      },
+      {
+        src: '/case-studies/illyrian-plumber/pex-repiping-nj-maps.png',
+        alt: 'Illyrian Plumber ranking in the top 4 of Google Maps for PEX repiping NJ',
+        caption: '"PEX repiping NJ" — top-of-list visibility in Google Maps.',
+      },
+      {
+        src: '/case-studies/illyrian-plumber/pex-repiping-nj-ai-overview.png',
+        alt: 'Illyrian Plumber cited in Google AI Overview for PEX repiping NJ',
+        caption: '"PEX repiping NJ" — Illyrian is one of the few NJ providers Google AI Overview recommends.',
+      },
+      {
+        src: '/case-studies/illyrian-plumber/whole-house-repiping-nj-serp.png',
+        alt: 'Illyrian Plumber ranking #1 organic for whole house repiping NJ',
+        caption: '"Whole house repiping NJ" — #1 organic result, right under the AI Overview.',
+      },
+      {
+        src: '/case-studies/illyrian-plumber/whole-house-repiping-nj-ai-overview.png',
+        alt: 'Illyrian Plumber cited as a NJ specialist in Google AI Overview for whole house repiping',
+        caption: '"Whole house repiping NJ" — Illyrian named in Google AI Overview as a Central/Northern NJ specialist.',
+      },
+      {
+        src: '/case-studies/illyrian-plumber/whole-house-repiping-nj-maps.png',
+        alt: 'Illyrian Plumber visible in Google Maps for whole house repiping NJ',
+        caption: '"Whole house repiping NJ" — top-of-list visibility in Google Maps.',
+      },
+      {
+        src: '/case-studies/illyrian-plumber/gas-appliance-hookup-nj-ai-overview.png',
+        alt: 'Illyrian Plumber cited in Google AI Overview for gas appliance hookup NJ',
+        caption: '"Gas appliance hookup NJ" — Illyrian named as a key NJ provider in the AI Overview.',
+      },
+      {
+        src: '/case-studies/illyrian-plumber/24-hour-plumber-east-brunswick-nj-serp.png',
+        alt: 'Illyrian Plumber ranking on page 1 for 24 hour plumber East Brunswick NJ',
+        caption: '"24 hour plumber East Brunswick NJ" — page-1 visibility for high-intent emergency searches.',
+      },
+      {
+        src: '/case-studies/illyrian-plumber/boiler-repair-east-brunswick-nj-serp.png',
+        alt: 'Illyrian Plumber ranking #2 for boiler repair East Brunswick NJ',
+        caption: '"Boiler repair East Brunswick NJ" — Illyrian sits #2 organic, with Search Console showing +553% impressions in 90 days.',
+      },
+      {
+        src: '/case-studies/illyrian-plumber/gas-line-repair-east-brunswick-nj-serp.png',
+        alt: 'Illyrian Plumber ranking #2 for gas line repair East Brunswick NJ',
+        caption: '"Gas line repair East Brunswick NJ" — #2 organic, beating directories and HVAC competitors.',
+      },
+      {
+        src: '/case-studies/illyrian-plumber/water-heater-repair-east-brunswick-nj-serp.png',
+        alt: 'Illyrian Plumber ranking #3 for water heater repair East Brunswick NJ',
+        caption: '"Water heater repair East Brunswick NJ" — Illyrian on page 1 alongside Yelp directories.',
+      },
+    ],
   },
   gimosroofing: {
     name: "Gimo's Roofing",
@@ -228,14 +405,34 @@ export const clients: Record<string, Client> = {
     slug: 'gjej-pro-marketplace-web-application-seo',
     url: 'https://www.gjejpro.com',
     image: getScreenshot('https://www.gjejpro.com'),
-    industry: 'Professional Services',
-    services: ['Web Application', 'SEO', 'Content Marketing'],
-    description: 'Professional service marketplace connecting customers with verified local service providers. Built a full-featured web application with provider profiles, booking system, review management, and admin dashboard for platform management.',
+    industry: 'Marketplace Platform',
+    services: ['Web Application', 'Marketplace Architecture', 'SEO', 'Content Marketing'],
+    description: 'A two-sided marketplace platform connecting Albanian homeowners and businesses with verified local professionals — electricians, plumbers, painters, cleaners, tutors, and 17 more service categories — with a path to UK expansion. Tagline: "Profesionistë për ju" (Professionals for you). We built the full product end-to-end: Django 6 + DRF + PostGIS backend, Next.js 16 (App Router, server components) + Tailwind v4 frontend, JWT auth with rotating refresh tokens, role-guarded dashboards for Admin / Profesionist / Klient, real-time messaging, an end-to-end job-and-quote flow with atomic accept logic, and a fully server-rendered SEO-shaped public site with 100+ indexable URLs across categories, cities, and pros. The platform makes finding the right professional feel as easy as ordering food: transparent prices, real reviews, no hidden commissions.',
     results: {
       trafficIncrease: '580%',
       leadsIncrease: '430%',
       rankingKeywords: '92+',
     },
+    challenge: `Gjej Pro needed an entire two-sided marketplace built from zero — not a template skin, an actual production system that could handle the messy reality of local services in Albania.
+
+The job: connect Klients (people who need a leak fixed, a wall painted, an emergency electrician, a tutor for their kid) with Profesionistë (verified tradespeople competing on quotes and reputation), without taking commission, without intermediating payment, and without making either side feel like they were dealing with software.
+
+Specific constraints we had to design around: Albanian-language UX as the primary market with a UK-expansion-ready architecture, 22 distinct service categories with their own taxonomy and routes, 18 cities with per-city SEO landing pages, role-aware navigation for three user types, real-time-feeling messaging without a websocket budget, server-rendered pages so Google could actually index real content (not empty React shells), and a platform that ranks before it has critical mass. None of this exists out of the box.`,
+    solution: `We built the entire product end-to-end across backend, frontend, infrastructure, and SEO.
+
+**Backend (Django 6 + DRF + PostgreSQL + PostGIS):** Three-role auth (Admin / Profesionist / Klient) with JWT, rotating refresh tokens, Argon2 password hashing, and email verification. 22-category service catalog with reserved-slug guards. Per-freelancer service CRUD, service areas auto-geocoded to PostGIS center_points, and the core job-and-quote loop with atomic accept logic that rejects all other quotes in a single transaction. 1:1 messaging with idempotent conversation creation. Reviews with server-side avg recompute. A 7-trigger notification system (in-app + email) with per-kind opt-out toggles.
+
+**Frontend (Next.js 16 + React 19 + Tailwind v4):** Server-component-first public site, client-component dashboards. Role-guarded routing, mobile drawer nav, unread badges polling every 30s. Avatar uploads with deterministic-color fallbacks. Per-role profile editors. Public freelancer browse with "Pranë meje" geolocation filtering.
+
+**SEO-shaped public site:** 100+ server-rendered URLs that Google can actually crawl — 22 category landings (/elektricist, /hidraulik, …) flattened from /kategorite/[slug] for shorter URLs, 18 city landings, public freelancer profiles, a Django-backed blog at /blog, auto-generated sitemap.xml, and Albanian-language og: tags + canonical URLs on every page. Indexable real content, not empty React shells.
+
+**Brand & UX:** Black + forest green (#1F4D3A) + warm gold (#C9A961) for verified/featured. Inter + Fraunces. Layered card hero, category scroll-rail, featured pros, stats band, testimonials. Designed to feel as easy as ordering food.`,
+    timelineSteps: [
+      { step: '1', title: 'Discovery & Architecture', desc: 'Mapped the full marketplace flow — auth, catalog, jobs, quotes, messaging, reviews, notifications. Chose Django + DRF + PostGIS for the backend, Next.js 16 App Router for the frontend.' },
+      { step: '2', title: 'Core Loop Built', desc: 'Three-role auth, 22-category catalog with reserved-slug guard, services CRUD, geocoded service areas, end-to-end job-and-quote flow with atomic accept logic.' },
+      { step: '3', title: 'Engagement Layer', desc: '1:1 messaging, 5-star reviews with server-side avg recompute, 7-trigger notification system (in-app + email) with per-user opt-out toggles.' },
+      { step: '4', title: 'SEO-Shaped Public Site', desc: '100+ server-rendered URLs across categories, cities, and pros. Auto-generated sitemap, Albanian metadata, Django-backed blog, full schema. Indexable content from day one.' },
+    ],
   },
   painttechs: {
     name: 'Paint-Techs LLC',

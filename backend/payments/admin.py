@@ -6,14 +6,14 @@ from .models import Payment, ProjectCost, BusinessExpense, ExchangeRate, Persona
 class PaymentAdmin(admin.ModelAdmin):
     list_display = ['project_service', 'amount', 'payment_type', 'status', 'due_date', 'paid_date']
     list_filter = ['status', 'payment_type']
-    search_fields = ['project_service__project__client__business_name', 'description']
+    search_fields = ['project_service__business__client__business_name', 'description']
     date_hierarchy = 'due_date'
 
 
 @admin.register(ProjectCost)
 class ProjectCostAdmin(admin.ModelAdmin):
-    list_display = ['project', 'description', 'amount', 'date']
-    search_fields = ['project__name', 'description']
+    list_display = ['business', 'description', 'amount', 'date']
+    search_fields = ['business__name', 'description']
     date_hierarchy = 'date'
 
 

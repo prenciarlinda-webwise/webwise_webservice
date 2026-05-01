@@ -1,11 +1,11 @@
 from django.conf import settings
 from django.db import models
-from clients.models import ClientProfile, Project, MonthlyPlan
+from clients.models import ClientProfile, Business, MonthlyPlan
 
 
 class GBPMetrics(models.Model):
     """Google Business Profile monthly performance snapshot."""
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='gbp_metrics')
+    business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name='gbp_metrics')
     month = models.DateField(help_text='First day of the month')
 
     # Interactions overview
@@ -41,18 +41,18 @@ class GBPMetrics(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        unique_together = ['project', 'month']
+        unique_together = ['business', 'month']
         ordering = ['-month']
         verbose_name = 'GBP Metrics'
         verbose_name_plural = 'GBP Metrics'
 
     def __str__(self):
-        return f"{self.project.name} — GBP {self.month.strftime('%b %Y')}"
+        return f"{self.business.name} — GBP {self.month.strftime('%b %Y')}"
 
 
 class GA4Metrics(models.Model):
     """Google Analytics 4 monthly performance snapshot."""
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='ga4_metrics')
+    business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name='ga4_metrics')
     month = models.DateField(help_text='First day of the month')
 
     # Users & Sessions
@@ -90,18 +90,18 @@ class GA4Metrics(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        unique_together = ['project', 'month']
+        unique_together = ['business', 'month']
         ordering = ['-month']
         verbose_name = 'GA4 Metrics'
         verbose_name_plural = 'GA4 Metrics'
 
     def __str__(self):
-        return f"{self.project.name} — GA4 {self.month.strftime('%b %Y')}"
+        return f"{self.business.name} — GA4 {self.month.strftime('%b %Y')}"
 
 
 class SearchTermSnapshot(models.Model):
     """Keyword / search term rankings and visibility per month."""
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='search_terms')
+    business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name='search_terms')
     month = models.DateField(help_text='First day of the month')
 
     class Source(models.TextChoices):
@@ -124,12 +124,13 @@ class SearchTermSnapshot(models.Model):
         verbose_name = 'Search Term Snapshot'
 
     def __str__(self):
-        return f"{self.project.name} — {self.keyword} ({self.month.strftime('%b %Y')})"
+        return f"{self.business.name} — {self.keyword} ({self.month.strftime('%b %Y')})"
 
 
 class Report(models.Model):
     client = models.ForeignKey(ClientProfile, on_delete=models.CASCADE, related_name='reports')
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='reports', null=True, blank=True)
+    business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name='reports', null=True, blank=True)
+    project = models.ForeignKey('clients.Project', on_delete=models.CASCADE, related_name='reports', null=True, blank=True)
     monthly_plan = models.ForeignKey(MonthlyPlan, on_delete=models.CASCADE, related_name='reports', null=True, blank=True)
     title = models.CharField(max_length=200)
     pdf = models.FileField(upload_to='reports/%Y/%m/')

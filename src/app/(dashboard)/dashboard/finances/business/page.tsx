@@ -9,10 +9,10 @@ import { Plus, Trash2, Pencil, Filter } from 'lucide-react'
 
 // ── Types ──
 interface Summary { total_revenue: string; total_paid: string; total_pending: string; total_upcoming: string; total_overdue: string; total_costs: string; net_profit: string; this_month_revenue: string; this_month_costs: string; this_month_profit: string; next_month_planned: string; monthly_tool_costs: string }
-interface Payment { id: number; client_name: string; client_id: number; project_name: string; project_id: number; service_name: string; amount: string; payment_type: string; status: string; description: string; due_date: string; paid_date: string | null; project_service: number }
-interface Cost { id: number; project_name: string; description: string; planned_amount: string | null; amount: string | null; date: string; project: number }
+interface Payment { id: number; client_name: string; client_id: number; project_name: string; project_id: number; business_slug: string; service_name: string; amount: string; payment_type: string; status: string; description: string; due_date: string; paid_date: string | null; project_service: number }
+interface Cost { id: number; project_name: string; description: string; planned_amount: string | null; amount: string | null; date: string; project: number; business_slug: string }
 interface Expense { id: number; name: string; amount: string; frequency: string; category: string; start_date: string; end_date: string | null; notes: string; is_active: boolean; monthly_cost: string }
-interface Client { id: number; business_name: string; projects: { id: number; name: string; services: { id: number; name: string }[] }[] }
+interface Client { id: number; business_name: string; projects?: { id: number; name: string; services?: { id: number; name: string }[] }[]; businesses?: { id: number; name: string; services?: { id: number; name: string }[] }[] }
 interface ExRate { id: number; from_currency: string; to_currency: string; rate: string; updated_at: string }
 
 type Section = 'revenue' | 'costs' | 'currency'
@@ -197,7 +197,7 @@ export default function BusinessFinancesPage() {
   const activeExpenses = expenses.filter(e => e.is_active)
   const inactiveExpenses = expenses.filter(e => !e.is_active)
   const totalMonthlyExpenses = activeExpenses.reduce((s, e) => s + Number(e.monthly_cost), 0)
-  const allServices = clients.flatMap(c => c.projects.flatMap(p => p.services.map(s => ({ ...s, clientName: c.business_name, projectName: p.name }))))
+  const allServices = clients.flatMap(c => (c.projects ?? c.businesses ?? []).flatMap(p => (p.services ?? []).map(s => ({ ...s, clientName: c.business_name, projectName: p.name }))))
 
   // Group payments by client
   const paymentsByClient = filteredPayments.reduce<Record<string, { clientId: number; payments: Payment[] }>>((acc, p) => {
@@ -208,9 +208,9 @@ export default function BusinessFinancesPage() {
   }, {})
 
   // Group costs by project
-  const costsByProject = filteredCosts.reduce<Record<string, { projectId: number; costs: Cost[] }>>((acc, c) => {
+  const costsByProject = filteredCosts.reduce<Record<string, { projectId: number; businessSlug: string; costs: Cost[] }>>((acc, c) => {
     const key = c.project_name || 'Unknown'
-    if (!acc[key]) acc[key] = { projectId: c.project, costs: [] }
+    if (!acc[key]) acc[key] = { projectId: c.project, businessSlug: c.business_slug, costs: [] }
     acc[key].costs.push(c)
     return acc
   }, {})
@@ -300,7 +300,7 @@ export default function BusinessFinancesPage() {
             <div className="flex items-center gap-2 mb-3 px-3 py-2 bg-accent/10 border border-accent/20 rounded-lg text-sm">
               <Filter size={14} className="text-accent" />
               <span className="text-text-secondary">
-                Filtered by {projectFilter ? `project: ${clients.flatMap(c => c.projects).find(p => String(p.id) === projectFilter)?.name || projectFilter}` : ''}{projectFilter && clientFilter ? ' & ' : ''}{clientFilter ? `client: ${clients.find(c => String(c.id) === clientFilter)?.business_name || clientFilter}` : ''}
+                Filtered by {projectFilter ? `project: ${clients.flatMap(c => c.projects ?? c.businesses ?? []).find(p => String(p.id) === projectFilter)?.name || projectFilter}` : ''}{projectFilter && clientFilter ? ' & ' : ''}{clientFilter ? `client: ${clients.find(c => String(c.id) === clientFilter)?.business_name || clientFilter}` : ''}
               </span>
               <button onClick={() => { setProjectFilter(''); setClientFilter('') }} className="ml-auto text-xs text-accent hover:underline">Clear filter</button>
             </div>
@@ -324,9 +324,9 @@ export default function BusinessFinancesPage() {
                 const pending = clientPayments.filter(p => p.status === 'pending').reduce((s, p) => s + Number(p.amount), 0)
                 const upcoming = clientPayments.filter(p => p.status === 'upcoming').reduce((s, p) => s + Number(p.amount), 0)
                 const total = paid + overdue + pending + upcoming
-                const firstProjectId = clientPayments[0]?.project_id
+                const firstBusinessSlug = clientPayments[0]?.business_slug
                 return (
-                  <div key={clientName} className="bg-white rounded-xl border border-border hover:border-accent/40 transition-colors cursor-pointer" onClick={() => firstProjectId ? router.push(`/dashboard/projects/${firstProjectId}`) : router.push(`/dashboard/clients/${clientId}`)}>
+                  <div key={clientName} className="bg-white rounded-xl border border-border hover:border-accent/40 transition-colors cursor-pointer" onClick={() => firstBusinessSlug ? router.push(`/dashboard/${firstBusinessSlug}`) : router.push(`/dashboard/clients/${clientId}`)}>
                     <div className="p-4">
                       <div className="flex items-center justify-between mb-3">
                         <h3 className="font-semibold text-sm">{clientName}</h3>
@@ -381,7 +381,7 @@ export default function BusinessFinancesPage() {
           {projectFilter && (
             <div className="flex items-center gap-2 mb-3 px-3 py-2 bg-accent/10 border border-accent/20 rounded-lg text-sm">
               <Filter size={14} className="text-accent" />
-              <span className="text-text-secondary">Filtered by project: {clients.flatMap(c => c.projects).find(p => String(p.id) === projectFilter)?.name || projectFilter}</span>
+              <span className="text-text-secondary">Filtered by project: {clients.flatMap(c => c.projects ?? c.businesses ?? []).find(p => String(p.id) === projectFilter)?.name || projectFilter}</span>
               <button onClick={() => setProjectFilter('')} className="ml-auto text-xs text-accent hover:underline">Clear filter</button>
             </div>
           )}
@@ -401,11 +401,11 @@ export default function BusinessFinancesPage() {
                 <div className="bg-white rounded-xl border border-border px-6 py-8 text-center text-text-muted text-sm">No project costs recorded</div>
               ) : (
                 <div className="space-y-3">
-                  {Object.entries(costsByProject).map(([projectName, { projectId, costs: projectCosts }]) => {
+                  {Object.entries(costsByProject).map(([projectName, { businessSlug, costs: projectCosts }]) => {
                     const totalPlanned = projectCosts.reduce((s, c) => s + Number(c.planned_amount || 0), 0)
                     const totalActual = projectCosts.reduce((s, c) => s + Number(c.amount || 0), 0)
                     return (
-                      <div key={projectName} className="bg-white rounded-xl border border-border hover:border-accent/40 transition-colors cursor-pointer" onClick={() => router.push(`/dashboard/projects/${projectId}`)}>
+                      <div key={projectName} className="bg-white rounded-xl border border-border hover:border-accent/40 transition-colors cursor-pointer" onClick={() => businessSlug ? router.push(`/dashboard/${businessSlug}`) : null}>
                         <div className="p-4">
                           <div className="flex items-center justify-between mb-2">
                             <h4 className="font-semibold text-sm">{projectName}</h4>
@@ -624,7 +624,7 @@ export default function BusinessFinancesPage() {
             <label className="block text-sm font-medium mb-1">Project *</label>
             <select value={costForm.project} onChange={e => setCostForm(f => ({ ...f, project: e.target.value }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm" required>
               <option value="">Select project</option>
-              {clients.flatMap(c => c.projects.map(p => <option key={p.id} value={p.id}>{c.business_name} &rarr; {p.name}</option>))}
+              {clients.flatMap(c => (c.projects ?? c.businesses ?? []).map(p => <option key={p.id} value={p.id}>{c.business_name} &rarr; {p.name}</option>))}
             </select>
           </div>
           <div>

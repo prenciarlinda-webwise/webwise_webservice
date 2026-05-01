@@ -20,9 +20,9 @@ def monthly_keyword_discovery(project_id=None):
         project_id: Optional — if provided, only run for this project.
                    Otherwise run for all active, discovery-enabled clients.
     """
-    from clients.models import Project
+    from clients.models import Business
 
-    clients = Project.objects.filter(status='active', discovery_enabled=True)
+    clients = Business.objects.filter(status='active', discovery_enabled=True)
     if project_id:
         clients = clients.filter(id=project_id)
 
@@ -33,7 +33,7 @@ def monthly_keyword_discovery(project_id=None):
             summary = _discover_keywords_for_client(project)
             results_summary.append(summary)
         except Exception:
-            logger.exception("Discovery failed for project=%s", project.domain)
+            logger.exception("Discovery failed for business=%s", project.domain)
             results_summary.append({
                 "project": project.domain,
                 "status": "failed",
@@ -57,9 +57,9 @@ def _discover_keywords_for_client(project):
 
     today = date.today()
     # Delete existing run for today if re-running
-    DiscoveryRun.objects.filter(project=project, run_date=today).delete()
+    DiscoveryRun.objects.filter(business=project, run_date=today).delete()
     run = DiscoveryRun.objects.create(
-        project=project,
+        business=project,
         run_date=today,
         status="running",
     )
@@ -78,7 +78,7 @@ def _discover_keywords_for_client(project):
 
         if not task_result:
             logger.warning(
-                "Empty ranked keywords result for project=%s", project.domain,
+                "Empty ranked keywords result for business=%s", project.domain,
             )
             task_result = {}
 
@@ -86,12 +86,12 @@ def _discover_keywords_for_client(project):
 
         # Get existing keyword texts for this project
         existing_keywords = set(
-            Keyword.objects.filter(project=project).values_list("keyword_text", flat=True)
+            Keyword.objects.filter(business=project).values_list("keyword_text", flat=True)
         )
 
         # Previous run's keyword texts for is_new detection
         previous_run = (
-            DiscoveryRun.objects.filter(project=project, status="completed")
+            DiscoveryRun.objects.filter(business=project, status="completed")
             .exclude(pk=run.pk)
             .order_by("-run_date")
             .first()
@@ -132,7 +132,7 @@ def _discover_keywords_for_client(project):
 
             discovery_results.append(DiscoveryResult(
                 run=run,
-                project=project,
+                business=project,
                 keyword_text=keyword_text,
                 rank_absolute=rank,
                 url=kw.get("url") or "",

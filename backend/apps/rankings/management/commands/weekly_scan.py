@@ -26,7 +26,7 @@ class Command(BaseCommand):
         parser.add_argument("--no-metrics", action="store_true", help="Skip volume/KD metrics refresh")
 
     def handle(self, *args, **options):
-        from clients.models import Project
+        from clients.models import Business
         from apps.competitors.models import CompetitorKeywordOverlap
         from apps.discovery.tasks import _discover_keywords_for_client
         from apps.keywords.models import Keyword, KeywordStatus
@@ -52,9 +52,9 @@ class Command(BaseCommand):
         today = date.today()
 
         if options["project"]:
-            clients = Project.objects.filter(id=options["project"], status='active')
+            clients = Business.objects.filter(id=options["project"], status='active')
         else:
-            clients = Project.objects.filter(status='active')
+            clients = Business.objects.filter(status='active')
 
         if not clients.exists():
             self.stdout.write(self.style.WARNING("No active clients found."))
@@ -79,7 +79,7 @@ class Command(BaseCommand):
                     self.stdout.write(self.style.ERROR(f"  Discovery failed: {e}"))
 
             # ── Rank tracking ──
-            keywords = Keyword.objects.filter(project=project, status=KeywordStatus.TRACKED)
+            keywords = Keyword.objects.filter(business=project, status=KeywordStatus.TRACKED)
             kw_count = keywords.count()
 
             if kw_count == 0:
@@ -94,7 +94,7 @@ class Command(BaseCommand):
                 try:
                     _check_keyword_rankings(
                         keyword=kw,
-                        project=project,
+                        business=project,
                         today=today,
                         serp_service=serp_service,
                         maps_service=maps_service,

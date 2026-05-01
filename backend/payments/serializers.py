@@ -3,16 +3,25 @@ from .models import Payment, ProjectCost, BusinessExpense, ExchangeRate, Persona
 
 
 class PaymentSerializer(serializers.ModelSerializer):
-    project_name = serializers.CharField(source='project_service.project.name', read_only=True)
-    project_id = serializers.IntegerField(source='project_service.project.id', read_only=True)
+    business_name = serializers.CharField(source='project_service.business.name', read_only=True)
+    business_id = serializers.IntegerField(source='project_service.business.id', read_only=True)
+    business_slug = serializers.CharField(source='project_service.business.slug', read_only=True)
+    # Backwards-compat aliases.
+    project_name = serializers.CharField(source='project_service.business.name', read_only=True)
+    project_id = serializers.IntegerField(source='project_service.business.id', read_only=True)
+    project_kind = serializers.CharField(source='project_service.project.kind', read_only=True)
+    project_slug = serializers.CharField(source='project_service.project.slug', read_only=True)
     service_name = serializers.CharField(source='project_service.name', read_only=True)
-    client_name = serializers.CharField(source='project_service.project.client.business_name', read_only=True)
-    client_id = serializers.IntegerField(source='project_service.project.client.id', read_only=True)
+    client_name = serializers.CharField(source='project_service.business.client.business_name', read_only=True)
+    client_id = serializers.IntegerField(source='project_service.business.client.id', read_only=True)
 
     class Meta:
         model = Payment
         fields = [
-            'id', 'project_service', 'monthly_plan', 'project_name', 'project_id',
+            'id', 'project_service', 'monthly_plan',
+            'business_name', 'business_id', 'business_slug',
+            'project_name', 'project_id',
+            'project_kind', 'project_slug',
             'service_name', 'client_name', 'client_id',
             'amount', 'payment_type', 'status', 'description',
             'due_date', 'paid_date', 'created_at', 'updated_at',
@@ -31,11 +40,20 @@ class PaymentSerializer(serializers.ModelSerializer):
 
 
 class ProjectCostSerializer(serializers.ModelSerializer):
-    project_name = serializers.CharField(source='project.name', read_only=True)
+    def to_internal_value(self, data):
+        if hasattr(data, 'copy'):
+            data = data.copy()
+        if 'project' in data and 'business' not in data:
+            data['business'] = data.pop('project')
+        return super().to_internal_value(data)
+
+    business_name = serializers.CharField(source='business.name', read_only=True)
+    business_slug = serializers.CharField(source='business.slug', read_only=True)
+    project_name = serializers.CharField(source='business.name', read_only=True)
 
     class Meta:
         model = ProjectCost
-        fields = ['id', 'project', 'project_name', 'description', 'planned_amount', 'amount', 'date', 'created_at']
+        fields = ['id', 'business', 'business_name', 'business_slug', 'project', 'project_name', 'description', 'planned_amount', 'amount', 'date', 'created_at']
         read_only_fields = ['id', 'created_at']
 
 

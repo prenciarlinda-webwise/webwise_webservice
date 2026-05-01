@@ -25,12 +25,20 @@ urlpatterns = [
     path('quarterly-plans/', views.QuarterlyPlanListCreateView.as_view(), name='quarterly_plan_list'),
     path('quarterly-plans/<int:pk>/', views.QuarterlyPlanDetailView.as_view(), name='quarterly_plan_detail'),
 
+    # Engagements (the new Project model — sits under Business)
+    path('engagements/', views.EngagementListCreateView.as_view(), name='engagement_list'),
+    path('engagements/<int:pk>/', views.EngagementDetailView.as_view(), name='engagement_detail'),
+    path('engagements/by-slug/<slug:business_slug>/<slug:project_slug>/', views.EngagementDetailView.as_view(), name='engagement_detail_slug'),
+
     # DataForSEO location picker (read-only)
     path('locations/', views.LocationListView.as_view(), name='location_list'),
 
     # Deliverables
     path('deliverables/', views.DeliverableListCreateView.as_view(), name='deliverable_list'),
     path('deliverables/<int:pk>/', views.DeliverableDetailView.as_view(), name='deliverable_detail'),
+    path('deliverables/<int:pk>/submit/', views.deliverable_submit, name='deliverable_submit'),
+    path('deliverables/<int:pk>/approve/', views.deliverable_approve, name='deliverable_approve'),
+    path('deliverables/<int:pk>/reject/', views.deliverable_reject, name='deliverable_reject'),
 
     # Service templates
     path('templates/', views.ServiceTemplateListCreateView.as_view(), name='template_list'),

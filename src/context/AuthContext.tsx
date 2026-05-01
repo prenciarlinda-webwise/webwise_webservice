@@ -12,6 +12,9 @@ interface User {
   last_name: string
   role: 'admin' | 'employee' | 'client'
   phone: string
+  is_supervisor: boolean
+  is_economist: boolean
+  employee_category: string | null
 }
 
 interface AuthContextType {

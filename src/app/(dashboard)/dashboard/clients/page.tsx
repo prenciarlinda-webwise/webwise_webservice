@@ -19,7 +19,7 @@ interface Client {
   user_email: string
   business_email: string
   business_phone: string
-  projects: { id: number; slug: string; name: string; status: string }[]
+  businesses: { id: number; slug: string; name: string; status: string }[]
   created_at: string
 }
 
@@ -94,7 +94,7 @@ export default function ClientsPage() {
               <th className="px-6 py-3">Client</th>
               {user?.role !== 'employee' && <th className="px-6 py-3">Email</th>}
               <th className="px-6 py-3">Phone</th>
-              <th className="px-6 py-3">Projects</th>
+              <th className="px-6 py-3">Businesses</th>
               <th className="px-6 py-3">Joined</th>
               <th className="px-6 py-3"></th>
             </tr>
@@ -110,8 +110,8 @@ export default function ClientsPage() {
                 <td className="px-6 py-4 text-sm text-text-secondary">{c.business_phone}</td>
                 <td className="px-6 py-4">
                   <div className="flex flex-wrap gap-1">
-                    {c.projects.map(p => <StatusBadge key={p.id} status={p.status} />)}
-                    {c.projects.length === 0 && <span className="text-xs text-text-muted">No projects</span>}
+                    {(c.businesses ?? []).map(p => <StatusBadge key={p.id} status={p.status} />)}
+                    {(c.businesses ?? []).length === 0 && <span className="text-xs text-text-muted">No businesses</span>}
                   </div>
                 </td>
                 <td className="px-6 py-4 text-sm text-text-secondary">{new Date(c.created_at).toLocaleDateString()}</td>

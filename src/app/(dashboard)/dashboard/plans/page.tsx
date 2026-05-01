@@ -38,6 +38,7 @@ interface MonthlyPlan {
   client_name: string
   client_id: number
   project_id: number
+  business_slug: string
   month: string
   month_display: string
   status: string
@@ -54,7 +55,7 @@ interface MonthlyPlan {
 
 interface Employee { id: number; first_name: string; last_name: string }
 interface ServiceTemplate { id: number; name: string; description: string }
-interface Client { id: number; business_name: string; projects: { id: number; name: string; services: { id: number; name: string }[] }[] }
+interface Client { id: number; business_name: string; projects?: { id: number; name: string; services: { id: number; name: string }[] }[]; businesses?: { id: number; name: string; services: { id: number; name: string }[] }[] }
 
 const categoryColors: Record<string, string> = {
   audit: 'bg-amber-100 text-amber-700',
@@ -143,7 +144,7 @@ export default function MonthlyPlansPage() {
   }, [isAdmin])
 
   const allServices = clients.flatMap(c =>
-    c.projects.flatMap(p =>
+    (c.projects ?? c.businesses ?? []).flatMap(p =>
       p.services.map(s => ({ id: s.id, label: `${c.business_name} → ${p.name} → ${s.name}` }))
     )
   )
@@ -258,7 +259,7 @@ export default function MonthlyPlansPage() {
                 </div>
                 <div className="text-xs text-text-muted">{plan.progress.completed}/{plan.progress.total} done</div>
                 <StatusBadge status={plan.status} />
-                <Link href={`/dashboard/projects/${plan.project_id}`} className="text-xs text-accent hover:underline">View Project</Link>
+                <Link href={`/dashboard/${plan.business_slug}`} className="text-xs text-accent hover:underline">View Business</Link>
                 {isAdmin && (
                   <div className="flex items-center gap-1">
                     <button onClick={() => deletePlan(plan.id)} className="text-red-400 hover:text-red-600"><Trash2 size={14} /></button>

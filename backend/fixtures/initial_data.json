@@ -1,5 +1,225 @@
 [
 {
+  "model": "accounts.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$4XLcMSgOWDTl2OmdaK43ow$UQgDtjCodf38P4zfgvpArGH2MaLHPi0rHSQTgZY3veo=",
+    "last_login": null,
+    "is_superuser": true,
+    "username": "arlinda",
+    "first_name": "Arlinda",
+    "last_name": "Admin",
+    "email": "arlinda@webwise.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-03-07T21:03:34.439Z",
+    "role": "admin",
+    "phone": "+355 69 123 4567",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$vZ2KsC4lN0ENrt6a0UH0sd$/67bxoQyO8ubZexR6n9EFKyR3AmLy2WXfTt63CGgZCI=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "ivanhysaj",
+    "first_name": "Ivan",
+    "last_name": "Hysaj",
+    "email": "management@gimosroofing.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-07T21:29:48.802Z",
+    "role": "client",
+    "phone": "+1 (904) 697-6093",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 8,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$xTnOdH3qdtnZGBRJDa174d$/w/9Q1Jk5K9wJjuaGcNh341T+phzD9yy1h6cIKV71xM=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "painttechs",
+    "first_name": "Vitor",
+    "last_name": "Gjoni",
+    "email": "info@paint-techs.us",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-08T08:31:21.846Z",
+    "role": "client",
+    "phone": "(904) 762-7062",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 9,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$TpxtBGgGPocMiL9eJTUPVq$XiEMuwsLUDOIU0xlmJygD43FJ38fhYVeZm9WmNK2ZkM=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "northstar",
+    "first_name": "Franc",
+    "last_name": "Thanza",
+    "email": "northstarhomeimprovement@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-08T08:31:21.941Z",
+    "role": "client",
+    "phone": "(904) 634-8441",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 10,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$86pMlF5VbShYuGz4s8arJ1$ESJ2zpJs82EjBTP6mrU9bUUbKHNyQLQ8U79xedqo/tg=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "dionispregna",
+    "first_name": "Dionis",
+    "last_name": "Prenga",
+    "email": "info@904dumpster.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-08T08:31:22.026Z",
+    "role": "client",
+    "phone": "(904) 240-5598",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 11,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$WeJl84iXPaZFXiuBHKIq82$BwLnEBFH1vuRnSwSt3nDCG59qyjP0y/UcEH3/1zGlH8=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "illyrian",
+    "first_name": "Dardan",
+    "last_name": "Rugova",
+    "email": "info@illyriangroupllc.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-08T08:31:22.114Z",
+    "role": "client",
+    "phone": "(718) 427-4396",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 12,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$BioGzdfrBlbkmOB19FNGH7$oN+ln8epqt0RLPFFkSnp7qpdzyNZUw53N3Omqay2l+I=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "albros",
+    "first_name": "Joz",
+    "last_name": "Shehu",
+    "email": "info@albrosdetailing.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-08T08:31:22.201Z",
+    "role": "client",
+    "phone": "(669) 253-0420",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 15,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$dHYu78jd2Z0kiqbhjMxsYb$I5WUFBxMcox1Ahfpz9Dgj9NfWXT0Q+ZTymDoztkuBWU=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "reapirolli",
+    "first_name": "Rea",
+    "last_name": "Pirolli",
+    "email": "webwiseassistant@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-09T10:13:19.171Z",
+    "role": "employee",
+    "phone": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 16,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$wEH1zIOZnlFQVQRv8nnm4c$YCEZSKE63Xl2MgVLSNa+BwHHctdBFdikSKTz8sNfgX0=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "prenciarlinda",
+    "first_name": "Arlinda",
+    "last_name": "Prenci",
+    "email": "prenciarlinda@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-09T10:16:51.445Z",
+    "role": "employee",
+    "phone": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 18,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$j5dSGLe7nMeDN3pFHmxJxc$VoqnoUJXr+KHHc4r6KDCMQ6cna07wttHtTGwhc/VF1c=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "webwise",
+    "first_name": "Web",
+    "last_name": "Wise",
+    "email": "hello@websiteandseoagency.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-28T10:23:20.283Z",
+    "role": "client",
+    "phone": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 19,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$lXNpWopDIyezzjFqkOEPeD$8koek9mjkth3oEsBUmnG/Ypi6XdVRDqwNb3QrE31O9E=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "zeloflooring",
+    "first_name": "Zelo",
+    "last_name": "Flooring",
+    "email": "info@zeloflooring.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-28T10:23:20.432Z",
+    "role": "client",
+    "phone": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
   "model": "clients.clientprofile",
   "pk": 4,
   "fields": {
@@ -227,21 +447,50 @@
 },
 {
   "model": "clients.clientprofile",
-  "pk": 10,
+  "pk": 11,
   "fields": {
-    "user": 17,
-    "business_name": "AAA Remodels LLC",
-    "slug": "aaa-remodels",
+    "user": 18,
+    "business_name": "Web Wise",
+    "slug": "web-wise",
     "business_phone": "",
-    "business_email": "",
-    "services": [],
+    "business_email": "hello@websiteandseoagency.com",
+    "services": [
+      "SEO Services",
+      "Web Development",
+      "Digital Marketing"
+    ],
+    "products": [],
+    "price_per_service": {},
+    "service_locations": [
+      "United States",
+      "United Kingdom"
+    ],
+    "social_links": {},
+    "notes": "Web Wise is our own agency website.",
+    "created_at": "2026-03-28T10:23:20.431Z",
+    "updated_at": "2026-03-28T10:23:20.431Z"
+  }
+},
+{
+  "model": "clients.clientprofile",
+  "pk": 12,
+  "fields": {
+    "user": 19,
+    "business_name": "Zelo Flooring",
+    "slug": "zelo-flooring",
+    "business_phone": "",
+    "business_email": "info@zeloflooring.com",
+    "services": [
+      "Flooring Installation",
+      "Flooring Repair"
+    ],
     "products": [],
     "price_per_service": {},
     "service_locations": [],
     "social_links": {},
-    "notes": "",
-    "created_at": "2026-03-11T16:21:12.478Z",
-    "updated_at": "2026-03-11T16:21:12.478Z"
+    "notes": "Coming soon website. Pre-launch phase.",
+    "created_at": "2026-03-28T10:23:20.580Z",
+    "updated_at": "2026-03-28T10:23:20.580Z"
   }
 },
 {
@@ -317,9 +566,9 @@
     "name": "Paint-Techs LLC",
     "slug": "paint-techs-llc",
     "business_phone": "(904) 762-7062",
-    "business_email": "info@paint-techs.us",
+    "business_email": "info@paint-techs.com",
     "business_address": "Jacksonville, Florida, 32246",
-    "website_url": "https://www.paint-techs.us/",
+    "website_url": "https://www.paint-techs.com/",
     "business_hours": "Daily 8AM-10PM (Monday-Sunday)",
     "service_areas": [
       "Jacksonville",
@@ -360,7 +609,7 @@
     "status": "active",
     "notes": "Services: Interior Painting, Exterior Painting, Cabinet Painting, Commercial Painting. GMB Stats: 5.0 star rating, 41 reviews, 1,360 profile views. Priority area: Nocatee, FL.",
     "created_at": "2026-03-08T08:31:21.939Z",
-    "updated_at": "2026-03-11T16:20:58.032Z"
+    "updated_at": "2026-03-28T10:23:20.272Z"
   }
 },
 {
@@ -445,8 +694,18 @@
     "business_hours": "Mon-Fri: 8:00 AM - 7:00 PM, Sat-Sun: 8:00 AM - 5:00 PM",
     "service_areas": [
       "Jacksonville",
-      "FL 32246",
-      "Duval County & surrounding areas"
+      "Duval County",
+      "Clay County",
+      "St Johns County",
+      "Nassau County",
+      "St Augustine",
+      "Macclenny",
+      "Starke",
+      "Orange Park",
+      "Fleming Island",
+      "Ponte Vedra",
+      "Fernandina Beach",
+      "Yulee"
     ],
     "google_business_url": "https://www.google.com/maps/place/904+Dumpster",
     "facebook_url": "https://www.facebook.com/904dumpster/",
@@ -484,7 +743,7 @@
     "status": "active",
     "notes": "Services: Dumpster Rentals (10 Yard, 15 Yard, 20 Yard Roll-off), Full-Service Junk Removal (Residential & Commercial), Demolition (Structure removal and debris hauling).",
     "created_at": "2026-03-08T08:31:22.112Z",
-    "updated_at": "2026-03-12T08:12:39.700Z"
+    "updated_at": "2026-03-28T10:23:20.283Z"
   }
 },
 {
@@ -588,19 +847,19 @@
 },
 {
   "model": "clients.project",
-  "pk": 12,
+  "pk": 13,
   "fields": {
-    "client": 10,
-    "name": "AAA Remodels LLC",
-    "slug": "aaa-remodels-llc",
-    "business_phone": "9042581619",
-    "business_email": "aaaremodelsllc@gmail.com",
-    "business_address": "9505 Armelle Way unit 3, Jacksonville, FL",
-    "website_url": "",
-    "business_hours": "8 AM - 5 PM, Monday through Saturday",
+    "client": 11,
+    "name": "Web Wise",
+    "slug": "web-wise",
+    "business_phone": "",
+    "business_email": "hello@websiteandseoagency.com",
+    "business_address": "",
+    "website_url": "https://www.websiteandseoagency.com/",
+    "business_hours": "",
     "service_areas": [
-      "Jacksonville, FL",
-      "Max 35 miles radius"
+      "United States",
+      "United Kingdom"
     ],
     "google_business_url": "",
     "facebook_url": "",
@@ -609,16 +868,59 @@
     "image_folder_url": "",
     "citations_url": "",
     "booking_url": "",
-    "industry": "",
+    "industry": "SEO & Web Development Agency",
+    "target_audience": [
+      "Small business owners",
+      "Contractors",
+      "Local service businesses"
+    ],
+    "competitors": [],
+    "usps": [
+      "Full-service SEO agency",
+      "Custom Next.js websites",
+      "UK & USA coverage"
+    ],
+    "marketing_channels": [
+      "Website",
+      "SEO"
+    ],
+    "nap_status": "",
+    "status": "active",
+    "notes": "Our own agency website. Used for brand visibility and lead generation.",
+    "created_at": "2026-03-28T10:23:20.432Z",
+    "updated_at": "2026-03-28T10:23:20.432Z"
+  }
+},
+{
+  "model": "clients.project",
+  "pk": 14,
+  "fields": {
+    "client": 12,
+    "name": "Zelo Flooring",
+    "slug": "zelo-flooring",
+    "business_phone": "",
+    "business_email": "info@zeloflooring.com",
+    "business_address": "",
+    "website_url": "https://zeloflooring.com/",
+    "business_hours": "",
+    "service_areas": [],
+    "google_business_url": "",
+    "facebook_url": "",
+    "instagram_url": "",
+    "google_drive_url": "",
+    "image_folder_url": "",
+    "citations_url": "",
+    "booking_url": "",
+    "industry": "Flooring Services",
     "target_audience": [],
     "competitors": [],
     "usps": [],
     "marketing_channels": [],
     "nap_status": "",
     "status": "active",
-    "notes": "",
-    "created_at": "2026-03-11T16:21:12.479Z",
-    "updated_at": "2026-03-11T16:21:12.479Z"
+    "notes": "Coming soon website — pre-launch phase.",
+    "created_at": "2026-03-28T10:23:20.580Z",
+    "updated_at": "2026-03-28T10:23:20.580Z"
   }
 },
 {
@@ -927,63 +1229,6 @@
 },
 {
   "model": "clients.businesscatalogitem",
-  "pk": 20,
-  "fields": {
-    "project": 9,
-    "item_type": "product",
-    "name": "10 Yard Dumpster Rental",
-    "description": "Small Cleanouts, Garage Cleanout, Single Room Reno",
-    "price": "275.00",
-    "price_unit": "5-day rental",
-    "duration_days": 5,
-    "specifications": {
-      "dimensions": "12' L x 7.5' W x 3.6' H",
-      "weight_included": "1.5 tons"
-    },
-    "sort_order": 1,
-    "created_at": "2026-03-11T16:27:57.165Z"
-  }
-},
-{
-  "model": "clients.businesscatalogitem",
-  "pk": 21,
-  "fields": {
-    "project": 9,
-    "item_type": "product",
-    "name": "15 Yard Dumpster Rental",
-    "description": "Roofing Projects, Medium Cleanouts, Kitchen Remodel",
-    "price": "325.00",
-    "price_unit": "5-day rental",
-    "duration_days": 5,
-    "specifications": {
-      "dimensions": "14' L x 7.5' W x 4.5' H",
-      "weight_included": "2 tons"
-    },
-    "sort_order": 2,
-    "created_at": "2026-03-11T16:27:57.165Z"
-  }
-},
-{
-  "model": "clients.businesscatalogitem",
-  "pk": 22,
-  "fields": {
-    "project": 9,
-    "item_type": "product",
-    "name": "20 Yard Dumpster Rental",
-    "description": "Large Renovations, Construction, Estate Cleanout. Most Popular.",
-    "price": "375.00",
-    "price_unit": "5-day rental",
-    "duration_days": 5,
-    "specifications": {
-      "dimensions": "14' L x 7.5' W x 5.8' H",
-      "weight_included": "2 tons"
-    },
-    "sort_order": 3,
-    "created_at": "2026-03-11T16:27:57.165Z"
-  }
-},
-{
-  "model": "clients.businesscatalogitem",
   "pk": 23,
   "fields": {
     "project": 9,
@@ -1164,6 +1409,351 @@
     "specifications": {},
     "sort_order": 6,
     "created_at": "2026-03-11T16:27:57.165Z"
+  }
+},
+{
+  "model": "clients.businesscatalogitem",
+  "pk": 34,
+  "fields": {
+    "project": 9,
+    "item_type": "product",
+    "name": "10 Yard Dumpster — Duval County",
+    "description": "Small Cleanouts, Garage Cleanout, Single Room Reno",
+    "price": "299.00",
+    "price_unit": "3-day rental",
+    "duration_days": 3,
+    "specifications": {
+      "county": "Duval",
+      "tonnage": "1 ton",
+      "extra_ton": "$75",
+      "extra_day": "$15",
+      "price_2_weeks": "$349",
+      "price_1_month": null
+    },
+    "sort_order": 1,
+    "created_at": "2026-03-28T10:23:20.278Z"
+  }
+},
+{
+  "model": "clients.businesscatalogitem",
+  "pk": 35,
+  "fields": {
+    "project": 9,
+    "item_type": "product",
+    "name": "15 Yard Dumpster — Duval County",
+    "description": "Roofing Projects, Medium Cleanouts, Kitchen Remodel",
+    "price": "349.00",
+    "price_unit": "5-day rental",
+    "duration_days": 5,
+    "specifications": {
+      "county": "Duval",
+      "tonnage": "1.5 tons",
+      "extra_ton": "$75",
+      "extra_day": "$15",
+      "price_2_weeks": "$399",
+      "price_1_month": "$499"
+    },
+    "sort_order": 2,
+    "created_at": "2026-03-28T10:23:20.279Z"
+  }
+},
+{
+  "model": "clients.businesscatalogitem",
+  "pk": 36,
+  "fields": {
+    "project": 9,
+    "item_type": "product",
+    "name": "20 Yard Dumpster — Duval County",
+    "description": "Large Renovations, Construction, Estate Cleanout",
+    "price": "399.00",
+    "price_unit": "5-day rental",
+    "duration_days": 5,
+    "specifications": {
+      "county": "Duval",
+      "tonnage": "2 tons",
+      "extra_ton": "$75",
+      "extra_day": "$15",
+      "price_2_weeks": "$449",
+      "price_1_month": "$549"
+    },
+    "sort_order": 3,
+    "created_at": "2026-03-28T10:23:20.279Z"
+  }
+},
+{
+  "model": "clients.businesscatalogitem",
+  "pk": 37,
+  "fields": {
+    "project": 9,
+    "item_type": "product",
+    "name": "15 Yard Dumpster — Clay County",
+    "description": "Orange Park, Fleming Island, Middleburg, Green Cove Springs",
+    "price": "409.00",
+    "price_unit": "5-day rental",
+    "duration_days": 5,
+    "specifications": {
+      "county": "Clay",
+      "tonnage": "1.5 tons",
+      "extra_ton": "$100",
+      "extra_day": "$15",
+      "price_2_weeks": "$459",
+      "price_1_month": "$559"
+    },
+    "sort_order": 4,
+    "created_at": "2026-03-28T10:23:20.279Z"
+  }
+},
+{
+  "model": "clients.businesscatalogitem",
+  "pk": 38,
+  "fields": {
+    "project": 9,
+    "item_type": "product",
+    "name": "20 Yard Dumpster — Clay County",
+    "description": "Orange Park, Fleming Island, Middleburg, Green Cove Springs",
+    "price": "459.00",
+    "price_unit": "5-day rental",
+    "duration_days": 5,
+    "specifications": {
+      "county": "Clay",
+      "tonnage": "2 tons",
+      "extra_ton": "$100",
+      "extra_day": "$15",
+      "price_2_weeks": "$509",
+      "price_1_month": "$609"
+    },
+    "sort_order": 5,
+    "created_at": "2026-03-28T10:23:20.280Z"
+  }
+},
+{
+  "model": "clients.businesscatalogitem",
+  "pk": 39,
+  "fields": {
+    "project": 9,
+    "item_type": "product",
+    "name": "15 Yard Dumpster — St Johns",
+    "description": "Ponte Vedra, Nocatee, World Golf Village",
+    "price": "409.00",
+    "price_unit": "5-day rental",
+    "duration_days": 5,
+    "specifications": {
+      "county": "St Johns",
+      "tonnage": "1.5 tons",
+      "extra_ton": "$100",
+      "extra_day": "$15",
+      "price_2_weeks": "$459",
+      "price_1_month": "$559"
+    },
+    "sort_order": 6,
+    "created_at": "2026-03-28T10:23:20.280Z"
+  }
+},
+{
+  "model": "clients.businesscatalogitem",
+  "pk": 40,
+  "fields": {
+    "project": 9,
+    "item_type": "product",
+    "name": "20 Yard Dumpster — St Johns",
+    "description": "Ponte Vedra, Nocatee, World Golf Village",
+    "price": "459.00",
+    "price_unit": "5-day rental",
+    "duration_days": 5,
+    "specifications": {
+      "county": "St Johns",
+      "tonnage": "2 tons",
+      "extra_ton": "$100",
+      "extra_day": "$15",
+      "price_2_weeks": "$509",
+      "price_1_month": "$609"
+    },
+    "sort_order": 7,
+    "created_at": "2026-03-28T10:23:20.280Z"
+  }
+},
+{
+  "model": "clients.businesscatalogitem",
+  "pk": 41,
+  "fields": {
+    "project": 9,
+    "item_type": "product",
+    "name": "15 Yard Dumpster — Nassau County",
+    "description": "Fernandina Beach, Yulee, Callahan",
+    "price": "409.00",
+    "price_unit": "5-day rental",
+    "duration_days": 5,
+    "specifications": {
+      "county": "Nassau",
+      "tonnage": "1.5 tons",
+      "extra_ton": "$100",
+      "extra_day": "$15",
+      "price_2_weeks": "$459",
+      "price_1_month": "$559"
+    },
+    "sort_order": 8,
+    "created_at": "2026-03-28T10:23:20.281Z"
+  }
+},
+{
+  "model": "clients.businesscatalogitem",
+  "pk": 42,
+  "fields": {
+    "project": 9,
+    "item_type": "product",
+    "name": "20 Yard Dumpster — Nassau County",
+    "description": "Fernandina Beach, Yulee, Callahan",
+    "price": "459.00",
+    "price_unit": "5-day rental",
+    "duration_days": 5,
+    "specifications": {
+      "county": "Nassau",
+      "tonnage": "2 tons",
+      "extra_ton": "$100",
+      "extra_day": "$15",
+      "price_2_weeks": "$509",
+      "price_1_month": "$609"
+    },
+    "sort_order": 9,
+    "created_at": "2026-03-28T10:23:20.281Z"
+  }
+},
+{
+  "model": "clients.businesscatalogitem",
+  "pk": 43,
+  "fields": {
+    "project": 9,
+    "item_type": "product",
+    "name": "15 Yard Dumpster — St Augustine",
+    "description": "St Augustine and surrounding area",
+    "price": "449.00",
+    "price_unit": "5-day rental",
+    "duration_days": 5,
+    "specifications": {
+      "county": "St Augustine",
+      "tonnage": "1.5 tons",
+      "extra_ton": "$100",
+      "extra_day": "$15",
+      "price_2_weeks": "$499",
+      "price_1_month": "$599"
+    },
+    "sort_order": 10,
+    "created_at": "2026-03-28T10:23:20.281Z"
+  }
+},
+{
+  "model": "clients.businesscatalogitem",
+  "pk": 44,
+  "fields": {
+    "project": 9,
+    "item_type": "product",
+    "name": "20 Yard Dumpster — St Augustine",
+    "description": "St Augustine and surrounding area",
+    "price": "499.00",
+    "price_unit": "5-day rental",
+    "duration_days": 5,
+    "specifications": {
+      "county": "St Augustine",
+      "tonnage": "2 tons",
+      "extra_ton": "$100",
+      "extra_day": "$15",
+      "price_2_weeks": "$549",
+      "price_1_month": "$649"
+    },
+    "sort_order": 11,
+    "created_at": "2026-03-28T10:23:20.281Z"
+  }
+},
+{
+  "model": "clients.businesscatalogitem",
+  "pk": 45,
+  "fields": {
+    "project": 9,
+    "item_type": "product",
+    "name": "15 Yard Dumpster — Macclenny",
+    "description": "Macclenny and Baker County",
+    "price": "379.00",
+    "price_unit": "5-day rental",
+    "duration_days": 5,
+    "specifications": {
+      "county": "Macclenny",
+      "tonnage": "1.5 tons",
+      "extra_ton": "$100",
+      "extra_day": "$15",
+      "price_2_weeks": "$429",
+      "price_1_month": "$529"
+    },
+    "sort_order": 12,
+    "created_at": "2026-03-28T10:23:20.282Z"
+  }
+},
+{
+  "model": "clients.businesscatalogitem",
+  "pk": 46,
+  "fields": {
+    "project": 9,
+    "item_type": "product",
+    "name": "20 Yard Dumpster — Macclenny",
+    "description": "Macclenny and Baker County",
+    "price": "429.00",
+    "price_unit": "5-day rental",
+    "duration_days": 5,
+    "specifications": {
+      "county": "Macclenny",
+      "tonnage": "2 tons",
+      "extra_ton": "$100",
+      "extra_day": "$15",
+      "price_2_weeks": "$479",
+      "price_1_month": "$579"
+    },
+    "sort_order": 13,
+    "created_at": "2026-03-28T10:23:20.282Z"
+  }
+},
+{
+  "model": "clients.businesscatalogitem",
+  "pk": 47,
+  "fields": {
+    "project": 9,
+    "item_type": "product",
+    "name": "15 Yard Dumpster — Starke",
+    "description": "Starke and Bradford County",
+    "price": "449.00",
+    "price_unit": "5-day rental",
+    "duration_days": 5,
+    "specifications": {
+      "county": "Starke",
+      "tonnage": "1.5 tons",
+      "extra_ton": "$100",
+      "extra_day": "$15",
+      "price_2_weeks": "$499",
+      "price_1_month": "$599"
+    },
+    "sort_order": 14,
+    "created_at": "2026-03-28T10:23:20.282Z"
+  }
+},
+{
+  "model": "clients.businesscatalogitem",
+  "pk": 48,
+  "fields": {
+    "project": 9,
+    "item_type": "product",
+    "name": "20 Yard Dumpster — Starke",
+    "description": "Starke and Bradford County",
+    "price": "499.00",
+    "price_unit": "5-day rental",
+    "duration_days": 5,
+    "specifications": {
+      "county": "Starke",
+      "tonnage": "2 tons",
+      "extra_ton": "$100",
+      "extra_day": "$15",
+      "price_2_weeks": "$549",
+      "price_1_month": "$649"
+    },
+    "sort_order": 15,
+    "created_at": "2026-03-28T10:23:20.282Z"
   }
 },
 {
@@ -30589,206 +31179,6 @@
   }
 },
 {
-  "model": "accounts.user",
-  "pk": 1,
-  "fields": {
-    "password": "pbkdf2_sha256$1200000$4XLcMSgOWDTl2OmdaK43ow$UQgDtjCodf38P4zfgvpArGH2MaLHPi0rHSQTgZY3veo=",
-    "last_login": null,
-    "is_superuser": true,
-    "username": "arlinda",
-    "first_name": "Arlinda",
-    "last_name": "Admin",
-    "email": "arlinda@webwise.com",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2026-03-07T21:03:34.439Z",
-    "role": "admin",
-    "phone": "+355 69 123 4567",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "accounts.user",
-  "pk": 7,
-  "fields": {
-    "password": "pbkdf2_sha256$1200000$vZ2KsC4lN0ENrt6a0UH0sd$/67bxoQyO8ubZexR6n9EFKyR3AmLy2WXfTt63CGgZCI=",
-    "last_login": null,
-    "is_superuser": false,
-    "username": "ivanhysaj",
-    "first_name": "Ivan",
-    "last_name": "Hysaj",
-    "email": "management@gimosroofing.com",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2026-03-07T21:29:48.802Z",
-    "role": "client",
-    "phone": "+1 (904) 697-6093",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "accounts.user",
-  "pk": 8,
-  "fields": {
-    "password": "pbkdf2_sha256$1200000$xTnOdH3qdtnZGBRJDa174d$/w/9Q1Jk5K9wJjuaGcNh341T+phzD9yy1h6cIKV71xM=",
-    "last_login": null,
-    "is_superuser": false,
-    "username": "painttechs",
-    "first_name": "Vitor",
-    "last_name": "Gjoni",
-    "email": "info@paint-techs.us",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2026-03-08T08:31:21.846Z",
-    "role": "client",
-    "phone": "(904) 762-7062",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "accounts.user",
-  "pk": 9,
-  "fields": {
-    "password": "pbkdf2_sha256$1200000$TpxtBGgGPocMiL9eJTUPVq$XiEMuwsLUDOIU0xlmJygD43FJ38fhYVeZm9WmNK2ZkM=",
-    "last_login": null,
-    "is_superuser": false,
-    "username": "northstar",
-    "first_name": "Franc",
-    "last_name": "Thanza",
-    "email": "northstarhomeimprovement@gmail.com",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2026-03-08T08:31:21.941Z",
-    "role": "client",
-    "phone": "(904) 634-8441",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "accounts.user",
-  "pk": 10,
-  "fields": {
-    "password": "pbkdf2_sha256$1200000$86pMlF5VbShYuGz4s8arJ1$ESJ2zpJs82EjBTP6mrU9bUUbKHNyQLQ8U79xedqo/tg=",
-    "last_login": null,
-    "is_superuser": false,
-    "username": "dionispregna",
-    "first_name": "Dionis",
-    "last_name": "Prenga",
-    "email": "info@904dumpster.com",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2026-03-08T08:31:22.026Z",
-    "role": "client",
-    "phone": "(904) 240-5598",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "accounts.user",
-  "pk": 11,
-  "fields": {
-    "password": "pbkdf2_sha256$1200000$WeJl84iXPaZFXiuBHKIq82$BwLnEBFH1vuRnSwSt3nDCG59qyjP0y/UcEH3/1zGlH8=",
-    "last_login": null,
-    "is_superuser": false,
-    "username": "illyrian",
-    "first_name": "Dardan",
-    "last_name": "Rugova",
-    "email": "info@illyriangroupllc.com",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2026-03-08T08:31:22.114Z",
-    "role": "client",
-    "phone": "(718) 427-4396",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "accounts.user",
-  "pk": 12,
-  "fields": {
-    "password": "pbkdf2_sha256$1200000$BioGzdfrBlbkmOB19FNGH7$oN+ln8epqt0RLPFFkSnp7qpdzyNZUw53N3Omqay2l+I=",
-    "last_login": null,
-    "is_superuser": false,
-    "username": "albros",
-    "first_name": "Joz",
-    "last_name": "Shehu",
-    "email": "info@albrosdetailing.com",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2026-03-08T08:31:22.201Z",
-    "role": "client",
-    "phone": "(669) 253-0420",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "accounts.user",
-  "pk": 15,
-  "fields": {
-    "password": "pbkdf2_sha256$1200000$dHYu78jd2Z0kiqbhjMxsYb$I5WUFBxMcox1Ahfpz9Dgj9NfWXT0Q+ZTymDoztkuBWU=",
-    "last_login": null,
-    "is_superuser": false,
-    "username": "reapirolli",
-    "first_name": "Rea",
-    "last_name": "Pirolli",
-    "email": "webwiseassistant@gmail.com",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2026-03-09T10:13:19.171Z",
-    "role": "employee",
-    "phone": "",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "accounts.user",
-  "pk": 16,
-  "fields": {
-    "password": "pbkdf2_sha256$1200000$I7AFuKa9q0up4O7buZtDUB$+ecBNeU6pJ0ZNHl3W23edzXLqd5oGXqeem7AZD7x5ig=",
-    "last_login": null,
-    "is_superuser": false,
-    "username": "prenciarlinda",
-    "first_name": "Arlinda",
-    "last_name": "Prenci",
-    "email": "prenciarlinda@gmail.com",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2026-03-09T10:16:51.445Z",
-    "role": "employee",
-    "phone": "",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "accounts.user",
-  "pk": 17,
-  "fields": {
-    "password": "pbkdf2_sha256$1200000$iDntKlC5NRAxXrMEfJtLe1$9tFb7njQVOjgezqFL9aNO5f93ZEepsDJfwHP520aMBY=",
-    "last_login": null,
-    "is_superuser": false,
-    "username": "aaaremodels",
-    "first_name": "AAA",
-    "last_name": "Remodels",
-    "email": "aaaremodelsllc@gmail.com",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2026-03-11T16:21:12.386Z",
-    "role": "client",
-    "phone": "9042581619",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
   "model": "payments.payment",
   "pk": 17,
   "fields": {
@@ -31232,22 +31622,6 @@
   }
 },
 {
-  "model": "notifications.notification",
-  "pk": 1,
-  "fields": {
-    "sender": 15,
-    "recipient": 1,
-    "project": 6,
-    "category": "photo_low",
-    "priority": "high",
-    "title": "Low on photos — Gimo's Roofing",
-    "message": "Running low on GMB photos for Gimo's Roofing. Please request more photos from the client so we can continue the posting schedule.",
-    "link": "",
-    "is_read": true,
-    "created_at": "2026-03-12T10:43:55.029Z"
-  }
-},
-{
   "model": "reports.gbpmetrics",
   "pk": 1,
   "fields": {
@@ -31317,13 +31691,13 @@
     "direction_clicks": 0,
     "website_clicks": 74,
     "total_interactions": 88,
-    "interactions_change_pct": null,
-    "profile_views": 542,
-    "profile_views_change_pct": null,
-    "search_desktop_pct": "30.0",
-    "search_mobile_pct": "59.0",
-    "maps_desktop_pct": "9.0",
-    "maps_mobile_pct": "2.0",
+    "interactions_change_pct": "20.5",
+    "profile_views": 578,
+    "profile_views_change_pct": "-11.9",
+    "search_desktop_pct": "31.0",
+    "search_mobile_pct": "58.0",
+    "maps_desktop_pct": "8.0",
+    "maps_mobile_pct": "3.0",
     "photo_count": 0,
     "review_count": 0,
     "review_avg_rating": "0.0",
@@ -31331,7 +31705,7 @@
     "posts_published": 0,
     "notes": "",
     "created_at": "2026-03-11T11:52:01.239Z",
-    "updated_at": "2026-03-11T11:52:01.239Z"
+    "updated_at": "2026-03-25T13:27:09.957Z"
   }
 },
 {
@@ -31346,12 +31720,12 @@
     "direction_clicks": 0,
     "website_clicks": 76,
     "total_interactions": 83,
-    "interactions_change_pct": null,
-    "profile_views": 513,
-    "profile_views_change_pct": null,
-    "search_desktop_pct": "30.0",
+    "interactions_change_pct": "10.7",
+    "profile_views": 477,
+    "profile_views_change_pct": "-33.7",
+    "search_desktop_pct": "29.0",
     "search_mobile_pct": "59.0",
-    "maps_desktop_pct": "9.0",
+    "maps_desktop_pct": "10.0",
     "maps_mobile_pct": "2.0",
     "photo_count": 0,
     "review_count": 0,
@@ -31360,78 +31734,91 @@
     "posts_published": 0,
     "notes": "",
     "created_at": "2026-03-11T11:52:01.241Z",
-    "updated_at": "2026-03-11T11:52:01.241Z"
+    "updated_at": "2026-03-25T13:27:09.958Z"
   }
 },
 {
-  "model": "reports.searchtermsnapshot",
-  "pk": 1,
-  "fields": {
-    "project": 9,
-    "month": "2026-01-01",
-    "source": "gbp",
-    "keyword": "dumpster rental jacksonville fl",
-    "impressions": 234,
-    "clicks": 0,
-    "avg_position": null,
-    "local_pack": false,
-    "notes": "",
-    "created_at": "2026-03-11T11:52:01.241Z"
-  }
-},
-{
-  "model": "reports.searchtermsnapshot",
-  "pk": 2,
-  "fields": {
-    "project": 9,
-    "month": "2026-01-01",
-    "source": "gbp",
-    "keyword": "dumpster",
-    "impressions": 26,
-    "clicks": 0,
-    "avg_position": null,
-    "local_pack": false,
-    "notes": "",
-    "created_at": "2026-03-11T11:52:01.242Z"
-  }
-},
-{
-  "model": "reports.searchtermsnapshot",
-  "pk": 3,
-  "fields": {
-    "project": 9,
-    "month": "2026-01-01",
-    "source": "gbp",
-    "keyword": "dumpster rental",
-    "impressions": 18,
-    "clicks": 0,
-    "avg_position": null,
-    "local_pack": false,
-    "notes": "",
-    "created_at": "2026-03-11T11:52:01.243Z"
-  }
-},
-{
-  "model": "reports.searchtermsnapshot",
-  "pk": 4,
-  "fields": {
-    "project": 9,
-    "month": "2026-01-01",
-    "source": "gbp",
-    "keyword": "20 yard dumpster",
-    "impressions": 14,
-    "clicks": 0,
-    "avg_position": null,
-    "local_pack": false,
-    "notes": "",
-    "created_at": "2026-03-11T11:52:01.243Z"
-  }
-},
-{
-  "model": "reports.searchtermsnapshot",
+  "model": "reports.gbpmetrics",
   "pk": 5,
   "fields": {
     "project": 9,
+    "month": "2026-03-01",
+    "calls": 17,
+    "chat_clicks": 2,
+    "bookings": 0,
+    "direction_clicks": 0,
+    "website_clicks": 57,
+    "total_interactions": 76,
+    "interactions_change_pct": null,
+    "profile_views": 342,
+    "profile_views_change_pct": null,
+    "search_desktop_pct": "28.0",
+    "search_mobile_pct": "56.0",
+    "maps_desktop_pct": "9.0",
+    "maps_mobile_pct": "7.0",
+    "photo_count": 0,
+    "review_count": 0,
+    "review_avg_rating": "0.0",
+    "new_reviews": 0,
+    "posts_published": 0,
+    "notes": "Partial month data through March 25. Search terms still being collected.",
+    "created_at": "2026-03-25T13:27:58.697Z",
+    "updated_at": "2026-03-25T13:27:58.697Z"
+  }
+},
+{
+  "model": "reports.searchtermsnapshot",
+  "pk": 11,
+  "fields": {
+    "project": 9,
+    "month": "2026-01-01",
+    "source": "gbp",
+    "keyword": "dumpster rental jacksonville fl",
+    "impressions": 131,
+    "clicks": 0,
+    "avg_position": null,
+    "local_pack": false,
+    "notes": "",
+    "created_at": "2026-03-25T13:27:09.959Z"
+  }
+},
+{
+  "model": "reports.searchtermsnapshot",
+  "pk": 12,
+  "fields": {
+    "project": 9,
+    "month": "2026-01-01",
+    "source": "gbp",
+    "keyword": "dumpster",
+    "impressions": 26,
+    "clicks": 0,
+    "avg_position": null,
+    "local_pack": false,
+    "notes": "",
+    "created_at": "2026-03-25T13:27:09.960Z"
+  }
+},
+{
+  "model": "reports.searchtermsnapshot",
+  "pk": 13,
+  "fields": {
+    "project": 9,
+    "month": "2026-01-01",
+    "source": "gbp",
+    "keyword": "dumpster rental",
+    "impressions": 18,
+    "clicks": 0,
+    "avg_position": null,
+    "local_pack": false,
+    "notes": "",
+    "created_at": "2026-03-25T13:27:09.960Z"
+  }
+},
+{
+  "model": "reports.searchtermsnapshot",
+  "pk": 14,
+  "fields": {
+    "project": 9,
     "month": "2026-01-01",
     "source": "gbp",
     "keyword": "904",
@@ -31440,60 +31827,44 @@
     "avg_position": null,
     "local_pack": false,
     "notes": "",
-    "created_at": "2026-03-11T11:52:01.244Z"
+    "created_at": "2026-03-25T13:27:09.960Z"
   }
 },
 {
   "model": "reports.searchtermsnapshot",
-  "pk": 6,
+  "pk": 15,
+  "fields": {
+    "project": 9,
+    "month": "2026-01-01",
+    "source": "gbp",
+    "keyword": "904junk and dump",
+    "impressions": 14,
+    "clicks": 0,
+    "avg_position": null,
+    "local_pack": false,
+    "notes": "",
+    "created_at": "2026-03-25T13:27:09.961Z"
+  }
+},
+{
+  "model": "reports.searchtermsnapshot",
+  "pk": 16,
   "fields": {
     "project": 9,
     "month": "2026-02-01",
     "source": "gbp",
     "keyword": "dumpster rental jacksonville fl",
-    "impressions": 234,
+    "impressions": 103,
     "clicks": 0,
     "avg_position": null,
     "local_pack": false,
     "notes": "",
-    "created_at": "2026-03-11T11:52:01.244Z"
+    "created_at": "2026-03-25T13:27:09.961Z"
   }
 },
 {
   "model": "reports.searchtermsnapshot",
-  "pk": 7,
-  "fields": {
-    "project": 9,
-    "month": "2026-02-01",
-    "source": "gbp",
-    "keyword": "dumpster",
-    "impressions": 26,
-    "clicks": 0,
-    "avg_position": null,
-    "local_pack": false,
-    "notes": "",
-    "created_at": "2026-03-11T11:52:01.245Z"
-  }
-},
-{
-  "model": "reports.searchtermsnapshot",
-  "pk": 8,
-  "fields": {
-    "project": 9,
-    "month": "2026-02-01",
-    "source": "gbp",
-    "keyword": "dumpster rental",
-    "impressions": 18,
-    "clicks": 0,
-    "avg_position": null,
-    "local_pack": false,
-    "notes": "",
-    "created_at": "2026-03-11T11:52:01.245Z"
-  }
-},
-{
-  "model": "reports.searchtermsnapshot",
-  "pk": 9,
+  "pk": 17,
   "fields": {
     "project": 9,
     "month": "2026-02-01",
@@ -31504,23 +31875,55 @@
     "avg_position": null,
     "local_pack": false,
     "notes": "",
-    "created_at": "2026-03-11T11:52:01.246Z"
+    "created_at": "2026-03-25T13:27:09.962Z"
   }
 },
 {
   "model": "reports.searchtermsnapshot",
-  "pk": 10,
+  "pk": 18,
   "fields": {
     "project": 9,
     "month": "2026-02-01",
     "source": "gbp",
-    "keyword": "904",
+    "keyword": "construction dumpster rental",
     "impressions": 14,
     "clicks": 0,
     "avg_position": null,
     "local_pack": false,
     "notes": "",
-    "created_at": "2026-03-11T11:52:01.246Z"
+    "created_at": "2026-03-25T13:27:09.962Z"
+  }
+},
+{
+  "model": "reports.searchtermsnapshot",
+  "pk": 19,
+  "fields": {
+    "project": 9,
+    "month": "2026-02-01",
+    "source": "gbp",
+    "keyword": "dumpster",
+    "impressions": 14,
+    "clicks": 0,
+    "avg_position": null,
+    "local_pack": false,
+    "notes": "",
+    "created_at": "2026-03-25T13:27:09.962Z"
+  }
+},
+{
+  "model": "reports.searchtermsnapshot",
+  "pk": 20,
+  "fields": {
+    "project": 9,
+    "month": "2026-02-01",
+    "source": "gbp",
+    "keyword": "dumpster near me",
+    "impressions": 14,
+    "clicks": 0,
+    "avg_position": null,
+    "local_pack": false,
+    "notes": "",
+    "created_at": "2026-03-25T13:27:09.963Z"
   }
 },
 {
@@ -31569,6 +31972,22 @@
     "document_link": "",
     "live_link": "",
     "created_at": "2026-03-12T09:49:59.788Z"
+  }
+},
+{
+  "model": "notifications.notification",
+  "pk": 1,
+  "fields": {
+    "sender": 15,
+    "recipient": 1,
+    "project": 6,
+    "category": "photo_low",
+    "priority": "high",
+    "title": "Low on photos — Gimo's Roofing",
+    "message": "Running low on GMB photos for Gimo's Roofing. Please request more photos from the client so we can continue the posting schedule.",
+    "link": "",
+    "is_read": true,
+    "created_at": "2026-03-12T10:43:55.029Z"
   }
 }
 ]

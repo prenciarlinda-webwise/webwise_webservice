@@ -1,18 +1,53 @@
 from django.db import models
 from rest_framework import serializers
 from .models import (
-    ClientProfile, Project, ProjectService, MonthlyPlan, Deliverable,
+    ClientProfile, Business, Project, ProjectService, MonthlyPlan, Deliverable,
     ServiceTemplate, TemplateDeliverable, BusinessCatalogItem,
     QuarterlyPlan, Location,
 )
 from reports.models import Report
 
 
-class BusinessCatalogItemSerializer(serializers.ModelSerializer):
+class EngagementSerializer(serializers.ModelSerializer):
+    """Serializer for the engagement-Project model (Business → Project)."""
+    business_slug = serializers.CharField(source='business.slug', read_only=True)
+    business_name = serializers.CharField(source='business.name', read_only=True)
+    kind_display = serializers.CharField(source='get_kind_display', read_only=True)
+    status_display = serializers.CharField(source='get_status_display', read_only=True)
+    services_count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Project
+        fields = [
+            'id', 'business', 'business_slug', 'business_name',
+            'kind', 'kind_display', 'slug', 'name', 'status', 'status_display',
+            'start_date', 'end_date', 'monthly_budget_usd',
+            'notes', 'services_count', 'created_at', 'updated_at',
+        ]
+        read_only_fields = ['id', 'slug', 'created_at', 'updated_at', 'services_count']
+
+    def get_services_count(self, obj):
+        return obj.services.count()
+
+
+class ProjectToBusinessCompatMixin:
+    """Backwards-compat: old frontend POSTs `project: <id>` meaning the Business.
+    On models where `project` now means engagement-Project, translate incoming
+    `project` → `business` if no `business` key is present.
+    """
+    def to_internal_value(self, data):
+        if hasattr(data, 'copy'):
+            data = data.copy()
+        if 'project' in data and 'business' not in data:
+            data['business'] = data.pop('project')
+        return super().to_internal_value(data)
+
+
+class BusinessCatalogItemSerializer(ProjectToBusinessCompatMixin, serializers.ModelSerializer):
     class Meta:
         model = BusinessCatalogItem
         fields = [
-            'id', 'project', 'item_type', 'name', 'description',
+            'id', 'business', 'item_type', 'name', 'description',
             'price', 'price_unit', 'duration_days', 'specifications', 'sort_order', 'created_at',
         ]
         read_only_fields = ['id', 'created_at']
@@ -21,18 +56,32 @@ class BusinessCatalogItemSerializer(serializers.ModelSerializer):
 class DeliverableSerializer(serializers.ModelSerializer):
     category_display = serializers.CharField(source='get_category_display', read_only=True)
     status_display = serializers.CharField(source='get_status_display', read_only=True)
+    kind_display = serializers.CharField(source='get_kind_display', read_only=True)
     assigned_to_name = serializers.CharField(source='assigned_to.get_full_name', read_only=True, default=None)
+    submitted_by_name = serializers.CharField(source='submitted_by.get_full_name', read_only=True, default=None)
+    approved_by_name = serializers.CharField(source='approved_by.get_full_name', read_only=True, default=None)
+    approval_state = serializers.CharField(read_only=True)
+    is_client_visible = serializers.BooleanField(read_only=True)
     logged_hours = serializers.SerializerMethodField()
 
     class Meta:
         model = Deliverable
         fields = [
-            'id', 'monthly_plan', 'category', 'category_display', 'title', 'description',
+            'id', 'monthly_plan', 'category', 'category_display', 'kind', 'kind_display',
+            'title', 'description',
             'target_keyword', 'status', 'status_display', 'frequency', 'quantity',
             'estimated_minutes', 'logged_hours', 'assigned_to', 'assigned_to_name', 'link', 'live_url',
-            'start_date', 'due_date', 'completed_date', 'notes', 'sort_order', 'created_at', 'updated_at',
+            'start_date', 'due_date', 'completed_date', 'notes', 'sort_order',
+            'requires_approval', 'client_visible',
+            'submitted_at', 'submitted_by', 'submitted_by_name',
+            'approved_at', 'approved_by', 'approved_by_name',
+            'rejection_reason', 'approval_state', 'is_client_visible',
+            'created_at', 'updated_at',
         ]
-        read_only_fields = ['id', 'created_at', 'updated_at']
+        read_only_fields = [
+            'id', 'created_at', 'updated_at',
+            'submitted_at', 'submitted_by', 'approved_at', 'approved_by', 'rejection_reason',
+        ]
 
     def get_logged_hours(self, obj):
         total = obj.time_logs.aggregate(s=models.Sum('hours'))['s']
@@ -52,10 +101,16 @@ class MonthlyPlanSerializer(serializers.ModelSerializer):
     deliverables = DeliverableSerializer(many=True, read_only=True)
     reports = PlanReportSerializer(many=True, read_only=True)
     service_name = serializers.CharField(source='project_service.name', read_only=True)
-    project_name = serializers.CharField(source='project_service.project.name', read_only=True)
-    project_id = serializers.IntegerField(source='project_service.project.id', read_only=True)
-    client_name = serializers.CharField(source='project_service.project.client.business_name', read_only=True)
-    client_id = serializers.IntegerField(source='project_service.project.client.id', read_only=True)
+    business_name = serializers.CharField(source='project_service.business.name', read_only=True)
+    business_id = serializers.IntegerField(source='project_service.business.id', read_only=True)
+    business_slug = serializers.CharField(source='project_service.business.slug', read_only=True)
+    # Backwards-compat aliases (old frontend reads project_name / project_id).
+    project_name = serializers.CharField(source='project_service.business.name', read_only=True)
+    project_id = serializers.IntegerField(source='project_service.business.id', read_only=True)
+    project_kind = serializers.CharField(source='project_service.project.kind', read_only=True)
+    project_slug = serializers.CharField(source='project_service.project.slug', read_only=True)
+    client_name = serializers.CharField(source='project_service.business.client.business_name', read_only=True)
+    client_id = serializers.IntegerField(source='project_service.business.client.id', read_only=True)
     month_display = serializers.SerializerMethodField()
     progress = serializers.SerializerMethodField()
     total_costs = serializers.DecimalField(max_digits=12, decimal_places=2, read_only=True)
@@ -64,7 +119,11 @@ class MonthlyPlanSerializer(serializers.ModelSerializer):
     class Meta:
         model = MonthlyPlan
         fields = [
-            'id', 'project_service', 'service_name', 'project_name', 'project_id', 'client_name', 'client_id',
+            'id', 'project_service', 'service_name',
+            'business_name', 'business_id', 'business_slug',
+            'project_name', 'project_id',
+            'project_kind', 'project_slug',
+            'client_name', 'client_id',
             'quarterly_plan',
             'month', 'month_display', 'status', 'notes',
             'monthly_retainer', 'content_writer_cost', 'tool_costs', 'link_building_spend', 'other_costs',
@@ -105,17 +164,24 @@ class MonthlyPlanSerializer(serializers.ModelSerializer):
             for f in financial_fields:
                 data.pop(f, None)
         elif role == 'client':
+            # Approval gate: nested deliverables must respect client_visible +
+            # approved-or-not-required. The DeliverableListView queryset has
+            # the same filter; this matches it for the nested case.
+            data['deliverables'] = [
+                d for d in data['deliverables']
+                if d.get('client_visible') and (not d.get('requires_approval') or d.get('approved_at'))
+            ]
             for f in financial_fields:
                 data.pop(f, None)
         return data
 
 
-class ProjectServiceSerializer(serializers.ModelSerializer):
+class ProjectServiceSerializer(ProjectToBusinessCompatMixin, serializers.ModelSerializer):
     template_id = serializers.IntegerField(write_only=True, required=False)
 
     class Meta:
         model = ProjectService
-        fields = ['id', 'project', 'name', 'description', 'monthly_price', 'status', 'template_id', 'created_at']
+        fields = ['id', 'business', 'project', 'name', 'description', 'monthly_price', 'status', 'template_id', 'created_at']
         read_only_fields = ['id', 'created_at']
 
     def create(self, validated_data):
@@ -138,7 +204,7 @@ class ProjectServiceDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProjectService
-        fields = ['id', 'project', 'name', 'description', 'monthly_price', 'status', 'monthly_plans', 'created_at']
+        fields = ['id', 'business', 'project', 'name', 'description', 'monthly_price', 'status', 'monthly_plans', 'created_at']
         read_only_fields = ['id', 'created_at']
 
     def to_representation(self, instance):
@@ -156,7 +222,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     client = serializers.PrimaryKeyRelatedField(queryset=ClientProfile.objects.all(), required=False)
 
     class Meta:
-        model = Project
+        model = Business
         fields = [
             'id', 'slug', 'client', 'name', 'business_phone', 'business_email', 'business_address',
             'website_url', 'business_hours', 'service_areas',
@@ -185,7 +251,7 @@ class ProjectDetailSerializer(serializers.ModelSerializer):
     client_slug = serializers.CharField(source='client.slug', read_only=True)
 
     class Meta:
-        model = Project
+        model = Business
         fields = [
             'id', 'slug', 'client', 'client_name', 'client_id', 'client_slug', 'name',
             'business_phone', 'business_email', 'business_address', 'website_url',
@@ -207,7 +273,9 @@ class ProjectDetailSerializer(serializers.ModelSerializer):
 
 
 class ClientProfileSerializer(serializers.ModelSerializer):
-    projects = ProjectSerializer(many=True, read_only=True)
+    businesses = ProjectSerializer(many=True, read_only=True)
+    # Backwards-compat alias: old frontend reads c.projects.
+    projects = ProjectSerializer(source='businesses', many=True, read_only=True)
     user_email = serializers.EmailField(source='user.email', read_only=True)
     user_name = serializers.CharField(source='user.get_full_name', read_only=True)
     user_first_name = serializers.CharField(source='user.first_name', read_only=True)
@@ -222,7 +290,7 @@ class ClientProfileSerializer(serializers.ModelSerializer):
             'business_name', 'business_phone', 'business_email',
             'services', 'products', 'price_per_service',
             'service_locations', 'social_links', 'notes',
-            'projects', 'created_at', 'updated_at',
+            'businesses', 'projects', 'created_at', 'updated_at',
         ]
         read_only_fields = ['id', 'user', 'created_at', 'updated_at']
 
@@ -257,10 +325,15 @@ class ServiceTemplateSerializer(serializers.ModelSerializer):
 
 # ----- Quarterly plan -----
 
-class QuarterlyPlanSerializer(serializers.ModelSerializer):
-    project_name = serializers.CharField(source='project.name', read_only=True)
-    client_id = serializers.IntegerField(source='project.client.id', read_only=True)
-    client_name = serializers.CharField(source='project.client.business_name', read_only=True)
+class QuarterlyPlanSerializer(ProjectToBusinessCompatMixin, serializers.ModelSerializer):
+    business_name = serializers.CharField(source='business.name', read_only=True)
+    business_slug = serializers.CharField(source='business.slug', read_only=True)
+    # Backwards-compat alias: old frontend reads project_name (was Business name).
+    project_name = serializers.CharField(source='business.name', read_only=True)
+    client_id = serializers.IntegerField(source='business.client.id', read_only=True)
+    client_name = serializers.CharField(source='business.client.business_name', read_only=True)
+    project_kind = serializers.CharField(source='project.kind', read_only=True)
+    project_slug = serializers.CharField(source='project.slug', read_only=True)
     status_display = serializers.CharField(source='get_status_display', read_only=True)
     progress_pct = serializers.IntegerField(read_only=True)
     monthly_plans_count = serializers.SerializerMethodField()
@@ -269,7 +342,9 @@ class QuarterlyPlanSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuarterlyPlan
         fields = [
-            'id', 'project', 'project_name', 'client_id', 'client_name',
+            'id', 'business', 'business_name', 'business_slug',
+            'project', 'project_name', 'project_kind', 'project_slug',
+            'client_id', 'client_name',
             'name', 'status', 'status_display',
             'quarter_start', 'quarter_end', 'goals', 'notes',
             'progress_pct', 'monthly_plans_count',

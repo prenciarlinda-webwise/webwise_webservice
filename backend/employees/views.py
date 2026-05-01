@@ -8,12 +8,12 @@ from django.db.models import Sum
 
 from .models import EmployeeProfile, TaskLog
 from .serializers import EmployeeProfileSerializer, TaskLogSerializer
-from accounts.permissions import IsAdmin, IsAdminOrEmployee, IsEmployee
+from accounts.permissions import IsAdmin, IsAdminOrEmployee, IsEmployee, IsAdminOrSupervisor
 
 
 class EmployeeListView(generics.ListCreateAPIView):
     serializer_class = EmployeeProfileSerializer
-    permission_classes = [IsAdmin]
+    permission_classes = [IsAdminOrSupervisor]
     queryset = EmployeeProfile.objects.select_related('user').all()
 
     def create(self, request, *args, **kwargs):
@@ -34,7 +34,7 @@ class EmployeeListView(generics.ListCreateAPIView):
 
 class EmployeeDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = EmployeeProfileSerializer
-    permission_classes = [IsAdmin]
+    permission_classes = [IsAdminOrSupervisor]
     queryset = EmployeeProfile.objects.all()
 
     def perform_destroy(self, instance):
@@ -87,7 +87,7 @@ class EmployeeMonthlySummaryView(APIView):
     permission_classes = [IsAdminOrEmployee]
 
     def get(self, request):
-        from clients.models import Deliverable, Project
+        from clients.models import Deliverable, Business
 
         user = request.user
         # Determine which employee
@@ -116,7 +116,7 @@ class EmployeeMonthlySummaryView(APIView):
         project_ids = Deliverable.objects.filter(
             assigned_to=target_user
         ).values_list('monthly_plan__project_service__project_id', flat=True).distinct()
-        projects = Project.objects.filter(id__in=project_ids).values('id', 'slug', 'name', 'status')
+        projects = Business.objects.filter(id__in=project_ids).values('id', 'slug', 'name', 'status')
 
         # Active deliverables
         active_count = Deliverable.objects.filter(

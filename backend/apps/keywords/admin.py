@@ -11,9 +11,9 @@ class KeywordTagAdmin(admin.ModelAdmin):
 @admin.register(Keyword)
 class KeywordAdmin(admin.ModelAdmin):
     list_display = [
-        "keyword_text", "project", "status", "search_volume",
+        "keyword_text", "business", "status", "search_volume",
         "current_organic_rank", "current_maps_rank", "rank_change",
     ]
     list_filter = ["status", "is_branded", "is_primary", "maps_enabled"]
     search_fields = ["keyword_text"]
-    raw_id_fields = ["project"]
+    raw_id_fields = ["business"]

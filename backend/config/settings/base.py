@@ -51,13 +51,11 @@ INSTALLED_APPS = [
     "reports",
     "employees",
     "notifications",
-    # SEO tool apps (apps.* namespace), retargeted to clients.Project
+    # SEO module — only the rankings-relevant apps.
     "apps.keywords",
     "apps.rankings",
     "apps.discovery",
     "apps.competitors",
-    "apps.content_analysis",
-    "apps.citations",
 ]
 
 MIDDLEWARE = [
@@ -181,3 +179,8 @@ CHANNEL_LAYERS = {
 # DataForSEO credentials (used by SEO apps once ported)
 DATAFORSEO_LOGIN = os.environ.get("DATAFORSEO_LOGIN", "")
 DATAFORSEO_PASSWORD = os.environ.get("DATAFORSEO_PASSWORD", "")
+
+# Public URL of the backend, used to build absolute media URLs for assets
+# (SERP screenshots etc.) so the Next.js frontend on a different origin can
+# load them. Override per environment in .env.
+BACKEND_PUBLIC_URL = os.environ.get("BACKEND_PUBLIC_URL", "http://localhost:8000")

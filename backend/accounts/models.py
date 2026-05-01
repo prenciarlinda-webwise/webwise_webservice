@@ -40,5 +40,16 @@ class User(AbstractUser):
         except Exception:
             return False
 
+    @property
+    def is_economist(self):
+        if self.role == self.Role.ADMIN:
+            return True
+        if self.role != self.Role.EMPLOYEE:
+            return False
+        try:
+            return self.employee_profile.category == 'economist'
+        except Exception:
+            return False
+
     def can_supervise(self):
         return self.is_supervisor

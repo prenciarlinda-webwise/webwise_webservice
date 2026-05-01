@@ -64,13 +64,13 @@ export default function ClientDashboard() {
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold">My Businesses</h2>
-          <Link href="/dashboard/my-projects" className="text-sm text-accent hover:underline">View all</Link>
+          <span className="text-sm text-text-muted">{projects.length} business{projects.length !== 1 ? 'es' : ''}</span>
         </div>
         <div className="grid gap-3">
           {projects.map(project => (
             <Link
               key={project.id}
-              href={`/dashboard/my-projects/${project.slug}`}
+              href={`/dashboard/${project.slug}`}
               className="flex items-center justify-between bg-white rounded-xl border border-border p-5 hover:border-accent/30 hover:shadow-sm transition-all group"
             >
               <div>

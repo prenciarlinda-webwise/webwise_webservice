@@ -2,7 +2,7 @@ from django.db import models
 
 
 class DiscoveryRun(models.Model):
-    project = models.ForeignKey("clients.Project", on_delete=models.CASCADE, related_name="discovery_runs")
+    business = models.ForeignKey("clients.Business", on_delete=models.CASCADE, related_name="discovery_runs")
     run_date = models.DateField(db_index=True)
 
     # Summary stats
@@ -24,15 +24,15 @@ class DiscoveryRun(models.Model):
 
     class Meta:
         ordering = ["-run_date"]
-        unique_together = [("project", "run_date")]
+        unique_together = [("business", "run_date")]
 
     def __str__(self):
-        return f"Discovery: {self.project.domain} on {self.run_date}"
+        return f"Discovery: {self.business.domain} on {self.run_date}"
 
 
 class DiscoveryResult(models.Model):
     run = models.ForeignKey(DiscoveryRun, on_delete=models.CASCADE, related_name="results")
-    project = models.ForeignKey("clients.Project", on_delete=models.CASCADE, related_name="discovery_results")
+    business = models.ForeignKey("clients.Business", on_delete=models.CASCADE, related_name="discovery_results")
 
     # Keyword data
     keyword_text = models.CharField(max_length=500, db_index=True)
@@ -70,8 +70,8 @@ class DiscoveryResult(models.Model):
     class Meta:
         ordering = ["-search_volume"]
         indexes = [
-            models.Index(fields=["project", "-search_volume"]),
-            models.Index(fields=["project", "keyword_text"]),
+            models.Index(fields=["business", "-search_volume"]),
+            models.Index(fields=["business", "keyword_text"]),
             models.Index(fields=["run", "is_new"]),
         ]
 

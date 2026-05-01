@@ -19,7 +19,7 @@ from datetime import timedelta
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
-from clients.models import Project
+from clients.models import Business
 from apps.keywords.models import Keyword, KeywordStatus
 from apps.rankings.models import SERPResult
 
@@ -36,7 +36,7 @@ class Command(BaseCommand):
         days = options["recent_days"]
         cutoff = timezone.now().date() - timedelta(days=days)
 
-        qs = Project.objects.filter(status='active').order_by("name")
+        qs = Business.objects.filter(status='active').order_by("name")
         if options["project"]:
             qs = qs.filter(slug=options["project"])
 
@@ -52,7 +52,7 @@ class Command(BaseCommand):
         self.stdout.write("-" * 95)
 
         for project in qs:
-            kws = Keyword.objects.filter(project=project, status=KeywordStatus.TRACKED)
+            kws = Keyword.objects.filter(business=project, status=KeywordStatus.TRACKED)
             tracked = kws.count()
             if tracked == 0:
                 self.stdout.write(f"{project.slug:<28} {0:>8}  (no tracked keywords)")

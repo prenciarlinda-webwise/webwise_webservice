@@ -6,6 +6,7 @@ from clients.models import ClientProfile
 class EmployeeProfile(models.Model):
     class Category(models.TextChoices):
         SUPERVISOR = 'supervisor', 'Supervisor'
+        ECONOMIST = 'economist', 'Economist'
         ON_PAGE = 'on_page', 'On-Page SEO'
         OFF_PAGE = 'off_page', 'Off-Page SEO'
         SOCIAL_MEDIA = 'social_media', 'Social Media'

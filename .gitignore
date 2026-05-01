@@ -58,10 +58,27 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 backend/venv/
+backend/.venv/
 backend/db.sqlite3
 backend/media/
+backend/backups/
+backend/staticfiles/
 __pycache__/
 *.pyc
 *.sqlite3
 *.sqlite3.bak
+*.sql
+*.dump
 *.csv
+
+# Internal planning notes — keep out of repo.
+DASHBOARD_REORG_PLAN.md
+MERGE_STATUS.md
+*_PLAN.md
+*_GUIDE.md
+*_DOCUMENTATION.md
+*_MAP.md
+
+# Local scratch / unreferenced asset dirs
+src/brighlocal/
+public/plumbing_seo_case_studies/

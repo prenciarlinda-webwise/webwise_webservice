@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import Script from 'next/script'
 import { ArrowRight, Check, Zap, Rocket, Crown, Monitor, TrendingUp, Shield, Clock, DollarSign, Star, Gift, Palette, Globe, Users, Briefcase, MapPin, BarChart2 } from 'lucide-react'
 import { generateFAQSchema, generateWebPageSchema } from '@/lib/schemas'
@@ -337,9 +338,30 @@ export default function PricingPage() {
               {content.definition.answer}
             </p>
             {/* Expansion */}
-            <p className="text-text-secondary leading-relaxed">
+            <p className="text-text-secondary leading-relaxed mb-8">
               {content.definition.expansion}
             </p>
+
+            {/* Industry-specific pricing context with contextual internal links */}
+            <div className="bg-bg-secondary border border-border rounded-2xl p-6 lg:p-8">
+              <h3 className="text-lg font-semibold text-primary mb-3">Industry-Specific SEO Costs</h3>
+              <p className="text-text-secondary leading-relaxed mb-4">
+                Pricing varies by industry because competition and keyword value differ. Read our
+                industry-specific breakdowns to see what to expect:{' '}
+                <Link href="/local-seo/plumbers" className="text-accent hover:underline font-medium">SEO for plumbers</Link>,{' '}
+                <Link href="/local-seo/landscaping" className="text-accent hover:underline font-medium">SEO for landscapers</Link>,{' '}
+                <Link href="/local-seo/locksmiths" className="text-accent hover:underline font-medium">locksmith SEO</Link>,{' '}
+                <Link href="/local-seo/cleaning" className="text-accent hover:underline font-medium">cleaning service SEO</Link>,{' '}
+                <Link href="/local-seo/roofing" className="text-accent hover:underline font-medium">roofing SEO</Link>, and{' '}
+                <Link href="/local-seo/hvac" className="text-accent hover:underline font-medium">HVAC SEO</Link>.
+              </p>
+              <p className="text-text-secondary leading-relaxed">
+                For a deeper dive, see our guides on{' '}
+                <Link href="/blog/seo-pricing" className="text-accent hover:underline font-medium">how much SEO costs per month</Link>,{' '}
+                <Link href="/blog/seo-timeline" className="text-accent hover:underline font-medium">how long SEO takes</Link>, and{' '}
+                <Link href="/blog/seo-vs-ppc" className="text-accent hover:underline font-medium">SEO vs PPC</Link>.
+              </p>
+            </div>
           </div>
         </div>
       </section>

@@ -1,4 +1,5 @@
 from datetime import date
+from django.db import models
 from rest_framework import generics, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import PermissionDenied
@@ -6,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from .models import (
-    ClientProfile, Project, ProjectService, MonthlyPlan, Deliverable,
+    ClientProfile, Business, Project, ProjectService, MonthlyPlan, Deliverable,
     ServiceTemplate, TemplateDeliverable, BusinessCatalogItem,
     QuarterlyPlan, Location,
 )
@@ -17,20 +18,33 @@ from .serializers import (
     ServiceTemplateSerializer, TemplateDeliverableSerializer,
     BusinessCatalogItemSerializer,
     QuarterlyPlanSerializer, LocationSerializer,
+    EngagementSerializer,
 )
-from accounts.permissions import IsAdmin, IsAdminOrEmployee, IsClient
+from accounts.permissions import IsAdmin, IsAdminOrEmployee, IsClient, IsSupervisor, IsAdminOrSupervisor, IsSupervisorOrEconomist
 
 
 # --- Client profile ---
 
 class ClientProfileListView(generics.ListCreateAPIView):
     serializer_class = ClientProfileSerializer
-    permission_classes = [IsAdmin]
+    # Admin / supervisor / economist can read the client list; admin/supervisor
+    # write. Per-method gating in perform_create.
+    permission_classes = [IsSupervisorOrEconomist]
+
+    def perform_create(self, serializer):
+        u = self.request.user
+        if not (u.role == 'admin' or u.is_supervisor):
+            raise PermissionDenied('Only admins and supervisors can create clients.')
+        serializer.save()
 
     def get_queryset(self):
-        return ClientProfile.objects.select_related('user').prefetch_related('projects__services').all()
+        return ClientProfile.objects.select_related('user').prefetch_related('businesses__services').all()
 
     def create(self, request, *args, **kwargs):
+        # Only admin / supervisor can create or upsert clients.
+        u = request.user
+        if not (u.role == 'admin' or u.is_supervisor):
+            raise PermissionDenied('Only admins and supervisors can create clients.')
         # Upsert by user FK. RegisterSerializer auto-creates an empty profile
         # when role=client; the frontend's "Add client" flow follows up with
         # a POST /clients/ to fill the business fields. Treat that as an update
@@ -59,7 +73,8 @@ class ClientProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
         return super().get_object()
 
     def get_queryset(self):
-        if self.request.user.role == 'admin':
+        # Supervisors share admin scope for client/business reads.
+        if self.request.user.is_supervisor:
             return ClientProfile.objects.all()
         return ClientProfile.objects.filter(user=self.request.user)
 
@@ -97,18 +112,19 @@ class ProjectListCreateView(generics.ListCreateAPIView):
             serializer.save()
 
     def get_queryset(self):
-        if self.request.user.role == 'admin':
-            qs = Project.objects.all()
-        elif self.request.user.role == 'employee':
-            # Employees only see projects where they have assigned deliverables
+        u = self.request.user
+        if u.is_supervisor:  # admin OR supervisor employee
+            qs = Business.objects.all()
+        elif u.role == 'employee':
+            # Non-supervisor employees only see businesses they have assigned deliverables on
             project_ids = Deliverable.objects.filter(
-                assigned_to=self.request.user
+                assigned_to=u
             ).values_list(
-                'monthly_plan__project_service__project_id', flat=True
+                'monthly_plan__project_service__business_id', flat=True
             ).distinct()
-            qs = Project.objects.filter(id__in=project_ids)
+            qs = Business.objects.filter(id__in=project_ids)
         else:
-            qs = Project.objects.filter(client__user=self.request.user)
+            qs = Business.objects.filter(client__user=u)
         client_id = self.request.query_params.get('client')
         if client_id:
             qs = qs.filter(client_id=client_id)
@@ -133,24 +149,24 @@ class ProjectDetailView(generics.RetrieveUpdateDestroyAPIView):
         instance.delete()
 
     def get_queryset(self):
-        qs = Project.objects.select_related('client').prefetch_related(
+        u = self.request.user
+        qs = Business.objects.select_related('client').prefetch_related(
             'services__monthly_plans__deliverables__assigned_to',
             'services__monthly_plans__reports__uploaded_by',
         )
-        if self.request.user.role == 'admin':
+        if u.is_supervisor:  # admin OR supervisor employee
             return qs
-        if self.request.user.role == 'employee':
-            # Employees only see projects where they have assigned deliverables
+        if u.role == 'employee':
             project_ids = Deliverable.objects.filter(
-                assigned_to=self.request.user
+                assigned_to=u
             ).values_list(
-                'monthly_plan__project_service__project_id', flat=True
+                'monthly_plan__project_service__business_id', flat=True
             ).distinct()
             return qs.filter(id__in=project_ids)
-        return qs.filter(client__user=self.request.user)
+        return qs.filter(client__user=u)
 
 
-# --- Project Services ---
+# --- Business Services ---
 
 class ProjectServiceListCreateView(generics.ListCreateAPIView):
     serializer_class = ProjectServiceSerializer
@@ -159,6 +175,19 @@ class ProjectServiceListCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         if self.request.user.role == 'client':
             raise PermissionDenied('Clients cannot create services.')
+        # Auto-fill engagement (project) FK if caller passed only business — defaults
+        # to the active local-seo engagement under that business so legacy clients
+        # don't leave services orphaned from an engagement.
+        if not serializer.validated_data.get('project'):
+            biz = serializer.validated_data.get('business')
+            if biz is not None:
+                default_project = (
+                    Project.objects.filter(business=biz, status='active')
+                    .order_by('id').first()
+                    or Project.objects.filter(business=biz).order_by('id').first()
+                )
+                if default_project:
+                    serializer.validated_data['project'] = default_project
         service = serializer.save()
         template_id = self.request.data.get('template_id')
         if template_id:
@@ -193,10 +222,13 @@ class ProjectServiceListCreateView(generics.ListCreateAPIView):
         if self.request.user.role in ('admin', 'employee'):
             qs = ProjectService.objects.all()
         else:
-            qs = ProjectService.objects.filter(project__client__user=self.request.user)
-        project_id = self.request.query_params.get('project')
-        if project_id:
-            qs = qs.filter(project_id=project_id)
+            qs = ProjectService.objects.filter(business__client__user=self.request.user)
+        business_id = self.request.query_params.get('business') or self.request.query_params.get('project')
+        if business_id:
+            qs = qs.filter(business_id=business_id)
+        engagement_id = self.request.query_params.get('engagement')
+        if engagement_id:
+            qs = qs.filter(project_id=engagement_id)
         return qs
 
 
@@ -217,7 +249,7 @@ class ProjectServiceDetailView(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         if self.request.user.role in ('admin', 'employee'):
             return ProjectService.objects.all()
-        return ProjectService.objects.filter(project__client__user=self.request.user)
+        return ProjectService.objects.filter(business__client__user=self.request.user)
 
 
 # --- Monthly Plans ---
@@ -235,22 +267,25 @@ class MonthlyPlanListCreateView(generics.ListCreateAPIView):
         if self.request.user.role in ('admin', 'employee'):
             qs = MonthlyPlan.objects.all()
         else:
-            qs = MonthlyPlan.objects.filter(project_service__project__client__user=self.request.user)
+            qs = MonthlyPlan.objects.filter(project_service__business__client__user=self.request.user)
 
-        project_id = self.request.query_params.get('project')
-        if project_id:
-            qs = qs.filter(project_service__project_id=project_id)
+        business_id = self.request.query_params.get('business') or self.request.query_params.get('project')
+        if business_id:
+            qs = qs.filter(project_service__business_id=business_id)
+        engagement_id = self.request.query_params.get('engagement')
+        if engagement_id:
+            qs = qs.filter(project_service__project_id=engagement_id)
         service_id = self.request.query_params.get('service')
         if service_id:
             qs = qs.filter(project_service_id=service_id)
         client_id = self.request.query_params.get('client')
         if client_id:
-            qs = qs.filter(project_service__project__client_id=client_id)
+            qs = qs.filter(project_service__business__client_id=client_id)
         month = self.request.query_params.get('month')
         if month:
             qs = qs.filter(month=month)
         return qs.select_related(
-            'project_service__project__client'
+            'project_service__business__client'
         ).prefetch_related('deliverables__assigned_to', 'reports__uploaded_by')
 
 
@@ -261,7 +296,7 @@ class MonthlyPlanDetailView(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         if self.request.user.role in ('admin', 'employee'):
             return MonthlyPlan.objects.all()
-        return MonthlyPlan.objects.filter(project_service__project__client__user=self.request.user)
+        return MonthlyPlan.objects.filter(project_service__business__client__user=self.request.user)
 
     def perform_destroy(self, instance):
         if self.request.user.role == 'client':
@@ -307,11 +342,19 @@ class DeliverableListCreateView(generics.ListCreateAPIView):
             serializer.save()
 
     def get_queryset(self):
-        if self.request.user.role == 'employee':
-            qs = Deliverable.objects.filter(assigned_to=self.request.user)
-        elif self.request.user.role == 'client':
+        u = self.request.user
+        if u.is_supervisor:  # admin OR supervisor employee — full access for review queue
+            qs = Deliverable.objects.all()
+        elif u.role == 'employee':
+            qs = Deliverable.objects.filter(assigned_to=u)
+        elif u.role == 'client':
+            # Approval gate: clients only see client_visible items that either
+            # don't require approval or have been explicitly approved.
             qs = Deliverable.objects.filter(
-                monthly_plan__project_service__project__client__user=self.request.user
+                monthly_plan__project_service__business__client__user=u,
+                client_visible=True,
+            ).filter(
+                models.Q(requires_approval=False) | models.Q(approved_at__isnull=False)
             )
         else:
             qs = Deliverable.objects.all()
@@ -325,7 +368,19 @@ class DeliverableListCreateView(generics.ListCreateAPIView):
         assigned = self.request.query_params.get('assigned_to')
         if assigned:
             qs = qs.filter(assigned_to_id=assigned)
-        return qs.select_related('assigned_to', 'monthly_plan__project_service__project__client')
+        approval = self.request.query_params.get('approval_state')
+        if approval == 'submitted':
+            qs = qs.filter(submitted_at__isnull=False, approved_at__isnull=True, rejection_reason='')
+        elif approval == 'approved':
+            qs = qs.filter(approved_at__isnull=False)
+        elif approval == 'rejected':
+            qs = qs.filter(submitted_at__isnull=False, approved_at__isnull=True).exclude(rejection_reason='')
+        elif approval == 'draft':
+            qs = qs.filter(submitted_at__isnull=True)
+        return qs.select_related(
+            'assigned_to', 'submitted_by', 'approved_by',
+            'monthly_plan__project_service__business__client',
+        )
 
 
 class DeliverableDetailView(generics.RetrieveUpdateDestroyAPIView):
@@ -333,23 +388,103 @@ class DeliverableDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
 
     def perform_update(self, serializer):
-        if self.request.user.role == 'client':
+        u = self.request.user
+        if u.role == 'client':
             raise PermissionDenied('Clients cannot modify deliverables.')
+        if u.role == 'employee':
+            instance = self.get_object()
+            if instance.assigned_to_id != u.id:
+                raise PermissionDenied('Employees can only modify their own assigned deliverables.')
         serializer.save()
 
     def perform_destroy(self, instance):
-        if self.request.user.role == 'client':
+        u = self.request.user
+        if u.role == 'client':
             raise PermissionDenied('Clients cannot delete deliverables.')
+        if u.role == 'employee':
+            raise PermissionDenied('Employees cannot delete deliverables.')
         instance.delete()
 
     def get_queryset(self):
-        if self.request.user.role == 'employee':
-            return Deliverable.objects.filter(assigned_to=self.request.user)
-        if self.request.user.role == 'client':
+        u = self.request.user
+        if u.is_supervisor:
+            return Deliverable.objects.all()
+        if u.role == 'employee':
+            return Deliverable.objects.filter(assigned_to=u)
+        if u.role == 'client':
             return Deliverable.objects.filter(
-                monthly_plan__project_service__project__client__user=self.request.user
+                monthly_plan__project_service__business__client__user=u,
+                client_visible=True,
+            ).filter(
+                models.Q(requires_approval=False) | models.Q(approved_at__isnull=False)
             )
         return Deliverable.objects.all()
+
+
+# --- Deliverable approval workflow ---
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def deliverable_submit(request, pk):
+    """Employee (or admin/supervisor on their behalf) marks a deliverable
+    as submitted for review."""
+    u = request.user
+    try:
+        d = Deliverable.objects.get(pk=pk)
+    except Deliverable.DoesNotExist:
+        return Response({'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
+    if u.role == 'client':
+        raise PermissionDenied('Clients cannot submit deliverables.')
+    if u.role == 'employee' and d.assigned_to_id != u.id:
+        raise PermissionDenied('Employees can only submit their own assigned deliverables.')
+    from django.utils import timezone
+    d.submitted_at = timezone.now()
+    d.submitted_by = u
+    # Reopening: clear prior rejection so the supervisor sees this as a fresh
+    # submission rather than a stale rejection.
+    d.rejection_reason = ''
+    d.approved_at = None
+    d.approved_by = None
+    d.save(update_fields=['submitted_at', 'submitted_by', 'rejection_reason', 'approved_at', 'approved_by', 'updated_at'])
+    return Response(DeliverableSerializer(d, context={'request': request}).data)
+
+
+@api_view(['POST'])
+@permission_classes([IsAdminOrSupervisor])
+def deliverable_approve(request, pk):
+    """Supervisor / admin approves a submitted deliverable."""
+    try:
+        d = Deliverable.objects.get(pk=pk)
+    except Deliverable.DoesNotExist:
+        return Response({'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
+    if not d.submitted_at:
+        return Response({'detail': 'Deliverable has not been submitted for review.'}, status=status.HTTP_400_BAD_REQUEST)
+    from django.utils import timezone
+    d.approved_at = timezone.now()
+    d.approved_by = request.user
+    d.rejection_reason = ''
+    d.save(update_fields=['approved_at', 'approved_by', 'rejection_reason', 'updated_at'])
+    return Response(DeliverableSerializer(d, context={'request': request}).data)
+
+
+@api_view(['POST'])
+@permission_classes([IsAdminOrSupervisor])
+def deliverable_reject(request, pk):
+    """Supervisor / admin rejects a submitted deliverable with a reason."""
+    reason = (request.data.get('rejection_reason') or '').strip()
+    if not reason:
+        return Response({'detail': 'rejection_reason is required.'}, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        d = Deliverable.objects.get(pk=pk)
+    except Deliverable.DoesNotExist:
+        return Response({'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
+    if not d.submitted_at:
+        return Response({'detail': 'Deliverable has not been submitted for review.'}, status=status.HTTP_400_BAD_REQUEST)
+    d.rejection_reason = reason
+    d.approved_at = None
+    d.approved_by = None
+    d.save(update_fields=['rejection_reason', 'approved_at', 'approved_by', 'updated_at'])
+    return Response(DeliverableSerializer(d, context={'request': request}).data)
 
 
 # --- Service Templates ---
@@ -443,10 +578,10 @@ class BusinessCatalogListCreateView(generics.ListCreateAPIView):
         if user.role in ('admin', 'employee'):
             qs = BusinessCatalogItem.objects.all()
         else:
-            qs = BusinessCatalogItem.objects.filter(project__client__user=user)
-        project = self.request.query_params.get('project')
-        if project:
-            qs = qs.filter(project_id=project)
+            qs = BusinessCatalogItem.objects.filter(business__client__user=user)
+        business = self.request.query_params.get('business') or self.request.query_params.get('project')
+        if business:
+            qs = qs.filter(business_id=business)
         return qs
 
 
@@ -458,7 +593,7 @@ class BusinessCatalogDetailView(generics.RetrieveUpdateDestroyAPIView):
         user = self.request.user
         if user.role in ('admin', 'employee'):
             return BusinessCatalogItem.objects.all()
-        return BusinessCatalogItem.objects.filter(project__client__user=user)
+        return BusinessCatalogItem.objects.filter(business__client__user=user)
 
 
 # --- Quarterly Plans ---
@@ -477,14 +612,14 @@ class QuarterlyPlanListCreateView(generics.ListCreateAPIView):
         if user.role in ('admin', 'employee'):
             qs = QuarterlyPlan.objects.all()
         else:
-            qs = QuarterlyPlan.objects.filter(project__client__user=user)
-        project = self.request.query_params.get('project')
-        if project:
-            qs = qs.filter(project_id=project)
+            qs = QuarterlyPlan.objects.filter(business__client__user=user)
+        business = self.request.query_params.get('business') or self.request.query_params.get('project')
+        if business:
+            qs = qs.filter(business_id=business)
         status_q = self.request.query_params.get('status')
         if status_q:
             qs = qs.filter(status=status_q)
-        return qs.select_related('project__client', 'created_by').prefetch_related('monthly_plans')
+        return qs.select_related('business__client', 'project', 'created_by').prefetch_related('monthly_plans')
 
 
 class QuarterlyPlanDetailView(generics.RetrieveUpdateDestroyAPIView):
@@ -495,7 +630,7 @@ class QuarterlyPlanDetailView(generics.RetrieveUpdateDestroyAPIView):
         user = self.request.user
         if user.role in ('admin', 'employee'):
             return QuarterlyPlan.objects.all()
-        return QuarterlyPlan.objects.filter(project__client__user=user)
+        return QuarterlyPlan.objects.filter(business__client__user=user)
 
     def perform_update(self, serializer):
         if self.request.user.role == 'client':
@@ -505,6 +640,86 @@ class QuarterlyPlanDetailView(generics.RetrieveUpdateDestroyAPIView):
     def perform_destroy(self, instance):
         if self.request.user.role == 'client':
             raise PermissionDenied('Clients cannot delete quarterly plans.')
+        instance.delete()
+
+
+# --- Engagements (the new clients.Project model — sits under Business) ---
+
+class EngagementListCreateView(generics.ListCreateAPIView):
+    serializer_class = EngagementSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        qs = Project.objects.select_related('business__client')
+        if user.role == 'client':
+            qs = qs.filter(business__client__user=user)
+        elif user.role == 'employee' and not user.is_supervisor:
+            # Non-supervisor employees: only engagements where they have assigned deliverables.
+            engagement_ids = Deliverable.objects.filter(
+                assigned_to=user,
+            ).values_list('monthly_plan__project_service__project_id', flat=True).distinct()
+            qs = qs.filter(id__in=engagement_ids)
+        # ?business=<slug> or ?business=<id> filter
+        business = self.request.query_params.get('business')
+        if business:
+            if business.isdigit():
+                qs = qs.filter(business_id=business)
+            else:
+                qs = qs.filter(business__slug=business)
+        # ?status= filter
+        status_q = self.request.query_params.get('status')
+        if status_q:
+            qs = qs.filter(status=status_q)
+        return qs.order_by('status', '-created_at')
+
+    def perform_create(self, serializer):
+        if self.request.user.role == 'client':
+            raise PermissionDenied('Clients cannot create engagements.')
+        if self.request.user.role == 'employee' and not self.request.user.is_supervisor:
+            raise PermissionDenied('Only supervisors and admins can create engagements.')
+        serializer.save(created_by=self.request.user)
+
+
+class EngagementDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = EngagementSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        # Support /engagements/by-slug/<business>/<engagement>/ lookups.
+        # Use the role-scoped get_queryset so clients only see their own.
+        if 'business_slug' in self.kwargs and 'project_slug' in self.kwargs:
+            qs = self.get_queryset()
+            obj = qs.filter(
+                business__slug=self.kwargs['business_slug'],
+                slug=self.kwargs['project_slug'],
+            ).first()
+            if not obj:
+                from django.http import Http404
+                raise Http404('Engagement not found.')
+            self.check_object_permissions(self.request, obj)
+            return obj
+        return super().get_object()
+
+    def get_queryset(self):
+        user = self.request.user
+        qs = Project.objects.select_related('business__client')
+        if user.role == 'client':
+            qs = qs.filter(business__client__user=user)
+        return qs
+
+    def perform_update(self, serializer):
+        if self.request.user.role == 'client':
+            raise PermissionDenied('Clients cannot modify engagements.')
+        if self.request.user.role == 'employee' and not self.request.user.is_supervisor:
+            raise PermissionDenied('Only supervisors and admins can modify engagements.')
+        serializer.save()
+
+    def perform_destroy(self, instance):
+        if self.request.user.role == 'client':
+            raise PermissionDenied('Clients cannot delete engagements.')
+        if self.request.user.role == 'employee' and not self.request.user.is_supervisor:
+            raise PermissionDenied('Only supervisors and admins can delete engagements.')
         instance.delete()
 
 

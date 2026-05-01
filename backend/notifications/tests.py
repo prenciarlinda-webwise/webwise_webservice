@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from rest_framework.test import APIClient
-from clients.models import ClientProfile, Project
+from clients.models import ClientProfile, Business
 from .models import Notification
 
 User = get_user_model()
@@ -16,7 +16,7 @@ class BaseTestCase(TestCase):
         self.cli = User.objects.create_user(username='cli', password='Client12!', role='client')
 
         self.profile = ClientProfile.objects.create(user=self.cli, business_name='Test Biz')
-        self.project = Project.objects.create(client=self.profile, name='Test SEO')
+        self.project = Business.objects.create(client=self.profile, name='Test SEO')
 
     def auth(self, username, password):
         api = APIClient()

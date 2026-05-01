@@ -4,8 +4,9 @@ from django.utils import timezone
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from accounts.permissions import IsSupervisor
 
-from clients.models import Project
+from clients.models import Business
 from apps.keywords.models import Keyword, KeywordStatus
 from apps.keywords.services import refresh_keyword_metrics
 
@@ -20,13 +21,15 @@ logger = logging.getLogger(__name__)
 
 
 class DiscoveryRunListView(generics.ListAPIView):
+    permission_classes = [IsSupervisor]
     serializer_class = DiscoveryRunSerializer
 
     def get_queryset(self):
-        return DiscoveryRun.objects.filter(project__slug=self.kwargs["project_slug"])
+        return DiscoveryRun.objects.filter(business__slug=self.kwargs["business_slug"])
 
 
 class DiscoveryResultListView(generics.ListAPIView):
+    permission_classes = [IsSupervisor]
     serializer_class = DiscoveryResultSerializer
     filterset_fields = ["is_new", "is_interesting", "is_promoted", "source"]
     search_fields = ["keyword_text"]
@@ -35,16 +38,17 @@ class DiscoveryResultListView(generics.ListAPIView):
     def get_queryset(self):
         return DiscoveryResult.objects.filter(
             run_id=self.kwargs["run_pk"],
-            project__slug=self.kwargs["project_slug"],
+            business__slug=self.kwargs["business_slug"],
         )
 
 
 class PromoteKeywordsView(APIView):
-    def post(self, request, project_slug):
+    permission_classes = [IsSupervisor]
+    def post(self, request, business_slug):
         serializer = PromoteKeywordsSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        project = Project.objects.get(slug=project_slug)
+        project = Business.objects.get(slug=business_slug)
         keyword_texts = serializer.validated_data["keyword_texts"]
         location_code = serializer.validated_data["location_code"]
         now = timezone.now()
@@ -53,7 +57,7 @@ class PromoteKeywordsView(APIView):
 
         # Get the latest discovery results for these keywords
         latest_run = (
-            DiscoveryRun.objects.filter(project=project, status="completed")
+            DiscoveryRun.objects.filter(business=project, status="completed")
             .order_by("-run_date")
             .first()
         )
@@ -88,7 +92,7 @@ class PromoteKeywordsView(APIView):
             # multiple cities without colliding. Using the explicit location_code
             # also avoids the NULL-vs-NULL uniqueness gotcha from earlier.
             keyword, was_created = Keyword.objects.get_or_create(
-                project=project,
+                business=project,
                 keyword_text=text,
                 location_code=location_code,
                 defaults=defaults,
@@ -118,7 +122,7 @@ class PromoteKeywordsView(APIView):
         # have richer data than the per-domain Labs ranked-keyword call returns.
         try:
             missing = Keyword.objects.filter(
-                project=project,
+                business=project,
                 keyword_text__in=keyword_texts,
                 location_code=location_code,
                 search_volume__isnull=True,
@@ -126,6 +130,6 @@ class PromoteKeywordsView(APIView):
             if missing.exists():
                 refresh_keyword_metrics(list(missing), project)
         except Exception:
-            logger.exception("Promotion metrics backfill failed for project=%s", project.domain)
+            logger.exception("Promotion metrics backfill failed for business=%s", project.domain)
 
         return Response({"created": created, "total": len(keyword_texts)}, status=status.HTTP_200_OK)
