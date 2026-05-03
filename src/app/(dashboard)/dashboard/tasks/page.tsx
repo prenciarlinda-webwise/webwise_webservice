@@ -388,7 +388,11 @@ export default function EmployeeTasksPage() {
               </thead>
               <tbody>
                 {filteredTodo.map(d => (
-                  <tr key={d.id} className="border-b border-border last:border-0 hover:bg-bg-secondary/30">
+                  <tr
+                    key={d.id}
+                    onClick={() => openEditTask(d)}
+                    className="border-b border-border last:border-0 hover:bg-bg-secondary/30 cursor-pointer"
+                  >
                     <td className="px-6 py-3">
                       <p className="text-sm font-medium">{d.plan.client_name}</p>
                       <p className="text-xs text-text-muted">{d.plan.service_name}</p>
@@ -398,13 +402,12 @@ export default function EmployeeTasksPage() {
                         {d.category_display}
                       </span>
                     </td>
-                    <td className="px-6 py-3 text-sm">
-                      <button onClick={() => openEditTask(d)} className="text-left hover:text-accent hover:underline">{d.title}</button>
-                    </td>
+                    <td className="px-6 py-3 text-sm">{d.title}</td>
                     <td className="px-6 py-3">
                       <select
                         value={d.status}
                         onChange={e => updateStatus(d.id, e.target.value)}
+                        onClick={e => e.stopPropagation()}
                         className={`text-xs font-medium border-0 rounded-full px-2.5 py-1 cursor-pointer ${
                           d.status === 'in_progress' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'
                         }`}
@@ -415,7 +418,7 @@ export default function EmployeeTasksPage() {
                         <option value="published">Published</option>
                       </select>
                     </td>
-                    <td className="px-6 py-3">
+                    <td className="px-6 py-3" onClick={e => e.stopPropagation()}>
                       <div className="flex gap-2">
                         {d.link ? (
                           <a href={d.link} target="_blank" rel="noopener noreferrer" className="text-xs text-accent hover:underline">Draft</a>
@@ -433,7 +436,7 @@ export default function EmployeeTasksPage() {
                     <td className={`px-6 py-3 text-xs font-medium ${d.logged_hours && d.estimated_minutes && Number(d.logged_hours) * 60 > d.estimated_minutes ? 'text-red-500' : 'text-text-muted'}`}>{d.logged_hours ? (() => { const h = Number(d.logged_hours); const hrs = Math.floor(h); const mins = Math.round((h - hrs) * 60); return hrs > 0 ? `${hrs}h ${mins > 0 ? `${mins}m` : ''}` : `${mins}m` })() : '—'}</td>
                     <td className="px-6 py-3 text-xs text-text-secondary">{d.due_date || '—'}</td>
                     <td className="px-6 py-3">
-                      <button onClick={() => openEditTask(d)} className="text-text-muted hover:text-accent" title="Edit task"><Pencil size={13} /></button>
+                      <Pencil size={13} className="text-text-muted" />
                     </td>
                   </tr>
                 ))}

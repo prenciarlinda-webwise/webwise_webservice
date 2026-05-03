@@ -14,18 +14,33 @@ interface GBPMetrics {
   id: number
   business: number
   month: string
+  // Absolute view counts (source of truth, from BrightLocal)
+  search_mobile_views: number
+  search_desktop_views: number
+  maps_mobile_views: number
+  maps_desktop_views: number
+  // Derived
+  profile_views: number
+  profile_views_change_pct: string | null
+  total_interactions: number
+  interactions_change_pct: string | null
+  search_mobile_pct: string
+  search_desktop_pct: string
+  maps_mobile_pct: string
+  maps_desktop_pct: string
+  // Interactions (absolute)
   calls: number
   chat_clicks: number
   bookings: number
   direction_clicks: number
   website_clicks: number
-  total_interactions: number
-  profile_views: number
+  // Manual entry
   photo_count: number
   review_count: number
   review_avg_rating: string
   new_reviews: number
   posts_published: number
+  gbp_store_code: string
   notes: string
 }
 
@@ -84,6 +99,8 @@ export default function EventsDetailPage({ params }: { params: Promise<{ busines
 
   const filteredGbp = gbp.filter(m => !filterMonth || m.month.startsWith(filterMonth))
   const filteredGa4 = ga4.filter(m => !filterMonth || m.month.startsWith(filterMonth))
+  // Ascending-month copy for charts (the table sorts descending separately).
+  const gbpAsc = [...filteredGbp].sort((a, b) => a.month.localeCompare(b.month))
 
   const openGbp = (m?: GBPMetrics) => {
     setGbpForm(m ? { ...m } : { month: new Date().toISOString().slice(0, 7) + '-01' })
@@ -186,46 +203,80 @@ export default function EventsDetailPage({ params }: { params: Promise<{ busines
             </button>
           </div>
           {filteredGbp.length === 0 ? (
-            <p className="text-sm text-text-muted">No GBP records {filterMonth ? 'for this month' : 'yet'}.</p>
+            <p className="text-sm text-text-muted">No GBP records {filterMonth ? 'for this month' : 'yet'}. Run <code className="text-xs">manage.py import_brightlocal_gbp</code> to load BrightLocal CSVs.</p>
           ) : (
-            <div className="bg-white rounded-xl border border-border overflow-hidden">
-              <table className="w-full text-sm">
-                <thead className="bg-bg-secondary text-xs text-text-muted">
-                  <tr>
-                    <th className="px-4 py-3 text-left">Month</th>
-                    <th className="px-4 py-3 text-right">Calls</th>
-                    <th className="px-4 py-3 text-right">Directions</th>
-                    <th className="px-4 py-3 text-right">Website clicks</th>
-                    <th className="px-4 py-3 text-right">Profile views</th>
-                    <th className="px-4 py-3 text-right">Total interactions</th>
-                    <th className="px-4 py-3 text-right">Reviews</th>
-                    <th className="px-4 py-3"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredGbp.sort((a, b) => b.month.localeCompare(a.month)).map(m => (
-                    <tr key={m.id} className="border-t border-border">
-                      <td className="px-4 py-3 font-medium">{new Date(m.month).toLocaleDateString(undefined, { year: 'numeric', month: 'long' })}</td>
-                      <td className="px-4 py-3 text-right">{m.calls}</td>
-                      <td className="px-4 py-3 text-right">{m.direction_clicks}</td>
-                      <td className="px-4 py-3 text-right">{m.website_clicks}</td>
-                      <td className="px-4 py-3 text-right">{m.profile_views}</td>
-                      <td className="px-4 py-3 text-right font-semibold">{m.total_interactions}</td>
-                      <td className="px-4 py-3 text-right">{m.review_count} ({m.review_avg_rating}⭐)</td>
-                      <td className="px-4 py-3 flex justify-end gap-2">
-                        <button onClick={() => openGbp(m)} className="text-text-muted hover:text-text-primary"><Edit2 size={14} /></button>
-                        <button onClick={() => deleteGbp(m.id)} className="text-red-400 hover:text-red-600"><Trash2 size={14} /></button>
-                      </td>
+            <>
+              {/* === Monthly table — absolute counts + exact %change === */}
+              <div className="bg-white rounded-xl border border-border overflow-hidden overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="bg-bg-secondary text-xs text-text-muted whitespace-nowrap">
+                    <tr>
+                      <th className="px-4 py-3 text-left">Month</th>
+                      <th className="px-4 py-3 text-right" title="Sum of search + maps · mobile + desktop">Profile views</th>
+                      <th className="px-4 py-3 text-right">Δ %</th>
+                      <th className="px-4 py-3 text-right" title="Search mobile + desktop">Search</th>
+                      <th className="px-4 py-3 text-right" title="Maps mobile + desktop">Maps</th>
+                      <th className="px-4 py-3 text-right">Calls</th>
+                      <th className="px-4 py-3 text-right">Directions</th>
+                      <th className="px-4 py-3 text-right">Website</th>
+                      <th className="px-4 py-3 text-right">Messages</th>
+                      <th className="px-4 py-3 text-right" title="Sum of all interactions">Interactions</th>
+                      <th className="px-4 py-3 text-right">Δ %</th>
+                      <th className="px-4 py-3"></th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {filteredGbp.sort((a, b) => b.month.localeCompare(a.month)).map(m => (
+                      <tr key={m.id} className="border-t border-border">
+                        <td className="px-4 py-3 font-medium whitespace-nowrap">{new Date(m.month).toLocaleDateString(undefined, { year: 'numeric', month: 'long' })}</td>
+                        <td className="px-4 py-3 text-right font-semibold tabular-nums">{m.profile_views}</td>
+                        <td className="px-4 py-3 text-right tabular-nums"><PctChange value={m.profile_views_change_pct} /></td>
+                        <td className="px-4 py-3 text-right tabular-nums">{m.search_mobile_views + m.search_desktop_views}</td>
+                        <td className="px-4 py-3 text-right tabular-nums">{m.maps_mobile_views + m.maps_desktop_views}</td>
+                        <td className="px-4 py-3 text-right tabular-nums">{m.calls}</td>
+                        <td className="px-4 py-3 text-right tabular-nums">{m.direction_clicks}</td>
+                        <td className="px-4 py-3 text-right tabular-nums">{m.website_clicks}</td>
+                        <td className="px-4 py-3 text-right tabular-nums">{m.chat_clicks}</td>
+                        <td className="px-4 py-3 text-right font-semibold tabular-nums">{m.total_interactions}</td>
+                        <td className="px-4 py-3 text-right tabular-nums"><PctChange value={m.interactions_change_pct} /></td>
+                        <td className="px-4 py-3 flex justify-end gap-2">
+                          <button onClick={() => openGbp(m)} className="text-text-muted hover:text-text-primary"><Edit2 size={14} /></button>
+                          <button onClick={() => deleteGbp(m.id)} className="text-red-400 hover:text-red-600"><Trash2 size={14} /></button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* === Charts: trends + platform mix === */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <MultiLineChart
+                  label="Profile views — Search vs Maps"
+                  series={[
+                    { name: 'Search (mobile+desktop)', color: '#3b82f6',
+                      points: gbpAsc.map(m => ({ x: m.month.slice(0, 7), y: m.search_mobile_views + m.search_desktop_views })) },
+                    { name: 'Maps (mobile+desktop)', color: '#f97316',
+                      points: gbpAsc.map(m => ({ x: m.month.slice(0, 7), y: m.maps_mobile_views + m.maps_desktop_views })) },
+                  ]}
+                />
+                <MultiLineChart
+                  label="Interactions breakdown"
+                  series={[
+                    { name: 'Calls',     color: '#22c55e', points: gbpAsc.map(m => ({ x: m.month.slice(0, 7), y: m.calls })) },
+                    { name: 'Directions',color: '#a855f7', points: gbpAsc.map(m => ({ x: m.month.slice(0, 7), y: m.direction_clicks })) },
+                    { name: 'Website',   color: '#3b82f6', points: gbpAsc.map(m => ({ x: m.month.slice(0, 7), y: m.website_clicks })) },
+                    { name: 'Messages',  color: '#f97316', points: gbpAsc.map(m => ({ x: m.month.slice(0, 7), y: m.chat_clicks })) },
+                  ]}
+                />
+                <Bars
+                  label="Total profile views (per month)"
+                  data={gbpAsc.map(m => ({ x: m.month.slice(0, 7), y: m.profile_views }))}
+                />
+                <PlatformMix label="Platform mix (latest month)" rows={gbpAsc.length ? [gbpAsc[gbpAsc.length - 1]] : []} />
+              </div>
+            </>
           )}
-          <Bars
-            label="Total GBP interactions"
-            data={filteredGbp.sort((a, b) => a.month.localeCompare(b.month)).map(m => ({ x: m.month.slice(0, 7), y: m.total_interactions }))}
-          />
         </div>
       )}
 
@@ -302,19 +353,43 @@ export default function EventsDetailPage({ params }: { params: Promise<{ busines
 
       <Modal open={showGbpForm} onClose={() => setShowGbpForm(false)} title={gbpForm.id ? 'Edit GBP record' : 'Add GBP record'} wide>
         <form onSubmit={saveGbp} className="space-y-4">
+          <p className="text-xs text-text-muted">
+            Profile views, total interactions, the four platform percentages, and prior-month %change
+            are all derived server-side from the absolute counts below — you can&apos;t enter them
+            directly. They update on save.
+          </p>
           <div className="grid grid-cols-2 gap-4">
             <Field label="Month *" type="date" value={(gbpForm.month as string) ?? ''} onChange={v => setGbpForm(f => ({ ...f, month: v }))} required />
-            <Field label="Calls" type="number" value={String(gbpForm.calls ?? 0)} onChange={v => setGbpForm(f => ({ ...f, calls: Number(v) }))} />
-            <Field label="Direction clicks" type="number" value={String(gbpForm.direction_clicks ?? 0)} onChange={v => setGbpForm(f => ({ ...f, direction_clicks: Number(v) }))} />
-            <Field label="Website clicks" type="number" value={String(gbpForm.website_clicks ?? 0)} onChange={v => setGbpForm(f => ({ ...f, website_clicks: Number(v) }))} />
-            <Field label="Bookings" type="number" value={String(gbpForm.bookings ?? 0)} onChange={v => setGbpForm(f => ({ ...f, bookings: Number(v) }))} />
-            <Field label="Chat clicks" type="number" value={String(gbpForm.chat_clicks ?? 0)} onChange={v => setGbpForm(f => ({ ...f, chat_clicks: Number(v) }))} />
-            <Field label="Total interactions" type="number" value={String(gbpForm.total_interactions ?? 0)} onChange={v => setGbpForm(f => ({ ...f, total_interactions: Number(v) }))} />
-            <Field label="Profile views" type="number" value={String(gbpForm.profile_views ?? 0)} onChange={v => setGbpForm(f => ({ ...f, profile_views: Number(v) }))} />
-            <Field label="Review count" type="number" value={String(gbpForm.review_count ?? 0)} onChange={v => setGbpForm(f => ({ ...f, review_count: Number(v) }))} />
-            <Field label="Avg rating" type="number" value={String(gbpForm.review_avg_rating ?? '0')} onChange={v => setGbpForm(f => ({ ...f, review_avg_rating: v }))} />
-            <Field label="New reviews" type="number" value={String(gbpForm.new_reviews ?? 0)} onChange={v => setGbpForm(f => ({ ...f, new_reviews: Number(v) }))} />
-            <Field label="Posts published" type="number" value={String(gbpForm.posts_published ?? 0)} onChange={v => setGbpForm(f => ({ ...f, posts_published: Number(v) }))} />
+            <Field label="GBP store code" value={String(gbpForm.gbp_store_code ?? '')} onChange={v => setGbpForm(f => ({ ...f, gbp_store_code: v }))} />
+          </div>
+          <div>
+            <p className="text-xs font-semibold text-text-muted uppercase tracking-wide mb-2">Profile views (absolute)</p>
+            <div className="grid grid-cols-2 gap-4">
+              <Field label="Search · Mobile views" type="number" value={String(gbpForm.search_mobile_views ?? 0)} onChange={v => setGbpForm(f => ({ ...f, search_mobile_views: Number(v) }))} />
+              <Field label="Search · Desktop views" type="number" value={String(gbpForm.search_desktop_views ?? 0)} onChange={v => setGbpForm(f => ({ ...f, search_desktop_views: Number(v) }))} />
+              <Field label="Maps · Mobile views" type="number" value={String(gbpForm.maps_mobile_views ?? 0)} onChange={v => setGbpForm(f => ({ ...f, maps_mobile_views: Number(v) }))} />
+              <Field label="Maps · Desktop views" type="number" value={String(gbpForm.maps_desktop_views ?? 0)} onChange={v => setGbpForm(f => ({ ...f, maps_desktop_views: Number(v) }))} />
+            </div>
+          </div>
+          <div>
+            <p className="text-xs font-semibold text-text-muted uppercase tracking-wide mb-2">Interactions</p>
+            <div className="grid grid-cols-2 gap-4">
+              <Field label="Calls" type="number" value={String(gbpForm.calls ?? 0)} onChange={v => setGbpForm(f => ({ ...f, calls: Number(v) }))} />
+              <Field label="Directions" type="number" value={String(gbpForm.direction_clicks ?? 0)} onChange={v => setGbpForm(f => ({ ...f, direction_clicks: Number(v) }))} />
+              <Field label="Website clicks" type="number" value={String(gbpForm.website_clicks ?? 0)} onChange={v => setGbpForm(f => ({ ...f, website_clicks: Number(v) }))} />
+              <Field label="Messages" type="number" value={String(gbpForm.chat_clicks ?? 0)} onChange={v => setGbpForm(f => ({ ...f, chat_clicks: Number(v) }))} />
+              <Field label="Bookings" type="number" value={String(gbpForm.bookings ?? 0)} onChange={v => setGbpForm(f => ({ ...f, bookings: Number(v) }))} />
+            </div>
+          </div>
+          <div>
+            <p className="text-xs font-semibold text-text-muted uppercase tracking-wide mb-2">Reviews & content</p>
+            <div className="grid grid-cols-2 gap-4">
+              <Field label="Review count" type="number" value={String(gbpForm.review_count ?? 0)} onChange={v => setGbpForm(f => ({ ...f, review_count: Number(v) }))} />
+              <Field label="Avg rating" type="number" value={String(gbpForm.review_avg_rating ?? '0')} onChange={v => setGbpForm(f => ({ ...f, review_avg_rating: v }))} />
+              <Field label="New reviews" type="number" value={String(gbpForm.new_reviews ?? 0)} onChange={v => setGbpForm(f => ({ ...f, new_reviews: Number(v) }))} />
+              <Field label="Photo count" type="number" value={String(gbpForm.photo_count ?? 0)} onChange={v => setGbpForm(f => ({ ...f, photo_count: Number(v) }))} />
+              <Field label="Posts published" type="number" value={String(gbpForm.posts_published ?? 0)} onChange={v => setGbpForm(f => ({ ...f, posts_published: Number(v) }))} />
+            </div>
           </div>
           <div className="flex justify-end gap-3 pt-2">
             <button type="button" onClick={() => setShowGbpForm(false)} className="px-4 py-2 text-sm">Cancel</button>
@@ -380,6 +455,140 @@ function Bars({ label, data }: { label: string; data: Array<{ x: string; y: numb
               title={`${d.x}: ${d.y}`}
             />
             <span className="text-xs text-text-muted">{d.x.slice(2)}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+/**
+ * Renders a backend-supplied %change Decimal string with green/red coloring
+ * and a + sign when positive. Null/undefined renders an em-dash. Backend is
+ * the source of truth for accuracy — we never recompute here.
+ */
+function PctChange({ value }: { value: string | null | undefined }) {
+  if (value == null || value === '') return <span className="text-text-muted">—</span>
+  const n = Number(value)
+  if (Number.isNaN(n)) return <span className="text-text-muted">—</span>
+  if (n === 0) return <span className="text-text-muted">0.0%</span>
+  const cls = n > 0 ? 'text-green-600' : 'text-red-600'
+  const sign = n > 0 ? '+' : ''
+  return <span className={cls}>{sign}{n.toFixed(1)}%</span>
+}
+
+interface SeriesPoint { x: string; y: number }
+interface ChartSeries { name: string; color: string; points: SeriesPoint[] }
+
+/**
+ * Multi-line monthly trend chart. Months are sorted ascending and treated
+ * as a categorical x-axis (each month occupies the same horizontal slot).
+ * SVG sized via container width so it stretches the full card.
+ */
+function MultiLineChart({ label, series }: { label: string; series: ChartSeries[] }) {
+  if (!series.length || !series[0].points.length) return null
+  const months = series[0].points.map(p => p.x)
+  const allValues = series.flatMap(s => s.points.map(p => p.y))
+  const maxY = Math.max(...allValues, 1)
+  const w = 520, h = 220, padX = 32, padY = 14, padBottom = 28
+  const innerW = w - 2 * padX
+  const innerH = h - padY - padBottom
+  const xAt = (i: number) => padX + (months.length === 1 ? innerW / 2 : (i / (months.length - 1)) * innerW)
+  const yAt = (v: number) => padY + innerH - (v / maxY) * innerH
+
+  return (
+    <div className="bg-white rounded-xl border border-border p-6">
+      <h3 className="text-sm font-medium mb-3">{label}</h3>
+      <svg viewBox={`0 0 ${w} ${h}`} className="w-full h-56">
+        {/* y-axis gridlines + labels */}
+        {[0, 0.25, 0.5, 0.75, 1].map(t => {
+          const v = Math.round(maxY * t)
+          return (
+            <g key={t}>
+              <line x1={padX} y1={yAt(v)} x2={w - padX} y2={yAt(v)} stroke="#e5e7eb" strokeDasharray="2,2" />
+              <text x={padX - 6} y={yAt(v) + 3} textAnchor="end" fontSize="10" fill="#94a3b8">{v}</text>
+            </g>
+          )
+        })}
+        {/* x-axis labels */}
+        {months.map((m, i) => (
+          <text key={m} x={xAt(i)} y={h - 8} textAnchor="middle" fontSize="10" fill="#94a3b8">{m.slice(2)}</text>
+        ))}
+        {/* series */}
+        {series.map(s => (
+          <g key={s.name}>
+            {s.points.length >= 2 && (
+              <polyline
+                points={s.points.map((p, i) => `${xAt(i)},${yAt(p.y)}`).join(' ')}
+                fill="none" stroke={s.color} strokeWidth="2"
+              />
+            )}
+            {s.points.map((p, i) => (
+              <circle key={i} cx={xAt(i)} cy={yAt(p.y)} r="3" fill={s.color}>
+                <title>{`${p.x} · ${s.name}: ${p.y}`}</title>
+              </circle>
+            ))}
+          </g>
+        ))}
+      </svg>
+      <div className="flex flex-wrap gap-3 text-xs justify-center mt-1">
+        {series.map(s => (
+          <span key={s.name} className="flex items-center gap-1.5">
+            <span className="inline-block w-3 h-0.5" style={{ background: s.color }} />
+            {s.name}
+          </span>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+/**
+ * Single-row stacked horizontal bar — shows what % of the latest month's
+ * profile views came from each platform/device combination. Source of truth
+ * is the absolute view counts (not the *_pct fields), so this stays in sync
+ * with the table even if the DB has stale percentages.
+ */
+function PlatformMix({ label, rows }: { label: string; rows: GBPMetrics[] }) {
+  if (!rows.length) return null
+  const m = rows[0]
+  const total = m.search_mobile_views + m.search_desktop_views + m.maps_mobile_views + m.maps_desktop_views
+  if (!total) return (
+    <div className="bg-white rounded-xl border border-border p-6">
+      <h3 className="text-sm font-medium mb-3">{label}</h3>
+      <p className="text-sm text-text-muted">No view data for this month.</p>
+    </div>
+  )
+  const segments = [
+    { name: 'Search · Mobile',  value: m.search_mobile_views,  color: '#1d4ed8' },
+    { name: 'Search · Desktop', value: m.search_desktop_views, color: '#3b82f6' },
+    { name: 'Maps · Mobile',    value: m.maps_mobile_views,    color: '#c2410c' },
+    { name: 'Maps · Desktop',   value: m.maps_desktop_views,   color: '#f97316' },
+  ]
+  return (
+    <div className="bg-white rounded-xl border border-border p-6">
+      <h3 className="text-sm font-medium mb-3">
+        {label} <span className="text-xs text-text-muted font-normal">· {new Date(m.month).toLocaleDateString(undefined, { month: 'short', year: 'numeric' })}</span>
+      </h3>
+      <div className="flex h-3 rounded overflow-hidden mb-4">
+        {segments.map(s => s.value > 0 && (
+          <div
+            key={s.name}
+            style={{ width: `${(s.value / total) * 100}%`, background: s.color }}
+            title={`${s.name}: ${s.value} (${((s.value / total) * 100).toFixed(1)}%)`}
+          />
+        ))}
+      </div>
+      <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs">
+        {segments.map(s => (
+          <div key={s.name} className="flex items-center justify-between gap-2">
+            <span className="flex items-center gap-1.5">
+              <span className="inline-block w-2.5 h-2.5 rounded-sm" style={{ background: s.color }} />
+              {s.name}
+            </span>
+            <span className="tabular-nums">
+              {s.value} <span className="text-text-muted">· {total ? ((s.value / total) * 100).toFixed(1) : '0.0'}%</span>
+            </span>
           </div>
         ))}
       </div>

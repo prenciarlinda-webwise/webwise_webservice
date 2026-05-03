@@ -62,9 +62,10 @@ class CompetitorKeywordOverlap(models.Model):
 
     class Meta:
         ordering = ["-search_volume"]
+        unique_together = [("competitor", "date", "keyword_text")]
         indexes = [
             models.Index(fields=["business", "competitor", "-date"]),
         ]
 
     def __str__(self):
-        return f'"{self.keyword_text}" project=#{self.client_rank} vs {self.competitor.domain}=#{self.competitor_rank}'
+        return f'"{self.keyword_text}" client=#{self.client_rank} vs {self.competitor.domain}=#{self.competitor_rank}'

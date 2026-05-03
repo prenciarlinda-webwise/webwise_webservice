@@ -1,18 +1,29 @@
 import logging
+import threading
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date
 
 from celery import shared_task
 from django.conf import settings
+from django.db import connection as default_db_connection
 
 logger = logging.getLogger(__name__)
 
+# Per-keyword scans are I/O-bound on DataforSEO API calls (~10s each), so
+# fan them out across a thread pool. 4 workers gives ~4x speedup without
+# stressing SQLite (which serializes writes) or DataforSEO rate limits.
+SCAN_WORKERS = 4
 
-@shared_task
-def weekly_rank_tracking(project_id=None):
+
+@shared_task(bind=True)
+def weekly_rank_tracking(self, project_id=None):
     """Check SERP + Maps rankings for tracked keywords.
 
+    Emits Celery PROGRESS state after each keyword so the polling endpoint
+    can show "Checking 12 / 40" in real time.
+
     Args:
-        project_id: Optional — if provided, only check this project.
+        project_id: Optional — if provided, only check this business.
                    Otherwise check all active clients.
     """
     from clients.models import Business
@@ -31,56 +42,96 @@ def weekly_rank_tracking(project_id=None):
     screenshot_service = ScreenshotService(api_client)
 
     today = date.today()
-    clients = Business.objects.filter(status='active')
+    clients = list(Business.objects.filter(status='active'))
     if project_id:
-        clients = clients.filter(id=project_id)
+        clients = [b for b in clients if b.id == project_id]
 
-    total_checked = 0
+    # Pre-compute total tracked keywords across all selected businesses so the
+    # progress meta has a stable denominator for the UI ("12 of 40").
+    total = sum(
+        Keyword.objects.filter(business=b, status=KeywordStatus.TRACKED).count()
+        for b in clients
+    )
+
+    counts = {"checked": 0, "failed": 0}
     api_errors: list[str] = []  # surface DataForSEO failures (balance, auth, quota) to caller
+    state_lock = threading.Lock()
 
-    for project in clients:
-        keywords = Keyword.objects.filter(
-            business=project,
+    def _emit(current_kw: str, current_biz: str):
+        try:
+            self.update_state(state='PROGRESS', meta={
+                'checked': counts["checked"],
+                'failed': counts["failed"],
+                'total': total,
+                'current_keyword': current_kw,
+                'current_business': current_biz,
+                'api_errors': list(api_errors),
+            })
+        except Exception:
+            # update_state failure must never crash the task — just log.
+            logger.warning("update_state failed (non-fatal)")
+
+    for business in clients:
+        keywords = list(Keyword.objects.filter(
+            business=business,
             status=KeywordStatus.TRACKED,
-        )
+        ))
+        if not keywords:
+            continue
 
-        for keyword in keywords:
+        def _scan_one(keyword, business=business):
             try:
                 _check_keyword_rankings(
                     keyword=keyword,
-                    business=project,
+                    business=business,
                     today=today,
                     serp_service=serp_service,
                     maps_service=maps_service,
                     screenshot_service=screenshot_service,
                     local_finder_service=local_finder_service,
                 )
-                total_checked += 1
+                with state_lock:
+                    counts["checked"] += 1
+                    _emit(keyword.keyword_text, business.domain)
             except Exception as e:
                 err_str = str(e)
-                # Capture meaningful API errors so the polling endpoint can
-                # show "Insufficient balance" / "Auth failed" instead of a
-                # vague success when nothing actually updated.
-                if "DataForSEO API error" in err_str or "Payment Required" in err_str:
-                    if err_str not in api_errors:
+                with state_lock:
+                    counts["failed"] += 1
+                    # Capture meaningful API errors so the polling endpoint can
+                    # show "Insufficient balance" / "Auth failed" instead of a
+                    # vague success when nothing actually updated.
+                    if ("DataForSEO API error" in err_str or "Payment Required" in err_str) and err_str not in api_errors:
                         api_errors.append(err_str)
+                    _emit(keyword.keyword_text, business.domain)
                 logger.exception(
                     "Failed to check rankings for keyword=%s business=%s",
-                    keyword.keyword_text,
-                    project.domain,
+                    keyword.keyword_text, business.domain,
                 )
+            finally:
+                # Each thread gets its own DB connection — release it so we
+                # don't leak (Django uses thread-local connection pools).
+                default_db_connection.close()
+
+        with ThreadPoolExecutor(max_workers=SCAN_WORKERS) as pool:
+            list(pool.map(_scan_one, keywords))
 
         try:
-            refresh_missing_for_client(project)
+            refresh_missing_for_client(business)
         except Exception as e:
             err_str = str(e)
-            if "DataForSEO API error" in err_str:
-                if err_str not in api_errors:
-                    api_errors.append(err_str)
-            logger.exception("Metrics refresh failed for business=%s", project.domain)
+            if "DataForSEO API error" in err_str and err_str not in api_errors:
+                api_errors.append(err_str)
+            logger.exception("Metrics refresh failed for business=%s", business.domain)
+
+    total_checked = counts["checked"]
+    failures = counts["failed"]
 
     logger.info("Rank tracking complete: %d keywords checked", total_checked)
-    result = {"keywords_checked": total_checked}
+    result = {
+        "keywords_checked": total_checked,
+        "keywords_failed": failures,
+        "total": total,
+    }
     if api_errors:
         # Returned via Celery's result backend → polling endpoint shows it.
         result["api_errors"] = api_errors
@@ -88,12 +139,12 @@ def weekly_rank_tracking(project_id=None):
     return result
 
 
-def _store_competitor_positions(project, keyword, task_result, serp_service, today):
+def _store_competitor_positions(business, keyword, task_result, serp_service, today):
     """Extract competitor positions from full SERP data and store in CompetitorKeywordOverlap."""
     from apps.competitors.models import Competitor, CompetitorKeywordOverlap
     from urllib.parse import urlparse
 
-    competitors = Competitor.objects.filter(business=project)
+    competitors = Competitor.objects.filter(business=business)
     if not competitors.exists():
         return
 
@@ -110,7 +161,7 @@ def _store_competitor_positions(project, keyword, task_result, serp_service, tod
     for clean_domain, comp in comp_lookup.items():
         rank = all_positions.get(clean_domain)
         CompetitorKeywordOverlap.objects.update_or_create(
-            business=project,
+            business=business,
             competitor=comp,
             date=today,
             keyword_text=keyword.keyword_text,
@@ -122,7 +173,7 @@ def _store_competitor_positions(project, keyword, task_result, serp_service, tod
         )
 
 
-def _check_keyword_rankings(keyword, project, today, serp_service, maps_service, screenshot_service=None, local_finder_service=None):
+def _check_keyword_rankings(keyword, business, today, serp_service, maps_service, screenshot_service=None, local_finder_service=None):
     """Check organic (and optionally Maps/Local Finder) rankings for a single keyword."""
     from apps.rankings.models import LocalFinderResult, MapsRankResult, SERPResult
 
@@ -130,7 +181,7 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
     language_code = keyword.effective_language_code
 
     # Organic SERP check
-    if project.track_organic:
+    if business.track_organic:
         task_result = serp_service.check_organic(
             keyword=keyword.keyword_text,
             location_code=location_code,
@@ -141,11 +192,11 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
             logger.warning(
                 "Empty SERP result for keyword=%s business=%s",
                 keyword.keyword_text,
-                project.domain,
+                business.domain,
             )
             task_result = {}
 
-        position = serp_service.find_domain_position(task_result, project.domain)
+        position = serp_service.find_domain_position(task_result, business.domain)
 
         # Get previous result for change tracking
         previous = (
@@ -174,7 +225,7 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
             checked_at=today,
             device="desktop",
             defaults={
-                "project": project,
+                "business": business,
                 "rank_absolute": position["rank_absolute"],
                 "rank_group": position["rank_group"],
                 "serp_page": position["serp_page"],
@@ -201,6 +252,7 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
                 "serp_url": position.get("check_url", ""),
                 "dataforseo_task_id": task_result.get("id", ""),
                 "dataforseo_cost": task_result.get("cost"),
+                "raw_response": task_result,
             },
         )
 
@@ -240,7 +292,7 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
         if new_rank and previous_rank and abs(new_rank - previous_rank) > 25:
             logger.warning(
                 "Rank jump >25 positions for kw=%s business=%s (%s → %s) — verify location_code=%s is correct",
-                keyword.keyword_text, project.domain, previous_rank, new_rank, location_code,
+                keyword.keyword_text, business.domain, previous_rank, new_rank, location_code,
             )
         if new_rank and not position.get("rank_group"):
             logger.warning(
@@ -262,7 +314,7 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
 
         # Extract and store competitor positions from the same SERP data
         _store_competitor_positions(
-            business=project,
+            business=business,
             keyword=keyword,
             task_result=task_result,
             serp_service=serp_service,
@@ -270,7 +322,7 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
         )
 
     # Mobile organic SERP check
-    if project.track_organic and project.track_mobile:
+    if business.track_organic and business.track_mobile:
         mobile_task_result = serp_service.check_organic(
             keyword=keyword.keyword_text,
             location_code=location_code,
@@ -282,11 +334,11 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
             logger.warning(
                 "Empty mobile SERP result for keyword=%s business=%s",
                 keyword.keyword_text,
-                project.domain,
+                business.domain,
             )
             mobile_task_result = {}
 
-        mobile_position = serp_service.find_domain_position(mobile_task_result, project.domain)
+        mobile_position = serp_service.find_domain_position(mobile_task_result, business.domain)
 
         # Get previous mobile result for change tracking
         mobile_previous = (
@@ -315,7 +367,7 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
             checked_at=today,
             device="mobile",
             defaults={
-                "project": project,
+                "business": business,
                 "rank_absolute": mobile_position["rank_absolute"],
                 "rank_group": mobile_position["rank_group"],
                 "serp_page": mobile_position["serp_page"],
@@ -342,6 +394,7 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
                 "serp_url": mobile_position.get("check_url", ""),
                 "dataforseo_task_id": mobile_task_result.get("id", ""),
                 "dataforseo_cost": mobile_task_result.get("cost"),
+                "raw_response": mobile_task_result,
             },
         )
 
@@ -386,7 +439,7 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
         ])
 
     # Maps check
-    if project.track_maps and keyword.maps_enabled:
+    if business.track_maps and keyword.maps_enabled:
         task_result = maps_service.check_maps(
             keyword=keyword.keyword_text,
             location_code=location_code,
@@ -397,15 +450,15 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
             logger.warning(
                 "Empty Maps result for keyword=%s business=%s",
                 keyword.keyword_text,
-                project.domain,
+                business.domain,
             )
             task_result = {}
 
         position = maps_service.find_business_position(
             task_result,
-            domain=project.domain,
-            place_id=project.google_place_id,
-            business_name=project.google_business_name,
+            domain=business.domain,
+            place_id=business.google_place_id,
+            business_name=business.google_business_name,
         )
 
         previous = (
@@ -433,7 +486,7 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
             keyword=keyword,
             checked_at=today,
             defaults={
-                "project": project,
+                "business": business,
                 "rank_group": position["rank_group"],
                 "rank_absolute": position["rank_absolute"],
                 "is_found": position["is_found"],
@@ -460,6 +513,7 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
                 "top_competitors": position["top_competitors"],
                 "dataforseo_task_id": task_result.get("id", ""),
                 "dataforseo_cost": task_result.get("cost"),
+                "raw_response": task_result,
             },
         )
 
@@ -488,7 +542,7 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
         ])
 
     # Local Finder check
-    if project.track_maps and keyword.maps_enabled and local_finder_service:
+    if business.track_maps and keyword.maps_enabled and local_finder_service:
         task_result = local_finder_service.check_local_finder(
             keyword=keyword.keyword_text,
             location_code=location_code,
@@ -499,15 +553,15 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
             logger.warning(
                 "Empty Local Finder result for keyword=%s business=%s",
                 keyword.keyword_text,
-                project.domain,
+                business.domain,
             )
             task_result = {}
 
         position = local_finder_service.find_business_position(
             task_result,
-            domain=project.domain,
-            place_id=project.google_place_id,
-            business_name=project.google_business_name,
+            domain=business.domain,
+            place_id=business.google_place_id,
+            business_name=business.google_business_name,
         )
 
         previous = (
@@ -529,7 +583,7 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
             keyword=keyword,
             checked_at=today,
             defaults={
-                "project": project,
+                "business": business,
                 "rank": position["rank"],
                 "is_found": position["is_found"],
                 "title": position["title"],
@@ -547,6 +601,7 @@ def _check_keyword_rankings(keyword, project, today, serp_service, maps_service,
                 "previous_rank": finder_previous_rank,
                 "dataforseo_task_id": task_result.get("id", ""),
                 "dataforseo_cost": task_result.get("cost"),
+                "raw_response": task_result,
             },
         )
 

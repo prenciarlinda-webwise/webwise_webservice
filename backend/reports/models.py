@@ -4,36 +4,50 @@ from clients.models import ClientProfile, Business, MonthlyPlan
 
 
 class GBPMetrics(models.Model):
-    """Google Business Profile monthly performance snapshot."""
+    """Google Business Profile monthly performance snapshot.
+
+    Source of truth is the absolute view counts (`*_views`) and interaction
+    counts. Percentages and change-vs-prior-month are *derived* from these so
+    they're always exact — no rounding drift.
+    """
     business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name='gbp_metrics')
     month = models.DateField(help_text='First day of the month')
 
-    # Interactions overview
+    # BrightLocal export ID (the GBP store code). Optional — kept for traceability.
+    gbp_store_code = models.CharField(max_length=50, blank=True)
+
+    # ─── Discovery: profile views per platform/device (absolute counts) ───
+    # These are the raw numbers from BrightLocal's "Performance Report".
+    search_mobile_views = models.IntegerField(default=0)
+    search_desktop_views = models.IntegerField(default=0)
+    maps_mobile_views = models.IntegerField(default=0)
+    maps_desktop_views = models.IntegerField(default=0)
+
+    # Sum of the 4 above. Stored (not @property) so it's queryable and indexable
+    # — recomputed in save() / importer.
+    profile_views = models.IntegerField(default=0)
+    profile_views_change_pct = models.DecimalField(max_digits=8, decimal_places=1, null=True, blank=True)
+
+    # ─── Interactions (absolute counts) ───
     calls = models.IntegerField(default=0)
-    chat_clicks = models.IntegerField(default=0)
+    chat_clicks = models.IntegerField(default=0)         # GBP "Messages"
     bookings = models.IntegerField(default=0)
-    direction_clicks = models.IntegerField(default=0)
+    direction_clicks = models.IntegerField(default=0)    # GBP "Directions"
     website_clicks = models.IntegerField(default=0)
     total_interactions = models.IntegerField(default=0)
     interactions_change_pct = models.DecimalField(max_digits=8, decimal_places=1, null=True, blank=True, help_text='% change vs comparison period')
 
-    # Discovery
-    profile_views = models.IntegerField(default=0)
-    profile_views_change_pct = models.DecimalField(max_digits=8, decimal_places=1, null=True, blank=True)
-
-    # Platform breakdown (% of views)
+    # ─── Platform breakdown (% of views) — derived from the 4 *_views above ───
     search_desktop_pct = models.DecimalField(max_digits=5, decimal_places=1, default=0)
     search_mobile_pct = models.DecimalField(max_digits=5, decimal_places=1, default=0)
     maps_desktop_pct = models.DecimalField(max_digits=5, decimal_places=1, default=0)
     maps_mobile_pct = models.DecimalField(max_digits=5, decimal_places=1, default=0)
 
-    # Photos & reviews
+    # ─── Photos, reviews, posts (manual entry — not in BrightLocal performance CSV) ───
     photo_count = models.IntegerField(default=0)
     review_count = models.IntegerField(default=0)
     review_avg_rating = models.DecimalField(max_digits=3, decimal_places=1, default=0)
     new_reviews = models.IntegerField(default=0)
-
-    # Posts
     posts_published = models.IntegerField(default=0)
 
     notes = models.TextField(blank=True)
@@ -48,6 +62,39 @@ class GBPMetrics(models.Model):
 
     def __str__(self):
         return f"{self.business.name} — GBP {self.month.strftime('%b %Y')}"
+
+    def save(self, *args, **kwargs):
+        # Always recompute derived fields from absolute counts so the table /
+        # API never returns stale percentages or sums.
+        self.recompute_derived()
+        super().save(*args, **kwargs)
+
+    def recompute_derived(self):
+        """Recompute profile_views, total_interactions, and the 4 platform %s
+        from the absolute counts. Called by the importer after each upsert."""
+        from decimal import Decimal, ROUND_HALF_UP
+
+        views = (
+            self.search_mobile_views + self.search_desktop_views
+            + self.maps_mobile_views + self.maps_desktop_views
+        )
+        self.profile_views = views
+        self.total_interactions = (
+            self.calls + self.chat_clicks + self.bookings
+            + self.direction_clicks + self.website_clicks
+        )
+
+        def pct(part: int) -> Decimal:
+            if not views:
+                return Decimal('0.0')
+            return (Decimal(part) * Decimal(100) / Decimal(views)).quantize(
+                Decimal('0.1'), rounding=ROUND_HALF_UP,
+            )
+
+        self.search_mobile_pct = pct(self.search_mobile_views)
+        self.search_desktop_pct = pct(self.search_desktop_views)
+        self.maps_mobile_pct = pct(self.maps_mobile_views)
+        self.maps_desktop_pct = pct(self.maps_desktop_views)
 
 
 class GA4Metrics(models.Model):

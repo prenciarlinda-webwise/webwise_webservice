@@ -101,6 +101,13 @@ function rankColor(rank: number | null | undefined): string {
 const numOrNull = (v: unknown): number | null => (typeof v === 'number' ? v : null)
 const strOrEmpty = (v: unknown): string => (typeof v === 'string' ? v : '')
 
+// DataforSEO's CDN purges screenshot URLs after 30-60 days. If a stored URL
+// still points at api.dataforseo.com/cdn, it's guaranteed to 404 — skip
+// rendering the <img> instead of letting the browser fire a useless request.
+function isExpiredScreenshotUrl(url: string): boolean {
+  return url.includes('api.dataforseo.com/cdn/')
+}
+
 function normalizeLatest(k: Record<string, unknown>): Row {
   return {
     keyword_id: Number(k.keyword_id),
@@ -206,6 +213,8 @@ export default function RankingsDetailPage({ params }: { params: Promise<{ busin
   const [refreshMessage, setRefreshMessage] = useState<string | null>(null)
   const [newCompDomain, setNewCompDomain] = useState('')
   const [selectedRun, setSelectedRun] = useState<number | null>(null)
+  const [discovering, setDiscovering] = useState(false)
+  const [discoveryMessage, setDiscoveryMessage] = useState<string | null>(null)
 
   const [device, setDevice] = useState<Device>('desktop')
   const [search, setSearch] = useState('')
@@ -218,6 +227,11 @@ export default function RankingsDetailPage({ params }: { params: Promise<{ busin
   ]))
   const [showColMenu, setShowColMenu] = useState(false)
   const [compareDate, setCompareDate] = useState<string>('')
+  // Snapshot drill-down: when set, opens a modal showing keyword rankings
+  // exactly as they were on this date (read straight from SERPResult /
+  // MapsRankResult / LocalFinderResult — no recomputation).
+  const [snapshotDate, setSnapshotDate] = useState<string | null>(null)
+  const [snapshotData, setSnapshotData] = useState<CompareResp | null>(null)
 
   const isPrivileged = user?.role === 'admin' || user?.is_supervisor === true
 
@@ -239,6 +253,15 @@ export default function RankingsDetailPage({ params }: { params: Promise<{ busin
     if (!compareDate || !isPrivileged) { setCompareData(null); return }
     api.get<CompareResp>(`/seo/businesses/${businessSlug}/rankings/compare/?date_previous=${compareDate}`).then(setCompareData).catch(() => setCompareData(null))
   }, [businessSlug, isPrivileged, compareDate])
+
+  // Fetch the historical snapshot when a chart bar is clicked. Uses the same
+  // /compare/ endpoint with date_current=X and no date_previous — that gives
+  // us "what did the rankings look like on this exact date" without diff data.
+  useEffect(() => {
+    if (!snapshotDate || !isPrivileged) { setSnapshotData(null); return }
+    api.get<CompareResp>(`/seo/businesses/${businessSlug}/rankings/compare/?date_current=${snapshotDate}`)
+      .then(setSnapshotData).catch(() => setSnapshotData(null))
+  }, [businessSlug, isPrivileged, snapshotDate])
 
   useEffect(() => {
     if (selectedRun) {
@@ -293,22 +316,65 @@ export default function RankingsDetailPage({ params }: { params: Promise<{ busin
     setRefreshMessage(null)
     try {
       const resp = await api.post<{ task_id: string; keywords_to_refresh: number; message: string }>(`/seo/businesses/${businessSlug}/rankings/refresh/`, {})
-      setRefreshMessage(`Queued — checking ${resp.keywords_to_refresh} keywords. Polling…`)
+      setRefreshMessage(`Queued — checking ${resp.keywords_to_refresh} keywords…`)
       const startedAt = Date.now()
       const poll = async () => {
-        if (Date.now() - startedAt > 5 * 60 * 1000) {
-          setRefreshing(false); setRefreshMessage('Timed out. The check may still be running.'); return
+        if (Date.now() - startedAt > 15 * 60 * 1000) {
+          setRefreshing(false); setRefreshMessage('Timed out after 15 minutes. The check may still be running in the background.'); return
         }
         try {
-          const status = await api.get<{ ready: boolean; state: string }>(`/seo/rankings/refresh-status/${resp.task_id}/`)
-          if (status.ready) {
-            setRefreshing(false); setRefreshMessage(`Done (${status.state})`)
-            api.get<LatestResp>(`/seo/businesses/${businessSlug}/rankings/latest/`).then(setLatest)
-            api.get<DatesResp>(`/seo/businesses/${businessSlug}/rankings/dates/`).then(d => setScanDates(d.dates ?? []))
-          } else setTimeout(poll, 3000)
-        } catch { setRefreshing(false); setRefreshMessage('Failed to poll task status.') }
+          const status = await api.get<{
+            ready: boolean
+            state: string
+            progress?: { checked: number; failed: number; total: number; current_keyword?: string; current_business?: string; api_errors?: string[] }
+            result?: { keywords_checked: number; keywords_failed?: number; total?: number; api_errors?: string[]; status?: string }
+            error?: string
+            traceback?: string
+          }>(`/seo/rankings/refresh-status/${resp.task_id}/`)
+
+          // PROGRESS — keep refreshing flag on, surface live counter.
+          if (status.state === 'PROGRESS' && status.progress) {
+            const { checked, failed, total, current_keyword, current_business } = status.progress
+            const fragment = current_keyword
+              ? ` · checking "${current_keyword}"${current_business ? ` (${current_business})` : ''}`
+              : ''
+            const failTag = failed ? ` · ${failed} failed` : ''
+            setRefreshMessage(`Refreshing ${checked + failed}/${total}${failTag}${fragment}`)
+            setTimeout(poll, 2000)
+            return
+          }
+
+          if (!status.ready) {
+            // PENDING / STARTED — task hasn't picked up yet or hasn't emitted progress.
+            setRefreshMessage(`${status.state === 'PENDING' ? 'Queued' : 'Starting'} — waiting for worker…`)
+            setTimeout(poll, 2000)
+            return
+          }
+
+          // Terminal states — stop polling.
+          setRefreshing(false)
+          if (status.state === 'SUCCESS' && status.result) {
+            const r = status.result
+            const checked = r.keywords_checked ?? 0
+            const total = r.total ?? checked
+            const failed = r.keywords_failed ?? 0
+            const apiErrs = r.api_errors ?? []
+            const parts = [`Done — ${checked}/${total} keywords checked`]
+            if (failed) parts.push(`${failed} failed`)
+            if (apiErrs.length) parts.push(`API errors: ${apiErrs.slice(0, 2).join(' · ')}${apiErrs.length > 2 ? ` (+${apiErrs.length - 2} more)` : ''}`)
+            setRefreshMessage(parts.join(' · '))
+          } else if (status.state === 'FAILURE') {
+            setRefreshMessage(`Failed: ${status.error ?? 'Unknown error'}${status.traceback ? ` — ${status.traceback.split('\n').pop() ?? ''}` : ''}`)
+          } else {
+            setRefreshMessage(`Done (${status.state})`)
+          }
+          api.get<LatestResp>(`/seo/businesses/${businessSlug}/rankings/latest/`).then(setLatest)
+          api.get<DatesResp>(`/seo/businesses/${businessSlug}/rankings/dates/`).then(d => setScanDates(d.dates ?? []))
+        } catch {
+          setRefreshing(false); setRefreshMessage('Failed to poll task status.')
+        }
       }
-      setTimeout(poll, 3000)
+      setTimeout(poll, 2000)
     } catch (err: unknown) {
       setRefreshing(false)
       const detail = typeof err === 'object' && err && 'detail' in err ? String((err as { detail: string }).detail) : 'Refresh failed.'
@@ -334,6 +400,38 @@ export default function RankingsDetailPage({ params }: { params: Promise<{ busin
   const handlePromote = async (resultId: number) => {
     await api.post(`/seo/businesses/${businessSlug}/discovery/promote/`, { result_ids: [resultId] })
     setDiscoveryResults(prev => prev.map(r => r.id === resultId ? { ...r, is_promoted: true } : r))
+  }
+
+  const handleRunDiscovery = async () => {
+    if (discovering) return
+    setDiscovering(true)
+    setDiscoveryMessage('Queued — running keyword discovery…')
+    try {
+      const resp = await api.post<{ task_id: string; message: string }>(`/seo/businesses/${businessSlug}/discovery/refresh/`, {})
+      setDiscoveryMessage(resp.message ?? 'Discovery queued.')
+      const startedAt = Date.now()
+      const poll = async () => {
+        if (Date.now() - startedAt > 10 * 60 * 1000) {
+          setDiscovering(false); setDiscoveryMessage('Timed out after 10 minutes — check the runs list below.'); return
+        }
+        try {
+          const status = await api.get<{ ready: boolean; state: string; result?: unknown; error?: string }>(`/seo/rankings/refresh-status/${resp.task_id}/`)
+          if (status.ready) {
+            setDiscovering(false)
+            if (status.state === 'SUCCESS') setDiscoveryMessage('Discovery finished — refreshing runs list.')
+            else if (status.state === 'FAILURE') setDiscoveryMessage(`Failed: ${status.error ?? 'Unknown error'}`)
+            else setDiscoveryMessage(`Done (${status.state})`)
+            api.get<{ results: DiscoveryRun[] } | DiscoveryRun[]>(`/seo/businesses/${businessSlug}/discovery/runs/`)
+              .then(d => setRuns(Array.isArray(d) ? d : (d.results ?? [])))
+          } else setTimeout(poll, 3000)
+        } catch { setDiscovering(false); setDiscoveryMessage('Failed to poll task status.') }
+      }
+      setTimeout(poll, 3000)
+    } catch (err: unknown) {
+      setDiscovering(false)
+      const detail = typeof err === 'object' && err && 'detail' in err ? String((err as { detail: string }).detail) : 'Discovery failed to start.'
+      setDiscoveryMessage(detail)
+    }
   }
 
   const toggleSort = (col: Col) => {
@@ -368,14 +466,17 @@ export default function RankingsDetailPage({ params }: { params: Promise<{ busin
         action={
           <div className="flex items-center gap-3">
             <Link href={`/dashboard/${businessSlug}`} className="text-sm text-text-muted hover:text-text-primary">← Business</Link>
-            <button
-              onClick={handleRunCheck}
-              disabled={refreshing}
-              className="flex items-center gap-2 px-4 py-2 bg-accent text-white text-sm font-medium rounded-lg hover:bg-accent/90 disabled:opacity-60"
-            >
-              <RefreshCw size={14} className={refreshing ? 'animate-spin' : ''} />
-              {refreshing ? 'Checking…' : 'Run check'}
-            </button>
+            {tab === 'summary' && (
+              <button
+                onClick={handleRunCheck}
+                disabled={refreshing}
+                className="flex items-center gap-2 px-4 py-2 bg-accent text-white text-sm font-medium rounded-lg hover:bg-accent/90 disabled:opacity-60"
+                title="Scan SERP rankings for all tracked keywords (also refreshes competitor positions)"
+              >
+                <RefreshCw size={14} className={refreshing ? 'animate-spin' : ''} />
+                {refreshing ? 'Checking…' : 'Run check'}
+              </button>
+            )}
           </div>
         }
       />
@@ -398,36 +499,20 @@ export default function RankingsDetailPage({ params }: { params: Promise<{ busin
 
       {tab === 'summary' && (
         <div className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <OverviewCard title="Average Google Position">
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-semibold">
-                  {summary?.desktop.avg_rank != null ? summary.desktop.avg_rank.toFixed(1) : '—'}
-                </span>
-                <TrendArrow current={summary?.desktop.avg_rank ?? null} history={avgHistory?.rows.map(r => r.desktop) ?? []} lowerIsBetter />
-              </div>
-              <Sparkline values={(avgHistory?.rows ?? []).map(r => r.desktop)} flipY />
-            </OverviewCard>
-
-            <OverviewCard title="Keyword and Positional Movement">
-              <div className="flex items-center gap-6">
-                <Movement label="Keyword Change" up={movement?.new ?? 0} down={movement?.lost ?? 0} />
-                <Movement label="Positional Change" up={movement?.improved ?? 0} down={movement?.declined ?? 0} />
-              </div>
-            </OverviewCard>
-
-            <OverviewCard title="Google Local Pack Coverage">
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-semibold">{localPackCoverage != null ? `${localPackCoverage}%` : '—'}</span>
-                <span className="text-xs text-text-muted">{summary?.local_pack.found ?? 0} / {summary?.total_keywords ?? 0}</span>
-              </div>
-              <BucketBar device="local_pack" distribution={distribution} />
-            </OverviewCard>
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+            {(['desktop', 'mobile', 'local_pack', 'local_finder'] as Device[]).map(d => (
+              <DeviceSummaryCard
+                key={d}
+                title={DEVICE_LABEL[d]}
+                deviceSummary={summary ? summary[d] : null}
+                history={(avgHistory?.rows ?? []).map(r => r[d])}
+              />
+            ))}
           </div>
 
           <div className="bg-white rounded-xl border border-border p-6">
             <h3 className="font-medium mb-3">Average Google Position</h3>
-            <LineChart rows={avgHistory?.rows ?? []} />
+            <LineChart rows={avgHistory?.rows ?? []} onPick={d => setSnapshotDate(d)} />
           </div>
 
           <div className="bg-white rounded-xl border border-border p-6">
@@ -445,7 +530,7 @@ export default function RankingsDetailPage({ params }: { params: Promise<{ busin
                 ))}
               </div>
             </div>
-            <VerticalStack distribution={distribution} onPick={d => setCompareDate(d)} />
+            <VerticalStack distribution={distribution} onPick={d => setSnapshotDate(d)} />
           </div>
 
           <div className="bg-white rounded-xl border border-border p-4 space-y-3">
@@ -581,6 +666,9 @@ export default function RankingsDetailPage({ params }: { params: Promise<{ busin
 
       {tab === 'competitors' && (
         <div className="space-y-4">
+          <div className="px-4 py-3 rounded-lg bg-bg-secondary/50 border border-border text-xs text-text-muted">
+            Competitor positions are captured automatically each time you click <strong>Run check</strong> on the Summary tab — no separate scan to trigger here. Add a domain below to start tracking it; the next rank check will record where it ranks for each of your tracked keywords.
+          </div>
           <form onSubmit={handleAddCompetitor} className="flex items-center gap-2 bg-white p-4 rounded-xl border border-border">
             <input value={newCompDomain} onChange={e => setNewCompDomain(e.target.value)} placeholder="competitor.com" className="flex-1 px-3 py-2 border border-border rounded-lg text-sm" />
             <button type="submit" className="flex items-center gap-2 px-4 py-2 bg-accent text-white text-sm font-medium rounded-lg">
@@ -610,11 +698,28 @@ export default function RankingsDetailPage({ params }: { params: Promise<{ busin
       )}
 
       {tab === 'discovery' && (
+        <div className="space-y-4">
+          <div className="bg-white rounded-xl border border-border p-4 flex items-center justify-between gap-4">
+            <div>
+              <p className="text-sm font-medium">Keyword discovery</p>
+              <p className="text-xs text-text-muted">Finds keywords this domain already ranks for. Runs automatically on the 1st of every month — use the button to run it on demand.</p>
+            </div>
+            <button
+              onClick={handleRunDiscovery}
+              disabled={discovering}
+              className="flex items-center gap-2 px-4 py-2 bg-accent text-white text-sm font-medium rounded-lg hover:bg-accent/90 disabled:opacity-60 shrink-0"
+            >
+              <RefreshCw size={14} className={discovering ? 'animate-spin' : ''} />
+              {discovering ? 'Running…' : 'Run discovery'}
+            </button>
+          </div>
+          {discoveryMessage && <div className="px-4 py-2 rounded-lg bg-accent/10 text-sm">{discoveryMessage}</div>}
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-1 bg-white rounded-xl border border-border">
             <div className="p-4 border-b border-border"><h3 className="font-medium">Discovery runs</h3></div>
             {runs.length === 0 ? (
-              <p className="p-4 text-sm text-text-muted">No runs yet. Discovery is scheduled monthly.</p>
+              <p className="p-4 text-sm text-text-muted">No runs yet. Click <em>Run discovery</em> above to fetch the first batch.</p>
             ) : (
               <ul>
                 {runs.map(r => (
@@ -667,7 +772,98 @@ export default function RankingsDetailPage({ params }: { params: Promise<{ busin
               )}
           </div>
         </div>
+        </div>
       )}
+
+      {snapshotDate && (
+        <SnapshotModal
+          date={snapshotDate}
+          data={snapshotData}
+          onClose={() => setSnapshotDate(null)}
+        />
+      )}
+    </div>
+  )
+}
+
+/**
+ * Modal showing keyword rankings exactly as they were on a specific scan date.
+ * Reads from the same /compare/ endpoint with date_current=X (no
+ * date_previous), so values come straight from SERPResult / MapsRankResult /
+ * LocalFinderResult — no recomputation, no comparison framing.
+ */
+function SnapshotModal({ date, data, onClose }: { date: string; data: CompareResp | null; onClose: () => void }) {
+  // Close on Escape so the modal feels native.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [onClose])
+
+  const dateLabel = new Date(date).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })
+  const rows = (data?.keywords ?? []) as Array<Record<string, unknown>>
+
+  return (
+    <div
+      className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white rounded-xl shadow-xl w-full max-w-5xl max-h-[85vh] flex flex-col"
+        onClick={e => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between px-5 py-4 border-b border-border">
+          <div>
+            <p className="text-xs font-medium text-text-muted uppercase tracking-wide">Rankings snapshot</p>
+            <h3 className="font-semibold text-base">{dateLabel}</h3>
+          </div>
+          <button onClick={onClose} className="text-text-muted hover:text-text-primary p-1">
+            <X size={18} />
+          </button>
+        </div>
+        <div className="flex-1 overflow-auto">
+          {!data ? (
+            <p className="p-6 text-sm text-text-muted">Loading…</p>
+          ) : rows.length === 0 ? (
+            <p className="p-6 text-sm text-text-muted">No rankings recorded for this date.</p>
+          ) : (
+            <table className="w-full text-sm">
+              <thead className="bg-bg-secondary text-xs text-text-muted sticky top-0">
+                <tr>
+                  <th className="px-3 py-2 text-left">Keyword</th>
+                  <th className="px-3 py-2 text-right">Vol.</th>
+                  <th className="px-3 py-2 text-right">Desktop</th>
+                  <th className="px-3 py-2 text-right">Mobile</th>
+                  <th className="px-3 py-2 text-right">Pack</th>
+                  <th className="px-3 py-2 text-right">Finder</th>
+                  <th className="px-3 py-2 text-left">URL</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map(r => {
+                  const url = strOrEmpty(r.organic_url)
+                  return (
+                    <tr key={Number(r.keyword_id)} className="border-t border-border">
+                      <td className="px-3 py-2 font-medium">{strOrEmpty(r.keyword_text)}</td>
+                      <td className="px-3 py-2 text-right tabular-nums">{numOrNull(r.search_volume) ?? '—'}</td>
+                      <td className="px-3 py-2 text-right tabular-nums">{numOrNull(r.organic_rank) ?? '—'}</td>
+                      <td className="px-3 py-2 text-right tabular-nums">{numOrNull(r.organic_mobile_rank) ?? '—'}</td>
+                      <td className="px-3 py-2 text-right tabular-nums">{numOrNull(r.local_pack_rank) ?? '—'}</td>
+                      <td className="px-3 py-2 text-right tabular-nums">{numOrNull(r.local_finder_rank) ?? '—'}</td>
+                      <td className="px-3 py-2 max-w-xs truncate">
+                        {url ? <a href={url} target="_blank" rel="noreferrer" className="text-accent hover:underline">{url}</a> : <span className="text-text-muted">—</span>}
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          )}
+        </div>
+        <div className="px-5 py-3 border-t border-border text-xs text-text-muted">
+          {data ? `${rows.length} keyword${rows.length === 1 ? '' : 's'}` : ''}
+        </div>
+      </div>
     </div>
   )
 }
@@ -700,19 +896,19 @@ function renderCell(r: Row, col: string) {
     case 'keyword_difficulty':
       return r.keyword_difficulty != null ? <span className="tabular-nums">{r.keyword_difficulty}</span> : <span className="text-text-muted">—</span>
     case 'desktop_rank':
-      return <RankCell rank={r.desktop_rank} url={r.desktop_url} serpUrl={r.desktop_serp_url} screenshotUrl={r.desktop_screenshot_url} location={r.location_name} keyword={r.keyword_text} />
+      return <RankCell rank={r.desktop_rank} change={r.desktop_change} url={r.desktop_url} serpUrl={r.desktop_serp_url} screenshotUrl={r.desktop_screenshot_url} location={r.location_name} keyword={r.keyword_text} searchVolume={r.search_volume} keywordDifficulty={r.keyword_difficulty} lastChecked={r.last_checked} deviceLabel="Desktop" />
     case 'desktop_change':
       return <ChangeCell change={r.desktop_change} />
     case 'mobile_rank':
-      return <RankCell rank={r.mobile_rank} url={r.mobile_url} serpUrl={r.mobile_serp_url} screenshotUrl={r.mobile_screenshot_url} location={r.location_name} keyword={r.keyword_text} />
+      return <RankCell rank={r.mobile_rank} change={r.mobile_change} url={r.mobile_url} serpUrl={r.mobile_serp_url} screenshotUrl={r.mobile_screenshot_url} location={r.location_name} keyword={r.keyword_text} searchVolume={r.search_volume} keywordDifficulty={r.keyword_difficulty} lastChecked={r.last_checked} deviceLabel="Mobile" />
     case 'mobile_change':
       return <ChangeCell change={r.mobile_change} />
     case 'pack_rank':
-      return <RankCell rank={r.pack_rank} serpUrl={r.pack_serp_url} screenshotUrl={r.pack_screenshot_url} location={r.location_name} keyword={r.keyword_text} />
+      return <RankCell rank={r.pack_rank} change={r.pack_change} serpUrl={r.pack_serp_url} screenshotUrl={r.pack_screenshot_url} location={r.location_name} keyword={r.keyword_text} searchVolume={r.search_volume} keywordDifficulty={r.keyword_difficulty} lastChecked={r.last_checked} deviceLabel="Local Pack" />
     case 'pack_change':
       return <ChangeCell change={r.pack_change} />
     case 'finder_rank':
-      return <RankCell rank={r.finder_rank} serpUrl={r.finder_serp_url} screenshotUrl={r.finder_screenshot_url} location={r.location_name} keyword={r.keyword_text} />
+      return <RankCell rank={r.finder_rank} change={r.finder_change} serpUrl={r.finder_serp_url} screenshotUrl={r.finder_screenshot_url} location={r.location_name} keyword={r.keyword_text} searchVolume={r.search_volume} keywordDifficulty={r.keyword_difficulty} lastChecked={r.last_checked} deviceLabel="Local Finder" />
     case 'finder_change':
       return <ChangeCell change={r.finder_change} />
     case 'last_checked':
@@ -726,13 +922,18 @@ function renderCell(r: Row, col: string) {
  * so it isn't clipped by table-row overflow. Stays open while the mouse is on
  * either the badge or the popover (with a 200ms grace timer).
  */
-function RankCell({ rank, url, serpUrl, screenshotUrl, location, keyword }: {
+function RankCell({ rank, change, url, serpUrl, screenshotUrl, location, keyword, searchVolume, keywordDifficulty, lastChecked, deviceLabel }: {
   rank: number | null
+  change?: number | null
   url?: string
   serpUrl?: string
   screenshotUrl?: string
   location?: string
   keyword: string
+  searchVolume?: number | null
+  keywordDifficulty?: number | null
+  lastChecked?: string | null
+  deviceLabel?: string
 }) {
   const [open, setOpen] = useState(false)
   const [pos, setPos] = useState<{ top: number; left: number } | null>(null)
@@ -774,7 +975,7 @@ function RankCell({ rank, url, serpUrl, screenshotUrl, location, keyword }: {
           {rank}
         </span>
       </span>
-      {open && pos && mounted && (serpUrl || url || screenshotUrl) && createPortal(
+      {open && pos && mounted && createPortal(
         <div
           onMouseEnter={onEnter}
           onMouseLeave={onLeave}
@@ -783,6 +984,31 @@ function RankCell({ rank, url, serpUrl, screenshotUrl, location, keyword }: {
         >
           <p className="text-xs font-medium mb-1 break-words">{keyword}</p>
           {location && <p className="text-xs text-text-muted mb-2">📍 {location}</p>}
+
+          {/* Numeric stats — every cell has a value, "—" when missing. */}
+          <div className="grid grid-cols-2 gap-x-3 gap-y-0.5 text-xs mb-2 py-1.5 border-y border-border">
+            <span className="text-text-muted">{deviceLabel ? `${deviceLabel} rank` : 'Rank'}</span>
+            <span className="text-right tabular-nums font-medium">{rank ?? '—'}</span>
+            {change != null && change !== 0 && (
+              <>
+                <span className="text-text-muted">Change</span>
+                <span className={`text-right tabular-nums font-medium ${change > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                  {change > 0 ? `+${change}` : change}
+                </span>
+              </>
+            )}
+            <span className="text-text-muted">Volume</span>
+            <span className="text-right tabular-nums">{searchVolume != null ? searchVolume.toLocaleString() : '—'}</span>
+            <span className="text-text-muted">KD</span>
+            <span className="text-right tabular-nums">{keywordDifficulty ?? '—'}</span>
+            {lastChecked && (
+              <>
+                <span className="text-text-muted">Last scan</span>
+                <span className="text-right tabular-nums">{new Date(lastChecked).toLocaleDateString()}</span>
+              </>
+            )}
+          </div>
+
           {url && (
             <p className="text-xs mb-2 break-all">
               <span className="text-text-muted">URL:</span>{' '}
@@ -796,7 +1022,7 @@ function RankCell({ rank, url, serpUrl, screenshotUrl, location, keyword }: {
               </a>
             </p>
           )}
-          {screenshotUrl && (
+          {screenshotUrl && !isExpiredScreenshotUrl(screenshotUrl) && (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={screenshotUrl} alt="SERP" className="w-full rounded border border-border" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
           )}
@@ -819,6 +1045,50 @@ function OverviewCard({ title, children }: { title: string; children: React.Reac
     <div className="bg-white rounded-xl border border-border p-5">
       <p className="text-xs font-medium text-text-muted uppercase tracking-wide mb-3">{title}</p>
       {children}
+    </div>
+  )
+}
+
+/**
+ * Per-device summary card. One per Desktop / Mobile / Local Pack / Local Finder.
+ * Shows the average rank (with trend arrow + sparkline) and the keyword
+ * movement breakdown (improved vs declined, plus new vs lost) — so the user
+ * can see at a glance whether each device-type is gaining or losing ground.
+ */
+function DeviceSummaryCard({ title, deviceSummary, history }: {
+  title: string
+  deviceSummary: DeviceSummary | null | undefined
+  history: Array<number | null>
+}) {
+  const avg = deviceSummary?.avg_rank ?? null
+  const improved = deviceSummary?.improved ?? 0
+  const declined = deviceSummary?.declined ?? 0
+  const newKws = deviceSummary?.new ?? 0
+  const lostKws = deviceSummary?.lost ?? 0
+  const found = deviceSummary?.found ?? 0
+  return (
+    <div className="bg-white rounded-xl border border-border p-5">
+      <p className="text-xs font-medium text-text-muted uppercase tracking-wide mb-3">{title}</p>
+      <div className="flex items-baseline gap-2">
+        <span className="text-3xl font-semibold tabular-nums">{avg != null ? avg.toFixed(1) : '—'}</span>
+        <TrendArrow current={avg} history={history} lowerIsBetter />
+        <span className="text-xs text-text-muted ml-auto">avg of {found}</span>
+      </div>
+      <Sparkline values={history} flipY />
+      <div className="mt-3 pt-3 border-t border-border grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs">
+        <span className="text-text-muted">Position</span>
+        <span className="text-right tabular-nums">
+          <span className="text-green-600 inline-flex items-center"><ArrowUpRight size={11} />{improved}</span>
+          <span className="mx-1.5 text-text-muted">·</span>
+          <span className="text-red-600 inline-flex items-center"><ArrowDownRight size={11} />{declined}</span>
+        </span>
+        <span className="text-text-muted">Keywords</span>
+        <span className="text-right tabular-nums">
+          <span className="text-green-600 inline-flex items-center"><ArrowUpRight size={11} />{newKws}</span>
+          <span className="mx-1.5 text-text-muted">·</span>
+          <span className="text-red-600 inline-flex items-center"><ArrowDownRight size={11} />{lostKws}</span>
+        </span>
+      </div>
     </div>
   )
 }
@@ -892,75 +1162,159 @@ function BucketBar({ device, distribution }: { device: Device; distribution: Dis
 
 /**
  * Time-aware multi-line chart:
- * - X axis spans only [first scan date, last scan date] (no padding for missing days).
- * - Points placed at their actual chronological position so gaps are visible.
+ * - X axis spans [first scan date, today] so the chart's right edge always
+ *   reads as "today" — a visible gap appears when scans are stale.
+ * - SVG width tracks its container (no viewBox letterboxing) so content
+ *   stretches edge-to-edge instead of floating in the middle.
  * - Y axis flipped: lower rank (#1) at top.
  */
-function LineChart({ rows }: { rows: AvgHistoryResp['rows'] }) {
+const SERIES: Array<{ key: keyof AvgHistoryResp['rows'][0]; label: string; color: string }> = [
+  { key: 'desktop',      label: 'Organic Desktop', color: '#3b82f6' },
+  { key: 'mobile',       label: 'Organic Mobile',  color: '#22c55e' },
+  { key: 'local_pack',   label: 'Local Pack',      color: '#f97316' },
+  { key: 'local_finder', label: 'Local Finder',    color: '#a855f7' },
+]
+
+function LineChart({ rows, onPick }: { rows: AvgHistoryResp['rows']; onPick: (date: string) => void }) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [w, setW] = useState(800)
+  const [hoverIdx, setHoverIdx] = useState<number | null>(null)
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+    setW(el.clientWidth)
+    const ro = new ResizeObserver(() => setW(el.clientWidth))
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+
   if (!rows.length) return <p className="text-sm text-text-muted">No data.</p>
-  const series: Array<keyof AvgHistoryResp['rows'][0]> = ['desktop', 'mobile', 'local_pack', 'local_finder']
-  const colors: Record<string, string> = { desktop: '#3b82f6', mobile: '#22c55e', local_pack: '#f97316', local_finder: '#a855f7' }
-  const allValues = rows.flatMap(r => series.map(s => r[s] as number | null).filter((v): v is number => v != null))
+  const allValues = rows.flatMap(r => SERIES.map(s => r[s.key] as number | null).filter((v): v is number => v != null))
   if (!allValues.length) return <p className="text-sm text-text-muted">No data.</p>
 
   const maxY = Math.max(...allValues)
   const minY = Math.min(...allValues)
   const yRange = maxY - minY || 1
+
+  const todayMidnight = new Date(); todayMidnight.setHours(0, 0, 0, 0)
   const minT = new Date(rows[0].date).getTime()
-  const maxT = new Date(rows[rows.length - 1].date).getTime()
+  const lastT = new Date(rows[rows.length - 1].date).getTime()
+  const maxT = Math.max(lastT, todayMidnight.getTime())
   const tRange = maxT - minT || 1
 
-  const w = 800, h = 240, padX = 44, padY = 20, padBottom = 32
-  const innerW = w - 2 * padX
-  const x = (date: string) => padX + ((new Date(date).getTime() - minT) / tRange) * innerW
+  const h = 240, padX = 44, padY = 20, padBottom = 32
+  const innerW = Math.max(w - 2 * padX, 1)
+  const x = (t: number) => padX + ((t - minT) / tRange) * innerW
   const y = (v: number) => padY + ((v - minY) / yRange) * (h - padY - padBottom)
 
   const yTicks = [Math.ceil(minY), Math.round((minY + maxY) / 2), Math.floor(maxY)].filter((v, i, a) => a.indexOf(v) === i)
+  const xTicks = buildTimeTicks(minT, maxT, 6)
+  const showTodayMarker = lastT < todayMidnight.getTime()
 
-  const xTickIndices = pickTicks(rows.length, 6)
+  const rowTimes = rows.map(r => new Date(r.date).getTime())
+
+  // Pick the row whose date is closest to the cursor's time. Cursor →
+  // SVG-coord time → nearest row index. Quadratic in row count is fine —
+  // we have at most ~100 dates per chart.
+  const onMove = (e: React.MouseEvent<SVGSVGElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    const xRel = (e.clientX - rect.left) * (w / rect.width)
+    if (xRel < padX || xRel > w - padX) { setHoverIdx(null); return }
+    const t = minT + ((xRel - padX) / innerW) * tRange
+    let best = 0, bestDist = Infinity
+    for (let i = 0; i < rowTimes.length; i++) {
+      const d = Math.abs(rowTimes[i] - t)
+      if (d < bestDist) { bestDist = d; best = i }
+    }
+    setHoverIdx(best)
+  }
+
+  const hoverRow = hoverIdx != null ? rows[hoverIdx] : null
+  const hoverX = hoverIdx != null ? x(rowTimes[hoverIdx]) : 0
+  // Anchor tooltip to cursor side that has more room.
+  const tipLeft = hoverIdx != null ? (hoverX > w / 2 ? hoverX - 200 : hoverX + 12) : 0
 
   return (
-    <div className="space-y-2">
-      <svg viewBox={`0 0 ${w} ${h}`} className="w-full h-56">
+    <div ref={containerRef} className="space-y-2 relative">
+      <svg
+        width={w} height={h} className="block"
+        onMouseMove={onMove}
+        onMouseLeave={() => setHoverIdx(null)}
+        onClick={() => { if (hoverIdx != null) onPick(rows[hoverIdx].date) }}
+        style={{ cursor: hoverIdx != null ? 'pointer' : 'default' }}
+      >
         {yTicks.map(t => (
           <g key={t}>
             <line x1={padX} y1={y(t)} x2={w - padX} y2={y(t)} stroke="#e5e7eb" strokeDasharray="2,2" />
             <text x={padX - 8} y={y(t) + 3} textAnchor="end" fontSize="10" fill="#94a3b8">{t}</text>
           </g>
         ))}
-        {xTickIndices.map(i => {
-          const date = rows[i].date
-          return (
-            <text key={i} x={x(date)} y={h - 8} textAnchor="middle" fontSize="10" fill="#94a3b8">
-              {new Date(date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
-            </text>
-          )
-        })}
-        {series.map(s => {
-          const points = rows.map(r => ({ date: r.date, v: r[s] as number | null })).filter((p): p is { date: string; v: number } => p.v != null)
+        {xTicks.map((tick, i) => (
+          <g key={i}>
+            <line x1={x(tick.t)} y1={padY} x2={x(tick.t)} y2={h - padBottom} stroke="#f1f5f9" />
+            <text x={x(tick.t)} y={h - 8} textAnchor="middle" fontSize="10" fill="#94a3b8">{tick.label}</text>
+          </g>
+        ))}
+        {showTodayMarker && (
+          <g>
+            <line x1={x(todayMidnight.getTime())} y1={padY} x2={x(todayMidnight.getTime())} y2={h - padBottom}
+              stroke="#cbd5e1" strokeDasharray="3,3" />
+            <text x={x(todayMidnight.getTime())} y={padY - 6} textAnchor="middle" fontSize="9" fill="#94a3b8">today</text>
+          </g>
+        )}
+        {SERIES.map(s => {
+          const points = rows
+            .map(r => ({ t: new Date(r.date).getTime(), v: r[s.key] as number | null }))
+            .filter((p): p is { t: number; v: number } => p.v != null)
           if (!points.length) return null
           return (
-            <g key={s as string}>
+            <g key={s.key as string}>
               {points.length >= 2 && (
                 <polyline
-                  points={points.map(p => `${x(p.date)},${y(p.v)}`).join(' ')}
+                  points={points.map(p => `${x(p.t)},${y(p.v)}`).join(' ')}
                   fill="none"
-                  stroke={colors[s as string]}
+                  stroke={s.color}
                   strokeWidth="2"
                 />
               )}
               {points.map(p => (
-                <circle key={p.date} cx={x(p.date)} cy={y(p.v)} r="3" fill={colors[s as string]} />
+                <circle key={p.t} cx={x(p.t)} cy={y(p.v)} r="3" fill={s.color} />
               ))}
             </g>
           )
         })}
+        {hoverIdx != null && (
+          <line x1={hoverX} y1={padY} x2={hoverX} y2={h - padBottom} stroke="#94a3b8" strokeDasharray="2,2" />
+        )}
       </svg>
+      {hoverRow && (
+        <div
+          className="absolute pointer-events-none bg-white border border-border rounded-lg shadow-lg p-2 text-xs z-10"
+          style={{ left: tipLeft, top: padY + 4, minWidth: 180 }}
+        >
+          <p className="font-semibold mb-1">
+            {new Date(hoverRow.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+          </p>
+          <p className="text-[10px] text-text-muted mb-1.5">click to view rankings on this date</p>
+          {SERIES.map(s => {
+            const v = hoverRow[s.key] as number | null
+            return (
+              <div key={s.key as string} className="flex items-center justify-between gap-3 py-0.5">
+                <span className="flex items-center gap-1.5">
+                  <span className="inline-block w-2.5 h-0.5" style={{ background: s.color }} />
+                  {s.label}
+                </span>
+                <span className="tabular-nums">{v != null ? `#${v.toFixed(1)}` : '—'}</span>
+              </div>
+            )
+          })}
+        </div>
+      )}
       <div className="flex flex-wrap items-center gap-4 text-xs justify-center">
-        {series.map(s => (
-          <span key={s as string} className="flex items-center gap-1">
-            <span className="inline-block w-3 h-0.5" style={{ background: colors[s as string] }} />
-            {s === 'desktop' ? 'Organic Desktop' : s === 'mobile' ? 'Organic Mobile' : s === 'local_pack' ? 'Local Pack' : 'Local Finder'}
+        {SERIES.map(s => (
+          <span key={s.key as string} className="flex items-center gap-1">
+            <span className="inline-block w-3 h-0.5" style={{ background: s.color }} />
+            {s.label}
           </span>
         ))}
       </div>
@@ -969,91 +1323,166 @@ function LineChart({ rows }: { rows: AvgHistoryResp['rows'] }) {
 }
 
 /**
- * Vertical stacked-bars distribution. Bars are positioned at their actual scan-date
- * positions on a time axis (so gaps in scan dates show as gaps in the chart),
- * and the chart only spans [first scan, last scan] — no empty padding before.
+ * Vertical stacked-bars distribution — categorical x-axis.
+ * - One evenly-spaced bar per scan, regardless of calendar gap. Avoids
+ *   awkward clustering when scans happen on irregular dates.
+ * - Date labels still show the actual scan date — relationship to the
+ *   calendar is preserved via labels, not via x-position.
+ * - Caption above the chart calls out total scans + freshness of the
+ *   most recent one (so the "gap since last scan" is still visible).
  */
 function VerticalStack({ distribution, onPick }: { distribution: DistributionResp | null; onPick: (date: string) => void }) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [w, setW] = useState(800)
+  const [hoverIdx, setHoverIdx] = useState<number | null>(null)
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+    setW(el.clientWidth)
+    const ro = new ResizeObserver(() => setW(el.clientWidth))
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+
   if (!distribution || !distribution.rows.length) return <p className="text-sm text-text-muted">No data.</p>
   const rows = distribution.rows
   const max = Math.max(...rows.map(r => BUCKETS.reduce((s, b) => s + (Number(r[b.id]) || 0), 0)), 1)
 
-  const w = 800, h = 240, padX = 30, padY = 16, padBottom = 32
-  const innerW = w - 2 * padX
+  const h = 240, padX = 30, padY = 16, padBottom = 32
+  const innerW = Math.max(w - 2 * padX, 1)
   const innerH = h - padY - padBottom
 
-  const minT = new Date(String(rows[0].date)).getTime()
-  const maxT = new Date(String(rows[rows.length - 1].date)).getTime()
-  const tRange = maxT - minT || 1
-  const xPos = (dateStr: string) => padX + ((new Date(dateStr).getTime() - minT) / tRange) * innerW
-  const barW = Math.max(8, Math.min(28, innerW / Math.max(rows.length, 1) - 4))
+  const n = rows.length
+  const slot = innerW / n
+  const barW = Math.max(6, Math.min(36, slot * 0.7))
+  const xCenter = (i: number) => padX + slot * (i + 0.5)
 
-  const xTickIndices = pickTicks(rows.length, 6)
+  // Pick ~6 row indices to label so date ticks don't crowd. Always include
+  // the first and last.
+  const wantTicks = Math.min(6, n)
+  const tickIndices = wantTicks <= 1
+    ? [0]
+    : Array.from(new Set(Array.from({ length: wantTicks }, (_, i) =>
+        Math.round((i * (n - 1)) / (wantTicks - 1))
+      )))
+
+  // Freshness caption — shows gap to today even though the chart itself is categorical.
+  const todayMidnight = new Date(); todayMidnight.setHours(0, 0, 0, 0)
+  const lastT = new Date(String(rows[n - 1].date)).getTime()
+  const daysSince = Math.max(0, Math.round((todayMidnight.getTime() - lastT) / 86400000))
+  const lastLabel = new Date(String(rows[n - 1].date)).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+  const caption = daysSince === 0
+    ? `${n} scan${n === 1 ? '' : 's'} · last today`
+    : `${n} scan${n === 1 ? '' : 's'} · last on ${lastLabel} (${daysSince} day${daysSince === 1 ? '' : 's'} ago)`
+
+  const onMove = (e: React.MouseEvent<SVGSVGElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    const xRel = (e.clientX - rect.left) * (w / rect.width)
+    const i = Math.floor((xRel - padX) / slot)
+    if (i >= 0 && i < n) setHoverIdx(i)
+    else setHoverIdx(null)
+  }
+
+  const hoverRow = hoverIdx != null ? rows[hoverIdx] : null
+  const hoverTotal = hoverRow ? BUCKETS.reduce((s, b) => s + (Number(hoverRow[b.id]) || 0), 0) : 0
+  const hoverX = hoverIdx != null ? xCenter(hoverIdx) : 0
+  const tipLeft = hoverIdx != null ? (hoverX > w / 2 ? hoverX - 200 : hoverX + 12) : 0
 
   return (
-    <div className="flex gap-4">
-      <div className="flex-1">
-        <svg viewBox={`0 0 ${w} ${h}`} className="w-full h-60">
-          {rows.map((row) => {
-            const date = String(row.date)
-            const xCenter = xPos(date)
-            const barX = xCenter - barW / 2
-            let yCursor = padY + innerH
-            return (
-              <g key={date}>
-                {BUCKETS.map(b => {
-                  const v = Number(row[b.id]) || 0
-                  if (!v) return null
-                  const segH = (v / max) * innerH
-                  const y = yCursor - segH
-                  const seg = (
-                    <rect key={b.id} x={barX} y={y} width={barW} height={segH} fill={b.color}>
-                      <title>{`${date} · ${b.label}: ${v}`}</title>
-                    </rect>
-                  )
-                  yCursor = y
-                  return seg
-                })}
-                <rect
-                  x={barX}
-                  y={padY}
-                  width={barW}
-                  height={innerH}
-                  fill="transparent"
-                  className="cursor-pointer"
-                  onClick={() => onPick(date)}
-                >
-                  <title>Compare current ranks vs {date}</title>
-                </rect>
-              </g>
-            )
-          })}
-          {xTickIndices.map(i => {
-            const date = String(rows[i].date)
-            return (
-              <text key={i} x={xPos(date)} y={h - 8} textAnchor="middle" fontSize="10" fill="#94a3b8">
-                {new Date(date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+    <div className="space-y-2">
+      <p className="text-xs text-text-muted">{caption}</p>
+      <div className="flex gap-4">
+        <div ref={containerRef} className="flex-1 min-w-0 relative">
+          <svg
+            width={w} height={h} className="block"
+            onMouseMove={onMove}
+            onMouseLeave={() => setHoverIdx(null)}
+            onClick={() => { if (hoverIdx != null) onPick(String(rows[hoverIdx].date)) }}
+            style={{ cursor: hoverIdx != null ? 'pointer' : 'default' }}
+          >
+            {hoverIdx != null && (
+              <rect x={xCenter(hoverIdx) - slot / 2} y={padY} width={slot} height={innerH} fill="#94a3b8" opacity="0.08" />
+            )}
+            {rows.map((row, i) => {
+              const date = String(row.date)
+              const xc = xCenter(i)
+              const barX = xc - barW / 2
+              let yCursor = padY + innerH
+              return (
+                <g key={date}>
+                  {BUCKETS.map(b => {
+                    const v = Number(row[b.id]) || 0
+                    if (!v) return null
+                    const segH = (v / max) * innerH
+                    const y = yCursor - segH
+                    yCursor = y
+                    return (
+                      <rect key={b.id} x={barX} y={y} width={barW} height={segH} fill={b.color} />
+                    )
+                  })}
+                </g>
+              )
+            })}
+            {tickIndices.map(i => (
+              <text key={i} x={xCenter(i)} y={h - 8} textAnchor="middle" fontSize="10" fill="#94a3b8">
+                {new Date(String(rows[i].date)).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
               </text>
-            )
-          })}
-        </svg>
-      </div>
-      <div className="flex flex-col gap-1.5 text-xs pt-2 shrink-0">
-        {BUCKETS.map(b => (
-          <span key={b.id} className="flex items-center gap-2">
-            <span className="inline-block w-4 h-3 rounded-sm" style={{ background: b.color }} />
-            {b.label}
-          </span>
-        ))}
+            ))}
+          </svg>
+          {hoverRow && (
+            <div
+              className="absolute pointer-events-none bg-white border border-border rounded-lg shadow-lg p-2 text-xs z-10"
+              style={{ left: tipLeft, top: padY + 4, minWidth: 180 }}
+            >
+              <p className="font-semibold mb-1">
+                {new Date(String(hoverRow.date)).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+              </p>
+              <p className="text-[10px] text-text-muted mb-1.5">click to view rankings on this date</p>
+              <div className="space-y-0.5">
+                {BUCKETS.map(b => {
+                  const v = Number(hoverRow[b.id]) || 0
+                  return (
+                    <div key={b.id} className="flex items-center justify-between gap-3">
+                      <span className="flex items-center gap-1.5">
+                        <span className="inline-block w-2.5 h-2.5 rounded-sm" style={{ background: b.color }} />
+                        {b.label}
+                      </span>
+                      <span className="tabular-nums">{v || '—'}</span>
+                    </div>
+                  )
+                })}
+                <div className="flex items-center justify-between gap-3 pt-1 mt-1 border-t border-border font-semibold">
+                  <span>Total</span>
+                  <span className="tabular-nums">{hoverTotal}</span>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="flex flex-col gap-1.5 text-xs pt-2 shrink-0">
+          {BUCKETS.map(b => (
+            <span key={b.id} className="flex items-center gap-2">
+              <span className="inline-block w-4 h-3 rounded-sm" style={{ background: b.color }} />
+              {b.label}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   )
 }
 
-function pickTicks(total: number, want: number): number[] {
-  if (total <= want) return Array.from({ length: total }, (_, i) => i)
-  const step = (total - 1) / (want - 1)
-  const out = new Set<number>()
-  for (let i = 0; i < want; i++) out.add(Math.round(i * step))
-  return Array.from(out).sort((a, b) => a - b)
+/**
+ * Pick `count` evenly-spaced time ticks across [minT, maxT].
+ * Used for x-axis labels so they spread uniformly even when scan dates cluster.
+ */
+function buildTimeTicks(minT: number, maxT: number, count: number): Array<{ t: number; label: string }> {
+  const range = maxT - minT
+  if (range <= 0) return [{ t: minT, label: new Date(minT).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) }]
+  const out: Array<{ t: number; label: string }> = []
+  for (let i = 0; i < count; i++) {
+    const t = minT + (i / (count - 1)) * range
+    out.push({ t, label: new Date(t).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) })
+  }
+  return out
 }

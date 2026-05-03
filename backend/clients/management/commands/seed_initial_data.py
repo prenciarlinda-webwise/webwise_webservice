@@ -325,6 +325,31 @@ CLIENTS = [
             {'name': 'Flooring Installation — All Types', 'item_type': 'service'},
         ],
     },
+    {
+        'username': 'torragips',
+        'first_name': 'Torra', 'last_name': 'Gips',
+        'email': 'torragips@gmail.com',
+        'business': {
+            'name': 'Torra Gips',
+            'business_phone': '+355 68 858 0058',
+            'business_email': 'torragips@gmail.com',
+            'website_url': 'https://www.torragips.com/sq/',
+            'business_address': 'Tiranë, Durrës, Albania',
+            'city': 'Tiranë', 'state': '', 'country': 'Albania',
+            'business_hours': 'Mon-Sat 08:00-18:00',
+            'service_areas': ['Tiranë, Albania', 'Durrës, Albania'],
+            'google_business_name': 'Punime Gipsi - Torra Gips',
+            'industry': 'Drywall / Gips Works (Punime Gipsi)',
+            'target_audience': ['Albanian homeowners and contractors needing drywall / gips work'],
+            'tags': ['drywall', 'gips', 'albania', 'tirana', 'durres'],
+            'language_code': 'sq',
+            'track_maps': True,
+        },
+        'catalog': [
+            {'name': 'Punime Gipsi (Drywall Works)', 'item_type': 'service'},
+            {'name': 'Tavanë & Mure Gipsi (Ceiling & Wall Drywall)', 'item_type': 'service'},
+        ],
+    },
 ]
 
 

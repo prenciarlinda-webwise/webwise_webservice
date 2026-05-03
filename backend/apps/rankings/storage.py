@@ -17,8 +17,12 @@ logger = logging.getLogger(__name__)
 
 def persist_screenshot(remote_url: str, subdir: str = "serp") -> str:
     """Download `remote_url` and save under MEDIA_ROOT/screenshots/<subdir>/.
-    Returns an absolute URL pointing at our copy. If the download fails,
-    returns the original `remote_url` (so the popover can still try it).
+
+    Returns an absolute URL pointing at our copy, or "" if the download
+    failed. Crucially, we do NOT fall back to the remote URL on failure —
+    DataforSEO's CDN purges screenshots after 30-60 days, so storing the
+    remote URL would poison the DB with links that 404 later. Empty string
+    lets the UI cleanly hide the screenshot rather than show a broken image.
 
     Idempotent: same source URL always maps to the same local file (sha256
     of the URL).
@@ -43,14 +47,14 @@ def persist_screenshot(remote_url: str, subdir: str = "serp") -> str:
         resp = requests.get(remote_url, timeout=30, stream=True)
         if resp.status_code != 200:
             logger.warning("Screenshot download %s → %s", remote_url, resp.status_code)
-            return remote_url
+            return ""
         with open(abs_path, "wb") as f:
             for chunk in resp.iter_content(chunk_size=16384):
                 f.write(chunk)
         return _public_url(rel_path)
     except Exception as e:
         logger.warning("Screenshot persist failed for %s: %s", remote_url, e)
-        return remote_url
+        return ""
 
 
 def _public_base() -> str:

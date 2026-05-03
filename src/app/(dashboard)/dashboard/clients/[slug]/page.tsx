@@ -8,7 +8,7 @@ import { useAuth } from '@/context/AuthContext'
 import PageHeader from '@/components/dashboard/PageHeader'
 import StatusBadge from '@/components/dashboard/StatusBadge'
 import Modal from '@/components/dashboard/Modal'
-import { Plus, Phone, Mail, ArrowRight, Pencil, Trash2, Globe } from 'lucide-react'
+import { Plus, Phone, Mail, ArrowRight, Pencil, Trash2, Globe, MapPin, Briefcase } from 'lucide-react'
 
 interface Business {
   id: number
@@ -18,6 +18,11 @@ interface Business {
   domain: string
   business_phone: string
   business_email: string
+  business_address: string
+  city: string
+  state: string
+  industry: string
+  business_hours: string
   status: string
 }
 
@@ -160,32 +165,45 @@ export default function ClientDetailPage() {
           <p className="text-sm text-text-muted">No businesses yet.</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {businesses.map(b => (
-              <div key={b.id} className="border border-border rounded-lg p-4 hover:border-accent/50 transition-colors group">
-                <div className="flex items-start justify-between mb-2">
-                  <div>
-                    <Link
-                      href={`/dashboard/${b.slug}`}
-                      className="font-medium hover:text-accent flex items-center gap-1"
-                    >
-                      {b.name}
-                      <ArrowRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </Link>
-                    <StatusBadge status={b.status} />
+            {businesses.map(b => {
+              const location = [b.city, b.state].filter(Boolean).join(', ')
+              return (
+                <Link
+                  key={b.id}
+                  href={`/dashboard/${b.slug}`}
+                  className="block relative border border-border rounded-lg p-4 hover:border-accent/50 hover:shadow-sm transition-all group"
+                >
+                  <div className="flex items-start justify-between mb-2">
+                    <div className="min-w-0 flex-1">
+                      <p className="font-medium group-hover:text-accent flex items-center gap-1 truncate">
+                        {b.name}
+                        <ArrowRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+                      </p>
+                      <div className="flex items-center gap-2 mt-1">
+                        <StatusBadge status={b.status} />
+                        {b.industry && <span className="text-xs text-text-muted">· {b.industry}</span>}
+                      </div>
+                    </div>
+                    {isPrivileged && (
+                      <button
+                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); deleteBusiness(b.id, b.name) }}
+                        className="text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity p-1 -m-1"
+                        aria-label="Delete business"
+                      >
+                        <Trash2 size={14} />
+                      </button>
+                    )}
                   </div>
-                  {isPrivileged && (
-                    <button onClick={() => deleteBusiness(b.id, b.name)} className="text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Trash2 size={14} />
-                    </button>
-                  )}
-                </div>
-                <div className="text-xs text-text-muted space-y-1">
-                  {b.domain && <div className="flex items-center gap-1"><Globe size={11} /> {b.domain}</div>}
-                  {b.business_phone && <div className="flex items-center gap-1"><Phone size={11} /> {b.business_phone}</div>}
-                  {b.business_email && <div className="flex items-center gap-1"><Mail size={11} /> {b.business_email}</div>}
-                </div>
-              </div>
-            ))}
+                  <div className="text-xs text-text-muted space-y-1 mt-3">
+                    {b.domain && <div className="flex items-center gap-1.5 truncate"><Globe size={11} className="shrink-0" /> {b.domain}</div>}
+                    {b.business_phone && <div className="flex items-center gap-1.5"><Phone size={11} className="shrink-0" /> {b.business_phone}</div>}
+                    {b.business_email && <div className="flex items-center gap-1.5 truncate"><Mail size={11} className="shrink-0" /> {b.business_email}</div>}
+                    {location && <div className="flex items-center gap-1.5"><MapPin size={11} className="shrink-0" /> {location}</div>}
+                    {b.business_hours && <div className="flex items-center gap-1.5 truncate"><Briefcase size={11} className="shrink-0" /> {b.business_hours}</div>}
+                  </div>
+                </Link>
+              )
+            })}
           </div>
         )}
       </section>

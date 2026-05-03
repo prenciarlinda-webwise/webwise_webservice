@@ -59,22 +59,49 @@ class RefreshRankingsView(APIView):
 
 
 class RefreshStatusView(APIView):
-    """GET task status by id (for polling after a refresh request)."""
+    """GET task status by id (for polling after a refresh request).
+
+    Surfaces three distinct shapes so the UI can render meaningfully:
+      * PROGRESS  → ``progress`` dict ({checked, total, current_keyword, ...})
+      * SUCCESS   → ``result`` dict (the task's return value)
+      * FAILURE   → ``error`` string (the exception message) + ``traceback``
+    """
     permission_classes = [IsSupervisor]
     def get(self, request, task_id):
         from celery.result import AsyncResult
 
         result = AsyncResult(task_id)
+        state = result.state  # PENDING / STARTED / PROGRESS / SUCCESS / FAILURE / RETRY
         payload = {
             "task_id": task_id,
-            "state": result.state,  # PENDING / STARTED / SUCCESS / FAILURE / RETRY
+            "state": state,
             "ready": result.ready(),
         }
-        if result.ready():
+
+        if state == "PROGRESS":
+            # During PROGRESS, result.info is the meta dict from update_state.
+            info = result.info if isinstance(result.info, dict) else None
+            if info:
+                payload["progress"] = info
+
+        elif state == "SUCCESS":
             try:
-                payload["result"] = result.result if result.successful() else str(result.result)
+                payload["result"] = result.result
             except Exception:
                 payload["result"] = None
+
+        elif state == "FAILURE":
+            # AccessRecursive: result.result is the exception instance.
+            try:
+                exc = result.result
+                payload["error"] = f"{type(exc).__name__}: {exc}" if exc else "Unknown error"
+            except Exception:
+                payload["error"] = "Task failed (no detail available)"
+            tb = getattr(result, "traceback", None)
+            if tb:
+                # Truncate to last few lines so the UI tooltip stays readable.
+                payload["traceback"] = "\n".join(tb.strip().splitlines()[-6:])
+
         return Response(payload)
 
 

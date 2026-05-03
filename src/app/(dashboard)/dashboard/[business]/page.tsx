@@ -29,14 +29,26 @@ interface Business {
   website_url: string
   domain: string
   business_hours: string
+  service_areas: string[]
+  // Digital Management & Social Media
   google_business_url: string
   google_business_name: string
   google_place_id: string
   google_cid: string
   facebook_url: string
   instagram_url: string
+  google_drive_url: string
+  image_folder_url: string
+  citations_url: string
+  booking_url: string
+  nap_status: string
+  // The "Critic Eye" Intel
   industry: string
-  service_areas: string[]
+  target_audience: string[]
+  competitors: Array<{ name: string; notes?: string } | string>
+  usps: string[]
+  marketing_channels: string[]
+  tags: string[]
   status: string
   notes: string
   is_seo_tracked: boolean
@@ -279,15 +291,15 @@ export default function BusinessDetailPage({ params }: { params: Promise<{ busin
 
       {/* === Events summary (supervisor/admin only) === */}
       {isPrivileged && (
-        <section className="bg-white rounded-xl border border-border p-6">
+        <Link
+          href={`/dashboard/${business.slug}/events`}
+          className="block bg-white rounded-xl border border-border p-6 hover:border-accent/50 hover:shadow-sm transition-all group"
+        >
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold">Events summary</h2>
-            <Link
-              href={`/dashboard/${business.slug}/events`}
-              className="text-sm text-accent hover:underline flex items-center gap-1"
-            >
+            <span className="text-sm text-accent group-hover:underline flex items-center gap-1">
               View details <ArrowRight size={14} />
-            </Link>
+            </span>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <SummaryCard label="Calls (GBP)" value={gbp?.calls} />
@@ -298,20 +310,20 @@ export default function BusinessDetailPage({ params }: { params: Promise<{ busin
           {!gbp && !ga4 && (
             <p className="text-sm text-text-muted mt-4">No events recorded yet. Add monthly metrics from the Events page.</p>
           )}
-        </section>
+        </Link>
       )}
 
       {/* === Rankings summary (supervisor/admin only) === */}
       {isPrivileged && (
-        <section className="bg-white rounded-xl border border-border p-6">
+        <Link
+          href={`/dashboard/${business.slug}/rankings`}
+          className="block bg-white rounded-xl border border-border p-6 hover:border-accent/50 hover:shadow-sm transition-all group"
+        >
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold">Rankings summary</h2>
-            <Link
-              href={`/dashboard/${business.slug}/rankings`}
-              className="text-sm text-accent hover:underline flex items-center gap-1"
-            >
+            <span className="text-sm text-accent group-hover:underline flex items-center gap-1">
               View details <ArrowRight size={14} />
-            </Link>
+            </span>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <SummaryCard label="Desktop avg" value={rankingSummary?.desktop} />
@@ -325,7 +337,7 @@ export default function BusinessDetailPage({ params }: { params: Promise<{ busin
               <span>Last scan: {new Date(rankingSummary.lastScan).toLocaleDateString()}</span>
             )}
           </div>
-        </section>
+        </Link>
       )}
 
       {/* === Active engagements === */}
@@ -401,8 +413,8 @@ export default function BusinessDetailPage({ params }: { params: Promise<{ busin
       </section>
 
       {/* === Business reference === */}
-      <section className="bg-white rounded-xl border border-border p-6">
-        <div className="flex items-center justify-between mb-4">
+      <section className="bg-white rounded-xl border border-border p-6 space-y-6">
+        <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold">Business reference</h2>
           {canEditBusiness && (
             <button
@@ -413,15 +425,51 @@ export default function BusinessDetailPage({ params }: { params: Promise<{ busin
             </button>
           )}
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 text-sm">
-          <FieldRow icon={<Phone size={14} />} label="Phone" value={business.business_phone} />
-          <FieldRow icon={<Mail size={14} />} label="Email" value={business.business_email} />
-          <FieldRow icon={<MapPin size={14} />} label="Address" value={[business.business_address, business.city, business.state, business.zip_code].filter(Boolean).join(', ')} />
-          <FieldRow label="Hours" value={business.business_hours} />
-          <FieldRow label="Industry" value={business.industry} />
-          <FieldRow label="Country" value={business.country} />
-          {business.google_business_name && <FieldRow label="GBP name" value={business.google_business_name} />}
-          {business.google_place_id && <FieldRow label="GBP place ID" value={business.google_place_id} />}
+
+        {/* Basic Information */}
+        <div>
+          <h3 className="text-xs font-semibold uppercase tracking-wide text-text-muted mb-3">Basic Information</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 text-sm">
+            <FieldRow icon={<Phone size={14} />} label="Phone" value={business.business_phone} />
+            <FieldRow icon={<Mail size={14} />} label="Email" value={business.business_email} />
+            <FieldRow icon={<Globe size={14} />} label="Website" value={business.website_url} link={business.website_url || (business.domain ? `https://${business.domain}` : undefined)} />
+            <FieldRow icon={<MapPin size={14} />} label="Address" value={[business.business_address, business.city, business.state, business.zip_code].filter(Boolean).join(', ')} />
+            <FieldRow label="Service area" value={(business.service_areas ?? []).join(', ')} />
+            <FieldRow label="Hours" value={business.business_hours} />
+            <FieldRow label="Country" value={business.country} />
+          </div>
+        </div>
+
+        {/* Digital Management & Social Media */}
+        <div className="pt-4 border-t border-border">
+          <h3 className="text-xs font-semibold uppercase tracking-wide text-text-muted mb-3">Digital Management &amp; Social Media</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 text-sm">
+            <FieldRow label="GMB profile" value={business.google_business_url} link={business.google_business_url} linkLabel="View live profile" />
+            <FieldRow label="GBP name" value={business.google_business_name} />
+            <FieldRow label="GBP place ID" value={business.google_place_id} mono />
+            <FieldRow label="Facebook" value={business.facebook_url} link={business.facebook_url} linkLabel="Open Facebook" />
+            <FieldRow label="Instagram" value={business.instagram_url} link={business.instagram_url} linkLabel="Open Instagram" />
+            <FieldRow label="Google Drive" value={business.google_drive_url} link={business.google_drive_url} linkLabel="Open Drive folder" />
+            <FieldRow label="Image folder" value={business.image_folder_url} link={business.image_folder_url} linkLabel="Open assets folder" />
+            <FieldRow label="Citations" value={business.citations_url} link={business.citations_url} linkLabel="Open citations sheet" />
+            <FieldRow label="Booking URL" value={business.booking_url} link={business.booking_url} linkLabel="Open booking form" />
+            <FieldRow label="NAP status" value={business.nap_status} />
+          </div>
+        </div>
+
+        {/* Critic Eye Intel */}
+        <div className="pt-4 border-t border-border">
+          <h3 className="text-xs font-semibold uppercase tracking-wide text-text-muted mb-3">
+            Additional Details <span className="text-text-muted/60 normal-case font-normal">(the &quot;critic eye&quot; intel)</span>
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 text-sm">
+            <FieldRow label="Industry" value={business.industry} />
+            <BadgeRow label="Tags" values={business.tags ?? []} />
+            <BadgeRow label="Target audience" values={business.target_audience ?? []} />
+            <BadgeRow label="Marketing channels" values={business.marketing_channels ?? []} />
+            <CompetitorList label="Key competitors" competitors={business.competitors ?? []} />
+            <BulletList label="Unique selling points" items={business.usps ?? []} />
+          </div>
         </div>
       </section>
 
@@ -580,8 +628,8 @@ export default function BusinessDetailPage({ params }: { params: Promise<{ busin
       </Modal>
 
       <Modal open={editBusinessOpen} onClose={() => setEditBusinessOpen(false)} title="Edit business reference" wide>
-        <form onSubmit={handleSaveBusiness} className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+        <form onSubmit={handleSaveBusiness} className="space-y-6">
+          <FormSection title="Basic Information">
             <Input label="Name *" value={bizForm.name ?? ''} onChange={v => setBizForm(f => ({ ...f, name: v }))} required />
             <Input label="Phone" value={bizForm.business_phone ?? ''} onChange={v => setBizForm(f => ({ ...f, business_phone: v }))} />
             <Input label="Email" value={bizForm.business_email ?? ''} onChange={v => setBizForm(f => ({ ...f, business_email: v }))} />
@@ -590,12 +638,34 @@ export default function BusinessDetailPage({ params }: { params: Promise<{ busin
             <Input label="City" value={bizForm.city ?? ''} onChange={v => setBizForm(f => ({ ...f, city: v }))} />
             <Input label="State" value={bizForm.state ?? ''} onChange={v => setBizForm(f => ({ ...f, state: v }))} />
             <Input label="ZIP" value={bizForm.zip_code ?? ''} onChange={v => setBizForm(f => ({ ...f, zip_code: v }))} />
-            <Input label="Industry" value={bizForm.industry ?? ''} onChange={v => setBizForm(f => ({ ...f, industry: v }))} />
-            <Input label="Hours" value={bizForm.business_hours ?? ''} onChange={v => setBizForm(f => ({ ...f, business_hours: v }))} />
-            <Input label="GBP listing URL" value={bizForm.google_business_url ?? ''} onChange={v => setBizForm(f => ({ ...f, google_business_url: v }))} />
+            <Input label="Country" value={bizForm.country ?? ''} onChange={v => setBizForm(f => ({ ...f, country: v }))} />
+            <Input label="Hours (e.g. Mon-Fri: 8AM–7PM)" value={bizForm.business_hours ?? ''} onChange={v => setBizForm(f => ({ ...f, business_hours: v }))} />
+            <ListInput label="Service areas (comma-separated)" values={bizForm.service_areas ?? []} onChange={vs => setBizForm(f => ({ ...f, service_areas: vs }))} />
+          </FormSection>
+
+          <FormSection title="Digital Management & Social Media">
+            <Input label="GMB listing URL" value={bizForm.google_business_url ?? ''} onChange={v => setBizForm(f => ({ ...f, google_business_url: v }))} />
+            <Input label="GBP business name" value={bizForm.google_business_name ?? ''} onChange={v => setBizForm(f => ({ ...f, google_business_name: v }))} />
             <Input label="GBP place ID" value={bizForm.google_place_id ?? ''} onChange={v => setBizForm(f => ({ ...f, google_place_id: v }))} />
-          </div>
-          <div className="flex justify-end gap-3 pt-2">
+            <Input label="Facebook URL" value={bizForm.facebook_url ?? ''} onChange={v => setBizForm(f => ({ ...f, facebook_url: v }))} />
+            <Input label="Instagram URL" value={bizForm.instagram_url ?? ''} onChange={v => setBizForm(f => ({ ...f, instagram_url: v }))} />
+            <Input label="Google Drive URL" value={bizForm.google_drive_url ?? ''} onChange={v => setBizForm(f => ({ ...f, google_drive_url: v }))} />
+            <Input label="Image folder URL" value={bizForm.image_folder_url ?? ''} onChange={v => setBizForm(f => ({ ...f, image_folder_url: v }))} />
+            <Input label="Citations URL" value={bizForm.citations_url ?? ''} onChange={v => setBizForm(f => ({ ...f, citations_url: v }))} />
+            <Input label="Booking URL" value={bizForm.booking_url ?? ''} onChange={v => setBizForm(f => ({ ...f, booking_url: v }))} />
+            <Input label="NAP status (e.g. High, Cleaning in progress)" value={bizForm.nap_status ?? ''} onChange={v => setBizForm(f => ({ ...f, nap_status: v }))} />
+          </FormSection>
+
+          <FormSection title='Additional Details ("Critic Eye" Intel)'>
+            <Input label="Industry" value={bizForm.industry ?? ''} onChange={v => setBizForm(f => ({ ...f, industry: v }))} />
+            <ListInput label="Tags (comma-separated)" values={bizForm.tags ?? []} onChange={vs => setBizForm(f => ({ ...f, tags: vs }))} />
+            <ListInput label="Target audience (comma-separated)" values={bizForm.target_audience ?? []} onChange={vs => setBizForm(f => ({ ...f, target_audience: vs }))} />
+            <ListInput label="Marketing channels (comma-separated)" values={bizForm.marketing_channels ?? []} onChange={vs => setBizForm(f => ({ ...f, marketing_channels: vs }))} />
+            <ListInput label="Key competitors (comma-separated names)" values={(bizForm.competitors ?? []).map(c => typeof c === 'string' ? c : c.name)} onChange={vs => setBizForm(f => ({ ...f, competitors: vs.map(name => ({ name })) }))} fullWidth />
+            <ListInput label="Unique selling points (one per line)" values={bizForm.usps ?? []} onChange={vs => setBizForm(f => ({ ...f, usps: vs }))} fullWidth multiline />
+          </FormSection>
+
+          <div className="flex justify-end gap-3 pt-2 border-t border-border">
             <button type="button" onClick={() => setEditBusinessOpen(false)} className="px-4 py-2 text-sm text-text-secondary hover:text-text-primary">Cancel</button>
             <button type="submit" className="px-6 py-2 bg-primary text-white text-sm font-medium rounded-lg">Save</button>
           </div>
@@ -614,14 +684,85 @@ function SummaryCard({ label, value }: { label: string; value: number | string |
   )
 }
 
-function FieldRow({ icon, label, value }: { icon?: React.ReactNode; label: string; value: string | undefined | null }) {
+function FieldRow({ icon, label, value, link, linkLabel, mono }: {
+  icon?: React.ReactNode
+  label: string
+  value: string | undefined | null
+  link?: string
+  linkLabel?: string
+  mono?: boolean
+}) {
   if (!value) return null
   return (
     <div className="flex gap-3">
       {icon && <span className="text-text-muted shrink-0 mt-0.5">{icon}</span>}
-      <div>
+      <div className="min-w-0 flex-1">
         <p className="text-xs text-text-muted">{label}</p>
-        <p className="text-sm">{value}</p>
+        {link ? (
+          <a
+            href={link}
+            target="_blank"
+            rel="noreferrer"
+            className={`text-sm text-accent hover:underline break-words inline-flex items-center gap-1 ${mono ? 'font-mono' : ''}`}
+          >
+            {linkLabel ?? value} <ExternalLink size={11} className="shrink-0" />
+          </a>
+        ) : (
+          <p className={`text-sm break-words ${mono ? 'font-mono text-xs' : ''}`}>{value}</p>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function BadgeRow({ label, values }: { label: string; values: string[] }) {
+  if (!values.length) return null
+  return (
+    <div>
+      <p className="text-xs text-text-muted mb-1.5">{label}</p>
+      <div className="flex flex-wrap gap-1.5">
+        {values.map((v, i) => (
+          <span key={i} className="inline-block px-2 py-0.5 rounded-full bg-bg-secondary text-xs text-text-secondary">
+            {v}
+          </span>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function BulletList({ label, items }: { label: string; items: string[] }) {
+  if (!items.length) return null
+  return (
+    <div className="md:col-span-2">
+      <p className="text-xs text-text-muted mb-1.5">{label}</p>
+      <ul className="space-y-1 text-sm">
+        {items.map((item, i) => (
+          <li key={i} className="flex gap-2">
+            <span className="text-accent shrink-0">•</span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+function CompetitorList({ label, competitors }: { label: string; competitors: Array<{ name: string; notes?: string } | string> }) {
+  if (!competitors.length) return null
+  return (
+    <div>
+      <p className="text-xs text-text-muted mb-1.5">{label}</p>
+      <div className="flex flex-wrap gap-1.5">
+        {competitors.map((c, i) => {
+          const name = typeof c === 'string' ? c : c.name
+          const notes = typeof c === 'string' ? undefined : c.notes
+          return (
+            <span key={i} title={notes} className="inline-block px-2 py-0.5 rounded-full bg-bg-secondary text-xs text-text-secondary">
+              {name}
+            </span>
+          )
+        })}
       </div>
     </div>
   )
@@ -637,6 +778,56 @@ function Input({ label, value, onChange, required }: { label: string; value: str
         className="w-full px-3 py-2 border border-border rounded-lg text-sm"
         required={required}
       />
+    </div>
+  )
+}
+
+function FormSection({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="space-y-3">
+      <h3 className="text-xs font-semibold uppercase tracking-wide text-text-muted border-b border-border pb-1.5">{title}</h3>
+      <div className="grid grid-cols-2 gap-4">
+        {children}
+      </div>
+    </div>
+  )
+}
+
+/**
+ * Comma-separated list input. Empty entries get filtered on save so trailing
+ * commas don't create blank items in the JSON list. `multiline` switches to
+ * line-separated input (better for long phrases like USPs).
+ */
+function ListInput({ label, values, onChange, fullWidth, multiline }: {
+  label: string
+  values: string[]
+  onChange: (values: string[]) => void
+  fullWidth?: boolean
+  multiline?: boolean
+}) {
+  const sep = multiline ? '\n' : ', '
+  const text = values.join(sep)
+  const handleChange = (raw: string) => {
+    const parts = multiline ? raw.split('\n') : raw.split(',')
+    onChange(parts.map(s => s.trim()).filter(Boolean))
+  }
+  return (
+    <div className={fullWidth ? 'col-span-2' : ''}>
+      <label className="block text-sm font-medium mb-1">{label}</label>
+      {multiline ? (
+        <textarea
+          rows={Math.max(3, Math.min(8, values.length + 1))}
+          value={text}
+          onChange={e => handleChange(e.target.value)}
+          className="w-full px-3 py-2 border border-border rounded-lg text-sm font-mono"
+        />
+      ) : (
+        <input
+          value={text}
+          onChange={e => handleChange(e.target.value)}
+          className="w-full px-3 py-2 border border-border rounded-lg text-sm"
+        />
+      )}
     </div>
   )
 }

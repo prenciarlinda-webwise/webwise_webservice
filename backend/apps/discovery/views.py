@@ -1,5 +1,6 @@
 import logging
 
+from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from rest_framework import generics, status
 from rest_framework.response import Response
@@ -40,6 +41,42 @@ class DiscoveryResultListView(generics.ListAPIView):
             run_id=self.kwargs["run_pk"],
             business__slug=self.kwargs["business_slug"],
         )
+
+
+class RefreshDiscoveryView(APIView):
+    """POST endpoint to kick off keyword discovery for ONE business on demand.
+
+    Discovery normally runs on the monthly Celery beat schedule. This lets a
+    supervisor trigger a fresh run immediately (e.g. right after promoting a
+    batch, or when onboarding a new business that doesn't want to wait for
+    the next month).
+
+    Reuses the same ``monthly_keyword_discovery`` task so the run history,
+    error handling, and DB writes are identical.
+    """
+    permission_classes = [IsSupervisor]
+
+    def post(self, request, business_slug):
+        from apps.discovery.tasks import monthly_keyword_discovery
+
+        project = get_object_or_404(Business, slug=business_slug)
+        if not project.discovery_enabled:
+            return Response(
+                {"detail": "Discovery is disabled for this business. Enable discovery_enabled in admin."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        if not project.domain:
+            return Response(
+                {"detail": "Business has no domain configured — cannot run keyword discovery."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        async_result = monthly_keyword_discovery.delay(project_id=project.id)
+        return Response({
+            "task_id": async_result.id,
+            "business_slug": project.slug,
+            "status": "queued",
+            "message": f"Discovery queued for {project.domain}. Polls the task status endpoint or check the discovery runs list.",
+        }, status=status.HTTP_202_ACCEPTED)
 
 
 class PromoteKeywordsView(APIView):

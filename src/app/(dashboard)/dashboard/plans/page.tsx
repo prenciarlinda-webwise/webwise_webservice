@@ -241,15 +241,19 @@ export default function MonthlyPlansPage() {
       <div className="space-y-4">
         {plans.map(plan => (
           <div key={plan.id} className="bg-white rounded-xl border border-border overflow-hidden">
-            {/* Plan Header */}
-            <div className="flex items-center justify-between px-6 py-4 hover:bg-bg-secondary/30 transition-colors">
-              <button
-                onClick={() => setExpandedPlan(expandedPlan === plan.id ? null : plan.id)}
-                className="flex-1 text-left"
-              >
+            {/* Plan Header — entire row toggles expand. CRUD/navigation
+                children stop propagation so they keep their own behavior. */}
+            <div
+              role="button"
+              tabIndex={0}
+              onClick={() => setExpandedPlan(expandedPlan === plan.id ? null : plan.id)}
+              onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setExpandedPlan(expandedPlan === plan.id ? null : plan.id) } }}
+              className="flex items-center justify-between px-6 py-4 hover:bg-bg-secondary/30 transition-colors cursor-pointer select-none"
+            >
+              <div className="flex-1 text-left">
                 <h3 className="font-semibold text-text-primary">{plan.client_name}</h3>
                 <p className="text-sm text-text-secondary">{plan.service_name} · {plan.month_display}</p>
-              </button>
+              </div>
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
                   <div className="w-32 h-2 bg-bg-secondary rounded-full overflow-hidden">
@@ -259,10 +263,21 @@ export default function MonthlyPlansPage() {
                 </div>
                 <div className="text-xs text-text-muted">{plan.progress.completed}/{plan.progress.total} done</div>
                 <StatusBadge status={plan.status} />
-                <Link href={`/dashboard/${plan.business_slug}`} className="text-xs text-accent hover:underline">View Business</Link>
+                <Link
+                  href={`/dashboard/${plan.business_slug}`}
+                  onClick={e => e.stopPropagation()}
+                  className="text-xs text-accent hover:underline"
+                >
+                  View Business
+                </Link>
                 {isAdmin && (
                   <div className="flex items-center gap-1">
-                    <button onClick={() => deletePlan(plan.id)} className="text-red-400 hover:text-red-600"><Trash2 size={14} /></button>
+                    <button
+                      onClick={e => { e.stopPropagation(); deletePlan(plan.id) }}
+                      className="text-red-400 hover:text-red-600"
+                    >
+                      <Trash2 size={14} />
+                    </button>
                   </div>
                 )}
               </div>

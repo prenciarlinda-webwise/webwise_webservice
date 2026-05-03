@@ -1,4 +1,5 @@
 import logging
+import threading
 import time
 
 import requests
@@ -13,7 +14,11 @@ BASE_URL = "https://api.dataforseo.com/v3"
 
 
 class DataForSEOClient:
-    """Base HTTP client for DataForSEO API with retry and rate limiting."""
+    """Base HTTP client for DataForSEO API with retry and rate limiting.
+
+    Thread-safe: requests.Session is documented thread-safe, and the rate
+    limiter holds a lock so concurrent callers don't race on the timestamp.
+    """
 
     MIN_REQUEST_INTERVAL = 0.2  # seconds between requests
 
@@ -32,11 +37,16 @@ class DataForSEOClient:
         self.session.mount("https://", adapter)
 
         self._last_request_time = 0.0
+        self._rate_lock = threading.Lock()
 
     def _rate_limit(self):
-        elapsed = time.monotonic() - self._last_request_time
-        if elapsed < self.MIN_REQUEST_INTERVAL:
-            time.sleep(self.MIN_REQUEST_INTERVAL - elapsed)
+        # Hold the lock for the whole sleep so concurrent threads serialize
+        # their pacing instead of all sleeping in parallel and stampeding.
+        with self._rate_lock:
+            elapsed = time.monotonic() - self._last_request_time
+            if elapsed < self.MIN_REQUEST_INTERVAL:
+                time.sleep(self.MIN_REQUEST_INTERVAL - elapsed)
+            self._last_request_time = time.monotonic()
 
     def _check_response(self, resp: requests.Response) -> dict:
         """Parse and validate a DataForSEO API response."""
@@ -102,7 +112,6 @@ class DataForSEOClient:
         logger.debug("DataForSEO POST %s with %d task(s)", endpoint, len(payload))
         try:
             resp = self.session.post(url, json=payload, timeout=timeout)
-            self._last_request_time = time.monotonic()
         except requests.Timeout:
             logger.error("DataForSEO timeout: %s", endpoint)
             raise DataForSEOAPIError(504, f"Timeout calling {endpoint}", {})
@@ -119,7 +128,6 @@ class DataForSEOClient:
         logger.debug("DataForSEO GET %s", endpoint)
         try:
             resp = self.session.get(url, timeout=30)
-            self._last_request_time = time.monotonic()
         except requests.Timeout:
             logger.error("DataForSEO timeout: %s", endpoint)
             raise DataForSEOAPIError(504, f"Timeout calling {endpoint}", {})

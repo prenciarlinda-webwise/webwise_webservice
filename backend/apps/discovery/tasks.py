@@ -12,8 +12,8 @@ INTERESTING_MIN_VOLUME = 100
 INTERESTING_MAX_RANK = 30
 
 
-@shared_task
-def monthly_keyword_discovery(project_id=None):
+@shared_task(bind=True)
+def monthly_keyword_discovery(self, project_id=None):
     """Run DataForSEO Ranked Keywords for discovery-enabled clients.
 
     Args:
