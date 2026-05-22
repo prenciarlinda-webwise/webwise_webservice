@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Flame, AlertTriangle, CheckCircle, Loader2, ArrowRight, Zap, Smartphone, Shield, Clock, Search, XCircle } from 'lucide-react'
-import Link from 'next/link'
+import { Flame, AlertTriangle, CheckCircle, Loader2, Zap, Smartphone, Shield, Clock, Search, XCircle } from 'lucide-react'
+import PricingCTA from '@/components/forms/PricingCTA'
 
 interface RoastResult {
   score: number
@@ -256,13 +256,11 @@ export default function WebsiteRoast() {
                 <h4 className="text-xl font-bold text-white mb-2">Had Enough Roasting?</h4>
                 <p className="text-white/80 mb-4">Let us fix these issues and turn your website into a lead-generating machine.</p>
                 <div className="flex flex-wrap justify-center gap-4">
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-accent font-bold rounded-lg hover:bg-white/90 transition-colors"
-                  >
-                    Get Your Free Fix-It Plan
-                    <ArrowRight size={18} />
-                  </Link>
+                  <PricingCTA
+                    source="Website Roast — Free fix-it plan CTA"
+                    ctaLabel="Get Your Free Fix-It Plan"
+                    buttonClassName="inline-flex items-center gap-2 px-6 py-3 bg-white text-accent font-bold rounded-lg hover:bg-white/90 transition-colors"
+                  />
                   <button
                     onClick={() => {
                       setResult(null)

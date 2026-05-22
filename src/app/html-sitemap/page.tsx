@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { ArrowRight, Home, Briefcase, FolderOpen, DollarSign, Users, Mail, BookOpen, Search, Code, TrendingUp } from 'lucide-react'
 import { services, clients, siteConfig } from '@/data/site'
 import { blogPosts } from '@/data/blog'
+import PricingCTA from '@/components/forms/PricingCTA'
 
 export const metadata = {
   title: 'Sitemap',
@@ -299,10 +300,11 @@ export default function SitemapPage() {
             <p className="text-text-secondary mb-6">
               Get in touch with us and we&apos;ll help you find exactly what you need.
             </p>
-            <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors">
-              Contact Us
-              <ArrowRight size={18} />
-            </Link>
+            <PricingCTA
+              source="HTML sitemap — Contact CTA"
+              ctaLabel="Contact Us"
+              buttonClassName="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors"
+            />
           </div>
         </div>
       </section>

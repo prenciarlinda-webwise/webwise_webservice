@@ -3,9 +3,11 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import Script from 'next/script'
 import { ArrowLeft, ArrowRight, Calendar, User, Clock, Share2, HelpCircle, Award, Check, Rocket } from 'lucide-react'
-import { blogPosts, getPostBySlug, getRelatedPosts, getBlogPostUrl, getBlogPosts } from '@/data/blog'
-import { siteConfig, getWhatsAppUrl } from '@/data/site'
+import { blogPosts, getPostBySlug, getRelatedPosts, getBlogPostUrl, getBlogPosts, getServicePageBreadcrumbContext } from '@/data/blog'
+import LeadForm from '@/components/forms/LeadForm'
+import { siteConfig } from '@/data/site'
 import { getBlogPostSEO } from '@/data/seo'
+import PricingCTA from '@/components/forms/PricingCTA'
 
 // Only generate pages for slugs that don't have dedicated pages elsewhere
 const excludedSlugs = [
@@ -65,6 +67,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const relatedPosts = getRelatedPosts(slug, 3)
 
   const canonicalUrl = `${siteConfig.url}${getBlogPostUrl(slug)}`
+  const breadcrumbCtx = getServicePageBreadcrumbContext(slug)
 
   // Article Schema
   const articleSchema = {
@@ -194,30 +197,22 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     })),
   } : null
 
-  // BreadcrumbList Schema
+  // BreadcrumbList Schema — adapts when the post renders as a service page
+  // (e.g. /local-seo/plumbers) so the schema matches the actual URL, not /blog.
   const breadcrumbSchema = {
     "@type": "BreadcrumbList",
     "@id": `${canonicalUrl}#breadcrumb`,
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: siteConfig.url,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Blog",
-        item: `${siteConfig.url}/blog`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: post.title,
-        item: canonicalUrl,
-      },
-    ],
+    itemListElement: breadcrumbCtx
+      ? [
+          { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+          { "@type": "ListItem", position: 2, name: breadcrumbCtx.parent.name, item: `${siteConfig.url}${breadcrumbCtx.parent.url}` },
+          { "@type": "ListItem", position: 3, name: breadcrumbCtx.current.name, item: `${siteConfig.url}${breadcrumbCtx.current.url}` },
+        ]
+      : [
+          { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+          { "@type": "ListItem", position: 2, name: "Blog", item: `${siteConfig.url}/blog` },
+          { "@type": "ListItem", position: 3, name: post.title, item: canonicalUrl },
+        ],
   }
 
   // FAQ Schema - only when post has FAQs
@@ -257,12 +252,22 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       {/* Hero */}
       <section className="bg-gradient-to-br from-primary to-primary-dark py-16 lg:py-24">
         <div className="container px-6">
-          <nav className="flex items-center gap-2 text-white/60 text-sm mb-8">
+          <nav className="flex items-center gap-2 text-white/60 text-sm mb-8" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-white">Home</Link>
             <span>/</span>
-            <Link href="/blog" className="hover:text-white">Blog</Link>
-            <span>/</span>
-            <span className="text-white truncate max-w-[200px]">{post.title}</span>
+            {breadcrumbCtx ? (
+              <>
+                <Link href={breadcrumbCtx.parent.url} className="hover:text-white">{breadcrumbCtx.parent.name}</Link>
+                <span>/</span>
+                <span className="text-white truncate max-w-[200px]">{breadcrumbCtx.current.name}</span>
+              </>
+            ) : (
+              <>
+                <Link href="/blog" className="hover:text-white">Blog</Link>
+                <span>/</span>
+                <span className="text-white truncate max-w-[200px]">{post.title}</span>
+              </>
+            )}
           </nav>
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -284,7 +289,21 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 <span className="flex items-center gap-2"><Clock size={16} /> {post.readTime}</span>
               </div>
             </div>
-            {post.image && (
+            {breadcrumbCtx ? (
+              <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8">
+                <h2 className="text-xl md:text-2xl font-bold text-primary mb-2">
+                  Get a Free {breadcrumbCtx.current.name} SEO Audit
+                </h2>
+                <p className="text-sm text-text-secondary mb-5">
+                  Tell us about your {breadcrumbCtx.current.name.toLowerCase()} business. We&apos;ll reply within 24 hours with concrete next steps.
+                </p>
+                <LeadForm
+                  source={`Industry hero — ${breadcrumbCtx.current.name}`}
+                  defaultService="local-seo"
+                  ctaLabel="Get My Free Audit"
+                />
+              </div>
+            ) : post.image ? (
               <div className="hidden lg:block">
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-white/10 p-4">
                   <img
@@ -294,13 +313,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   />
                 </div>
               </div>
-            )}
+            ) : null}
           </div>
         </div>
       </section>
 
-      {/* Mobile Featured Image */}
-      {post.image && (
+      {/* Mobile Featured Image — only for regular blog posts, not industry pages */}
+      {!breadcrumbCtx && post.image && (
         <div className="lg:hidden -mt-8 px-6 pb-8">
           <div className="container">
             <div className="rounded-2xl overflow-hidden shadow-xl bg-white p-3">
@@ -551,7 +570,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   </div>
                   <div className="p-5">
                     <div className="flex items-baseline gap-1 mb-1">
-                      <span className="text-3xl font-bold text-primary">€700</span>
+                      <span className="text-3xl font-bold text-primary">$950</span>
                       <span className="text-text-muted text-sm">one-time</span>
                     </div>
                     <p className="text-xs text-text-secondary mb-2 font-medium">Complete Business Launch Package</p>
@@ -575,14 +594,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     <div className="bg-accent/10 border border-accent/20 rounded-lg px-3 py-2 mb-4 text-xs text-text-secondary">
                       <strong className="text-primary">3-Month Offer:</strong> Unlock Premium SEO at £780/mo after month 3.
                     </div>
-                    <a
-                      href={getWhatsAppUrl("Hi, I'm interested in the New Local Business Launch Package at €700.")}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block w-full py-2.5 bg-accent text-white text-center font-semibold rounded-lg hover:bg-[#d96a10] transition-colors text-sm"
-                    >
-                      Get Started Today
-                    </a>
+                    <PricingCTA
+                      source={`Blog ${slug} — Sidebar pricing CTA`}
+                      ctaLabel="Get Started Today"
+                      buttonClassName="block w-full py-2.5 bg-accent text-white text-center font-semibold rounded-lg hover:bg-[#d96a10] transition-colors text-sm"
+                    />
                   </div>
                 </div>
 
@@ -592,9 +608,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   <p className="text-sm text-white/80 mb-4">
                     Get a free consultation and see how we can help your local business rank higher.
                   </p>
-                  <a href={getWhatsAppUrl("Hi, I need help with SEO for my local business.")} target="_blank" rel="noopener noreferrer" className="block w-full py-2 bg-[#25D366] text-white text-center font-medium rounded-lg hover:bg-[#128C7E] transition-colors">
-                    Get Free Quote
-                  </a>
+                  <PricingCTA
+                    source={`Blog ${slug} — Sidebar quote CTA`}
+                    ctaLabel="Get Free Quote"
+                    buttonClassName="block w-full py-2 bg-accent text-white text-center font-medium rounded-lg hover:bg-accent-dark transition-colors"
+                  />
                 </div>
 
                 {/* Related Service Quick Link */}
@@ -671,10 +689,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <p className="text-white/80 max-w-2xl mx-auto mb-8">
               Let our experts help you dominate local search and generate more leads.
             </p>
-            <a href={getWhatsAppUrl("Hi, I'd like to get a free SEO audit for my local business.")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-[#25D366] text-white font-semibold rounded-lg hover:bg-[#128C7E] transition-colors">
-              Get Your Free SEO Audit
-              <ArrowRight size={18} />
-            </a>
+            <PricingCTA
+              source={`Blog ${slug} — Footer audit CTA`}
+              ctaLabel="Get Your Free SEO Audit"
+              buttonClassName="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors"
+            />
           </div>
         </div>
       </section>

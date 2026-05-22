@@ -72,14 +72,6 @@ export const trackPhoneClick = (location: string) => {
   })
 }
 
-// Track WhatsApp button clicks
-export const trackWhatsAppClick = (location: string) => {
-  pushEvent('whatsapp_click', {
-    event_category: 'Lead Generation',
-    event_label: location,
-  })
-}
-
 // Track email link clicks
 export const trackEmailClick = (location: string) => {
   pushEvent('email_click', {

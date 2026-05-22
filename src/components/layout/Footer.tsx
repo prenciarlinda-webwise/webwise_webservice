@@ -2,9 +2,9 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Phone, ArrowRight, Gift, DollarSign, MessageCircle } from 'lucide-react'
+import { Phone, ArrowRight, Gift } from 'lucide-react'
 import { services, siteConfig, clients } from '@/data/site'
-import WhatsAppButton from '@/components/ui/WhatsAppButton'
+import PricingCTA from '@/components/forms/PricingCTA'
 
 // URL mappings for new flat URL structure
 const serviceUrlMap: Record<string, string> = {
@@ -31,13 +31,11 @@ export default function Footer() {
                 <p className="text-white/90">Know a business that needs a website or SEO? Get paid for every successful referral.</p>
               </div>
             </div>
-            <WhatsAppButton
-              defaultMessage="Hi, I'd like to learn more about your referral program!"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-accent font-semibold rounded-lg hover:bg-white/90 transition-colors shadow-lg whitespace-nowrap"
-            >
-              <DollarSign size={18} />
-              Learn More & Refer
-            </WhatsAppButton>
+            <PricingCTA
+              source="Footer — Referral program inquiry"
+              ctaLabel="Learn More & Refer"
+              buttonClassName="inline-flex items-center gap-2 px-6 py-3 bg-white text-accent font-semibold rounded-lg hover:bg-white/90 transition-colors shadow-lg whitespace-nowrap"
+            />
           </div>
         </div>
       </div>
@@ -60,13 +58,6 @@ export default function Footer() {
               {siteConfig.tagline}. We build stunning websites and deliver powerful SEO strategies that drive real results.
             </p>
             <div className="flex flex-col gap-3">
-              <WhatsAppButton
-                defaultMessage="Hi, I have a question about your services."
-                className="flex items-center gap-3 text-white/70 hover:text-[#25D366] transition-colors"
-              >
-                <MessageCircle size={18} />
-                Chat on WhatsApp
-              </WhatsAppButton>
               <a href={`tel:${siteConfig.phone.replace(/[^0-9+]/g, '')}`} className="flex items-center gap-3 text-white/70 hover:text-white transition-colors">
                 <Phone size={18} />
                 {siteConfig.phone}

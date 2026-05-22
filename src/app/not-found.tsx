@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { ArrowRight, Home, Search, FileQuestion } from 'lucide-react'
+import { Home, Search, FileQuestion } from 'lucide-react'
+import PricingCTA from '@/components/forms/PricingCTA'
 
 export default function NotFound() {
   return (
@@ -25,13 +26,11 @@ export default function NotFound() {
               <Home size={18} />
               Go to Homepage
             </Link>
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-accent text-accent font-semibold rounded-lg hover:bg-accent hover:text-white transition-colors"
-            >
-              Contact Us
-              <ArrowRight size={18} />
-            </Link>
+            <PricingCTA
+              source="404 page — Contact CTA"
+              ctaLabel="Contact Us"
+              buttonClassName="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-accent text-accent font-semibold rounded-lg hover:bg-accent hover:text-white transition-colors"
+            />
           </div>
 
           <div className="bg-bg-secondary rounded-2xl p-8">

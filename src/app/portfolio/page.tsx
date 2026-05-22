@@ -1,11 +1,12 @@
 import Link from 'next/link'
 import Script from 'next/script'
 import { ArrowRight, ExternalLink } from 'lucide-react'
-import { clients, siteConfig, getWhatsAppUrl } from '@/data/site'
+import { clients, siteConfig } from '@/data/site'
 import { generateCollectionPageSchema, generateFAQSchema } from '@/lib/schemas'
 import { portfolioFaqs } from '@/data/faqs'
 import FAQSection from '@/components/sections/FAQSection'
 import { pageSEO } from '@/data/seo'
+import PricingCTA from '@/components/forms/PricingCTA'
 
 // URL mappings for case studies
 const caseStudyUrlMap: Record<string, string> = {
@@ -181,10 +182,11 @@ export default function PortfolioPage() {
               <p className="text-white/80 max-w-2xl mx-auto mb-8">
                 Let&apos;s discuss how we can help transform your business with a custom website, SEO strategy, or marketing campaign.
               </p>
-              <a href={getWhatsAppUrl("Hi, I'd like to discuss a project with Web Wise!")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary font-semibold rounded-lg hover:bg-white/90 transition-colors shadow-lg">
-                Start Your Project
-                <ArrowRight size={18} />
-              </a>
+              <PricingCTA
+                source="Portfolio page — Start your project CTA"
+                ctaLabel="Start Your Project"
+                buttonClassName="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary font-semibold rounded-lg hover:bg-white/90 transition-colors shadow-lg"
+              />
             </div>
           </div>
         </div>

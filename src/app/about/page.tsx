@@ -1,7 +1,8 @@
 import Link from 'next/link'
+import PricingCTA from '@/components/forms/PricingCTA'
 import Script from 'next/script'
-import { ArrowRight, Users, Target, TrendingUp, Shield, Check } from 'lucide-react'
-import { siteConfig, techStack, getWhatsAppUrl } from '@/data/site'
+import { Users, Target, TrendingUp, Shield, Check } from 'lucide-react'
+import { siteConfig, techStack } from '@/data/site'
 import { generateAboutPageSchema, generateFAQSchema } from '@/lib/schemas'
 import { aboutFaqs } from '@/data/faqs'
 import { aboutContent } from '@/data/staticContent'
@@ -273,10 +274,11 @@ export default function AboutPage() {
             <p className="text-white/80 max-w-2xl mx-auto mb-8">
               {content.cta.description}
             </p>
-            <a href={getWhatsAppUrl("Hi, I'd like to get a free consultation for my business.")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-[#25D366] text-white font-semibold rounded-lg hover:bg-[#128C7E] transition-colors">
-              {content.cta.buttonText}
-              <ArrowRight size={18} />
-            </a>
+            <PricingCTA
+              source="About page — Free audit CTA"
+              ctaLabel={content.cta.buttonText}
+              buttonClassName="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors"
+            />
           </div>
         </div>
       </section>

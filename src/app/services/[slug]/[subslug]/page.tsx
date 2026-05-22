@@ -2,11 +2,28 @@ import Link from 'next/link'
 import Script from 'next/script'
 import { notFound } from 'next/navigation'
 import { ArrowRight, Check, Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart, AlertCircle, CheckCircle, User, Award, Clock } from 'lucide-react'
-import { services, siteConfig, getWhatsAppUrl } from '@/data/site'
+import { services, siteConfig } from '@/data/site'
 import { generateServiceSchema, generateBreadcrumbSchema, generateFAQSchema, generateHowToSchema } from '@/lib/schemas'
 import { pageSEO } from '@/data/seo'
 import { getServiceContent } from '@/data/serviceContent'
 import FAQSection from '@/components/sections/FAQSection'
+import PricingCTA from '@/components/forms/PricingCTA'
+import LeadForm from '@/components/forms/LeadForm'
+
+// Map subservice slugs to the LeadForm service IDs
+const subserviceToInitialService: Record<string, string> = {
+  'local-seo': 'local-seo',
+  'technical-seo': 'technical-seo',
+  'ecommerce-seo': 'ecommerce-seo',
+  'international-seo': 'international-seo',
+  'website-design': 'website-dev',
+  'web-applications': 'web-app',
+  'ecommerce-development': 'ecommerce-store',
+  'ppc-advertising': 'digital-marketing',
+  'social-media': 'digital-marketing',
+  'content-marketing': 'digital-marketing',
+  'analytics': 'digital-marketing',
+}
 
 const iconMap: { [key: string]: React.ElementType } = {
   Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart
@@ -186,23 +203,32 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
             <span>/</span>
             <span className="text-white">{subservice.title}</span>
           </nav>
-          <div className="max-w-4xl">
-            <div className="w-16 h-16 flex items-center justify-center bg-white/10 rounded-2xl text-white mb-6">
-              {getIcon(subservice.icon, 32)}
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="text-white">
+              <div className="w-16 h-16 flex items-center justify-center bg-white/10 rounded-2xl text-white mb-6">
+                {getIcon(subservice.icon, 32)}
+              </div>
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+                {content?.hero.headline || subservice.title}
+              </h1>
+              {content?.hero.subheadline && (
+                <p className="text-xl text-white/90 mb-4">{content.hero.subheadline}</p>
+              )}
+              <p className="text-lg text-white/80">
+                {content?.hero.valueProposition || subservice.description}
+              </p>
             </div>
-            <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-              {content?.hero.headline || subservice.title}
-            </h1>
-            {content?.hero.subheadline && (
-              <p className="text-xl text-white/90 mb-4">{content.hero.subheadline}</p>
-            )}
-            <p className="text-lg text-white/80 mb-8">
-              {content?.hero.valueProposition || subservice.description}
-            </p>
-            <a href={getWhatsAppUrl(`Hi, I'm interested in your ${subservice.title} services.`)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-[#25D366] text-white font-semibold rounded-lg hover:bg-[#128C7E] transition-colors audit-btn">
-              Get Your Free Consultation
-              <ArrowRight size={18} />
-            </a>
+            <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8">
+              <h2 className="text-xl md:text-2xl font-bold text-primary mb-2">Get a Free Consultation</h2>
+              <p className="text-sm text-text-secondary mb-5">
+                Tell us about your {subservice.title.toLowerCase()} needs. We&apos;ll reply within 24 hours.
+              </p>
+              <LeadForm
+                source={`Services ${slug}/${subslug} hero`}
+                defaultService={subserviceToInitialService[subslug]}
+                ctaLabel="Send My Request"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -402,18 +428,13 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
                   <div className="bg-bg-secondary rounded-lg p-3 mb-6 text-xs text-text-muted">
                     <strong className="text-primary">Best for:</strong> {tier.bestFor}
                   </div>
-                  <a
-                    href={getWhatsAppUrl(`Hi, I'm interested in your ${tier.name} plan.`)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`block w-full py-3 text-center font-semibold rounded-lg transition-colors ${
-                      i === 1
-                        ? 'bg-[#25D366] text-white hover:bg-[#128C7E]'
-                        : 'bg-bg-secondary text-primary hover:bg-bg-tertiary'
-                    }`}
-                  >
-                    Get Started
-                  </a>
+                  <PricingCTA
+                    source={`Services ${slug}/${subslug} — Package "${tier.name}" CTA`}
+                    ctaLabel="Get Started"
+                    defaultService={subserviceToInitialService[subslug]}
+                    popular={i === 1}
+                    planName={tier.name}
+                  />
                 </div>
               ))}
             </div>
@@ -596,10 +617,12 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
             <p className="text-white/80 max-w-2xl mx-auto mb-8">
               {content?.cta.description || `Contact us for a free consultation and see how our ${subservice.title.toLowerCase()} service can help your business grow.`}
             </p>
-            <a href={getWhatsAppUrl(`Hi, I'm interested in your ${subservice.title} services and would like a free quote.`)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-[#25D366] text-white font-semibold rounded-lg hover:bg-[#128C7E] transition-colors audit-btn">
-              {content?.cta.buttonText || 'Get Your Free Quote'}
-              <ArrowRight size={18} />
-            </a>
+            <PricingCTA
+              source={`Services ${slug}/${subslug} — Footer CTA`}
+              ctaLabel={content?.cta.buttonText || 'Get Your Free Quote'}
+              defaultService={subserviceToInitialService[subslug]}
+              buttonClassName="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors audit-btn"
+            />
           </div>
         </div>
       </section>

@@ -1,10 +1,12 @@
 import Link from 'next/link'
 import Script from 'next/script'
 import { ArrowRight, Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart } from 'lucide-react'
-import { services, siteConfig, getWhatsAppUrl } from '@/data/site'
+import { services, siteConfig } from '@/data/site'
 import { generateCollectionPageSchema, generateFAQSchema } from '@/lib/schemas'
 import { servicesFaqs } from '@/data/faqs'
 import FAQSection from '@/components/sections/FAQSection'
+import PricingCTA from '@/components/forms/PricingCTA'
+import LeadForm from '@/components/forms/LeadForm'
 
 const iconMap: { [key: string]: React.ElementType } = {
   Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart
@@ -72,14 +74,23 @@ export default function ServicesPage() {
       {/* Hero */}
       <section className="bg-gradient-to-br from-primary to-primary-dark py-24 lg:py-32">
         <div className="container px-6">
-          <div className="max-w-3xl">
-            <span className="inline-block px-4 py-2 bg-white/10 text-white rounded-full text-sm mb-4">Our Services</span>
-            <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-              Comprehensive Digital <span className="text-gradient">Solutions</span>
-            </h1>
-            <p className="text-lg text-white/80">
-              From stunning websites to dominating search results, we provide end-to-end digital services tailored to your business objectives.
-            </p>
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="text-white">
+              <span className="inline-block px-4 py-2 bg-white/10 text-white rounded-full text-sm mb-4">Our Services</span>
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+                Comprehensive Digital <span className="text-gradient">Solutions</span>
+              </h1>
+              <p className="text-lg text-white/80">
+                From stunning websites to dominating search results, we provide end-to-end digital services tailored to your business objectives.
+              </p>
+            </div>
+            <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8">
+              <h2 className="text-xl md:text-2xl font-bold text-primary mb-2">Tell us what you need</h2>
+              <p className="text-sm text-text-secondary mb-5">
+                Pick a service and we&apos;ll send a fixed quote within 24 hours.
+              </p>
+              <LeadForm source="Services hub hero" ctaLabel="Get My Quote" />
+            </div>
           </div>
         </div>
       </section>
@@ -138,10 +149,11 @@ export default function ServicesPage() {
             <p className="text-text-secondary mb-8">
               Let&apos;s discuss how our services can help grow your business.
             </p>
-            <a href={getWhatsAppUrl("Hi, I'd like to get a free consultation for my business.")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-[#25D366] text-white font-semibold rounded-lg hover:bg-[#128C7E] transition-colors">
-              Get Your Free Consultation
-              <ArrowRight size={18} />
-            </a>
+            <PricingCTA
+              source="Services hub — Free consultation CTA"
+              ctaLabel="Get Your Free Consultation"
+              buttonClassName="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors"
+            />
           </div>
         </div>
       </section>

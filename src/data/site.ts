@@ -4,23 +4,10 @@ export const siteConfig = {
   tagline: 'Professional Web Design & Local SEO Services',
   email: 'info@websiteandseoagency.com',
   phone: '+355685121313',
-  whatsapp: '355685121313', // Without + for wa.me URL
   url: 'https://www.websiteandseoagency.com',
   logo: '/portfolio/web-wise-logo.png',
   description: 'We help local businesses in the UK and USA grow with professional web design and SEO services. Plumbers, roofers, contractors, and more trust us for results.',
 }
-
-// WhatsApp URL helper
-export const getWhatsAppUrl = (message?: string) => {
-  const baseUrl = `https://wa.me/${siteConfig.whatsapp}`
-  if (message) {
-    return `${baseUrl}?text=${encodeURIComponent(message)}`
-  }
-  return baseUrl
-}
-
-// Default WhatsApp message for CTAs
-export const defaultWhatsAppMessage = "Hi, I'm interested in your SEO and web design services. I'd like to get a free consultation."
 
 // Services Data
 export const services = {
@@ -186,8 +173,8 @@ export const clients: Record<string, Client> = {
       rankingKeywords: '35+',
     },
   },
-  illyriangroupcorp: {
-    name: 'Illyrian Group Corp',
+  illyrianplumber: {
+    name: 'Illyrian Plumber',
     slug: 'illyrian-group-plumbing-seo-web-development',
     url: 'https://www.illyrianplumber.com',
     image: getScreenshot('https://www.illyrianplumber.com'),
@@ -200,62 +187,154 @@ export const clients: Record<string, Client> = {
       rankingKeywords: '20+',
     },
     keywordRankings: [
-      {
-        keyword: 'PEX repiping NJ',
-        serp: 1,
-        localPack: 2,
-        mapsPack: 2,
-        aiOverview: 'suggestion',
-        note: 'Suggested in Google AI Overview alongside national chains',
-      },
+      // Money-keyword service pages
       {
         keyword: 'whole house repiping NJ',
-        serp: 1,
+        serp: 5,
         mapsPack: 1,
         aiOverview: 'cited',
         note: 'Cited as Central/Northern NJ specialist in AI Overview',
       },
       {
         keyword: 'gas appliance hookup NJ',
-        serp: 1,
+        serp: 6,
         aiOverview: 'cited',
         note: 'Cited as a key NJ provider in AI Overview',
       },
       {
-        keyword: 'boiler repair East Brunswick NJ',
-        serp: 2,
-        note: 'Search Console shows +553% impressions in 90 days for this query cluster',
-      },
-      {
-        keyword: 'gas line repair East Brunswick NJ',
-        serp: 2,
-      },
-      {
-        keyword: 'bathroom remodeling plumber East Brunswick',
-        serp: 2,
-      },
-      {
-        keyword: '24 hour plumber East Brunswick NJ',
-        serp: 3,
+        keyword: 'water heater replacement East Brunswick NJ',
+        serp: 7,
       },
       {
         keyword: 'water heater repair East Brunswick NJ',
-        serp: 3,
+        serp: 10,
       },
       {
+        keyword: 'PEX repiping NJ',
+        serp: 10,
+        mapsPack: 1,
+        aiOverview: 'suggestion',
+        note: 'Suggested in Google AI Overview alongside national chains',
+      },
+      {
+        keyword: 'boiler repair East Brunswick NJ',
+        serp: 17,
+        note: 'Search Console shows +553% impressions in 90 days for this query cluster',
+      },
+      {
+        keyword: 'water heater repair cost NJ',
+        serp: 19,
+      },
+      {
+        keyword: 'tankless water heater installation NJ',
+        serp: 22,
+      },
+      {
+        keyword: 'radiant floor heating installation NJ',
+        serp: 26,
+      },
+      {
+        keyword: 'sump pump installation NJ',
+        serp: 29,
+        mapsPack: 20,
+      },
+      {
+        keyword: 'gas leak repair NJ',
+        serp: 30,
+      },
+      // Home-page core keywords (East Brunswick)
+      {
         keyword: 'emergency plumber cost East Brunswick',
-        serp: 8,
-        mapsPack: 13,
+        serp: 7,
+        mapsPack: 17,
         aiOverview: 'suggestion',
         note: 'Suggested in AI Overview emergency plumber list',
       },
       {
-        keyword: 'plumber East Brunswick NJ',
+        keyword: 'emergency plumber East Brunswick NJ',
+        serp: 8,
+        mapsPack: 15,
+      },
+      {
+        keyword: 'gas line repair East Brunswick NJ',
+        serp: 10,
+        mapsPack: 9,
+      },
+      {
+        keyword: '24 hour plumber East Brunswick NJ',
+        serp: 10,
+        mapsPack: 19,
+      },
+      {
+        keyword: 'Middlesex County plumber',
+        serp: 11,
+      },
+      {
+        keyword: 'licensed plumber East Brunswick',
+        serp: 11,
+        mapsPack: 17,
+      },
+      {
+        keyword: 'bathroom remodeling plumber East Brunswick',
+        serp: 11,
+      },
+      {
+        keyword: 'plumbers East Brunswick NJ',
         serp: 14,
       },
       {
-        keyword: 'gas leak repair NJ',
+        keyword: 'plumber near me East Brunswick',
+        serp: 15,
+      },
+      {
+        keyword: 'plumber East Brunswick NJ',
+        serp: 17,
+      },
+      {
+        keyword: 'plumbers East Brunswick',
+        serp: 18,
+      },
+      // Service-area pages
+      {
+        keyword: 'plumber South Brunswick NJ',
+        serp: 15,
+      },
+      {
+        keyword: 'plumber Monroe Township NJ',
         serp: 23,
+      },
+      {
+        keyword: 'plumber Monroe NJ',
+        serp: 23,
+      },
+      {
+        keyword: 'plumber North Brunswick NJ',
+        serp: 24,
+      },
+      {
+        keyword: 'plumber Old Bridge NJ',
+        serp: 24,
+        mapsPack: 17,
+      },
+      {
+        keyword: 'plumber Sayreville NJ',
+        serp: 24,
+      },
+      {
+        keyword: 'Edison plumber',
+        serp: 31,
+      },
+      {
+        keyword: 'Edison plumbing',
+        serp: 33,
+      },
+      {
+        keyword: 'plumber Edison NJ',
+        serp: 36,
+      },
+      {
+        keyword: 'plumbers Edison NJ',
+        serp: 42,
       },
     ],
     challenge: `Illyrian came to us as a newer plumbing business in one of the most saturated local markets in the country. Middlesex County, NJ is dominated by long-established competitors with thousands of reviews (NJ Pipe Doctor, Roto-Rooter, RA Nichols), national chains buying every paid slot, and Yelp/HomeAdvisor directories occupying the rest of page one.
@@ -357,6 +436,63 @@ Phase 4 - AI-first content: Long-form, structured service pages designed to be c
       leadsIncrease: '295%',
       rankingKeywords: '52+',
     },
+    keywordRankings: [
+      {
+        keyword: 'roofing Mandarin FL',
+        serp: 6,
+      },
+      {
+        keyword: 'roof leak repair Jacksonville',
+        serp: 8,
+      },
+      {
+        keyword: 'storm damage roof repair Jacksonville',
+        serp: 8,
+      },
+      {
+        keyword: 'emergency roof repair Jacksonville FL',
+        serp: 19,
+        aiOverview: 'cited',
+        note: 'Cited as a top-rated 24/7 emergency roof repair contractor in Google AI Overview (5.0/96 reviews)',
+      },
+      {
+        keyword: 'roof repair contractor Jacksonville FL',
+        serp: 20,
+      },
+      {
+        keyword: 'roofing financing Jacksonville FL',
+        serp: 22,
+        note: 'EnerBank USA program: 12-month same-as-cash or 60–120 month fixed (from $99/mo)',
+      },
+      {
+        keyword: 'shingle roof replacement Jacksonville',
+        serp: 27,
+      },
+      {
+        keyword: 'roofing Orange Park FL',
+        serp: 29,
+      },
+      {
+        keyword: 'roofing Fernandina Beach FL',
+        serp: 30,
+      },
+      {
+        keyword: 'new construction roofing Jacksonville FL',
+        serp: 31,
+      },
+      {
+        keyword: 'best roofing company Jacksonville',
+        serp: 31,
+      },
+      {
+        keyword: 'how long does a metal roof last in Florida',
+        serp: 36,
+      },
+      {
+        keyword: 'roof replacement cost Jacksonville',
+        serp: 75,
+      },
+    ],
   },
   albrosdetailing: {
     name: 'Albros Premium Detailing',
@@ -399,6 +535,157 @@ Phase 4 - AI-first content: Long-form, structured service pages designed to be c
       leadsIncrease: '350%',
       rankingKeywords: '67+',
     },
+    keywordRankings: [
+      // Brand + top Jacksonville rentals (home page)
+      {
+        keyword: '904 dumpsters',
+        serp: 1,
+        mapsPack: 1,
+        note: 'Brand keyword — owns the #1 organic and Maps result',
+      },
+      {
+        keyword: '20 yard dumpster rental price',
+        serp: 9,
+      },
+      {
+        keyword: 'dumpster rental prices Jacksonville FL',
+        serp: 15,
+        mapsPack: 16,
+      },
+      {
+        keyword: 'cheap dumpster rental Jacksonville FL',
+        serp: 24,
+        mapsPack: 17,
+      },
+      {
+        keyword: 'rent a dumpster Jacksonville FL',
+        serp: 25,
+      },
+      {
+        keyword: 'dumpster rental in Jacksonville FL',
+        serp: 27,
+      },
+      {
+        keyword: 'dumpster rentals in Jacksonville FL',
+        serp: 29,
+      },
+      {
+        keyword: 'dumpster rentals Jacksonville Florida',
+        serp: 29,
+        mapsPack: 8,
+      },
+      {
+        keyword: 'dumpster rental Jacksonville FL',
+        serp: 30,
+      },
+      {
+        keyword: 'dumpster rental Jacksonville',
+        serp: 30,
+      },
+      {
+        keyword: 'dumpsters Jacksonville FL',
+        serp: 30,
+      },
+      {
+        keyword: 'Jacksonville dumpster rentals',
+        serp: 31,
+      },
+      {
+        keyword: 'dumpster rentals Jacksonville',
+        serp: 31,
+      },
+      {
+        keyword: 'Jacksonville dumpster rental',
+        serp: 32,
+      },
+      {
+        keyword: 'dumpster Jacksonville',
+        serp: 33,
+      },
+      {
+        keyword: 'dumpster rental Jacksonville Florida',
+        serp: 35,
+        mapsPack: 15,
+      },
+      // Service-area pages (St Augustine, Middleburg)
+      {
+        keyword: 'St Augustine FL dumpster rental',
+        serp: 29,
+      },
+      {
+        keyword: 'dumpster rental St Johns County',
+        serp: 35,
+      },
+      {
+        keyword: 'roll off dumpster St Augustine',
+        serp: 36,
+      },
+      {
+        keyword: 'St Augustine dumpster rental',
+        serp: 43,
+      },
+      {
+        keyword: 'dumpster rental St Augustine FL',
+        serp: 45,
+      },
+      {
+        keyword: 'dumpster rental St Augustine',
+        serp: 45,
+      },
+      {
+        keyword: 'Clay County dumpster rental',
+        serp: 18,
+      },
+      // Dumpster size guide (informational / top-of-funnel)
+      {
+        keyword: 'standard dumpster size',
+        serp: 30,
+      },
+      {
+        keyword: '10 yard dumpster dimensions',
+        serp: 37,
+      },
+      {
+        keyword: 'sizes of dumpsters',
+        serp: 38,
+      },
+      {
+        keyword: 'dumpster sizes chart',
+        serp: 41,
+      },
+      {
+        keyword: '15 yard dumpster dimensions',
+        serp: 44,
+      },
+      {
+        keyword: '20 yard dumpster dimensions',
+        serp: 45,
+      },
+      {
+        keyword: 'typical dumpster sizes',
+        serp: 49,
+      },
+      {
+        keyword: '20 yard dumpster sizes',
+        serp: 50,
+      },
+      {
+        keyword: '15 vs 20 yard dumpster',
+        serp: 51,
+      },
+      {
+        keyword: '10 yard vs 15 yard dumpster',
+        serp: 60,
+      },
+      {
+        keyword: '10 yard dumpster size',
+        serp: 67,
+      },
+      {
+        keyword: 'how big is a 10 yard dumpster',
+        serp: 71,
+      },
+    ],
   },
   gjejpro: {
     name: 'Gjej Pro',
@@ -510,6 +797,24 @@ Specific constraints we had to design around: Albanian-language UX as the primar
     industry: 'Construction',
     services: ['Website Design'],
     description: 'Albanian construction and gypsum services company specializing in interior finishing, drywall installation, and decorative plasterwork. Built a bilingual website showcasing their project portfolio, service offerings, and contact system to reach residential and commercial clients across Albania.',
+  },
+  illyriangroupcorp: {
+    name: 'Illyrian Group Corp',
+    slug: 'illyrian-group-corp-corporate-website',
+    url: 'https://www.illyriangroupcorp.com',
+    image: getScreenshot('https://www.illyriangroupcorp.com'),
+    industry: 'Construction',
+    services: ['Website Design'],
+    description: 'Corporate website for Illyrian Group Corp — the parent company behind multiple home-service and contracting brands serving Central/Northern New Jersey. Placeholder entry — replace industry / services / description with final copy.',
+  },
+  zeloflooring: {
+    name: 'Zelo Flooring',
+    slug: 'zelo-flooring-website-design',
+    url: 'https://zeloflooring.com/',
+    image: getScreenshot('https://zeloflooring.com/'),
+    industry: 'Flooring',
+    services: ['Website Design'],
+    description: 'Flooring contractor offering hardwood, laminate, tile, and vinyl installation. Placeholder entry — replace services / description with final copy once confirmed.',
   },
 }
 

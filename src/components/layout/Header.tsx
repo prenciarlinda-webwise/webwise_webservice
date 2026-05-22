@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, X, ChevronDown, ArrowRight, Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart, Briefcase } from 'lucide-react'
 import { services, siteConfig, navigation, industries, getUniqueClientIndustries, getIndustryByName, getIndustriesWithPages, getFeaturedCaseStudies } from '@/data/site'
-import WhatsAppButton from '@/components/ui/WhatsAppButton'
+import PricingCTA from '@/components/forms/PricingCTA'
 
 const iconMap: { [key: string]: React.ElementType } = {
   Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart
@@ -212,13 +212,11 @@ export default function Header() {
 
             {/* CTA Button */}
             <div className="hidden lg:block">
-              <WhatsAppButton
-                defaultMessage="Hi, I'd like to get a free website audit for my business."
-                className="audit-btn inline-flex items-center gap-2 px-6 py-3 bg-[#25D366] text-white font-semibold rounded-lg hover:bg-[#128C7E] transition-colors shadow-md hover:shadow-lg"
-              >
-                Free Website Audit
-                <ArrowRight size={16} />
-              </WhatsAppButton>
+              <PricingCTA
+                source="Header — Free Website Audit"
+                ctaLabel="Free Website Audit"
+                buttonClassName="audit-btn inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors shadow-md hover:shadow-lg"
+              />
             </div>
 
             {/* Mobile Menu Toggle */}
@@ -351,19 +349,22 @@ export default function Header() {
 
             {/* Footer */}
             <div className="p-6 border-t border-border">
-              <WhatsAppButton
-                defaultMessage="Hi, I'd like to get a free website audit for my business."
-                className="audit-btn block w-full py-4 text-center bg-[#25D366] text-white font-semibold rounded-lg"
-              >
-                Free Website Audit
-              </WhatsAppButton>
+              {/* Close mobile menu when the inner button click bubbles up */}
+              <div onClick={() => setIsMobileMenuOpen(false)}>
+                <PricingCTA
+                  source="Header mobile — Free Website Audit"
+                  ctaLabel="Free Website Audit"
+                  buttonClassName="audit-btn block w-full py-4 text-center bg-accent text-white font-semibold rounded-lg"
+                />
+              </div>
               <div className="flex flex-col gap-2 mt-4 text-center">
-                <WhatsAppButton
-                  defaultMessage="Hi, I have a question about your services."
-                  className="text-sm text-text-secondary hover:text-accent transition-colors"
-                >
-                  Chat on WhatsApp
-                </WhatsAppButton>
+                <div onClick={() => setIsMobileMenuOpen(false)}>
+                  <PricingCTA
+                    source="Header mobile — Contact us"
+                    ctaLabel="Contact us"
+                    buttonClassName="text-sm text-text-secondary hover:text-accent transition-colors"
+                  />
+                </div>
                 <a href={`tel:${siteConfig.phone.replace(/[^0-9+]/g, '')}`} className="text-sm text-text-secondary">{siteConfig.phone}</a>
               </div>
             </div>

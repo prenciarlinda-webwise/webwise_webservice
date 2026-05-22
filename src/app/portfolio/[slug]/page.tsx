@@ -6,6 +6,7 @@ import { ArrowRight, ExternalLink, Target, Zap, Star, TrendingUp, MapPin, Sparkl
 import { clients, siteConfig } from '@/data/site'
 import { generateBreadcrumbSchema } from '@/lib/schemas'
 import WebsitePreview from '@/components/ui/WebsitePreview'
+import PricingCTA from '@/components/forms/PricingCTA'
 
 // URL mappings for case studies (old slug -> new short URL)
 const caseStudyUrlMap: Record<string, string> = {
@@ -430,10 +431,11 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             <p className="text-white/80 mb-8">
               Let&apos;s discuss how we can help transform your business.
             </p>
-            <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors">
-              Start Your Project
-              <ArrowRight size={18} />
-            </Link>
+            <PricingCTA
+              source={`Portfolio ${slug} — Start your project CTA`}
+              ctaLabel="Start Your Project"
+              buttonClassName="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors"
+            />
           </div>
         </div>
       </section>

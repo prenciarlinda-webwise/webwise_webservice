@@ -1,12 +1,13 @@
 import Link from 'next/link'
 import Script from 'next/script'
-import { ArrowRight, Check, Zap, Rocket, Crown, Monitor, TrendingUp, Shield, Clock, DollarSign, Star, Gift, Palette, Globe, Users, Briefcase, MapPin, BarChart2 } from 'lucide-react'
+import { Check, Zap, Rocket, Crown, Monitor, TrendingUp, Shield, Clock, DollarSign, Star, Gift, Palette, Globe, Users, Briefcase, MapPin, BarChart2 } from 'lucide-react'
 import { generateFAQSchema, generateWebPageSchema } from '@/lib/schemas'
-import { siteConfig, getWhatsAppUrl } from '@/data/site'
+import { siteConfig } from '@/data/site'
 import { pageSEO } from '@/data/seo'
 import { pricingFaqs } from '@/data/faqs'
 import { pricingContent } from '@/data/staticContent'
 import FAQSection from '@/components/sections/FAQSection'
+import PricingCTA from '@/components/forms/PricingCTA'
 
 export const metadata = {
   title: pageSEO.pricing.title,
@@ -271,7 +272,7 @@ export default function PricingPage() {
                     {/* Price block */}
                     <div className="bg-gradient-to-br from-primary to-[#1a1c3a] rounded-2xl p-8 text-center text-white">
                       <p className="text-white/60 text-sm uppercase tracking-wider mb-1">One-Time Investment</p>
-                      <div className="text-6xl font-bold text-white mb-1">€700</div>
+                      <div className="text-6xl font-bold text-white mb-1">$950</div>
                       <p className="text-white/60 text-sm mb-3">No monthly fees. No hidden costs.</p>
                       <div className="inline-flex items-center gap-1.5 bg-accent/20 border border-accent/40 rounded-full px-3 py-1 text-accent text-xs font-semibold mb-6">
                         <Clock size={12} />
@@ -293,14 +294,12 @@ export default function PricingPage() {
                           </li>
                         ))}
                       </ul>
-                      <a
-                        href={getWhatsAppUrl("Hi, I'm interested in the New Local Business Launch Package at €700.")}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block w-full py-4 text-center font-bold rounded-xl bg-accent text-white hover:bg-[#d96a10] transition-colors text-lg"
-                      >
-                        Get Started Today
-                      </a>
+                      <PricingCTA
+                        source="Pricing — All-Inclusive package lead"
+                        ctaLabel="Get Started Today"
+                        planName="All-Inclusive"
+                        buttonClassName="block w-full py-4 text-center font-bold rounded-xl bg-accent text-white hover:bg-[#d96a10] transition-colors text-lg"
+                      />
                     </div>
 
                     {/* 3-Month Offer */}
@@ -448,18 +447,13 @@ export default function PricingPage() {
                   </div>
                 </div>
 
-                <a
-                  href={getWhatsAppUrl(`Hi, I'm interested in your ${plan.name} plan.`)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`block w-full py-3 text-center font-semibold rounded-lg transition-colors ${
-                    plan.popular
-                      ? 'bg-[#25D366] text-white hover:bg-[#128C7E]'
-                      : 'bg-bg-secondary text-primary hover:bg-bg-tertiary'
-                  }`}
-                >
-                  {plan.cta}
-                </a>
+                <PricingCTA
+                  source={`Pricing — ${plan.name} plan lead`}
+                  ctaLabel={plan.cta}
+                  defaultService="local-seo"
+                  popular={plan.popular}
+                  planName={plan.name}
+                />
               </div>
             ))}
           </div>
@@ -556,14 +550,12 @@ export default function PricingPage() {
                     ))}
                   </div>
 
-                  <a
-                    href={getWhatsAppUrl("Hi, I'm interested in getting a website for my business.")}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block w-full mt-8 py-3 text-center font-semibold rounded-lg bg-[#25D366] text-white hover:bg-[#128C7E] transition-colors"
-                  >
-                    Get Your Website
-                  </a>
+                  <PricingCTA
+                    source="Pricing — Website Development lead"
+                    ctaLabel="Get Your Website"
+                    defaultService="website-dev"
+                    buttonClassName="block w-full mt-8 py-3 text-center font-semibold rounded-lg bg-accent text-white hover:bg-accent-dark transition-colors"
+                  />
                 </div>
               </div>
             </div>
@@ -735,10 +727,11 @@ export default function PricingPage() {
             <p className="text-white/80 max-w-2xl mx-auto mb-8">
               {content.cta.description}
             </p>
-            <a href={getWhatsAppUrl("Hi, I need help choosing the right package for my business.")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-[#25D366] text-white font-semibold rounded-lg hover:bg-[#128C7E] transition-colors">
-              {content.cta.buttonText}
-              <ArrowRight size={18} />
-            </a>
+            <PricingCTA
+              source="Pricing — Custom solutions lead"
+              ctaLabel={content.cta.buttonText}
+              buttonClassName="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors"
+            />
           </div>
         </div>
       </section>

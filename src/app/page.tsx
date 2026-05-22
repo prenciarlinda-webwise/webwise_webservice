@@ -1,9 +1,11 @@
 import Link from 'next/link'
 import Script from 'next/script'
-import { ArrowRight, Star, Phone, Mail, MessageCircle, Code, Search, TrendingUp, Droplet, Wind, Zap, Car, Truck, TreePine, Bug, Sparkles, Building, Home as HomeIcon, KeyRound } from 'lucide-react'
-import { siteConfig, getWhatsAppUrl, techStack } from '@/data/site'
+import { ArrowRight, Star, Phone, Mail, Code, Search, TrendingUp, Droplet, Wind, Zap, Car, Truck, TreePine, Bug, Sparkles, Building, Home as HomeIcon, KeyRound } from 'lucide-react'
+import { siteConfig, techStack } from '@/data/site'
 import { pageSEO } from '@/data/seo'
 import type { Metadata } from 'next'
+import LeadForm from '@/components/forms/LeadForm'
+import PricingCTA from '@/components/forms/PricingCTA'
 
 // Homepage-specific metadata
 export const metadata: Metadata = {
@@ -188,10 +190,6 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Text Content */}
             <div className="text-white">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-sm mb-6">
-                <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-                Trusted by 50+ businesses in UK & USA
-              </div>
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
                 Web Development, SEO & Digital Marketing
                 <span className="text-gradient"> for Small Business</span>
@@ -200,19 +198,10 @@ export default function Home() {
                 Websites That Convert. SEO That Ranks. Marketing That Grows.
               </p>
               <p className="text-lg text-white/80 mb-8 max-w-lg">
-                We help contractors and small businesses dominate online,  with lightning-fast
+                We help contractors and small businesses dominate online, with lightning-fast
                 websites (98+ PageSpeed), local SEO that puts you in the Google Map Pack, and
                 digital marketing that generates real leads.
               </p>
-              <div className="flex flex-wrap gap-4 mb-8">
-                <a href={getWhatsAppUrl("Hi, I'd like a free audit for my business!")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-4 bg-[#25D366] text-white font-semibold rounded-lg hover:bg-[#128C7E] transition-colors shadow-lg">
-                  Get Your Free Audit
-                  <ArrowRight size={18} />
-                </a>
-                <Link href="/case-studies" className="inline-flex items-center gap-2 px-6 py-4 bg-white/10 text-white font-semibold rounded-lg hover:bg-white/20 transition-colors border border-white/20">
-                  View Case Studies
-                </Link>
-              </div>
               <div className="flex items-center gap-4">
                 <div className="flex -space-x-2">
                   {['JD', 'MK', 'SR', 'PL'].map((initials, i) => (
@@ -233,28 +222,13 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Stats Card */}
-            <div className="bg-white rounded-2xl shadow-2xl p-8">
-              <div className="flex items-center gap-2 mb-6">
-                <span className="w-3 h-3 bg-green-500 rounded-full" />
-                <span className="text-sm font-medium text-text-secondary">Performance Dashboard</span>
-              </div>
-              <div className="grid grid-cols-2 gap-6">
-                {[
-                  { value: '340%', label: 'Average Traffic Increase', width: '85%' },
-                  { value: '50+', label: 'Projects Delivered', width: '92%' },
-                  { value: '500+', label: 'Keywords Ranked', width: '78%' },
-                  { value: '98+', label: 'PageSpeed Scores', width: '98%' },
-                ].map((stat, i) => (
-                  <div key={i}>
-                    <div className="text-3xl font-bold text-primary mb-1">{stat.value}</div>
-                    <div className="text-sm text-text-muted mb-2">{stat.label}</div>
-                    <div className="h-2 bg-bg-secondary rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-accent to-accent-light rounded-full" style={{ width: stat.width }} />
-                    </div>
-                  </div>
-                ))}
-              </div>
+            {/* Lead Capture Form */}
+            <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8">
+              <h2 className="text-2xl font-bold text-primary mb-2">Get a Free Audit</h2>
+              <p className="text-sm text-text-secondary mb-6">
+                Tell us about your project. We&apos;ll reply within 24 hours with concrete next steps.
+              </p>
+              <LeadForm source="Homepage hero" ctaLabel="Get My Free Audit" />
             </div>
           </div>
         </div>
@@ -484,9 +458,11 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-8">
-            <Link href="/contact" className="inline-flex items-center gap-2 text-accent font-medium hover:gap-3 transition-all">
-              Don&apos;t see your industry? We probably still work with you <ArrowRight size={16} />
-            </Link>
+            <PricingCTA
+              source="Homepage — Industry-not-listed inquiry"
+              ctaLabel="Don't see your industry? We probably still work with you"
+              buttonClassName="inline-flex items-center gap-2 text-accent font-medium hover:gap-3 transition-all"
+            />
           </div>
 
           {/* Popular industry guides - internal linking for SEO */}
@@ -642,9 +618,11 @@ export default function Home() {
             </div>
 
             <div className="mt-12 text-center">
-              <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors">
-                Start With a Free Consultation <ArrowRight size={18} />
-              </Link>
+              <PricingCTA
+                source="Homepage — Free Consultation CTA"
+                ctaLabel="Start With a Free Consultation"
+                buttonClassName="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors"
+              />
             </div>
           </div>
         </div>
@@ -741,10 +719,11 @@ export default function Home() {
                 or marketing campaign.
               </p>
               <div className="flex flex-wrap justify-center gap-4 mb-8">
-                <a href={getWhatsAppUrl("Hi, I'd like to get a free consultation for my business.")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary font-semibold rounded-lg hover:bg-white/90 transition-colors shadow-lg">
-                  Get Your Free Consultation
-                  <ArrowRight size={18} />
-                </a>
+                <PricingCTA
+                  source="Homepage — Bottom CTA Free Consultation"
+                  ctaLabel="Get Your Free Consultation"
+                  buttonClassName="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary font-semibold rounded-lg hover:bg-white/90 transition-colors shadow-lg"
+                />
                 <Link href="/pricing" className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white font-semibold rounded-lg hover:bg-white/20 transition-colors border border-white/20">
                   View Pricing
                 </Link>
@@ -755,10 +734,6 @@ export default function Home() {
                 <a href={`tel:${siteConfig.phone}`} className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
                   <Phone size={16} />
                   {siteConfig.phone}
-                </a>
-                <a href={getWhatsAppUrl("Hi!")} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
-                  <MessageCircle size={16} />
-                  WhatsApp
                 </a>
                 <a href={`mailto:${siteConfig.email}`} className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
                   <Mail size={16} />

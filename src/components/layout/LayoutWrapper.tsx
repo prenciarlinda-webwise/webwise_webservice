@@ -3,7 +3,6 @@
 import { usePathname } from 'next/navigation'
 import Header from './Header'
 import Footer from './Footer'
-import FloatingWhatsApp from '@/components/ui/FloatingWhatsApp'
 
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -22,7 +21,6 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
         {children}
       </main>
       <Footer />
-      <FloatingWhatsApp />
     </>
   )
 }
