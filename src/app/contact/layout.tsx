@@ -1,5 +1,4 @@
 import Script from 'next/script'
-import RecaptchaProvider from '@/components/providers/RecaptchaProvider'
 import { generateContactPageSchema, generateFAQSchema } from '@/lib/schemas'
 import { contactFaqs } from '@/data/faqs'
 import { pageSEO } from '@/data/seo'
@@ -35,7 +34,7 @@ export default function ContactLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      <RecaptchaProvider>{children}</RecaptchaProvider>
+      {children}
     </>
   )
 }

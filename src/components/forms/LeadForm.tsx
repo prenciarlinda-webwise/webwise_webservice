@@ -1,9 +1,21 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ArrowRight, ArrowLeft, Check } from 'lucide-react'
 
 const FORMSPREE = 'https://formspree.io/f/xqejanba'
+const RECAPTCHA_V2_SITE_KEY =
+  process.env.NEXT_PUBLIC_RECAPTCHA_V2_SITE_KEY || '6LfVr_csAAAAADPeG_7F4GqzmFutEY0W2iOLyzdP'
+
+declare global {
+  interface Window {
+    grecaptcha?: {
+      getResponse: (widgetId?: number) => string
+      reset: (widgetId?: number) => void
+      render: (container: HTMLElement, params: { sitekey: string }) => number
+    }
+  }
+}
 
 const SERVICES = [
   { id: 'ai-search-optimization', label: 'AI Search Optimization (AEO / GEO)' },
@@ -78,6 +90,38 @@ export default function LeadForm({
   const [data, setData] = useState<FormData>({ ...EMPTY, service: preselected })
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [errorMsg, setErrorMsg] = useState('')
+  const captchaContainerRef = useRef<HTMLDivElement>(null)
+  const widgetIdRef = useRef<number | null>(null)
+
+  // Inject Google reCAPTCHA v2 script once per page
+  useEffect(() => {
+    if (document.querySelector('script[src*="recaptcha/api.js"]')) return
+    const s = document.createElement('script')
+    s.src = 'https://www.google.com/recaptcha/api.js?render=explicit'
+    s.async = true
+    s.defer = true
+    document.head.appendChild(s)
+  }, [])
+
+  // Explicit render of the v2 widget once step 2 mounts and grecaptcha is loaded
+  useEffect(() => {
+    if (step !== 2) return
+    let cancelled = false
+    const tryRender = () => {
+      if (cancelled || widgetIdRef.current !== null || !captchaContainerRef.current) return
+      if (!window.grecaptcha || typeof window.grecaptcha.render !== 'function') {
+        setTimeout(tryRender, 150)
+        return
+      }
+      widgetIdRef.current = window.grecaptcha.render(captchaContainerRef.current, {
+        sitekey: RECAPTCHA_V2_SITE_KEY,
+      })
+    }
+    tryRender()
+    return () => {
+      cancelled = true
+    }
+  }, [step])
 
   const set = (k: keyof FormData, v: string) => setData(p => ({ ...p, [k]: v }))
   const toggle = (f: string) =>
@@ -91,6 +135,15 @@ export default function LeadForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!data.service) return
+
+    const wid = widgetIdRef.current ?? undefined
+    const recaptchaToken = window.grecaptcha?.getResponse(wid) || ''
+    if (!recaptchaToken) {
+      setErrorMsg('Please confirm you are not a robot.')
+      setStatus('error')
+      return
+    }
+
     setStatus('submitting'); setErrorMsg('')
     try {
       const res = await fetch(FORMSPREE, {
@@ -99,6 +152,7 @@ export default function LeadForm({
         body: JSON.stringify({
           ...data,
           devFeatures: data.devFeatures.join(', '),
+          'g-recaptcha-response': recaptchaToken,
           _source: source,
           _pageUrl: typeof window !== 'undefined' ? window.location.href : '',
         }),
@@ -106,9 +160,11 @@ export default function LeadForm({
       const json = await res.json().catch(() => ({}))
       if (json.next) { window.location.href = json.next; return }
       if (res.ok) { setStatus('success'); return }
+      if (widgetIdRef.current !== null) window.grecaptcha?.reset(widgetIdRef.current)
       setErrorMsg(json?.error || 'Something went wrong. Please try again.')
       setStatus('error')
     } catch {
+      if (widgetIdRef.current !== null) window.grecaptcha?.reset(widgetIdRef.current)
       setErrorMsg('Network error. Please try again.')
       setStatus('error')
     }
@@ -425,6 +481,8 @@ export default function LeadForm({
                 </select>
               </div>
             </>)}
+
+            <div ref={captchaContainerRef} className="pt-1" />
 
             <div className="flex gap-3 pt-1">
               <button type="button" onClick={() => setStep(1)}
