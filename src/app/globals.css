@@ -36,11 +36,28 @@ body {
   background: var(--color-bg-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Break long unwrappable strings (URLs, long words) so they never push the layout */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+}
+
+/* Prevent horizontal scroll site-wide. `clip` (not `hidden`) preserves
+   sticky positioning on iOS Safari 16+, used by the blog post sidebar. */
+html,
+body {
+  overflow-x: clip;
+}
+
+/* Defensive: media never exceeds its container on mobile */
+img,
+video {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Text gradient utility */

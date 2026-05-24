@@ -157,11 +157,26 @@ export default function LeadForm({
           _pageUrl: typeof window !== 'undefined' ? window.location.href : '',
         }),
       })
-      const json = await res.json().catch(() => ({}))
-      if (json.next) { window.location.href = json.next; return }
-      if (res.ok) { setStatus('success'); return }
+
+      const json: Record<string, unknown> = await res.json().catch(() => ({}))
+
+      // Accept any 2xx, or Formspree's success markers (`{ok:true}` / `{next:"..."}`).
+      // We intentionally do NOT redirect to `json.next` — AJAX should stay on the page.
+      const succeeded =
+        res.ok || json.ok === true || typeof json.next === 'string'
+
+      if (succeeded) {
+        setStatus('success')
+        return
+      }
+
       if (widgetIdRef.current !== null) window.grecaptcha?.reset(widgetIdRef.current)
-      setErrorMsg(json?.error || 'Something went wrong. Please try again.')
+      const errors = Array.isArray(json.errors) ? (json.errors as Array<{ message?: string }>) : null
+      const message =
+        (errors && errors.map(e => e.message).filter(Boolean).join(', ')) ||
+        (typeof json.error === 'string' ? json.error : null) ||
+        'Something went wrong. Please try again.'
+      setErrorMsg(message)
       setStatus('error')
     } catch {
       if (widgetIdRef.current !== null) window.grecaptcha?.reset(widgetIdRef.current)
