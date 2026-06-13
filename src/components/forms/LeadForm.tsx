@@ -149,6 +149,7 @@ export default function LeadForm({
       const res = await fetch(FORMSPREE, {
         method: 'POST',
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+        redirect: 'manual',
         body: JSON.stringify({
           ...data,
           devFeatures: data.devFeatures.join(', '),
@@ -158,12 +159,11 @@ export default function LeadForm({
         }),
       })
 
-      const json: Record<string, unknown> = await res.json().catch(() => ({}))
-
-      // Accept any 2xx, or Formspree's success markers (`{ok:true}` / `{next:"..."}`).
-      // We intentionally do NOT redirect to `json.next` — AJAX should stay on the page.
-      const succeeded =
-        res.ok || json.ok === true || typeof json.next === 'string'
+      // type === 'opaqueredirect' means Formspree issued a 302 to its configured
+      // redirect URL — the submission was received; we just stay on the page.
+      const isRedirect = res.type === 'opaqueredirect'
+      const json: Record<string, unknown> = isRedirect ? {} : await res.json().catch(() => ({}))
+      const succeeded = isRedirect || res.ok || json.ok === true || typeof json.next === 'string'
 
       if (succeeded) {
         setStatus('success')
