@@ -211,7 +211,7 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
         <section className="py-24 bg-bg-secondary">
           <div className="container px-6">
             <div className="text-center mb-16">
-              <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Why It Matters</span>
+              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Why It Matters</span>
               <h2 className="text-3xl font-bold text-primary mb-4">
                 {content.whyYouNeed.question || `Why Does Your Business Need ${subservice.title}?`}
               </h2>
@@ -256,7 +256,7 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
         <section className="py-24">
           <div className="container px-6">
             <div className="text-center mb-16">
-              <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Our Process</span>
+              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Our Process</span>
               <h2 className="text-3xl font-bold text-primary mb-4">
                 {content.process.question || `How Does Our ${subservice.title} Service Work?`}
               </h2>
@@ -318,7 +318,7 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
         <section className="py-24">
           <div className="container px-6">
             <div className="text-center mb-16">
-              <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Pricing</span>
+              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Pricing</span>
               <h2 className="text-3xl font-bold text-primary mb-4">{content.packages.question}</h2>
               <p className="text-text-secondary max-w-3xl mx-auto">{content.packages.intro}</p>
             </div>
@@ -370,7 +370,7 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
         <section className="py-24 bg-bg-secondary">
           <div className="container px-6">
             <div className="text-center mb-16">
-              <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Industries</span>
+              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Industries</span>
               <h2 className="text-3xl font-bold text-primary mb-4">
                 {content.industries.question || `Which Industries Benefit From ${subservice.title}?`}
               </h2>
@@ -396,7 +396,7 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
         <section className="py-24">
           <div className="container px-6">
             <div className="text-center mb-16">
-              <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Results</span>
+              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Results</span>
               <h2 className="text-3xl font-bold text-primary mb-4">What Results Have We Achieved with {subservice.title}?</h2>
               <p className="text-text-secondary max-w-3xl mx-auto">{content.caseStudies.intro}</p>
             </div>
@@ -484,7 +484,7 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
       <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
           <div className="text-center mb-12">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Related Services</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Related Services</span>
             <h2 className="text-3xl font-bold text-primary">Other {service.title}</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">

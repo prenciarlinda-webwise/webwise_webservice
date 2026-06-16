@@ -215,7 +215,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Our Services</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Our Services</span>
             <h2 className="text-3xl font-bold text-primary">What {service.title} Do We Offer?</h2>
           </div>
 
@@ -245,7 +245,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <section className="py-24">
           <div className="container px-6">
             <div className="text-center mb-16">
-              <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Why It Matters</span>
+              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Why It Matters</span>
               <h2 className="text-3xl font-bold text-primary mb-4">
                 {content.whyYouNeed.question || `Why Does Your Business Need ${service.title}?`}
               </h2>
@@ -294,7 +294,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <section className="py-24 bg-bg-secondary">
           <div className="container px-6">
             <div className="text-center mb-16">
-              <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Our Process</span>
+              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Our Process</span>
               <h2 className="text-3xl font-bold text-primary mb-4">
                 {content.process.question || `How Do Our ${service.title} Work?`}
               </h2>
@@ -360,7 +360,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <section className="py-24">
           <div className="container px-6">
             <div className="text-center mb-16">
-              <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Industries</span>
+              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Industries</span>
               <h2 className="text-3xl font-bold text-primary mb-4">
                 {content.industries.question || `Which Industries Benefit From ${service.title}?`}
               </h2>
@@ -389,7 +389,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <section className="py-24 bg-bg-secondary">
           <div className="container px-6">
             <div className="text-center mb-16">
-              <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Results</span>
+              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Results</span>
               <h2 className="text-3xl font-bold text-primary mb-4">
                 What Results Have We Achieved with {service.title}?
               </h2>

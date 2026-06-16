@@ -69,7 +69,7 @@ export default function PortfolioPage() {
       <section className="bg-gradient-to-br from-primary to-primary-dark py-24 lg:py-32">
         <div className="container px-6">
           <div className="max-w-3xl">
-            <span className="inline-block px-4 py-2 bg-white/10 text-white rounded-full text-sm mb-4">Case Studies</span>
+            <span className="block text-xs font-bold text-white/60 uppercase tracking-widest mb-4">Case Studies</span>
             <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
               SEO Case Studies & Portfolio
             </h1>

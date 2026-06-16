@@ -3,18 +3,18 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Menu, X, ChevronDown, ArrowRight, Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart, Briefcase } from 'lucide-react'
+import { Menu, X, ChevronDown, ArrowRight, Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart, Briefcase, Zap } from 'lucide-react'
 import { services, siteConfig, navigation, industries, getUniqueClientIndustries, getIndustryByName, getIndustriesWithPages, getFeaturedCaseStudies } from '@/data/site'
 import PricingCTA from '@/components/forms/PricingCTA'
 
 const iconMap: { [key: string]: React.ElementType } = {
-  Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart
+  Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart, Zap
 }
 
 // URL mappings for new flat URL structure
 const serviceUrlMap: Record<string, string> = {
-  'seo': '/seo-services',
-  'web-development': '/development',
+  'seo': '/local-seo',
+  'web-development': '/custom-web-development',
   'digital-marketing': '/digital-marketing',
 }
 
@@ -24,11 +24,12 @@ const subserviceUrlMap: Record<string, Record<string, string>> = {
     'technical-seo': '/technical-seo',
     'ecommerce-seo': '/ecommerce-seo',
     'international-seo': '/international-seo',
+    'ai-search-optimization': '/ai-search-optimization',
   },
   'web-development': {
-    'website-design': '/development',
-    'web-applications': '/development/applications',
-    'ecommerce-development': '/development/ecommerce',
+    'website-design': '/custom-web-development',
+    'web-applications': '/web-application-development',
+    'ecommerce-development': '/ecommerce-website-development',
   },
   'digital-marketing': {
     'content-marketing': '/digital-marketing/content',
@@ -281,7 +282,7 @@ export default function Header() {
                   </button>
                   <div className={`overflow-hidden transition-all duration-300 ${openMobileSubmenu === key ? 'max-h-96' : 'max-h-0'}`}>
                     <Link
-                      href={serviceUrlMap[key] || `/services/${key}`}
+                      href={serviceUrlMap[key] || `/local-seo`}
                       className="flex items-center gap-3 py-3 px-4 text-accent font-medium"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >

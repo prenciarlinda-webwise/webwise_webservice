@@ -51,7 +51,7 @@ export default function AboutPage() {
       <section className="bg-gradient-to-br from-primary to-primary-dark py-24 lg:py-32">
         <div className="container px-6">
           <div className="max-w-3xl">
-            <span className="inline-block px-4 py-2 bg-white/10 text-white rounded-full text-sm mb-4">About Us</span>
+            <span className="block text-xs font-bold text-white/60 uppercase tracking-widest mb-4">About Us</span>
             <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
               {content.hero.headline}
             </h1>
@@ -84,7 +84,7 @@ export default function AboutPage() {
       <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
           <div className="max-w-4xl mx-auto">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Our Mission</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Our Mission</span>
             <h2 className="text-3xl font-bold text-primary mb-8">Empowering Local Businesses Through Digital Excellence</h2>
             <div className="space-y-6">
               {Array.isArray(content.sections[0].content) && content.sections[0].content.map((paragraph, i) => (
@@ -101,7 +101,7 @@ export default function AboutPage() {
       <section className="py-24">
         <div className="container px-6">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Our Values</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Our Values</span>
             <h2 className="text-3xl font-bold text-primary">What We Stand For</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -122,7 +122,7 @@ export default function AboutPage() {
       <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
           <div className="text-center mb-12">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Our Track Record</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Our Track Record</span>
             <h2 className="text-3xl font-bold text-primary mb-4">Results That Speak For Themselves</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
@@ -140,7 +140,7 @@ export default function AboutPage() {
       <section className="py-24">
         <div className="container px-6">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Our Expertise</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Our Expertise</span>
             <h2 className="text-3xl font-bold text-primary mb-4">What Makes Us Different</h2>
             <p className="text-text-secondary max-w-3xl mx-auto">
               Years of specialized experience in local service business marketing
@@ -171,7 +171,7 @@ export default function AboutPage() {
       <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Our Process</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Our Process</span>
             <h2 className="text-3xl font-bold text-primary mb-4">How We Work With Clients</h2>
             <p className="text-text-secondary max-w-3xl mx-auto">
               A proven methodology refined over 50+ successful projects
@@ -200,7 +200,7 @@ export default function AboutPage() {
       <section className="py-24">
         <div className="container px-6">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Technology</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Technology</span>
             <h2 className="text-3xl font-bold text-primary mb-4">Technologies We Master</h2>
             <p className="text-text-secondary max-w-2xl mx-auto">
               We stay at the forefront of technology to deliver the best solutions for our clients.
@@ -227,7 +227,7 @@ export default function AboutPage() {
       <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
           <div className="max-w-4xl mx-auto">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Our Team</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Our Team</span>
             <h2 className="text-3xl font-bold text-primary mb-8">The People Behind Web Wise</h2>
             <div className="space-y-6">
               {Array.isArray(content.sections[5].content) && content.sections[5].content.map((paragraph, i) => (

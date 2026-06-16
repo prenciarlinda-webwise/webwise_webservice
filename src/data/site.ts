@@ -41,6 +41,12 @@ export const services = {
         icon: 'ShoppingCart',
         description: 'Drive qualified traffic and boost sales with specialized e-commerce optimization.',
       },
+      'ai-search-optimization': {
+        title: 'AI Search Optimization',
+        slug: 'ai-search-optimization',
+        icon: 'Zap',
+        description: 'Get cited by ChatGPT, Perplexity, and Google AI Overviews with GEO and AEO strategies.',
+      },
     },
   },
   'web-development': {

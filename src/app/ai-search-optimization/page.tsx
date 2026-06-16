@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import Script from 'next/script'
 import Link from 'next/link'
-import { Brain, Zap, MessageSquare, Search, Check, ArrowRight, Mic, Globe } from 'lucide-react'
+import { Zap, MessageSquare, Check, ArrowRight, Mic, Globe } from 'lucide-react'
 import { siteConfig } from '@/data/site'
 import { pageSEO } from '@/data/seo'
 import LeadForm from '@/components/forms/LeadForm'
@@ -227,12 +227,9 @@ export default function AISearchOptimizationPage() {
 
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div>
-              <div className="inline-flex items-center gap-2 bg-accent/20 border border-accent/40 text-accent rounded-full px-4 py-1.5 text-sm font-medium mb-6">
-                <Brain size={14} />
-                GEO &amp; AEO for 2026
-              </div>
+              <p className="block text-xs font-bold text-accent uppercase tracking-widest mb-6">GEO and AEO for 2026</p>
               <h1 className="text-4xl lg:text-5xl font-display font-bold leading-tight mb-6">
-                AI Search Optimization: Get Found in ChatGPT, Perplexity &amp; Google AI
+                Get Found in ChatGPT, Perplexity and Google AI
               </h1>
               <p className="text-lg text-white/80 mb-8 leading-relaxed">
                 Traditional SEO gets you ranked. AI Search Optimization — Generative Engine Optimization (GEO) and Answer Engine Optimization (AEO) — gets you <strong className="text-white">cited inside the answer</strong>. We help small businesses become the source AI models quote when customers ask questions in your industry.
@@ -453,10 +450,7 @@ export default function AISearchOptimizationPage() {
       {/* ── Bottom CTA ───────────────────────────────────────────── */}
       <section className="py-24 bg-primary text-white">
         <div className="container mx-auto px-6 text-center">
-          <div className="inline-flex items-center gap-2 bg-accent/20 border border-accent/40 text-accent rounded-full px-4 py-1.5 text-sm font-medium mb-6">
-            <Search size={14} />
-            Free GEO Audit — No Commitment
-          </div>
+          <p className="block text-xs font-bold text-white/60 uppercase tracking-widest mb-6">Free GEO Audit</p>
           <h2 className="text-3xl lg:text-4xl font-display font-bold mb-4">
             Ready to Get Found in AI Search?
           </h2>

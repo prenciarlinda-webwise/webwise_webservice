@@ -293,10 +293,7 @@ export default function LocalSEOPage() {
         <div className="container px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div className="text-white">
-              <div className="inline-flex items-center gap-2 bg-accent/20 text-accent border border-accent/30 rounded-full px-4 py-1.5 text-sm font-medium mb-6">
-                <MapPin className="w-4 h-4" />
-                Local SEO Agency
-              </div>
+              <p className="block text-xs font-bold text-accent uppercase tracking-widest mb-6">Local SEO Agency</p>
               <h1 className="text-4xl md:text-5xl font-display font-bold leading-tight mb-6">
                 Local SEO Services That Get You Into the Google Map Pack
               </h1>
@@ -416,7 +413,7 @@ export default function LocalSEOPage() {
         <div className="container px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-display font-bold text-primary mb-4">
-              Where Local Businesses Are Losing — And Winning
+              Where Local Businesses Are Losing and Winning
             </h2>
             <p className="text-text-muted max-w-2xl mx-auto">
               Most local businesses rank poorly on Google Maps not because their service is bad — but because

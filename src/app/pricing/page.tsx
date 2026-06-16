@@ -196,7 +196,7 @@ export default function PricingPage() {
       <section className="bg-gradient-to-br from-primary to-primary-dark py-24 lg:py-32">
         <div className="container px-6">
           <div className="text-center max-w-3xl mx-auto">
-            <span className="inline-block px-4 py-2 bg-white/10 text-white rounded-full text-sm mb-4">Pricing</span>
+            <span className="block text-xs font-bold text-white/60 uppercase tracking-widest mb-4">Pricing</span>
             <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
               {content.hero.headline}
             </h1>
@@ -369,7 +369,7 @@ export default function PricingPage() {
       <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Monthly SEO Plans</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Monthly SEO Plans</span>
             <h2 className="text-3xl font-bold text-primary mb-4">Local SEO Packages</h2>
             <p className="text-text-secondary max-w-2xl mx-auto mb-4">
               Each plan includes a comprehensive local SEO audit in the first month with a clear 3-month roadmap of measurable milestones.
@@ -464,7 +464,7 @@ export default function PricingPage() {
       <section className="py-24">
         <div className="container px-6">
           <div className="max-w-4xl mx-auto">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Web Development</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Web Development</span>
             <h2 className="text-3xl font-bold text-primary mb-6">How Much Does a Business Website Cost?</h2>
             {Array.isArray(content.sections[0].content) && content.sections[0].content.map((paragraph, i) => (
               <p key={i} className={`${i === 0 ? 'text-lg' : ''} text-text-secondary mb-6 leading-relaxed`}>
@@ -479,7 +479,7 @@ export default function PricingPage() {
       <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Web Development</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Web Development</span>
             <h2 className="text-3xl font-bold text-primary mb-4">Website Package</h2>
             <p className="text-text-secondary max-w-2xl mx-auto">
               A high-performance Next.js website built for speed and conversions.
@@ -567,7 +567,7 @@ export default function PricingPage() {
       <section className="py-24">
         <div className="container px-6">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Value</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Value</span>
             <h2 className="text-3xl font-bold text-primary mb-4">Why Our Pricing Delivers Better ROI</h2>
             <p className="text-text-secondary max-w-3xl mx-auto">
               Many businesses waste money on cheap SEO that doesn&apos;t work or expensive agencies that over-promise. Our pricing hits the sweet spot.
@@ -596,7 +596,7 @@ export default function PricingPage() {
       <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Timing</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Timing</span>
             <h2 className="text-3xl font-bold text-primary mb-4">When Should You Invest in SEO vs. a New Website?</h2>
           </div>
 
@@ -620,7 +620,7 @@ export default function PricingPage() {
       <section className="py-24">
         <div className="container px-6">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Factors</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Factors</span>
             <h2 className="text-3xl font-bold text-primary mb-4">What Affects SEO Pricing?</h2>
           </div>
 
@@ -640,7 +640,7 @@ export default function PricingPage() {
         <div className="container px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Our Promise</span>
+              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Our Promise</span>
               <h2 className="text-3xl font-bold text-primary mb-4">What We Guarantee</h2>
             </div>
             <div className="bg-white rounded-2xl border border-border p-8">
@@ -676,7 +676,7 @@ export default function PricingPage() {
       <section className="py-24">
         <div className="container px-6">
           <div className="max-w-3xl mx-auto text-center mb-12">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Client Dashboard</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Client Dashboard</span>
             <h2 className="text-3xl font-bold text-primary mb-4">Track Your Progress</h2>
             <p className="text-text-secondary">
               Every client gets access to a milestone tracker. SEO isn&apos;t a black box - it&apos;s a project with a clear timeline.

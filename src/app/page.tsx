@@ -226,7 +226,7 @@ export default function Home() {
       <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
           <div className="max-w-4xl mx-auto text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">What We Do</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">What We Do</span>
             <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-6">What Does Web Wise Do?</h2>
             <p className="text-lg text-text-secondary mb-6">
               Web Wise is a web development and digital marketing agency that helps contractors
@@ -255,7 +255,7 @@ export default function Home() {
       <section className="py-24">
         <div className="container px-6">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Our Services</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Our Services</span>
             <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">Comprehensive Digital Solutions</h2>
             <p className="text-text-secondary max-w-2xl mx-auto">
               From custom websites to dominating search results, we provide end-to-end
@@ -394,7 +394,7 @@ export default function Home() {
       <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Industries</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Industries</span>
             <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">Who We Work With</h2>
             <p className="text-text-secondary max-w-2xl mx-auto">
               We specialize in contractors and local service businesses. If you serve
@@ -474,7 +474,7 @@ export default function Home() {
       <section className="py-24">
         <div className="container px-6">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Results</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Results</span>
             <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">Results for Businesses Like Yours</h2>
             <p className="text-text-secondary max-w-2xl mx-auto">
               Real projects. Real results. Here&apos;s what we&apos;ve built and achieved:
@@ -536,7 +536,7 @@ export default function Home() {
       <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Our Process</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Our Process</span>
             <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">How We Work</h2>
             <p className="text-text-secondary max-w-2xl mx-auto">
               Simple process. Clear timeline. No surprises.
@@ -596,7 +596,7 @@ export default function Home() {
       <section className="py-24">
         <div className="container px-6">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Technology</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Technology</span>
             <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">Built With Modern Technology</h2>
             <p className="text-text-secondary max-w-2xl mx-auto">
               We use cutting-edge tools to deliver fast, scalable, secure solutions.
@@ -624,7 +624,7 @@ export default function Home() {
       <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Testimonials</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Testimonials</span>
             <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">What Our Clients Say</h2>
           </div>
 
@@ -657,7 +657,7 @@ export default function Home() {
       <section className="py-24">
         <div className="container px-6">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">FAQ</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">FAQ</span>
             <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">Frequently Asked Questions</h2>
           </div>
           <div className="max-w-3xl mx-auto space-y-4">

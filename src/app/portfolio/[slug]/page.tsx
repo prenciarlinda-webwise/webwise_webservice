@@ -171,7 +171,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           </nav>
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <span className="inline-block px-3 py-1 bg-white/10 text-white rounded-full text-sm mb-4">
+              <span className="block text-xs font-bold text-white/60 uppercase tracking-widest mb-4">
                 {client.industry}
               </span>
               <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 text-balance">{client.name}</h1>
@@ -239,7 +239,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
       <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
           <div className="text-center mb-12">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Live Preview</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Live Preview</span>
             <h2 className="text-3xl font-bold text-primary mb-4">See the Website in Action</h2>
             <p className="text-text-secondary max-w-2xl mx-auto">
               Toggle between desktop and mobile to see how {client.name} looks on every screen.
@@ -254,7 +254,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         <section className="py-24 bg-bg-secondary">
           <div className="container px-6">
             <div className="text-center mb-12">
-              <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">Live Rankings</span>
+              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Live Rankings</span>
               <h2 className="text-3xl font-bold text-primary mb-4">Keywords {client.name} Ranks For Today</h2>
               <p className="text-text-secondary max-w-2xl mx-auto">
                 Real positions pulled from Google search results, the local map pack, and AI Overview citations.
@@ -343,7 +343,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         <section className="py-24">
           <div className="container px-6">
             <div className="text-center mb-16">
-              <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">The Journey</span>
+              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">The Journey</span>
               <h2 className="text-3xl font-bold text-primary">Results Timeline</h2>
             </div>
             <div className="grid md:grid-cols-4 gap-8">
@@ -387,7 +387,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
       <section className="py-24">
         <div className="container px-6">
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">More Work</span>
+            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">More Work</span>
             <h2 className="text-3xl font-bold text-primary">Other Projects</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-8">

@@ -271,7 +271,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </nav>
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <span className="inline-block px-4 py-2 bg-accent/20 text-accent-light rounded-full text-sm font-medium mb-4">
+              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">
                 {post.category}
               </span>
               <h1 className="text-3xl lg:text-5xl font-bold text-white mb-6 leading-tight">

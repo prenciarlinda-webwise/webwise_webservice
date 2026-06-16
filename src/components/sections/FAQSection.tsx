@@ -20,7 +20,7 @@ export default function FAQSection({
     <section className={`py-24 ${background === 'gray' ? 'bg-bg-secondary' : ''}`}>
       <div className="container px-6">
         <div className="text-center mb-16">
-          <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-medium rounded-full text-sm mb-4">FAQ</span>
+          <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">FAQ</span>
           <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">{title}</h2>
           <p className="text-text-secondary max-w-2xl mx-auto">{subtitle}</p>
         </div>
