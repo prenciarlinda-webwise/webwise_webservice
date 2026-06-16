@@ -65,6 +65,33 @@ export const pageSEO: Record<string, PageSEO> = {
   },
 
   // ============================================
+  // NEW FLAT DEV URLS (replacing /development/*)
+  // ============================================
+  'custom-web-development': {
+    title: 'Custom Web Development Services - From $1,500',
+    description: 'Custom websites and web applications built on Next.js. Fast, mobile-first, and conversion-optimised. Starting at $1,500. Free consultation for UK & USA businesses.',
+    keywords: ['custom web development', 'custom web development services', 'custom website development', 'bespoke web development', 'nextjs web development', 'small business web development'],
+  },
+
+  'web-application-development': {
+    title: 'Web Application Development Company - Custom Web Apps',
+    description: 'Custom web applications built with Next.js, Django, and React. Business automation, client portals, booking systems. Scalable and secure. Free project scoping call.',
+    keywords: ['web application development', 'web application development company', 'custom web app development', 'bespoke web application', 'react web application', 'django web application'],
+  },
+
+  'ecommerce-website-development': {
+    title: 'Ecommerce Website Development - Custom Online Stores',
+    description: 'Custom ecommerce websites with seamless checkout and inventory management. Shopify, WooCommerce, or fully custom. Starting at $3,500. Free ecommerce consultation.',
+    keywords: ['ecommerce website development', 'ecommerce website development company', 'custom ecommerce development', 'shopify development', 'woocommerce development', 'online store development'],
+  },
+
+  'ai-search-optimization': {
+    title: 'AI Search Optimization Services - GEO & AEO for 2026',
+    description: 'Optimize your business for AI search engines — ChatGPT, Perplexity, Google AI Overviews. GEO and AEO strategies that get you cited in AI-generated answers. Free audit.',
+    keywords: ['ai search optimization', 'geo seo', 'generative engine optimization', 'answer engine optimization', 'aeo seo', 'chatgpt seo', 'perplexity seo', 'google ai overviews optimization', 'ai seo services'],
+  },
+
+  // ============================================
   // WEB DEVELOPMENT SUB-SERVICES
   // ============================================
   'development/website-design': {

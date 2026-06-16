@@ -202,23 +202,11 @@ export default function Home() {
                 websites (98+ PageSpeed), local SEO that puts you in the Google Map Pack, and
                 digital marketing that generates real leads.
               </p>
-              <div className="flex items-center gap-4">
-                <div className="flex -space-x-2">
-                  {['JD', 'MK', 'SR', 'PL'].map((initials, i) => (
-                    <div key={i} className="w-10 h-10 bg-accent rounded-full flex items-center justify-center text-sm font-bold border-2 border-primary">
-                      {initials}
-                    </div>
-                  ))}
-                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-sm font-bold border-2 border-primary">
-                    +46
-                  </div>
+              <div className="flex items-center gap-3">
+                <div className="flex text-yellow-400">
+                  {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
                 </div>
-                <div>
-                  <div className="flex text-yellow-400 mb-1">
-                    {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
-                  </div>
-                  <span className="text-sm text-white/70">Rated 5.0 by our clients</span>
-                </div>
+                <span className="text-sm text-white/70">Rated 5.0 · 50+ businesses helped</span>
               </div>
             </div>
 
@@ -229,30 +217,6 @@ export default function Home() {
                 Tell us about your project. We&apos;ll reply within 24 hours with concrete next steps.
               </p>
               <LeadForm source="Homepage hero" ctaLabel="Get My Free Audit" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Key Stats Bar */}
-      <section className="bg-white py-8 border-b border-border">
-        <div className="container px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-3xl lg:text-4xl font-bold text-primary">340%</div>
-              <div className="text-sm text-text-muted">Average Traffic Increase</div>
-            </div>
-            <div>
-              <div className="text-3xl lg:text-4xl font-bold text-primary">50+</div>
-              <div className="text-sm text-text-muted">Projects Delivered</div>
-            </div>
-            <div>
-              <div className="text-3xl lg:text-4xl font-bold text-primary">500+</div>
-              <div className="text-sm text-text-muted">Keywords Ranked</div>
-            </div>
-            <div>
-              <div className="text-3xl lg:text-4xl font-bold text-primary">98+</div>
-              <div className="text-sm text-text-muted">PageSpeed Scores</div>
             </div>
           </div>
         </div>
@@ -313,26 +277,26 @@ export default function Home() {
               <p className="text-sm font-medium text-primary mb-4">What we build:</p>
               <ul className="space-y-2 mb-6">
                 <li className="text-sm text-text-muted">
-                  <Link href="/development" className="hover:text-accent transition-colors flex items-center gap-2">
+                  <Link href="/custom-web-development" className="hover:text-accent transition-colors flex items-center gap-2">
                     <span className="w-1.5 h-1.5 bg-accent rounded-full" />
-                    Custom Websites -  Fast, mobile-first sites
+                    Custom Websites - Fast, mobile-first sites
                   </Link>
                 </li>
                 <li className="text-sm text-text-muted">
-                  <Link href="/development/ecommerce" className="hover:text-accent transition-colors flex items-center gap-2">
+                  <Link href="/ecommerce-website-development" className="hover:text-accent transition-colors flex items-center gap-2">
                     <span className="w-1.5 h-1.5 bg-accent rounded-full" />
                     E-commerce Stores - Shopify, WooCommerce, custom
                   </Link>
                 </li>
                 <li className="text-sm text-text-muted">
-                  <Link href="/development/applications" className="hover:text-accent transition-colors flex items-center gap-2">
+                  <Link href="/web-application-development" className="hover:text-accent transition-colors flex items-center gap-2">
                     <span className="w-1.5 h-1.5 bg-accent rounded-full" />
                     Web Applications - Dashboards, portals, tools
                   </Link>
                 </li>
               </ul>
               <p className="text-sm text-accent font-medium mb-4">Our websites average 98+ PageSpeed scores</p>
-              <Link href="/development" className="inline-flex items-center gap-2 text-accent font-medium hover:gap-3 transition-all">
+              <Link href="/custom-web-development" className="inline-flex items-center gap-2 text-accent font-medium hover:gap-3 transition-all">
                 Learn more <ArrowRight size={16} />
               </Link>
             </div>

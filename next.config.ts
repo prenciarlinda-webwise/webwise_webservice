@@ -26,11 +26,13 @@ const nextConfig: NextConfig = {
       // URL RESTRUCTURE 2026 - Old URLs → New Short URLs (301 redirects)
       // ============================================
 
-      // SEO Services - Old deep URLs to new flat URLs
-      { source: '/services', destination: '/seo-services', statusCode: 301 },
-      { source: '/services/', destination: '/seo-services', statusCode: 301 },
-      { source: '/services/seo', destination: '/seo-services', statusCode: 301 },
-      { source: '/services/seo/', destination: '/seo-services', statusCode: 301 },
+      // /seo-services and /services hub → local-seo (primary SEO service)
+      { source: '/seo-services', destination: '/local-seo', statusCode: 301 },
+      { source: '/seo-services/', destination: '/local-seo', statusCode: 301 },
+      { source: '/services', destination: '/local-seo', statusCode: 301 },
+      { source: '/services/', destination: '/local-seo', statusCode: 301 },
+      { source: '/services/seo', destination: '/local-seo', statusCode: 301 },
+      { source: '/services/seo/', destination: '/local-seo', statusCode: 301 },
       { source: '/services/seo/local-seo', destination: '/local-seo', statusCode: 301 },
       { source: '/services/seo/local-seo/', destination: '/local-seo', statusCode: 301 },
       { source: '/services/seo/technical-seo', destination: '/technical-seo', statusCode: 301 },
@@ -40,15 +42,21 @@ const nextConfig: NextConfig = {
       { source: '/services/seo/international-seo', destination: '/international-seo', statusCode: 301 },
       { source: '/services/seo/international-seo/', destination: '/international-seo', statusCode: 301 },
 
-      // Web Development → Web Design
-      { source: '/services/web-development', destination: '/development', statusCode: 301 },
-      { source: '/services/web-development/', destination: '/development', statusCode: 301 },
-      { source: '/services/web-development/website-design', destination: '/development', statusCode: 301 },
-      { source: '/services/web-development/website-design/', destination: '/development', statusCode: 301 },
-      { source: '/services/web-development/web-applications', destination: '/development/applications', statusCode: 301 },
-      { source: '/services/web-development/web-applications/', destination: '/development/applications', statusCode: 301 },
-      { source: '/services/web-development/ecommerce-development', destination: '/development/ecommerce', statusCode: 301 },
-      { source: '/services/web-development/ecommerce-development/', destination: '/development/ecommerce', statusCode: 301 },
+      // Web Development → new flat slugs
+      { source: '/development', destination: '/custom-web-development', statusCode: 301 },
+      { source: '/development/', destination: '/custom-web-development', statusCode: 301 },
+      { source: '/development/applications', destination: '/web-application-development', statusCode: 301 },
+      { source: '/development/applications/', destination: '/web-application-development', statusCode: 301 },
+      { source: '/development/ecommerce', destination: '/ecommerce-website-development', statusCode: 301 },
+      { source: '/development/ecommerce/', destination: '/ecommerce-website-development', statusCode: 301 },
+      { source: '/services/web-development', destination: '/custom-web-development', statusCode: 301 },
+      { source: '/services/web-development/', destination: '/custom-web-development', statusCode: 301 },
+      { source: '/services/web-development/website-design', destination: '/custom-web-development', statusCode: 301 },
+      { source: '/services/web-development/website-design/', destination: '/custom-web-development', statusCode: 301 },
+      { source: '/services/web-development/web-applications', destination: '/web-application-development', statusCode: 301 },
+      { source: '/services/web-development/web-applications/', destination: '/web-application-development', statusCode: 301 },
+      { source: '/services/web-development/ecommerce-development', destination: '/ecommerce-website-development', statusCode: 301 },
+      { source: '/services/web-development/ecommerce-development/', destination: '/ecommerce-website-development', statusCode: 301 },
 
       // Digital Marketing - Shorten paths
       { source: '/services/digital-marketing', destination: '/digital-marketing', statusCode: 301 },
@@ -128,10 +136,10 @@ const nextConfig: NextConfig = {
       // Old service pages → new URLs
       { source: '/expert-seo-services', destination: '/seo-services', statusCode: 301 },
       { source: '/expert-seo-services/', destination: '/seo-services', statusCode: 301 },
-      { source: '/professional-web-development', destination: '/development', statusCode: 301 },
-      { source: '/professional-web-development/', destination: '/development', statusCode: 301 },
-      { source: '/web-app-development', destination: '/development/applications', statusCode: 301 },
-      { source: '/web-app-development/', destination: '/development/applications', statusCode: 301 },
+      { source: '/professional-web-development', destination: '/custom-web-development', statusCode: 301 },
+      { source: '/professional-web-development/', destination: '/custom-web-development', statusCode: 301 },
+      { source: '/web-app-development', destination: '/web-application-development', statusCode: 301 },
+      { source: '/web-app-development/', destination: '/web-application-development', statusCode: 301 },
       { source: '/free-website-audit', destination: '/contact', statusCode: 301 },
       { source: '/free-website-audit/', destination: '/contact', statusCode: 301 },
 
@@ -161,9 +169,9 @@ const nextConfig: NextConfig = {
       { source: '/seo-vs-ppc-which-one-is-right-for-your-business/:path*', destination: '/blog/seo-vs-ppc', statusCode: 301 },
       { source: '/understanding-the-basics-of-on-page-seo', destination: '/blog', statusCode: 301 },
       { source: '/understanding-the-basics-of-on-page-seo/', destination: '/blog', statusCode: 301 },
-      { source: '/maximizing-user-engagement-with-custom-web-design', destination: '/development', statusCode: 301 },
-      { source: '/maximizing-user-engagement-with-custom-web-design/', destination: '/development', statusCode: 301 },
-      { source: '/maximizing-user-engagement-with-custom-web-design/:path*', destination: '/development', statusCode: 301 },
+      { source: '/maximizing-user-engagement-with-custom-web-design', destination: '/custom-web-development', statusCode: 301 },
+      { source: '/maximizing-user-engagement-with-custom-web-design/', destination: '/custom-web-development', statusCode: 301 },
+      { source: '/maximizing-user-engagement-with-custom-web-design/:path*', destination: '/custom-web-development', statusCode: 301 },
       { source: '/improving-website-speed-for-better-seo-results', destination: '/technical-seo', statusCode: 301 },
       { source: '/improving-website-speed-for-better-seo-results/', destination: '/technical-seo', statusCode: 301 },
       { source: '/improving-website-speed-for-better-seo-results/:path*', destination: '/technical-seo', statusCode: 301 },
@@ -171,8 +179,8 @@ const nextConfig: NextConfig = {
       { source: '/the-role-of-backlinks-in-seo/', destination: '/seo-services', statusCode: 301 },
       { source: '/how-mobile-optimization-impacts-seo', destination: '/technical-seo', statusCode: 301 },
       { source: '/how-mobile-optimization-impacts-seo/', destination: '/technical-seo', statusCode: 301 },
-      { source: '/how-to-choose-the-right-website-development-agency', destination: '/development', statusCode: 301 },
-      { source: '/how-to-choose-the-right-website-development-agency/', destination: '/development', statusCode: 301 },
+      { source: '/how-to-choose-the-right-website-development-agency', destination: '/custom-web-development', statusCode: 301 },
+      { source: '/how-to-choose-the-right-website-development-agency/', destination: '/custom-web-development', statusCode: 301 },
       { source: '/why-every-business-needs-seo-services-in-2024', destination: '/seo-services', statusCode: 301 },
       { source: '/why-every-business-needs-seo-services-in-2024/', destination: '/seo-services', statusCode: 301 },
       { source: '/why-every-business-needs-seo-services-in-2024/:path*', destination: '/seo-services', statusCode: 301 },
