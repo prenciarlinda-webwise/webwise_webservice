@@ -98,7 +98,7 @@ const jsonLd = {
           name: 'Can local SEO work for businesses without a storefront?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Yes. Service-area businesses — plumbers, roofers, landscapers, and other contractors who travel to customers — can absolutely rank in the Google Map Pack. You set a service area in your Google Business Profile, and local SEO signals help you rank for searches across that entire area, not just one city.',
+            text: 'Yes. Service-area businesses (plumbers, roofers, landscapers, and other contractors who travel to customers) can absolutely rank in the Google Map Pack. You set a service area in your Google Business Profile, and local SEO signals help you rank for searches across that entire area, not just one city.',
           },
         },
       ],
@@ -137,7 +137,7 @@ const services = [
     icon: <MapPin className="w-6 h-6" />,
     title: 'Google Business Profile Optimization',
     description:
-      'Complete GBP setup and optimization — categories, attributes, photos, posts, Q&A, and service descriptions — to maximize your Map Pack visibility.',
+      'Complete GBP setup and optimization covering categories, attributes, photos, posts, Q&A, and service descriptions, to maximize your Map Pack visibility.',
   },
   {
     icon: <Check className="w-6 h-6" />,
@@ -149,7 +149,7 @@ const services = [
     icon: <Star className="w-6 h-6" />,
     title: 'Review Generation Strategy',
     description:
-      'Systematic review request workflows via SMS and email that build your star rating and review count — two of the strongest Map Pack ranking signals.',
+      'Systematic review request workflows via SMS and email that build your star rating and review count, two of the strongest Map Pack ranking signals.',
   },
   {
     icon: <TrendingUp className="w-6 h-6" />,
@@ -275,7 +275,7 @@ const faqs = [
   {
     question: 'Can local SEO work for businesses without a storefront?',
     answer:
-      'Yes. Service-area businesses — plumbers, roofers, landscapers, and other contractors who travel to customers — can absolutely rank in the Google Map Pack. You set a service area in your Google Business Profile, and local SEO signals help you rank for searches across that entire area, not just one city.',
+      'Yes. Service-area businesses (plumbers, roofers, landscapers, and other contractors who travel to customers) can absolutely rank in the Google Map Pack. You set a service area in your Google Business Profile, and local SEO signals help you rank for searches across that entire area, not just one city.',
   },
 ]
 
@@ -302,7 +302,7 @@ export default function LocalSEOPage() {
               </p>
               <p className="text-white/70 mb-8 leading-relaxed">
                 Contractors and small businesses across the UK and USA use our local SEO services to dominate
-                Google Maps, appear in the 3-Pack, and generate a consistent stream of inbound leads —
+                Google Maps, appear in the 3-Pack, and generate a consistent stream of inbound leads,
                 without paying per click. We handle everything: GBP optimization, citation building, review
                 generation, and local content that turns searches into calls.
               </p>
@@ -333,9 +333,9 @@ export default function LocalSEOPage() {
             <p className="text-sm font-semibold text-accent uppercase tracking-wide mb-4">Key Takeaways</p>
             <ul className="space-y-3">
               {[
-                'Local SEO puts your business in front of customers searching nearby — 76% of local searches result in a call or visit within 24 hours',
+                'Local SEO puts your business in front of customers searching nearby. 76% of local searches result in a call or visit within 24 hours',
                 'Google Map Pack (top 3 local results) gets 44% of all local search clicks',
-                'We optimize your Google Business Profile, build local citations, and earn reviews — the three core Map Pack signals',
+                'We optimize your Google Business Profile, build local citations, and earn reviews, the three core Map Pack signals',
                 'Most clients see initial Map Pack movement within 60–90 days; significant results by month 4–6',
               ].map((point) => (
                 <li key={point} className="flex items-start gap-3 text-text-primary">
@@ -358,11 +358,11 @@ export default function LocalSEOPage() {
             <p className="text-lg text-text-primary leading-relaxed mb-6 p-5 bg-bg-secondary rounded-xl border border-border">
               Local SEO is the process of optimizing a business's online presence to rank higher in
               location-based Google searches and the Google Map Pack. It covers Google Business Profile
-              optimization, local citations, review management, and on-page SEO — all aimed at driving
+              optimization, local citations, review management, and on-page SEO, all aimed at driving
               nearby customers to call or visit.
             </p>
             <p className="text-text-primary leading-relaxed mb-4">
-              Unlike national SEO — which targets broad keywords like "best running shoes" — local SEO
+              Unlike national SEO (which targets broad keywords like "best running shoes"), local SEO
               targets searches with geographic intent: "plumber near me," "HVAC repair [city]," or "roofing
               contractor [zip code]." These searches happen when someone has an immediate need and is ready
               to act.
@@ -371,7 +371,7 @@ export default function LocalSEOPage() {
               For contractors and service businesses, local SEO is often the single highest-ROI marketing
               channel available. A plumber in the Google 3-Pack for "emergency plumber London" receives
               phone calls 24 hours a day without paying per click. That's the power of owning local
-              search — and it's exactly what we build for our clients.
+              search, and it's exactly what we build for our clients.
             </p>
           </div>
         </div>
@@ -416,7 +416,7 @@ export default function LocalSEOPage() {
               Where Local Businesses Are Losing and Winning
             </h2>
             <p className="text-text-muted max-w-2xl mx-auto">
-              Most local businesses rank poorly on Google Maps not because their service is bad — but because
+              Most local businesses rank poorly on Google Maps not because their service is bad, but because
               their online presence hasn't been built to rank.
             </p>
           </div>
@@ -444,7 +444,7 @@ export default function LocalSEOPage() {
                 {[
                   'Get into the Google 3-Pack and receive calls around the clock',
                   'Appear for every local search variation customers use',
-                  'Generate leads without ad spend — sustainable, compounding growth',
+                  'Generate leads without ad spend for sustainable, compounding growth',
                 ].map((point) => (
                   <li key={point} className="flex items-start gap-3 text-green-700">
                     <Check className="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
@@ -637,8 +637,8 @@ export default function LocalSEOPage() {
             <div className="p-8">
               <p className="text-text-muted mb-8">
                 A residential plumbing business that was invisible on Google Maps when we started. After a
-                complete local SEO campaign — GBP overhaul, citation building, service area pages, and review
-                generation — the results were significant.
+                complete local SEO campaign covering GBP overhaul, citation building, service area pages, and review
+                generation. The results were significant.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {[
@@ -691,7 +691,7 @@ export default function LocalSEOPage() {
           </h2>
           <p className="text-white/70 max-w-2xl mx-auto mb-10 text-lg">
             Stop watching competitors take your calls. Get a free local SEO audit and find out exactly what's
-            holding your Map Pack rankings back — no commitment, no sales pressure.
+            holding your Map Pack rankings back, with no commitment and no sales pressure.
           </p>
           <PricingCTA
             source="Local SEO page — bottom CTA"

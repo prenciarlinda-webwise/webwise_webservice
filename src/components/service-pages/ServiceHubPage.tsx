@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Script from 'next/script'
 import { notFound } from 'next/navigation'
-import { ArrowRight, Check, Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart, AlertCircle, CheckCircle, User, Award, Clock } from 'lucide-react'
+import { ArrowRight, Check, Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart } from 'lucide-react'
 import { services, siteConfig } from '@/data/site'
 import { generateServiceSchema, generateBreadcrumbSchema, generateFAQSchema, generateHowToSchema } from '@/lib/schemas'
 import FAQSection from '@/components/sections/FAQSection'
@@ -190,22 +190,18 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </section>
       )}
 
-      {/* What Is Section - 40-60 word answer for AI/Featured Snippets */}
+      {/* What Is Section */}
       {content?.definition && (
         <section className="py-24">
           <div className="container px-6">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold text-primary mb-6">
+              <h2 className="text-3xl font-bold text-primary mb-8">
                 {content.definition.question || `What Are ${service.title}?`}
               </h2>
-              {/* Direct answer - optimized for featured snippets */}
-              <p className="text-lg text-text-secondary mb-6 leading-relaxed">
-                {content.definition.answer}
-              </p>
-              {/* Expansion */}
-              <p className="text-text-secondary leading-relaxed">
-                {content.definition.expansion}
-              </p>
+              <div className="border-l-4 border-accent pl-6 mb-8">
+                <p className="text-xl text-primary font-medium leading-relaxed">{content.definition.answer}</p>
+              </div>
+              <p className="text-text-secondary leading-relaxed">{content.definition.expansion}</p>
             </div>
           </div>
         </section>
@@ -253,33 +249,24 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             </div>
 
             <div className="grid lg:grid-cols-2 gap-12">
-              {/* Pain Points */}
               <div>
-                <h3 className="text-xl font-bold text-primary mb-6 flex items-center gap-2">
-                  <AlertCircle className="text-red-500" size={24} />
-                  Common Challenges
-                </h3>
-                <div className="space-y-4">
+                <h3 className="text-xl font-bold text-primary mb-6">Common Challenges</h3>
+                <div className="space-y-3">
                   {content.whyYouNeed.painPoints.map((pain, i) => (
-                    <div key={i} className="bg-red-50 border border-red-100 rounded-xl p-6">
-                      <h4 className="font-semibold text-red-800 mb-2">{pain.title}</h4>
-                      <p className="text-red-700 text-sm">{pain.description}</p>
+                    <div key={i} className="bg-white border border-border border-l-4 border-l-border rounded-xl p-5">
+                      <h4 className="font-semibold text-primary mb-1">{pain.title}</h4>
+                      <p className="text-text-secondary text-sm">{pain.description}</p>
                     </div>
                   ))}
                 </div>
               </div>
-
-              {/* Benefits */}
               <div>
-                <h3 className="text-xl font-bold text-primary mb-6 flex items-center gap-2">
-                  <CheckCircle className="text-green-500" size={24} />
-                  How We Help
-                </h3>
-                <div className="space-y-4">
+                <h3 className="text-xl font-bold text-primary mb-6">How We Help</h3>
+                <div className="space-y-3">
                   {content.whyYouNeed.benefits.map((benefit, i) => (
-                    <div key={i} className="bg-green-50 border border-green-100 rounded-xl p-6">
-                      <h4 className="font-semibold text-green-800 mb-2">{benefit.title}</h4>
-                      <p className="text-green-700 text-sm">{benefit.description}</p>
+                    <div key={i} className="bg-white border border-border border-l-4 border-l-accent rounded-xl p-5">
+                      <h4 className="font-semibold text-primary mb-1">{benefit.title}</h4>
+                      <p className="text-text-secondary text-sm">{benefit.description}</p>
                     </div>
                   ))}
                 </div>
@@ -396,46 +383,31 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               <p className="text-text-secondary max-w-3xl mx-auto">{content.caseStudies.intro}</p>
             </div>
 
-            <div className="max-w-4xl mx-auto space-y-8">
+            <div className="max-w-4xl mx-auto space-y-6">
               {content.caseStudies.studies.map((study, i) => (
-                <div key={i} className="bg-white rounded-2xl p-8 border border-border">
-                  <div className="flex items-start justify-between mb-4">
-                    <div>
-                      <span className="text-sm text-accent font-medium">{study.industry}</span>
-                      <h3 className="text-xl font-bold text-primary">{study.clientName}: {study.resultHeadline}</h3>
-                    </div>
-                    {study.link && (
-                      <Link href={study.link} className="text-sm text-accent font-medium hover:underline">
-                        Full case study →
-                      </Link>
-                    )}
+                <div key={i} className="bg-white rounded-2xl border border-border overflow-hidden">
+                  <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-border bg-bg-secondary">
+                    {study.results.map((result, j) => (
+                      <div key={j} className="p-5 text-center">
+                        <div className="text-3xl font-bold text-accent leading-none">{result.change}</div>
+                        <div className="text-xs font-semibold text-primary uppercase tracking-wide mt-2">{result.metric}</div>
+                      </div>
+                    ))}
                   </div>
-
-                  <div className="grid md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                      <h4 className="font-semibold text-primary mb-2">Challenge</h4>
-                      <p className="text-sm text-text-secondary">{study.challenge}</p>
+                  <div className="p-8">
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-1">{study.industry}</span>
+                        <h3 className="text-xl font-bold text-primary">{study.clientName}</h3>
+                        <p className="text-text-secondary mt-1">{study.resultHeadline}</p>
+                      </div>
+                      {study.link && (
+                        <Link href={study.link} className="text-sm text-accent font-medium hover:underline flex-shrink-0 ml-4">
+                          Full case study
+                        </Link>
+                      )}
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-primary mb-2">Solution</h4>
-                      <p className="text-sm text-text-secondary">{study.solution}</p>
-                    </div>
-                  </div>
-
-                  <div className="bg-bg-secondary rounded-xl p-4">
-                    <h4 className="font-semibold text-primary mb-3">Results</h4>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                      {study.results.map((result, j) => (
-                        <div key={j} className="text-center">
-                          <div className="text-2xl font-bold text-accent">{result.change}</div>
-                          <div className="text-xs text-text-muted">{result.metric}</div>
-                          <div className="text-xs text-text-muted">{result.before} → {result.after}</div>
-                        </div>
-                      ))}
-                    </div>
-                    <p className="text-sm text-text-muted mt-3 text-center">
-                      Timeline: {study.timeline}
-                    </p>
+                    <p className="text-sm text-text-secondary border-t border-border pt-4">{study.challenge}</p>
                   </div>
                 </div>
               ))}
@@ -454,34 +426,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         />
       )}
 
-      {/* Author/Team Bio */}
-      {content?.authorBio && (
-        <section className="py-12 border-t border-border">
-          <div className="container px-6">
-            <div className="max-w-4xl mx-auto">
-              <div className="flex items-start gap-4 p-6 bg-bg-secondary rounded-xl">
-                <div className="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-full">
-                  <User size={24} className="text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-primary mb-1">About Our {service.title} Team</h3>
-                  <p className="text-sm text-text-secondary mb-2">
-                    Led by the {content.authorBio.teamName}, our specialists have {content.authorBio.experience}. {content.authorBio.approach}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {content.authorBio.credentials.map((credential, i) => (
-                      <span key={i} className="inline-flex items-center gap-1 text-xs bg-white px-2 py-1 rounded-full text-text-muted">
-                        <Award size={12} className="text-accent" />
-                        {credential}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* CTA Section */}
       <section className="py-24">

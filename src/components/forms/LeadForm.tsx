@@ -320,7 +320,7 @@ export default function LeadForm({
                   <option value="structured-data">Structured data / Schema markup</option>
                   <option value="mobile">Mobile usability</option>
                   <option value="ranking-drop">Ranking drop / Manual penalty</option>
-                  <option value="full-audit">Not sure — I need a full audit</option>
+                  <option value="full-audit">Not sure, I need a full audit</option>
                 </select>
               </div>
             </>)}
@@ -449,7 +449,7 @@ export default function LeadForm({
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-1.5">Brief description</label>
                 <textarea rows={3} value={data.appDescription} onChange={e => set('appDescription', e.target.value)}
-                  placeholder="e.g. A booking platform for my cleaning business — clients log in, pick slots, and pay online."
+                  placeholder="e.g. A booking platform for my cleaning business where clients log in, pick slots, and pay online."
                   className={`${field} resize-none`} />
               </div>
               <div>

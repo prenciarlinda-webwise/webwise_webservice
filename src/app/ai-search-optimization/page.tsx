@@ -106,7 +106,7 @@ const jsonLd = {
           name: 'How long does AI search optimization take?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Initial improvements — such as appearing in Google AI Overviews for branded queries — typically take 6 to 12 weeks. Appearing consistently in ChatGPT or Perplexity for competitive queries usually requires 3 to 6 months of sustained entity-building and content authority work.',
+            text: 'Initial improvements, such as appearing in Google AI Overviews for branded queries, typically take 6 to 12 weeks. Appearing consistently in ChatGPT or Perplexity for competitive queries usually requires 3 to 6 months of sustained entity-building and content authority work.',
           },
         },
       ],
@@ -115,7 +115,7 @@ const jsonLd = {
 }
 
 const tldrPoints = [
-  'AI now answers up to 60% of searches directly — without a click to your website.',
+  'AI now answers up to 60% of searches directly, without a click to your website.',
   'GEO (Generative Engine Optimization) is the discipline of getting cited inside AI-generated answers.',
   'AEO (Answer Engine Optimization) focuses on structured, question-answering content that AI models can extract and quote.',
   'Businesses that build entity authority and topical depth now will dominate AI search for years.',
@@ -159,7 +159,7 @@ const processSteps = [
     step: '03',
     title: 'AEO Content Optimisation',
     description:
-      'We rewrite or create content using direct-answer formats: concise definition paragraphs, FAQ schema, How-To schema, and speakable markup — exactly what AI models extract when generating answers.',
+      'We rewrite or create content using direct-answer formats: concise definition paragraphs, FAQ schema, How-To schema, and speakable markup, exactly what AI models extract when generating answers.',
   },
   {
     step: '04',
@@ -188,7 +188,7 @@ const faqs = [
   {
     question: 'How long does AI search optimization take?',
     answer:
-      'Initial improvements — such as appearing in Google AI Overviews for branded queries — typically take 6 to 12 weeks. Consistent appearance in ChatGPT or Perplexity for competitive queries usually requires 3 to 6 months of sustained entity-building and content authority work.',
+      'Initial improvements, such as appearing in Google AI Overviews for branded queries, typically take 6 to 12 weeks. Consistent appearance in ChatGPT or Perplexity for competitive queries usually requires 3 to 6 months of sustained entity-building and content authority work.',
   },
 ]
 
@@ -232,7 +232,7 @@ export default function AISearchOptimizationPage() {
                 Get Found in ChatGPT, Perplexity and Google AI
               </h1>
               <p className="text-lg text-white/80 mb-8 leading-relaxed">
-                Traditional SEO gets you ranked. AI Search Optimization — Generative Engine Optimization (GEO) and Answer Engine Optimization (AEO) — gets you <strong className="text-white">cited inside the answer</strong>. We help small businesses become the source AI models quote when customers ask questions in your industry.
+                Traditional SEO gets you ranked. AI Search Optimization, through Generative Engine Optimization (GEO) and Answer Engine Optimization (AEO), gets you <strong className="text-white">cited inside the answer</strong>. We help small businesses become the source AI models quote when customers ask questions in your industry.
               </p>
               <ul className="space-y-3 mb-8">
                 {[
@@ -269,7 +269,7 @@ export default function AISearchOptimizationPage() {
                 Free AI Search Audit
               </h2>
               <p className="text-text-secondary text-sm mb-6">
-                Find out how your business currently appears across ChatGPT, Perplexity, and Google AI — and what it will take to get cited.
+                Find out how your business currently appears across ChatGPT, Perplexity, and Google AI and what it will take to get cited.
               </p>
               <LeadForm
                 source="AI Search Optimization hero"
@@ -308,10 +308,10 @@ export default function AISearchOptimizationPage() {
               What Is AI Search Optimization?
             </h2>
             <p className="text-lg text-text-secondary leading-relaxed mb-6">
-              <strong className="text-primary">AI search optimization</strong> is the process of structuring your website content, brand authority signals, and entity data so that AI-powered search engines — including Google AI Overviews, ChatGPT, and Perplexity — cite your business when users ask questions in your industry.
+              <strong className="text-primary">AI search optimization</strong> is the process of structuring your website content, brand authority signals, and entity data so that AI-powered search engines (Google AI Overviews, ChatGPT, and Perplexity) cite your business when users ask questions in your industry.
             </p>
             <p className="text-text-secondary leading-relaxed mb-6">
-              It encompasses two complementary disciplines: <strong className="text-primary">GEO (Generative Engine Optimization)</strong>, which focuses on getting AI language models to reference your brand in their generated responses, and <strong className="text-primary">AEO (Answer Engine Optimization)</strong>, which structures your content so it can be cleanly extracted and surfaced as a direct answer — in AI Overviews, featured snippets, voice responses, and chatbot replies.
+              It encompasses two complementary disciplines: <strong className="text-primary">GEO (Generative Engine Optimization)</strong>, which focuses on getting AI language models to reference your brand in their generated responses, and <strong className="text-primary">AEO (Answer Engine Optimization)</strong>, which structures your content so it can be cleanly extracted and surfaced as a direct answer in AI Overviews, featured snippets, voice responses, and chatbot replies.
             </p>
             <p className="text-text-secondary leading-relaxed">
               As search behaviour shifts from clicking links to receiving synthesised answers, businesses that invest in GEO and AEO now will hold a compounding advantage: their brand becomes the trusted source AI models learn to cite, creating a self-reinforcing cycle of visibility and authority.
@@ -329,7 +329,7 @@ export default function AISearchOptimizationPage() {
                 Why Traditional SEO Is No Longer Enough
               </h2>
               <p className="text-text-secondary text-lg">
-                The search landscape has shifted. AI answers are replacing blue links for an ever-growing share of queries — and your current SEO strategy was not built for this.
+                The search landscape has shifted. AI answers are replacing blue links for an ever-growing share of queries, and your current SEO strategy was not built for this.
               </p>
             </div>
 
@@ -455,7 +455,7 @@ export default function AISearchOptimizationPage() {
             Ready to Get Found in AI Search?
           </h2>
           <p className="text-white/80 text-lg max-w-2xl mx-auto mb-10">
-            We will audit your current AI search visibility across ChatGPT, Perplexity, and Google AI Overviews — free of charge. You will receive a clear picture of where you stand and exactly what it will take to get cited.
+            We will audit your current AI search visibility across ChatGPT, Perplexity, and Google AI Overviews, free of charge. You will receive a clear picture of where you stand and exactly what it will take to get cited.
           </p>
           <PricingCTA
             source="AI Search Optimization — CTA"
