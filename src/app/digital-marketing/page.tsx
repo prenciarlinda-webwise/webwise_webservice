@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { siteConfig } from '@/data/site'
 import { pageSEO } from '@/data/seo'
-import ServicePage from '@/app/services/[slug]/page'
+import ServicePage from '@/components/service-pages/ServiceHubPage'
 
 export async function generateMetadata(): Promise<Metadata> {
   const seoData = pageSEO['digital-marketing']

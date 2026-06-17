@@ -190,22 +190,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </section>
       )}
 
-      {/* What Is Section */}
-      {content?.definition && (
-        <section className="py-24">
-          <div className="container px-6">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold text-primary mb-8">
-                {content.definition.question || `What Are ${service.title}?`}
-              </h2>
-              <div className="border-l-4 border-accent pl-6 mb-8">
-                <p className="text-xl text-primary font-medium leading-relaxed">{content.definition.answer}</p>
-              </div>
-              <p className="text-text-secondary leading-relaxed">{content.definition.expansion}</p>
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* Services Grid */}
       <section className="py-24 bg-bg-secondary">
@@ -236,41 +220,23 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      {/* Why You Need This Service */}
+      {/* What Web Wise Delivers */}
       {content?.whyYouNeed && (
         <section className="py-24">
           <div className="container px-6">
             <div className="text-center mb-16">
-              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Why It Matters</span>
+              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">What You Get</span>
               <h2 className="text-3xl font-bold text-primary mb-4">
-                {content.whyYouNeed.question || `Why Does Your Business Need ${service.title}?`}
+                {content.whyYouNeed.question || `What Web Wise Delivers with ${service.title}`}
               </h2>
-              <p className="text-text-secondary max-w-3xl mx-auto">{content.whyYouNeed.intro}</p>
             </div>
-
-            <div className="grid lg:grid-cols-2 gap-12">
-              <div>
-                <h3 className="text-xl font-bold text-primary mb-6">Common Challenges</h3>
-                <div className="space-y-3">
-                  {content.whyYouNeed.painPoints.map((pain, i) => (
-                    <div key={i} className="bg-white border border-border border-l-4 border-l-border rounded-xl p-5">
-                      <h4 className="font-semibold text-primary mb-1">{pain.title}</h4>
-                      <p className="text-text-secondary text-sm">{pain.description}</p>
-                    </div>
-                  ))}
+            <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+              {content.whyYouNeed.benefits.map((benefit, i) => (
+                <div key={i} className="bg-white border border-border border-l-4 border-l-accent rounded-xl p-6">
+                  <h3 className="font-semibold text-primary mb-2">{benefit.title}</h3>
+                  <p className="text-text-secondary text-sm">{benefit.description}</p>
                 </div>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-primary mb-6">How We Help</h3>
-                <div className="space-y-3">
-                  {content.whyYouNeed.benefits.map((benefit, i) => (
-                    <div key={i} className="bg-white border border-border border-l-4 border-l-accent rounded-xl p-5">
-                      <h4 className="font-semibold text-primary mb-1">{benefit.title}</h4>
-                      <p className="text-text-secondary text-sm">{benefit.description}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
@@ -281,9 +247,9 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <section className="py-24 bg-bg-secondary">
           <div className="container px-6">
             <div className="text-center mb-16">
-              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Our Process</span>
+              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">How We Work</span>
               <h2 className="text-3xl font-bold text-primary mb-4">
-                {content.process.question || `How Do Our ${service.title} Work?`}
+                {content.process.question || `What Web Wise Does for You`}
               </h2>
               <p className="text-text-secondary max-w-3xl mx-auto">{content.process.intro}</p>
             </div>
@@ -321,7 +287,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               <div className="mt-12 bg-primary rounded-2xl p-8 text-white">
                 <div className="grid md:grid-cols-2 gap-8">
                   <div>
-                    <h4 className="font-semibold mb-2">Expected Timeline</h4>
+                    <h4 className="font-semibold mb-2">Timeline</h4>
                     <p className="text-white/80 text-sm">{content.process.timeline}</p>
                   </div>
                   <div>
@@ -378,7 +344,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             <div className="text-center mb-16">
               <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Results</span>
               <h2 className="text-3xl font-bold text-primary mb-4">
-                What Results Have We Achieved with {service.title}?
+                Results Web Wise Has Delivered
               </h2>
               <p className="text-text-secondary max-w-3xl mx-auto">{content.caseStudies.intro}</p>
             </div>

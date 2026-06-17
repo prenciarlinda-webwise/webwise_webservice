@@ -191,130 +191,12 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
         </section>
       )}
 
-      {/* Definition */}
-      {content?.definition && (
-        <section className="py-24">
-          <div className="container px-6">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold text-primary mb-8">
-                {content.definition.question || `What Is ${subservice.title}?`}
-              </h2>
-              <div className="border-l-4 border-accent pl-6 mb-8">
-                <p className="text-xl text-primary font-medium leading-relaxed">{content.definition.answer}</p>
-              </div>
-              <p className="text-text-secondary leading-relaxed">{content.definition.expansion}</p>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Why You Need This Service */}
-      {content?.whyYouNeed && (
+      {/* Packages */}
+      {content?.packages && (
         <section className="py-24 bg-bg-secondary">
           <div className="container px-6">
             <div className="text-center mb-16">
-              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Why It Matters</span>
-              <h2 className="text-3xl font-bold text-primary mb-4">
-                {content.whyYouNeed.question || `Why Does Your Business Need ${subservice.title}?`}
-              </h2>
-              <p className="text-text-secondary max-w-3xl mx-auto">{content.whyYouNeed.intro}</p>
-            </div>
-            <div className="grid lg:grid-cols-2 gap-12">
-              <div>
-                <h3 className="text-xl font-bold text-primary mb-6">Common Challenges</h3>
-                <div className="space-y-3">
-                  {content.whyYouNeed.painPoints.map((pain, i) => (
-                    <div key={i} className="bg-white border border-border border-l-4 border-l-border rounded-xl p-5">
-                      <h4 className="font-semibold text-primary mb-1">{pain.title}</h4>
-                      <p className="text-text-secondary text-sm">{pain.description}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-primary mb-6">How We Help</h3>
-                <div className="space-y-3">
-                  {content.whyYouNeed.benefits.map((benefit, i) => (
-                    <div key={i} className="bg-white border border-border border-l-4 border-l-accent rounded-xl p-5">
-                      <h4 className="font-semibold text-primary mb-1">{benefit.title}</h4>
-                      <p className="text-text-secondary text-sm">{benefit.description}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Process */}
-      {content?.process && (
-        <section className="py-24">
-          <div className="container px-6">
-            <div className="text-center mb-16">
-              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Our Process</span>
-              <h2 className="text-3xl font-bold text-primary mb-4">
-                {content.process.question || `How Does Our ${subservice.title} Service Work?`}
-              </h2>
-              <p className="text-text-secondary max-w-3xl mx-auto">{content.process.intro}</p>
-            </div>
-            <div className="max-w-4xl mx-auto">
-              <div className="space-y-8">
-                {content.process.steps.map((step, i) => (
-                  <div key={i} className="bg-white rounded-2xl p-8 border border-border shadow-sm">
-                    <div className="flex items-start gap-6">
-                      <div className="w-12 h-12 flex items-center justify-center bg-accent text-white font-bold rounded-xl flex-shrink-0">{i + 1}</div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
-                          <h3 className="text-xl font-bold text-primary">{step.title}</h3>
-                          {step.duration && (
-                            <span className="text-sm text-accent font-medium bg-accent/10 px-3 py-1 rounded-full">{step.duration}</span>
-                          )}
-                        </div>
-                        <p className="text-text-secondary mb-4">{step.description}</p>
-                        <ul className="grid md:grid-cols-2 gap-2">
-                          {step.details.map((detail, j) => (
-                            <li key={j} className="flex items-center gap-2 text-sm text-text-muted">
-                              <Check size={14} className="text-accent flex-shrink-0" />
-                              {detail}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-12 bg-primary rounded-2xl p-8 text-white">
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div>
-                    <h4 className="font-semibold mb-2">Expected Timeline</h4>
-                    <p className="text-white/80 text-sm">{content.process.timeline}</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-2">What You&apos;ll Receive</h4>
-                    <ul className="space-y-1">
-                      {content.process.deliverables.map((item, i) => (
-                        <li key={i} className="flex items-center gap-2 text-sm text-white/80">
-                          <Check size={14} className="text-accent" />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Packages */}
-      {content?.packages && (
-        <section className="py-24">
-          <div className="container px-6">
-            <div className="text-center mb-16">
-              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Pricing</span>
+              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Our Packages</span>
               <h2 className="text-3xl font-bold text-primary mb-4">{content.packages.question}</h2>
               <p className="text-text-secondary max-w-3xl mx-auto">{content.packages.intro}</p>
             </div>
@@ -361,9 +243,93 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
         </section>
       )}
 
+      {/* What Web Wise Delivers */}
+      {content?.whyYouNeed && (
+        <section className="py-24">
+          <div className="container px-6">
+            <div className="text-center mb-16">
+              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">What You Get</span>
+              <h2 className="text-3xl font-bold text-primary mb-4">
+                {content.whyYouNeed.question || `What Web Wise Delivers with ${subservice.title}`}
+              </h2>
+            </div>
+            <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+              {content.whyYouNeed.benefits.map((benefit, i) => (
+                <div key={i} className="bg-white border border-border border-l-4 border-l-accent rounded-xl p-6">
+                  <h3 className="font-semibold text-primary mb-2">{benefit.title}</h3>
+                  <p className="text-text-secondary text-sm">{benefit.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Process */}
+      {content?.process && (
+        <section className="py-24 bg-bg-secondary">
+          <div className="container px-6">
+            <div className="text-center mb-16">
+              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">How We Work</span>
+              <h2 className="text-3xl font-bold text-primary mb-4">
+                {content.process.question || `What Web Wise Does for You`}
+              </h2>
+              <p className="text-text-secondary max-w-3xl mx-auto">{content.process.intro}</p>
+            </div>
+            <div className="max-w-4xl mx-auto">
+              <div className="space-y-8">
+                {content.process.steps.map((step, i) => (
+                  <div key={i} className="bg-white rounded-2xl p-8 border border-border shadow-sm">
+                    <div className="flex items-start gap-6">
+                      <div className="w-12 h-12 flex items-center justify-center bg-accent text-white font-bold rounded-xl flex-shrink-0">{i + 1}</div>
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
+                          <h3 className="text-xl font-bold text-primary">{step.title}</h3>
+                          {step.duration && (
+                            <span className="text-sm text-accent font-medium bg-accent/10 px-3 py-1 rounded-full">{step.duration}</span>
+                          )}
+                        </div>
+                        <p className="text-text-secondary mb-4">{step.description}</p>
+                        <ul className="grid md:grid-cols-2 gap-2">
+                          {step.details.map((detail, j) => (
+                            <li key={j} className="flex items-center gap-2 text-sm text-text-muted">
+                              <Check size={14} className="text-accent flex-shrink-0" />
+                              {detail}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-12 bg-primary rounded-2xl p-8 text-white">
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div>
+                    <h4 className="font-semibold mb-2">Timeline</h4>
+                    <p className="text-white/80 text-sm">{content.process.timeline}</p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-2">What You&apos;ll Receive</h4>
+                    <ul className="space-y-1">
+                      {content.process.deliverables.map((item, i) => (
+                        <li key={i} className="flex items-center gap-2 text-sm text-white/80">
+                          <Check size={14} className="text-accent" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Industries */}
       {content?.industries && (
-        <section className="py-24 bg-bg-secondary">
+        <section className="py-24">
           <div className="container px-6">
             <div className="text-center mb-16">
               <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Industries</span>
@@ -393,7 +359,7 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
           <div className="container px-6">
             <div className="text-center mb-16">
               <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Results</span>
-              <h2 className="text-3xl font-bold text-primary mb-4">What Results Have We Achieved with {subservice.title}?</h2>
+              <h2 className="text-3xl font-bold text-primary mb-4">Results Web Wise Has Delivered</h2>
               <p className="text-text-secondary max-w-3xl mx-auto">{content.caseStudies.intro}</p>
             </div>
             <div className="max-w-4xl mx-auto space-y-6">

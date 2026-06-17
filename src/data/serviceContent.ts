@@ -127,45 +127,46 @@ export const seoServiceContent: ServiceContent = {
     expansion: 'Unlike paid advertising that stops generating leads the moment you stop paying, SEO builds lasting organic visibility. When done correctly, SEO creates a compounding effect: the longer you invest, the stronger your rankings become, and the more difficult it is for competitors to displace you. For local service businesses like plumbers, roofers, and contractors, SEO is particularly powerful because it captures high-intent customers actively searching for services in their area.',
   },
   whyYouNeed: {
+    question: 'What Web Wise Delivers for Your Business',
     intro: 'In today\'s digital-first world, 97% of consumers search online before making a purchase decision. If your business isn\'t visible in search results, you\'re invisible to potential customers.',
     painPoints: [
       {
         title: 'Competitors Outranking You',
-        description: 'Every day you\'re not on page one, your competitors are capturing customers who should be calling you. These aren\'t just lost leads-they\'re customers actively looking for exactly what you offer.',
+        description: 'Every day you\'re not on page one, your competitors are capturing customers who should be calling you.',
       },
       {
         title: 'Inconsistent Lead Flow',
-        description: 'Relying on referrals and word-of-mouth creates feast-or-famine cycles. SEO provides predictable, scalable lead generation that grows month over month.',
+        description: 'Relying on referrals and word-of-mouth creates feast-or-famine cycles. SEO provides predictable, scalable lead generation.',
       },
       {
         title: 'Wasted Marketing Budget',
-        description: 'Without proper SEO, your website is like a billboard in the desert. You\'ve invested in a website, but it\'s not working hard enough to bring in new business.',
+        description: 'Without proper SEO, your website isn\'t working hard enough to bring in new business.',
       },
       {
         title: 'Missing Local Customers',
-        description: 'When someone searches "plumber near me" or "roofer in [your city]," are you showing up? If not, you\'re losing the most valuable leads-people ready to buy right now.',
+        description: 'When someone searches "plumber near me" or "roofer in [your city]," you need to be the first result they see.',
       },
     ],
     benefits: [
       {
         title: '24/7 Lead Generation',
-        description: 'Your optimized website works around the clock, capturing leads even while you sleep. Unlike paid ads, these leads don\'t cost extra per click.',
+        description: 'Web Wise optimises your site so it captures calls and enquiries around the clock, without you spending a penny per click.',
       },
       {
         title: 'Higher Quality Leads',
-        description: 'SEO attracts people actively searching for your services. These warm leads convert at 8x the rate of outbound marketing.',
+        description: 'Web Wise targets buyers actively searching for your exact services, so the leads that come in are ready to hire.',
       },
       {
-        title: 'Long-Term ROI',
-        description: 'SEO compounds over time. While paid ads stop the moment you stop paying, SEO rankings continue delivering leads month after month.',
+        title: 'Compounding Monthly Returns',
+        description: 'Every month Web Wise builds on your rankings. The investment keeps paying off long after the work is done.',
       },
       {
         title: 'Local Market Dominance',
-        description: 'Appear in the Google Map Pack and local search results. For service businesses, this visibility directly translates to phone calls and jobs.',
+        description: 'Web Wise gets your business into the Google Map Pack and onto page one, where calls and jobs come directly to you.',
       },
       {
-        title: 'Brand Authority',
-        description: 'Ranking on page one builds trust. Customers perceive top-ranking businesses as more credible and established than those buried on page two.',
+        title: 'Page One Authority',
+        description: 'Web Wise positions you above competitors on page one, making your business the trusted, established choice in your market.',
       },
     ],
   },
@@ -333,6 +334,7 @@ export const localSeoContent: ServiceContent = {
     expansion: 'Local SEO is particularly crucial for service-area businesses that serve specific geographic regions. Unlike traditional SEO that targets broad keywords, local SEO focuses on capturing customers who are ready to buy-people searching with local intent have a 28% conversion rate, compared to just 7% for non-local searches. The Google Map Pack (the 3 business listings that appear with a map) receives 44% of clicks on local search results pages, making it prime real estate for local businesses.',
   },
   whyYouNeed: {
+    question: 'What Web Wise Does for Your Local Presence',
     intro: '46% of all Google searches have local intent. If you\'re not optimized for local search, you\'re invisible to nearly half of your potential customers.',
     painPoints: [
       {
@@ -341,37 +343,37 @@ export const localSeoContent: ServiceContent = {
       },
       {
         title: 'Inconsistent Business Information',
-        description: 'Different addresses, phone numbers, or business names across the web confuse Google and hurt your rankings. This "NAP inconsistency" is a silent ranking killer.',
+        description: 'Different addresses or phone numbers across the web confuse Google and hurt your rankings.',
       },
       {
         title: 'Few or No Reviews',
-        description: 'Businesses with 10+ reviews get 3x more clicks than those without. Lack of reviews signals to both Google and customers that you\'re not established.',
+        description: 'Businesses with 10+ reviews get 3x more clicks. Lack of reviews signals to Google that you\'re not established.',
       },
       {
         title: 'Losing to National Competitors',
-        description: 'Big national brands often dominate search results, but local SEO lets small businesses compete-and win-by signaling strong local relevance.',
+        description: 'Big national brands dominate generic searches, but local SEO lets you compete and win on local intent.',
       },
     ],
     benefits: [
       {
-        title: 'Google Map Pack Visibility',
-        description: 'Appear in the top 3 local results with a map, showing your reviews, hours, and direct call button.',
+        title: 'Google Map Pack Placement',
+        description: 'Web Wise gets your business into the top 3 spots on Google Maps, with your reviews and call button visible to every nearby searcher.',
       },
       {
-        title: 'High-Intent Traffic',
-        description: 'Local searchers are ready to buy. 78% of local mobile searches result in an offline purchase within 24 hours.',
+        title: 'Calls from Ready Buyers',
+        description: 'Web Wise positions you in front of local searchers who are ready to book a job, not just browsing.',
       },
       {
-        title: 'Mobile Optimization',
-        description: '"Near me" searches have grown 500% in recent years. Local SEO ensures you capture this mobile traffic.',
+        title: 'Mobile Search Capture',
+        description: 'Web Wise ensures you show up when people pull out their phones and search for your service nearby.',
       },
       {
-        title: 'Review Generation',
-        description: 'We implement systems that consistently generate positive reviews, building social proof that converts browsers into customers.',
+        title: 'Automated Review Growth',
+        description: 'Web Wise sets up review generation so your ratings build consistently and your reputation grows on autopilot.',
       },
       {
-        title: 'Competitive Local Advantage',
-        description: 'Most local competitors aren\'t doing SEO well. Proper local optimization lets you leapfrog established businesses.',
+        title: 'Leapfrog Your Competitors',
+        description: 'Web Wise gives you the edge over local businesses that are ignoring SEO, helping you rank above them fast.',
       },
     ],
   },
@@ -520,7 +522,7 @@ export const localSeoContent: ServiceContent = {
     pricingLink: '/pricing',
   },
   industries: {
-    intro: 'Local SEO is essential for any business that serves a specific geographic area. We\'ve helped these industries dominate local search:',
+    intro: 'Web Wise has helped businesses across these trades and service sectors rank locally and generate consistent inbound leads:',
     list: [
       { name: 'Plumbing Companies', description: 'Capture "emergency plumber near me" and service-specific searches.', link: '/local-seo/plumbers' },
       { name: 'Roofing Contractors', description: 'Rank for storm damage, roof repair, and installation keywords.', link: '/local-seo/roofing' },
@@ -587,45 +589,46 @@ export const technicalSeoContent: ServiceContent = {
     expansion: 'Think of technical SEO as the foundation of a house. You can have beautiful furniture (content) and great curb appeal (design), but if the foundation is cracked, the house won\'t stand. Technical issues like slow loading times, broken links, duplicate content, and poor mobile experience directly hurt your rankings. Google\'s Core Web Vitals update made technical performance a direct ranking factor, making technical SEO more important than ever.',
   },
   whyYouNeed: {
+    question: 'What Web Wise Fixes and Delivers',
     intro: 'Google\'s crawlers visit billions of pages. Technical issues signal that your site isn\'t worth their time, causing them to crawl less frequently and rank you lower.',
     painPoints: [
       {
         title: 'Slow Loading Speed',
-        description: '53% of mobile users abandon sites that take longer than 3 seconds to load. Google also uses page speed as a ranking factor. A slow site hurts both rankings and conversions.',
+        description: 'A slow site hurts both rankings and conversions. Google uses page speed as a direct ranking factor.',
       },
       {
         title: 'Crawl Errors and Broken Links',
-        description: 'When Google encounters errors, it wastes crawl budget on broken pages instead of your valuable content. Too many errors signal a poorly maintained site.',
+        description: 'Errors waste Google\'s crawl budget on broken pages instead of your valuable content.',
       },
       {
         title: 'Poor Mobile Experience',
-        description: 'Google uses mobile-first indexing, meaning it primarily uses your mobile site for rankings. A site that\'s not mobile-friendly will struggle to rank.',
+        description: 'Google uses mobile-first indexing. A site that isn\'t mobile-friendly will struggle to rank.',
       },
       {
         title: 'Duplicate Content Issues',
-        description: 'Duplicate content confuses search engines about which page to rank. This dilutes your ranking power across multiple pages instead of consolidating it.',
+        description: 'Duplicate content dilutes your ranking power across multiple pages instead of consolidating it.',
       },
     ],
     benefits: [
       {
-        title: 'Faster Load Times',
-        description: 'Improved site speed benefits both rankings and user experience. Every second of improvement increases conversions by 7%.',
+        title: 'Site Speed You Can See',
+        description: 'Web Wise optimises your load times so visitors stay, Google ranks you higher, and conversions increase.',
       },
       {
-        title: 'Better Crawl Efficiency',
-        description: 'Clean technical structure helps Google discover and index all your important pages quickly.',
+        title: 'Clean Crawl Every Time',
+        description: 'Web Wise fixes errors and structures your site so Google finds and indexes all your important pages fast.',
       },
       {
         title: 'Mobile-First Ready',
-        description: 'Full mobile optimization ensures you perform well in Google\'s mobile-first index.',
+        description: 'Web Wise ensures your site performs well in Google\'s mobile-first index, on every screen size.',
       },
       {
-        title: 'Rich Search Results',
-        description: 'Schema markup enables rich snippets-stars, prices, FAQs-that increase click-through rates.',
+        title: 'Rich Snippets in Search Results',
+        description: 'Web Wise implements schema markup so your listings show stars, prices, and FAQs directly in Google.',
       },
       {
-        title: 'Future-Proof Foundation',
-        description: 'Proper technical setup makes future SEO efforts more effective and prevents issues from compounding.',
+        title: 'A Technical Foundation That Lasts',
+        description: 'Web Wise builds a clean technical base that makes every future SEO effort faster and more effective.',
       },
     ],
   },
@@ -715,7 +718,7 @@ export const technicalSeoContent: ServiceContent = {
     ],
   },
   industries: {
-    intro: 'Technical SEO is essential for any website, but particularly impactful for these situations:',
+    intro: 'Web Wise delivers technical SEO fixes and performance improvements across these common site situations:',
     list: [
       { name: 'E-commerce Sites', description: 'Large product catalogs require careful crawl budget management and duplicate content handling.' },
       { name: 'Service Businesses', description: 'Schema markup for services, reviews, and local business information.' },
@@ -780,45 +783,46 @@ export const ecommerceSeoContent: ServiceContent = {
     expansion: 'E-commerce SEO differs from standard SEO because of unique challenges: large numbers of similar product pages, frequent inventory changes, duplicate content from manufacturer descriptions, and complex site architecture. Effective e-commerce SEO addresses these challenges while optimizing for commercial keywords that indicate buying intent. With over 44% of online shoppers starting their search on Google (not Amazon), search engine visibility is critical for online stores.',
   },
   whyYouNeed: {
-    intro: 'Online shoppers who find you through organic search have 14.6% conversion rate-8x higher than social media traffic. E-commerce SEO captures these high-value visitors.',
+    question: 'What Web Wise Does for Your Online Store',
+    intro: 'Online shoppers who find you through organic search convert at 14.6% — 8x higher than social media traffic. Web Wise captures these high-value visitors for your store.',
     painPoints: [
       {
         title: 'Competing with Amazon and Big Retailers',
-        description: 'Major retailers dominate generic product searches, but niche and long-tail keywords offer opportunities where smaller stores can rank and convert.',
+        description: 'Major retailers dominate generic searches, but niche and long-tail keywords offer opportunities where smaller stores can rank.',
       },
       {
         title: 'Thin Product Descriptions',
-        description: 'Using manufacturer descriptions creates duplicate content across thousands of stores. Your products become invisible among identical listings.',
+        description: 'Manufacturer descriptions create duplicate content. Your products become invisible among identical listings.',
       },
       {
         title: 'Poor Site Architecture',
-        description: 'Messy category structures confuse both users and search engines, diluting ranking power and making products hard to find.',
+        description: 'Messy category structures confuse both users and search engines, diluting ranking power.',
       },
       {
         title: 'Relying Entirely on Paid Ads',
-        description: 'PPC costs continue rising. Without organic visibility, you\'re paying for every visitor, eating into already thin e-commerce margins.',
+        description: 'PPC costs keep rising. Without organic visibility, you pay for every visitor at the expense of your margins.',
       },
     ],
     benefits: [
       {
-        title: 'Reduced Customer Acquisition Cost',
-        description: 'Organic traffic doesn\'t cost per click. As SEO compounds, your customer acquisition cost drops significantly.',
+        title: 'Lower Customer Acquisition Cost',
+        description: 'Web Wise builds organic traffic that brings buyers to your store without a per-click fee, reducing what you spend to get each sale.',
       },
       {
-        title: 'Higher-Intent Visitors',
-        description: 'Searchers using product-specific keywords are closer to purchase than casual browsers.',
+        title: 'Shoppers Ready to Buy',
+        description: 'Web Wise targets product-specific keywords that reach customers who are close to purchase, not just browsing.',
       },
       {
         title: 'Rich Product Snippets',
-        description: 'Product schema enables prices, availability, and reviews in search results, increasing click-through rates.',
+        description: 'Web Wise implements product schema so your listings show prices, availability, and reviews directly in Google search results.',
       },
       {
-        title: 'Category Page Rankings',
-        description: 'Optimized category pages can rank for broad commercial keywords, capturing top-of-funnel shoppers.',
+        title: 'Category Pages That Rank',
+        description: 'Web Wise optimises your category pages to capture broad commercial searches and bring in top-of-funnel shoppers.',
       },
       {
-        title: 'Long-Term Revenue Growth',
-        description: 'SEO builds compounding organic traffic that continues generating sales month after month.',
+        title: 'Revenue That Grows Each Month',
+        description: 'Web Wise builds compounding organic traffic so your store keeps gaining sales without increasing ad spend.',
       },
     ],
   },
@@ -974,45 +978,46 @@ export const internationalSeoContent: ServiceContent = {
     expansion: 'International SEO is more complex than simply translating content. Each market has unique search behaviors, competitors, and cultural nuances. German searchers use different keywords than British searchers, even when both speak English. Proper international SEO requires market-specific keyword research, culturally adapted content, and technical implementation that tells Google exactly which pages to show in each country. Done wrong, you risk duplicate content penalties, confused rankings, and missed opportunities in target markets.',
   },
   whyYouNeed: {
-    intro: 'Global markets represent massive opportunity, but only if search engines understand your targeting. Without proper international SEO, you\'re invisible in your target markets or showing the wrong content to the wrong audiences.',
+    question: 'What Web Wise Delivers Across Markets',
+    intro: 'Global markets represent massive opportunity, but only if search engines understand your targeting. Without proper international SEO, you\'re invisible in your target markets.',
     painPoints: [
       {
         title: 'Wrong Version Ranking in Wrong Country',
-        description: 'Without proper hreflang, Google might show your UK site to US searchers (or vice versa), confusing users and losing conversions.',
+        description: 'Without hreflang, Google may show your UK site to US searchers or vice versa, losing conversions in both markets.',
       },
       {
         title: 'Direct Translation Doesn\'t Rank',
-        description: 'Translated content misses local search behavior. Germans search differently than Americans-direct translation misses valuable keywords.',
+        description: 'Translated content misses local search behaviour. Each market searches differently.',
       },
       {
         title: 'Duplicate Content Across Regions',
-        description: 'Multiple country versions of similar content can trigger duplicate content issues, diluting ranking power across all markets.',
+        description: 'Multiple country versions of similar content dilute ranking power across all markets.',
       },
       {
         title: 'Competitors Dominating Local Markets',
-        description: 'Local competitors understand their market. Without localized SEO, you\'re trying to compete with a generic approach.',
+        description: 'Local competitors understand their market. Without localised SEO, you\'re competing with a generic approach.',
       },
     ],
     benefits: [
       {
-        title: 'Proper Geographic Targeting',
-        description: 'Hreflang tells Google exactly which content to show in each country, ensuring the right audience sees the right version.',
+        title: 'Right Content in Every Country',
+        description: 'Web Wise implements hreflang correctly so Google shows the right version of your site to every audience, in every country.',
       },
       {
-        title: 'Localized Keyword Capture',
-        description: 'Market-specific keyword research captures how locals actually search, not just translations of English keywords.',
+        title: 'Keywords That Actually Rank Locally',
+        description: 'Web Wise researches how people actually search in each target market, not just translations of English terms.',
       },
       {
-        title: 'Consolidated Ranking Signals',
-        description: 'Proper technical setup consolidates ranking power instead of splitting it across duplicate international pages.',
+        title: 'Consolidated Ranking Power',
+        description: 'Web Wise structures your international pages so ranking signals stack up, not split across duplicate versions.',
       },
       {
-        title: 'Local Search Dominance',
-        description: 'Appear as a local player in each market, competing effectively against established regional businesses.',
+        title: 'Local Player Status in New Markets',
+        description: 'Web Wise positions you to rank like a local business in each market, competing head-to-head with regional incumbents.',
       },
       {
-        title: 'Scalable Global Presence',
-        description: 'A proper international SEO foundation makes adding new markets straightforward and efficient.',
+        title: 'Room to Scale into New Markets',
+        description: 'Web Wise builds an international SEO foundation that makes each new country you expand into faster and cheaper to launch.',
       },
     ],
   },
@@ -1102,7 +1107,7 @@ export const internationalSeoContent: ServiceContent = {
     ],
   },
   industries: {
-    intro: 'International SEO is essential for businesses expanding globally:',
+    intro: 'Web Wise helps these types of businesses show up correctly in every market they target:',
     list: [
       { name: 'E-commerce Brands', description: 'Sell products in multiple countries with localized shopping experiences.' },
       { name: 'SaaS Companies', description: 'Reach global software buyers with market-specific messaging.' },
@@ -1167,45 +1172,46 @@ export const webDevelopmentContent: ServiceContent = {
     expansion: 'Modern web development goes far beyond making something that "looks nice." Today\'s websites must load instantly (Google penalizes slow sites), work flawlessly on mobile devices (60%+ of traffic), be accessible to all users, and be structured for search engine visibility. We build with Next.js, React, and modern frameworks that deliver exceptional performance while maintaining the flexibility to grow with your business. Every website we create is a business asset designed to generate measurable returns.',
   },
   whyYouNeed: {
-    intro: 'Your website is often the first interaction customers have with your business. In fact, 75% of users judge a company\'s credibility based on their website design.',
+    question: 'What Web Wise Builds for You',
+    intro: 'Your website is often the first interaction customers have with your business. Web Wise builds sites that make that first impression count.',
     painPoints: [
       {
         title: 'Slow, Outdated Website',
-        description: 'A 1-second delay in page load time reduces conversions by 7%. Old websites built on outdated platforms are slow, insecure, and hurt your rankings.',
+        description: 'Old websites built on outdated platforms are slow, insecure, and hurt your rankings.',
       },
       {
         title: 'Poor Mobile Experience',
-        description: 'Over 60% of web traffic is mobile. If your site isn\'t mobile-optimized, you\'re frustrating the majority of your visitors.',
+        description: 'Over 60% of web traffic is mobile. If your site isn\'t mobile-optimised, you\'re losing the majority of visitors.',
       },
       {
         title: 'Not Generating Leads',
-        description: 'A beautiful website that doesn\'t convert is just an expensive digital brochure. Your site should actively generate inquiries and sales.',
+        description: 'A site that doesn\'t convert is just an expensive digital brochure. Your site should be actively generating enquiries.',
       },
       {
         title: 'Difficult to Update',
-        description: 'Needing a developer for every small change is expensive and slow. You should be able to easily update content yourself.',
+        description: 'Needing a developer for every small change is expensive and slow.',
       },
     ],
     benefits: [
       {
-        title: 'Lightning-Fast Performance',
-        description: 'Sites built with modern technology load in under 2 seconds, improving both user experience and search rankings.',
+        title: 'Built Fast from Day One',
+        description: 'Web Wise builds on Next.js so your site loads in under 2 seconds, improving rankings and keeping visitors on the page.',
       },
       {
-        title: 'SEO-Optimized Foundation',
-        description: 'Every site is built with proper technical SEO from the start-fast load times, clean code, proper structure.',
+        title: 'SEO Baked In',
+        description: 'Web Wise builds every site with proper technical SEO from the ground up, clean code, fast load times, and the right structure.',
       },
       {
-        title: 'Conversion-Focused Design',
-        description: 'Strategic layouts, clear calls-to-action, and user-friendly forms designed to turn visitors into leads.',
+        title: 'Designed to Convert',
+        description: 'Web Wise designs strategic layouts with clear calls-to-action and forms that turn visitors into enquiries and sales.',
       },
       {
-        title: 'Mobile-First Approach',
-        description: 'Designed for mobile first, then enhanced for desktop-ensuring great experience on all devices.',
+        title: 'Mobile-First as Standard',
+        description: 'Web Wise designs for mobile first, then enhances for desktop, so every device delivers a great experience.',
       },
       {
-        title: 'Easy Content Management',
-        description: 'Update your own content without technical knowledge. Change text, images, and pages whenever you need.',
+        title: 'Easy for You to Manage',
+        description: 'Web Wise builds with a CMS so you can update content, change images, and publish pages without needing a developer.',
       },
     ],
   },
@@ -1360,45 +1366,46 @@ export const websiteDesignContent: ServiceContent = {
     expansion: 'Modern website design goes beyond aesthetics. It encompasses user psychology, conversion optimization, accessibility, performance, and SEO. Our design process considers how visitors navigate your site, what actions you want them to take, and how to remove friction from the conversion path. We combine creative design with data-driven decisions to build websites that serve as powerful business tools.',
   },
   whyYouNeed: {
-    intro: 'Your website is your digital storefront, often the first touchpoint potential customers have with your business. A professional design builds trust and credibility instantly.',
+    question: 'What Web Wise Designs and Builds for You',
+    intro: 'Your website is your digital storefront, often the first touchpoint potential customers have with your business. Web Wise designs sites that build trust and convert visits into enquiries.',
     painPoints: [
       {
         title: 'Outdated Design Hurting Credibility',
-        description: '75% of users judge a company\'s credibility based on their website design. An outdated site signals an outdated business.',
+        description: 'An outdated site signals an outdated business to every visitor who lands on it.',
       },
       {
         title: 'High Bounce Rates',
-        description: 'Visitors leave confusing or unappealing sites within seconds. You\'re paying for traffic that never converts.',
+        description: 'Visitors leave confusing or slow sites in seconds. You pay for traffic that never converts.',
       },
       {
         title: 'Not Reflecting Your Brand',
-        description: 'A generic template doesn\'t communicate what makes your business unique. You blend in instead of standing out.',
+        description: 'A generic template doesn\'t communicate what makes your business unique.',
       },
       {
         title: 'Poor User Experience',
-        description: 'Visitors can\'t find what they need, forms are complicated, and navigation is confusing. Frustrated users don\'t become customers.',
+        description: 'If visitors can\'t find what they need quickly, they leave and call a competitor instead.',
       },
     ],
     benefits: [
       {
-        title: 'Professional Credibility',
-        description: 'A polished design instantly builds trust and positions you as an established, professional business.',
+        title: 'Instant Professional Credibility',
+        description: 'Web Wise designs a polished, custom site that builds trust with every visitor and positions you as the established choice.',
       },
       {
-        title: 'Conversion-Focused Layout',
-        description: 'Strategic placement of calls-to-action, testimonials, and contact forms guides visitors toward becoming leads.',
+        title: 'Designed to Convert',
+        description: 'Web Wise places calls-to-action, testimonials, and contact forms strategically so visitors become leads, not just visitors.',
       },
       {
-        title: 'Brand Differentiation',
-        description: 'Custom design communicates your unique value proposition and helps you stand out from competitors.',
+        title: 'Your Brand, Not a Template',
+        description: 'Web Wise creates a unique look that communicates what makes you different and helps you stand out from every competitor.',
       },
       {
-        title: 'Intuitive Navigation',
-        description: 'Clear information architecture helps visitors find what they need quickly, improving engagement and conversions.',
+        title: 'Navigation That Works',
+        description: 'Web Wise structures your site so visitors find what they need instantly, staying engaged long enough to contact you.',
       },
       {
-        title: 'Responsive Across Devices',
-        description: 'Flawless experience on desktop, tablet, and mobile ensures you never lose a visitor due to poor mobile design.',
+        title: 'Flawless on Every Device',
+        description: 'Web Wise builds responsive from the ground up so you never lose a customer to a broken mobile experience.',
       },
     ],
   },
@@ -1553,45 +1560,46 @@ export const webApplicationsContent: ServiceContent = {
     expansion: 'Web applications transform how businesses operate. Whether you need a customer portal, inventory management system, booking platform, or custom CRM, we build solutions tailored to your exact requirements. Using robust technologies like Django and Python for the backend, combined with React or Vue.js for dynamic frontends, we create applications that are secure, scalable, and maintainable for years to come.',
   },
   whyYouNeed: {
-    intro: 'Generic software forces you to adapt your business to its limitations. Custom web applications adapt to your business, automating unique processes and providing competitive advantages.',
+    question: 'What Web Wise Builds and Automates for You',
+    intro: 'Generic software forces you to adapt your business to its limitations. Web Wise builds custom applications that adapt to your business instead.',
     painPoints: [
       {
         title: 'Outgrowing Spreadsheets',
-        description: 'Manual processes in Excel are error-prone, time-consuming, and don\'t scale. Data gets lost, mistakes happen, and collaboration is difficult.',
+        description: 'Manual processes in Excel are error-prone and don\'t scale. Data gets lost and collaboration breaks down.',
       },
       {
         title: 'Software That Doesn\'t Fit',
-        description: 'Off-the-shelf solutions require workarounds and don\'t match your workflow. You pay for features you don\'t need while missing ones you do.',
+        description: 'Off-the-shelf solutions require workarounds. You pay for features you don\'t need while missing ones you do.',
       },
       {
         title: 'Disconnected Systems',
-        description: 'Data lives in multiple places that don\'t talk to each other. Employees waste time manually moving information between systems.',
+        description: 'Data lives in multiple places that don\'t talk to each other, wasting hours of your team\'s time.',
       },
       {
         title: 'Manual Processes Draining Time',
-        description: 'Tasks that should be automated still require manual work. Your team spends hours on administrative work instead of valuable activities.',
+        description: 'Tasks that should be automated still require manual work, pulling your team away from what matters.',
       },
     ],
     benefits: [
       {
-        title: 'Tailored to Your Workflow',
-        description: 'Built around how your business actually operates, not how software vendors think you should work.',
+        title: 'Built Around How You Work',
+        description: 'Web Wise builds your application around your actual workflow, not how a vendor thinks you should operate.',
       },
       {
-        title: 'Process Automation',
-        description: 'Automate repetitive tasks, notifications, calculations, and workflows that currently require manual effort.',
+        title: 'Processes That Run Themselves',
+        description: 'Web Wise automates your repetitive tasks, notifications, and calculations so your team focuses on what adds value.',
       },
       {
-        title: 'Centralized Data',
-        description: 'One source of truth accessible from anywhere. No more scattered spreadsheets or disconnected systems.',
+        title: 'One Source of Truth',
+        description: 'Web Wise connects your data in one place, accessible from anywhere, ending scattered spreadsheets for good.',
       },
       {
-        title: 'Competitive Advantage',
-        description: 'Capabilities your competitors don\'t have. Custom tools enable services and efficiency they can\'t match.',
+        title: 'Capabilities Competitors Can\'t Match',
+        description: 'Web Wise builds custom tools that give your business advantages no off-the-shelf software can provide.',
       },
       {
-        title: 'Scalable Growth',
-        description: 'Built to handle growth without breaking. Add users, data, and features as your business expands.',
+        title: 'Scales as You Grow',
+        description: 'Web Wise architects your application to handle more users, more data, and more features without starting over.',
       },
     ],
   },
@@ -1747,45 +1755,46 @@ export const ecommerceDevelopmentContent: ServiceContent = {
     expansion: 'Successful e-commerce goes beyond listing products online. It requires understanding customer psychology, reducing friction in the buying process, and building trust at every step. We build custom e-commerce stores tailored to your specific needs, always focusing on the metrics that matter: conversion rate, average order value, and customer lifetime value.',
   },
   whyYouNeed: {
-    intro: 'Global e-commerce sales exceeded $5 trillion in 2023 and continue growing. If you\'re not selling online effectively, you\'re leaving significant revenue on the table.',
+    question: 'What Web Wise Builds for Your Online Store',
+    intro: 'Web Wise builds e-commerce stores designed to sell, with checkout experiences that convert visitors and infrastructure that scales as your orders grow.',
     painPoints: [
       {
         title: 'Low Conversion Rates',
-        description: 'Traffic is coming but not buying. Confusing navigation, slow loading, and clunky checkout kill sales before they happen.',
+        description: 'Confusing navigation, slow loading, and clunky checkout kill sales before they happen.',
       },
       {
         title: 'Cart Abandonment',
-        description: '70% of online shopping carts are abandoned. Poor checkout experience, unexpected costs, and friction drive customers away.',
+        description: '70% of shopping carts are abandoned. Poor checkout experience and friction drive customers away at the last moment.',
       },
       {
         title: 'Mobile Sales Suffering',
-        description: 'Over 60% of e-commerce traffic is mobile, but if your store isn\'t mobile-optimized, those visitors aren\'t converting.',
+        description: 'Over 60% of e-commerce traffic is mobile. If your store isn\'t mobile-optimised, those visitors aren\'t converting.',
       },
       {
         title: 'Manual Order Management',
-        description: 'Processing orders manually is slow and error-prone. Inventory doesn\'t sync, shipping is complicated, and customers don\'t get updates.',
+        description: 'Processing orders manually is slow and error-prone. Inventory doesn\'t sync and customers don\'t get updates.',
       },
     ],
     benefits: [
       {
-        title: 'Higher Conversion Rates',
-        description: 'Strategic design, fast loading, and optimized checkout turn more browsers into buyers.',
+        title: 'More Browsers Becoming Buyers',
+        description: 'Web Wise designs your checkout and product pages to remove friction, turning more visitors into completed orders.',
       },
       {
-        title: 'Mobile-Optimized Experience',
-        description: 'Seamless mobile shopping that captures the majority of e-commerce traffic.',
+        title: 'Built for Mobile Shoppers',
+        description: 'Web Wise builds your store mobile-first so the majority of your traffic gets a seamless buying experience on any device.',
       },
       {
-        title: 'Streamlined Operations',
-        description: 'Automated inventory, order management, and shipping that saves hours of manual work.',
+        title: 'Operations That Run Themselves',
+        description: 'Web Wise automates your inventory, order management, and shipping so you save hours and reduce errors.',
       },
       {
-        title: 'Secure Payments',
-        description: 'PCI-compliant payment processing that builds customer trust and protects data.',
+        title: 'Secure and Trusted Payments',
+        description: 'Web Wise integrates PCI-compliant payment processing that builds customer confidence at checkout.',
       },
       {
-        title: 'Scalable Growth',
-        description: 'Infrastructure that handles traffic spikes and growing product catalogs without breaking.',
+        title: 'Ready to Scale with You',
+        description: 'Web Wise builds the infrastructure to handle traffic spikes and growing catalogues without performance issues.',
       },
     ],
   },
@@ -1940,45 +1949,46 @@ export const digitalMarketingContent: ServiceContent = {
     expansion: 'Effective digital marketing isn\'t about being everywhere-it\'s about being where your customers are, with the right message, at the right time. We take a data-driven approach, starting with understanding your ideal customer and their journey, then deploying the right mix of channels and tactics to reach them. Every campaign is measured, optimized, and tied to business outcomes, not vanity metrics.',
   },
   whyYouNeed: {
-    intro: 'Traditional advertising is declining while digital channels capture more attention and budget every year. Businesses that master digital marketing grow faster and more efficiently than those relying on outdated methods.',
+    question: 'What Web Wise Does for Your Digital Marketing',
+    intro: 'Web Wise runs digital marketing campaigns that are tracked, tested, and optimised to deliver a measurable return on every pound you invest.',
     painPoints: [
       {
         title: 'Wasted Marketing Budget',
-        description: 'Without proper targeting and tracking, marketing spend disappears without clear results. You can\'t tell what\'s working and what isn\'t.',
+        description: 'Without proper tracking, spend disappears without clear results. You can\'t tell what\'s working.',
       },
       {
         title: 'Inconsistent Lead Flow',
-        description: 'Leads come in unpredictably through random referrals and word-of-mouth. You can\'t plan growth without predictable lead generation.',
+        description: 'Leads come in unpredictably through referrals. You can\'t plan growth without predictable generation.',
       },
       {
         title: 'Competitors Getting Found First',
-        description: 'When potential customers search for your services, competitors appear first. You\'re invisible to people actively looking to buy.',
+        description: 'When customers search for your services, competitors appear first and you lose the enquiry.',
       },
       {
         title: 'No Digital Presence',
-        description: 'Customers research online before buying. If you\'re not present in their research process, you\'re not in consideration.',
+        description: 'Customers research online before buying. If you\'re not visible in that process, you\'re not in consideration.',
       },
     ],
     benefits: [
       {
-        title: 'Measurable ROI',
-        description: 'Every dollar is tracked. Know exactly which campaigns generate leads and revenue.',
+        title: 'Every Pound Tracked',
+        description: 'Web Wise tracks every campaign so you know exactly which channels and messages are generating leads and revenue.',
       },
       {
-        title: 'Targeted Reach',
-        description: 'Reach your ideal customers based on demographics, interests, behaviors, and search intent.',
+        title: 'Your Ideal Customers, Not Just Anyone',
+        description: 'Web Wise targets people based on their search intent, demographics, and behaviour, reaching buyers not browsers.',
       },
       {
-        title: 'Scalable Growth',
-        description: 'When you find what works, scale it. Digital channels grow with your business.',
+        title: 'Growth You Can Scale',
+        description: 'Once Web Wise finds what works, we scale it. Digital channels grow as fast as you want to move.',
       },
       {
-        title: 'Multi-Channel Presence',
-        description: 'Be where your customers are-search, social, email-with consistent messaging.',
+        title: 'Visible Everywhere They Research',
+        description: 'Web Wise keeps you present across search, social, and email with consistent messaging that builds recognition.',
       },
       {
-        title: 'Data-Driven Decisions',
-        description: 'Make marketing decisions based on data, not guesses. Optimize continuously based on results.',
+        title: 'Optimised by Data, Not Guesswork',
+        description: 'Web Wise refines your campaigns continuously based on real results so your budget keeps getting more efficient.',
       },
     ],
   },
