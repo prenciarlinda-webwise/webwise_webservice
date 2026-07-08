@@ -23,6 +23,12 @@ export const services = {
         icon: 'MapPin',
         description: 'Dominate your local market and attract nearby customers actively searching for your services.',
       },
+      'ai-search-optimization': {
+        title: 'AI Search Optimization',
+        slug: 'ai-search-optimization',
+        icon: 'Zap',
+        description: 'Get cited by ChatGPT, Perplexity, and Google AI Overviews with GEO and AEO strategies.',
+      },
       'international-seo': {
         title: 'International SEO',
         slug: 'international-seo',
@@ -40,12 +46,6 @@ export const services = {
         slug: 'ecommerce-seo',
         icon: 'ShoppingCart',
         description: 'Drive qualified traffic and boost sales with specialized e-commerce optimization.',
-      },
-      'ai-search-optimization': {
-        title: 'AI Search Optimization',
-        slug: 'ai-search-optimization',
-        icon: 'Zap',
-        description: 'Get cited by ChatGPT, Perplexity, and Google AI Overviews with GEO and AEO strategies.',
       },
     },
   },

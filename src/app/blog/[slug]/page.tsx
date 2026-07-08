@@ -446,6 +446,24 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
                     if (!trimmed) { i++; continue }
 
+                    // Inline popup quote CTA: {{cta:service-id|Button Label}}
+                    const ctaMatch = trimmed.match(/^\{\{cta:([a-z-]+)\|([^}]+)\}\}$/)
+                    if (ctaMatch) {
+                      const [, ctaService, ctaLabel] = ctaMatch
+                      elements.push(
+                        <div key={i} className="my-6">
+                          <PricingCTA
+                            source={`${post.slug} — inline content CTA`}
+                            ctaLabel={ctaLabel}
+                            defaultService={ctaService}
+                            buttonClassName="!w-auto inline-flex py-3 px-6 bg-accent text-white hover:bg-accent-dark"
+                          />
+                        </div>
+                      )
+                      i++
+                      continue
+                    }
+
                     // Image: ![alt](src)
                     const imgMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)$/)
                     if (imgMatch) {

@@ -1106,6 +1106,27 @@ export const internationalSeoContent: ServiceContent = {
       'Ongoing multi-market reporting',
     ],
   },
+  packages: {
+    question: 'International SEO Pricing',
+    intro: 'International SEO is priced around the number of markets and languages you\'re targeting. Every engagement starts with a scoping call so pricing reflects your actual expansion plan.',
+    tiers: [
+      {
+        name: 'Single Market Expansion',
+        price: 'From $780/month',
+        description: 'Add one new country or language to your existing SEO strategy.',
+        features: ['Hreflang implementation', 'Native keyword research for the new market', 'Localized content strategy', 'Monthly reporting'],
+        bestFor: 'Businesses expanding into their first additional market.',
+      },
+      {
+        name: 'Multi-Market Growth',
+        price: 'From $1,100/month',
+        description: 'Manage SEO across multiple countries or languages simultaneously.',
+        features: ['Everything in Single Market', 'Multi-market technical architecture', 'Market-specific link building', 'Cross-market performance reporting'],
+        bestFor: 'Businesses actively selling in 3+ countries or languages.',
+      },
+    ],
+    pricingLink: '/pricing',
+  },
   industries: {
     intro: 'Web Wise helps these types of businesses show up correctly in every market they target:',
     list: [
@@ -1148,6 +1169,14 @@ export const internationalSeoContent: ServiceContent = {
     {
       question: 'Can you help with international link building?',
       answer: 'Yes, we build locally-relevant backlinks in each target market through country-specific directories, local PR, regional industry associations, and market-specific outreach. Local links signal relevance to search engines in each country.',
+    },
+    {
+      question: 'What languages do you support for international SEO?',
+      answer: 'We build multi-language SEO strategies for any language your target market needs, including Spanish, French, German, Italian, Portuguese, Dutch, and more. Each language gets native keyword research rather than direct translation, because the way people search rarely matches a literal translation of English terms.',
+    },
+    {
+      question: 'What is multi-regional SEO?',
+      answer: 'Multi-regional SEO targets multiple countries or regions rather than multiple languages, for example, optimizing separately for US, UK, and Australian English-speaking markets. It requires country-specific hreflang tags, localized content (currency, spelling, cultural references), and market-specific keyword research even when the language itself doesn\'t change.',
     },
   ],
   cta: {

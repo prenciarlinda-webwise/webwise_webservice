@@ -360,6 +360,10 @@ export default function PricingPage() {
                 <Link href="/blog/seo-timeline" className="text-accent hover:underline font-medium">how long SEO takes</Link>, and{' '}
                 <Link href="/blog/seo-vs-ppc" className="text-accent hover:underline font-medium">SEO vs PPC</Link>.
               </p>
+              <p className="text-text-secondary leading-relaxed mt-4">
+                Want your business showing up in AI-generated answers too? See our{' '}
+                <Link href="/ai-search-optimization" className="text-accent hover:underline font-medium">AI Search Optimization (AEO/GEO) services</Link>.
+              </p>
             </div>
           </div>
         </div>

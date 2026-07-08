@@ -40,6 +40,7 @@ const subserviceUrlMap: Record<string, Record<string, string>> = {
     'technical-seo': '/technical-seo',
     'ecommerce-seo': '/ecommerce-seo',
     'international-seo': '/international-seo',
+    'ai-search-optimization': '/ai-search-optimization',
   },
   'web-development': {
     'website-design': '/custom-web-development',

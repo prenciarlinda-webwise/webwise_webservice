@@ -447,6 +447,24 @@ export default function AISearchOptimizationPage() {
         </div>
       </section>
 
+      {/* ── Related Services ─────────────────────────────────────── */}
+      <section className="py-16 bg-bg-secondary border-y border-border">
+        <div className="container mx-auto px-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-2xl font-display font-bold text-primary mb-3">
+              AEO/GEO Works Best Alongside Local SEO
+            </h2>
+            <p className="text-text-secondary leading-relaxed mb-6">
+              AI Overviews, ChatGPT, and Perplexity draw heavily on the same authority signals as traditional Google rankings, Google Business Profile strength, reviews, citations, and well-structured content. Most clients pair AI Search Optimization with our{' '}
+              <Link href="/local-seo" className="text-accent hover:underline font-medium">Local SEO services</Link>{' '}
+              for the strongest combined result. See full{' '}
+              <Link href="/pricing" className="text-accent hover:underline font-medium">pricing and package details</Link>{' '}
+              — packages start at $480/month and are fully customizable to your business.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ── Bottom CTA ───────────────────────────────────────────── */}
       <section className="py-24 bg-primary text-white">
         <div className="container mx-auto px-6 text-center">

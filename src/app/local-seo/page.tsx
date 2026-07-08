@@ -277,6 +277,16 @@ const faqs = [
     answer:
       'Yes. Service-area businesses (plumbers, roofers, landscapers, and other contractors who travel to customers) can absolutely rank in the Google Map Pack. You set a service area in your Google Business Profile, and local SEO signals help you rank for searches across that entire area, not just one city.',
   },
+  {
+    question: 'How do I compare local SEO agencies?',
+    answer:
+      'Compare agencies on industry-specific case studies (not generic testimonials), transparent monthly reporting tied to leads and Map Pack position, no-contract terms, and whether they offer a free audit before you commit. Be wary of agencies that guarantee specific rankings, since no agency controls Google\'s algorithm directly.',
+  },
+  {
+    question: 'What is included in a local SEO package?',
+    answer:
+      'A complete local SEO package typically includes a Google Business Profile optimization, local citation building, on-page SEO for your website, review generation support, and monthly ranking/traffic reports. Higher-tier packages add content creation, competitor tracking, and backlink outreach. See our full pricing breakdown by plan.',
+  },
 ]
 
 export default function LocalSEOPage() {
@@ -622,6 +632,21 @@ export default function LocalSEOPage() {
                 <ArrowRight className="w-4 h-4 text-text-muted group-hover:text-accent transition-colors" />
               </Link>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Related Services */}
+      <section className="py-12">
+        <div className="container px-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-text-muted leading-relaxed">
+              See our full{' '}
+              <Link href="/pricing" className="text-accent hover:underline font-medium">local SEO pricing and package details</Link>
+              {' '}to compare plans, or explore our{' '}
+              <Link href="/ai-search-optimization" className="text-accent hover:underline font-medium">AI Search Optimization (AEO/GEO) services</Link>
+              {' '}to get your business cited in Google AI Overviews, ChatGPT, and Perplexity too.
+            </p>
           </div>
         </div>
       </section>
