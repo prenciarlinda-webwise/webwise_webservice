@@ -139,8 +139,6 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-2xl font-bold text-primary mt-10 mb-4">Contact Us</h2>
             <p className="text-text-secondary mb-4 leading-relaxed">If you have any questions about this Privacy Policy, please contact us:</p>
             <ul className="list-disc ml-6 mb-4 space-y-2">
-              <li className="text-text-secondary">By email: <a href={`mailto:${siteConfig.email}`} className="text-accent hover:underline">{siteConfig.email}</a></li>
-              <li className="text-text-secondary">By phone: <a href={`tel:${siteConfig.phone.replace(/[^0-9+]/g, '')}`} className="text-accent hover:underline">{siteConfig.phone}</a></li>
               <li className="text-text-secondary">Through our <Link href="/contact" className="text-accent hover:underline">contact page</Link></li>
             </ul>
 

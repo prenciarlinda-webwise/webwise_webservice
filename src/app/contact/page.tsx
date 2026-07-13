@@ -1,5 +1,4 @@
-import { Phone, MapPin, Clock } from 'lucide-react'
-import { siteConfig } from '@/data/site'
+import { MapPin, Clock } from 'lucide-react'
 import { contactFaqs } from '@/data/faqs'
 import LeadForm from '@/components/forms/LeadForm'
 
@@ -38,15 +37,6 @@ export default function ContactPage() {
               <div className="bg-bg-secondary rounded-2xl p-8">
                 <h3 className="text-lg font-bold text-primary mb-6">Contact Information</h3>
                 <div className="space-y-4">
-                  <a href={`tel:${siteConfig.phone.replace(/[^0-9+]/g, '')}`} className="flex items-start gap-4 text-text-secondary hover:text-accent transition-colors">
-                    <div className="w-10 h-10 flex items-center justify-center bg-accent/10 rounded-lg text-accent flex-shrink-0">
-                      <Phone size={20} />
-                    </div>
-                    <div>
-                      <div className="text-sm text-text-muted mb-1">Phone</div>
-                      <div className="font-medium">{siteConfig.phone}</div>
-                    </div>
-                  </a>
                   <div className="flex items-start gap-4 text-text-secondary">
                     <div className="w-10 h-10 flex items-center justify-center bg-accent/10 rounded-lg text-accent flex-shrink-0">
                       <MapPin size={20} />

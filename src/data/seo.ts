@@ -69,7 +69,7 @@ export const pageSEO: Record<string, PageSEO> = {
   // ============================================
   'custom-web-development': {
     title: 'Custom Web Development Services - From $1,500',
-    description: 'Custom websites and web applications built on Next.js. Fast, mobile-first, and conversion-optimised. Starting at $1,500. Free consultation for UK & USA businesses.',
+    description: 'Custom websites and web applications built on Next.js. Fast, mobile-first, and conversion-optimized. Starting at $1,500. Free consultation for UK & USA businesses.',
     keywords: ['custom web development', 'custom web development services', 'custom website development', 'bespoke web development', 'nextjs web development', 'small business web development'],
   },
 
@@ -87,7 +87,7 @@ export const pageSEO: Record<string, PageSEO> = {
 
   'ai-search-optimization': {
     title: 'AI Search Optimization Services - GEO & AEO for 2026',
-    description: 'Optimize your business for AI search engines — ChatGPT, Perplexity, Google AI Overviews. GEO and AEO strategies that get you cited in AI-generated answers. Free audit.',
+    description: 'Optimize your business for AI search engines like ChatGPT, Perplexity, and Google AI Overviews. GEO and AEO strategies that get you cited in AI-generated answers. Free audit.',
     keywords: ['ai search optimization', 'geo seo', 'generative engine optimization', 'answer engine optimization', 'aeo seo', 'chatgpt seo', 'perplexity seo', 'google ai overviews optimization', 'ai seo services'],
   },
 

@@ -1192,8 +1192,8 @@ export const internationalSeoContent: ServiceContent = {
 
 export const webDevelopmentContent: ServiceContent = {
   hero: {
-    headline: 'Web Development Services for Small Business',
-    subheadline: 'Custom Websites Built on Next.js & Django',
+    headline: 'Custom Web Development Services',
+    subheadline: 'Custom Websites Built on Next.js',
     valueProposition: 'Your website should be your hardest-working employee-generating leads 24/7. We build fast, SEO-optimized websites using modern technology that loads in under 2 seconds, ranks well in search engines, and converts visitors into paying customers.',
   },
   definition: {
@@ -1210,7 +1210,7 @@ export const webDevelopmentContent: ServiceContent = {
       },
       {
         title: 'Poor Mobile Experience',
-        description: 'Over 60% of web traffic is mobile. If your site isn\'t mobile-optimised, you\'re losing the majority of visitors.',
+        description: 'Over 60% of web traffic is mobile. If your site isn\'t mobile-optimized, you\'re losing the majority of visitors.',
       },
       {
         title: 'Not Generating Leads',
@@ -1245,7 +1245,7 @@ export const webDevelopmentContent: ServiceContent = {
     ],
   },
   process: {
-    intro: 'Our web development process ensures your site is strategic, beautiful, and built to perform:',
+    intro: 'Our web development process ensures your site is strategic, beautiful, and built to perform.',
     steps: [
       {
         title: 'Discovery & Strategy',
@@ -1330,7 +1330,7 @@ export const webDevelopmentContent: ServiceContent = {
     ],
   },
   industries: {
-    intro: 'We build websites for businesses across industries, with deep experience in:',
+    intro: 'We build websites for businesses across industries, with deep experience in the following.',
     list: [
       { name: 'Contractors & Trades', description: 'Lead-generating websites for plumbers, electricians, roofers, and home service pros.' },
       { name: 'Professional Services', description: 'Credibility-building sites for consultants, agencies, and B2B services.' },
@@ -1341,35 +1341,35 @@ export const webDevelopmentContent: ServiceContent = {
   },
   faqs: [
     {
-      question: 'How much does a website cost?',
+      question: 'How Much Does a Website Cost?',
       answer: 'Our website packages start at $1,500 for a professional site with SEO setup, Google Analytics setup ($100 value), and Google Business Profile optimization. Custom e-commerce stores start at $3,500. Web applications are quoted based on requirements. We offer transparent pricing with no hidden fees.',
     },
     {
-      question: 'How long does it take to build a website?',
+      question: 'How Long Does It Take to Build a Website?',
       answer: 'Most websites launch within 2-4 weeks from project start. This includes discovery, design, development, and testing. Complex projects with custom features or extensive content may take 6-8 weeks. We provide a detailed timeline at project kickoff.',
     },
     {
-      question: 'What platform do you build websites on?',
+      question: 'What Platform Do You Build Websites On?',
       answer: 'We primarily build with Next.js and React for optimal performance and SEO. For clients needing easy content management, we integrate headless CMS solutions. We focus on custom solutions that give you full control and ownership of your website.',
     },
     {
-      question: 'Will my website be mobile-friendly?',
+      question: 'Will My Website Be Mobile-Friendly?',
       answer: 'Absolutely. Every website we build is mobile-first, meaning we design for mobile devices first and enhance for larger screens. With over 60% of web traffic coming from mobile, this approach ensures the best experience for the majority of your visitors.',
     },
     {
-      question: 'Can I update the website myself?',
+      question: 'Can I Update the Website Myself?',
       answer: 'Yes. We set up user-friendly content management so you can easily update text, images, and basic content. We provide training on how to make updates, and we\'re available for more complex changes or additions.',
     },
     {
-      question: 'Is SEO included with the website?',
-      answer: 'Yes, every website includes technical SEO setup: proper site structure, fast loading speed, mobile optimization, meta tags, schema markup, and Google Search Console integration. This gives you a strong SEO foundation. Ongoing SEO services for rankings and traffic growth are available separately.',
+      question: 'Is SEO Included With the Website?',
+      answer: 'Yes, every website includes technical SEO setup, proper site structure, fast loading speed, mobile optimization, meta tags, schema markup, and Google Search Console integration. This gives you a strong SEO foundation. Ongoing SEO services for rankings and traffic growth are available separately.',
     },
     {
-      question: 'Do you provide hosting?',
+      question: 'Do You Provide Hosting?',
       answer: 'We recommend and can set up hosting optimized for performance. For Next.js sites, we typically use Vercel for best-in-class speed and reliability. Hosting costs vary but typically range from $20-50/month for most business sites.',
     },
     {
-      question: 'What if I need changes after launch?',
+      question: 'What if I Need Changes After Launch?',
       answer: 'Your package includes 30 days of post-launch support for adjustments and fixes. After that, we offer maintenance packages or hourly support for ongoing changes. Many clients also choose to handle routine updates themselves using the CMS we provide.',
     },
   ],
@@ -1633,7 +1633,7 @@ export const webApplicationsContent: ServiceContent = {
     ],
   },
   process: {
-    intro: 'Our web application development process ensures we build exactly what your business needs:',
+    intro: 'Our web application development process ensures we build exactly what your business needs.',
     steps: [
       {
         title: 'Requirements Discovery',
@@ -1718,7 +1718,7 @@ export const webApplicationsContent: ServiceContent = {
     ],
   },
   industries: {
-    intro: 'We build custom web applications for various business needs:',
+    intro: 'We build custom web applications for various business needs.',
     list: [
       { name: 'Customer Portals', description: 'Secure portals where clients access services, documents, and account information.' },
       { name: 'Booking Systems', description: 'Custom scheduling and appointment management tailored to your service model.' },
@@ -1730,35 +1730,35 @@ export const webApplicationsContent: ServiceContent = {
   },
   faqs: [
     {
-      question: 'How much does custom web application development cost?',
+      question: 'How Much Does Custom Web Application Development Cost?',
       answer: 'Web application costs vary significantly based on complexity. Simple applications start around $5,000-$10,000, while complex systems with multiple integrations can range from $20,000-$100,000+. We provide detailed quotes after understanding your requirements.',
     },
     {
-      question: 'How long does it take to build a web application?',
+      question: 'How Long Does It Take to Build a Web Application?',
       answer: 'Timeline depends on complexity. Simple applications take 6-8 weeks, medium complexity 3-4 months, and complex systems 4-6+ months. We provide detailed timelines after our discovery phase.',
     },
     {
-      question: 'What technologies do you use?',
-      answer: 'We primarily use Django and Python for backend development, combined with React or Vue.js for dynamic frontends. PostgreSQL for databases. These technologies are robust, secure, and maintainable long-term.',
+      question: 'What Technologies Do You Use?',
+      answer: 'We primarily use Django and Python for backend development, combined with React or Vue.js for dynamic frontends, and PostgreSQL for databases. These technologies are robust, secure, and maintainable long-term.',
     },
     {
-      question: 'Will I own the code?',
+      question: 'Will I Own the Code?',
       answer: 'Yes, you own 100% of the code we develop for you. We deliver complete source code, documentation, and everything needed to maintain or modify the application independently if you choose.',
     },
     {
-      question: 'Can you integrate with existing systems?',
+      question: 'Can You Integrate With Existing Systems?',
       answer: 'Yes, we regularly build integrations with accounting software, CRMs, payment processors, email services, and other business tools. We can work with most systems that have APIs.',
     },
     {
-      question: 'How do you handle security?',
+      question: 'How Do You Handle Security?',
       answer: 'Security is built into our development process. We follow security best practices, implement proper authentication, encrypt sensitive data, and conduct security audits. We also ensure compliance with relevant regulations.',
     },
     {
-      question: 'What about ongoing maintenance?',
+      question: 'What About Ongoing Maintenance?',
       answer: 'We offer maintenance packages that include bug fixes, security updates, monitoring, and support. Many clients also add ongoing development hours for new features and improvements.',
     },
     {
-      question: 'Can the application grow with my business?',
+      question: 'Can the Application Grow With My Business?',
       answer: 'Yes, scalability is a core consideration in our architecture. We build applications that handle increasing users, data, and traffic. Adding new features is straightforward with our modular approach.',
     },
   ],
@@ -1797,7 +1797,7 @@ export const ecommerceDevelopmentContent: ServiceContent = {
       },
       {
         title: 'Mobile Sales Suffering',
-        description: 'Over 60% of e-commerce traffic is mobile. If your store isn\'t mobile-optimised, those visitors aren\'t converting.',
+        description: 'Over 60% of e-commerce traffic is mobile. If your store isn\'t mobile-optimized, those visitors aren\'t converting.',
       },
       {
         title: 'Manual Order Management',
@@ -1828,7 +1828,7 @@ export const ecommerceDevelopmentContent: ServiceContent = {
     ],
   },
   process: {
-    intro: 'Our e-commerce development process builds stores designed to sell:',
+    intro: 'Our e-commerce development process builds stores designed to sell.',
     steps: [
       {
         title: 'Strategy & Planning',
@@ -1913,7 +1913,7 @@ export const ecommerceDevelopmentContent: ServiceContent = {
     ],
   },
   industries: {
-    intro: 'We build e-commerce stores for various product types:',
+    intro: 'We build e-commerce stores for various product types.',
     list: [
       { name: 'Physical Products', description: 'Retail stores with inventory management, shipping, and fulfillment.' },
       { name: 'Digital Products', description: 'Downloads, courses, and digital goods with instant delivery.' },
@@ -1924,35 +1924,35 @@ export const ecommerceDevelopmentContent: ServiceContent = {
   },
   faqs: [
     {
-      question: 'What platform do you recommend for e-commerce?',
+      question: 'What Platform Do You Recommend for E-commerce?',
       answer: 'We specialize in custom e-commerce solutions that give you full control over your store. Unlike template-based platforms, custom stores offer better performance, full SEO control, and no monthly platform fees. We build solutions tailored to your specific products, volume, and business needs.',
     },
     {
-      question: 'How much does an e-commerce website cost?',
+      question: 'How Much Does an E-commerce Website Cost?',
       answer: 'We build custom e-commerce stores starting at $3,500. We focus on custom solutions rather than template-based platforms, ensuring your store is built specifically for your business needs with optimal performance and SEO. We provide detailed quotes based on your requirements.',
     },
     {
-      question: 'Can you migrate my existing store?',
+      question: 'Can You Migrate My Existing Store?',
       answer: 'Yes, we handle e-commerce migrations regularly. We can move products, customers, and orders from your current platform while maintaining SEO value. We create redirects to preserve rankings and ensure a smooth transition.',
     },
     {
-      question: 'How do you handle payments?',
+      question: 'How Do You Handle Payments?',
       answer: 'We integrate secure, PCI-compliant payment processors like Stripe, PayPal, Square, or your preferred provider. These handle credit cards, digital wallets, and buy-now-pay-later options securely.',
     },
     {
-      question: 'What about shipping integration?',
+      question: 'What About Shipping Integration?',
       answer: 'We configure shipping zones, rates, and carrier integrations (USPS, UPS, FedEx). We can set up real-time shipping quotes, flat rates, free shipping thresholds, and automatic tracking notifications.',
     },
     {
-      question: 'Can I manage inventory across multiple channels?',
+      question: 'Can I Manage Inventory Across Multiple Channels?',
       answer: 'Yes, we can set up inventory sync with marketplaces like Amazon, eBay, and Etsy, as well as point-of-sale systems for brick-and-mortar stores. This prevents overselling and centralizes order management.',
     },
     {
-      question: 'Will my store be mobile-friendly?',
-      answer: 'Absolutely. Mobile e-commerce is essential-over 60% of traffic is mobile. Every store we build is mobile-optimized with fast loading, easy navigation, and simplified checkout for mobile users.',
+      question: 'Will My Store Be Mobile-Friendly?',
+      answer: 'Absolutely. Mobile e-commerce is essential, over 60% of traffic is mobile. Every store we build is mobile-optimized with fast loading, easy navigation, and simplified checkout for mobile users.',
     },
     {
-      question: 'Can you help with ongoing marketing?',
+      question: 'Can You Help With Ongoing Marketing?',
       answer: 'Yes, we offer e-commerce SEO, email marketing setup, and conversion optimization as additional services. We can discuss a complete growth strategy for your online store.',
     },
   ],
@@ -2357,12 +2357,12 @@ export const contentMarketingContent: ServiceContent = {
 export const ppcAdvertisingContent: ServiceContent = {
   hero: {
     headline: 'PPC Advertising Services',
-    subheadline: 'Google Ads Management for Small Business',
-    valueProposition: 'Stop wasting money on ads that don\'t convert. Our PPC management focuses on what matters: generating quality leads at profitable costs. We optimize campaigns continuously to maximize your return on every ad dollar spent.',
+    subheadline: 'Google Ads & Local Services Ads Management for Small Business',
+    valueProposition: 'Stop wasting money on ads that don\'t convert. We run Google Search, Display, and Local Services Ads, plus social campaigns on Facebook, Instagram, and LinkedIn, built to generate quality leads at a profitable cost. We optimize continuously to maximize the return on every dollar spent.',
   },
   definition: {
-    answer: 'PPC (Pay-Per-Click) advertising services manage paid advertising campaigns on platforms like Google Ads, Microsoft Ads, and social media. This includes keyword research, ad creation, bid management, landing page optimization, and continuous refinement-all focused on generating conversions at a profitable cost per acquisition.',
-    expansion: 'PPC offers what SEO can\'t: immediate visibility and traffic. When set up correctly, PPC campaigns generate leads from day one. However, without proper management, ad spend quickly goes to waste on irrelevant clicks and poor-performing campaigns. Our PPC management combines strategic planning, continuous optimization, and transparent reporting to turn ad spend into predictable lead generation.',
+    answer: 'PPC (Pay-Per-Click) advertising services manage paid advertising campaigns on platforms like Google Ads (Search, Display, and Local Services Ads), Microsoft Ads, and social media. This includes keyword research, ad creation, bid management, landing page optimization, and continuous refinement-all focused on generating conversions at a profitable cost per acquisition.',
+    expansion: 'PPC offers what SEO can\'t, immediate visibility and traffic. When set up correctly, PPC campaigns generate leads from day one. For local service businesses like plumbers, electricians, and contractors, Local Services Ads are often the fastest path to that. They run on a pay-per-lead model, display the Google Guaranteed badge, and appear above regular search ads. However, without proper management, ad spend quickly goes to waste on irrelevant clicks and poor-performing campaigns. Our PPC management combines strategic platform selection, continuous optimization, and transparent reporting to turn ad spend into predictable lead generation.',
   },
   whyYouNeed: {
     intro: 'PPC advertising puts your business in front of customers actively searching for your services. With proper management, it\'s one of the most measurable and controllable forms of marketing available.',
@@ -2386,6 +2386,10 @@ export const ppcAdvertisingContent: ServiceContent = {
     ],
     benefits: [
       {
+        title: 'Local Services Ads for Home Service Businesses',
+        description: 'For plumbers, electricians, roofers, and other local trades, we run Google Local Services Ads, the pay-per-lead program with the Google Guaranteed badge that appears above regular search ads and often above the map pack.',
+      },
+      {
         title: 'Immediate Visibility',
         description: 'Unlike SEO, PPC delivers traffic immediately. Appear at the top of search results from day one.',
       },
@@ -2408,7 +2412,7 @@ export const ppcAdvertisingContent: ServiceContent = {
     ],
   },
   process: {
-    intro: 'Our PPC management process builds and optimizes campaigns for maximum ROI:',
+    intro: 'Our PPC management process builds and optimizes campaigns for maximum ROI.',
     steps: [
       {
         title: 'Account Audit & Strategy',
@@ -2431,6 +2435,7 @@ export const ppcAdvertisingContent: ServiceContent = {
           'Negative keyword lists',
           'Ad group organization',
           'Geographic and demographic targeting',
+          'Local Services Ads profile setup, for eligible trades',
         ],
         duration: 'Week 1',
       },
@@ -2493,9 +2498,9 @@ export const ppcAdvertisingContent: ServiceContent = {
     ],
   },
   industries: {
-    intro: 'We manage PPC campaigns for businesses across industries:',
+    intro: 'We manage PPC campaigns for businesses across industries.',
     list: [
-      { name: 'Local Services', description: 'Google Local Services Ads and search campaigns for home service pros.' },
+      { name: 'Local Services', description: 'Google Local Services Ads and Search campaigns for plumbers, electricians, roofers, and other home service pros.' },
       { name: 'E-commerce', description: 'Shopping campaigns, search ads, and display remarketing.' },
       { name: 'Professional Services', description: 'Lead generation campaigns for B2B and professional services.' },
       { name: 'Healthcare', description: 'HIPAA-compliant advertising for medical practices.' },
@@ -2504,35 +2509,39 @@ export const ppcAdvertisingContent: ServiceContent = {
   },
   faqs: [
     {
-      question: 'How much should I budget for PPC advertising?',
+      question: 'What Are Local Services Ads, and Are We Eligible?',
+      answer: 'Local Services Ads are Google\'s pay-per-lead program for home service businesses, plumbers, electricians, roofers, HVAC companies, and similar trades. They carry the Google Guaranteed badge, appear above regular search ads, and you pay per qualified lead rather than per click. Eligibility depends on trade and location, we check this as part of your PPC audit.',
+    },
+    {
+      question: 'How Much Should I Budget for PPC Advertising?',
       answer: 'Ad budgets vary based on industry, competition, and goals. The right budget depends on your specific market and objectives. We can work with various budgets and will be honest about what\'s realistic during your consultation.',
     },
     {
-      question: 'How quickly will I see results from PPC?',
+      question: 'How Quickly Will I See Results From PPC?',
       answer: 'PPC can generate leads from day one, but campaigns need 2-4 weeks of data to optimize properly. Initial results are typically within the first week, with performance improving as we gather data and optimize.',
     },
     {
-      question: 'What\'s your management fee?',
+      question: 'What\'s Your Management Fee?',
       answer: 'Our PPC management fees are customized based on campaign complexity and scope. We believe in alignment-we succeed when your campaigns succeed. Contact us for specific pricing based on your needs.',
     },
     {
-      question: 'Do I own my Google Ads account?',
+      question: 'Do I Own My Google Ads Account?',
       answer: 'Yes, absolutely. We set up campaigns in your account which you own completely. If you ever leave, you keep your account, campaign history, and all accumulated data.',
     },
     {
-      question: 'What platforms do you manage?',
-      answer: 'We primarily manage Google Ads (Search, Display, Local Services) and Microsoft Ads. We also manage social media advertising on Facebook, Instagram, and LinkedIn. We recommend platforms based on where your customers are.',
+      question: 'What Platforms Do You Manage?',
+      answer: 'We primarily manage Google Ads (Search, Display, and Local Services Ads) and Microsoft Ads. We also manage social media advertising on Facebook, Instagram, and LinkedIn. We recommend platforms based on where your customers are.',
     },
     {
-      question: 'How do you track conversions?',
+      question: 'How Do You Track Conversions?',
       answer: 'We implement comprehensive conversion tracking including phone calls, form submissions, and other valuable actions. This lets us optimize toward actual leads, not just clicks, and report on real ROI.',
     },
     {
-      question: 'What happens if the campaigns don\'t work?',
+      question: 'What Happens if the Campaigns Don\'t Work?',
       answer: 'PPC involves testing and optimization. Not every approach works immediately, but data tells us what to adjust. We\'re transparent about performance and will recommend strategy changes or honest assessment if PPC isn\'t right for your market.',
     },
     {
-      question: 'Can you work with my existing campaigns?',
+      question: 'Can You Work With My Existing Campaigns?',
       answer: 'Yes, we can audit and optimize existing campaigns. Often there are quick improvements possible with current accounts. We\'ll review what\'s working, what isn\'t, and develop an optimization plan.',
     },
   ],

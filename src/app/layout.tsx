@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Inter, Plus_Jakarta_Sans } from "next/font/google"
+import { Inter, Plus_Jakarta_Sans, Caveat } from "next/font/google"
 import "./globals.css"
 import LayoutWrapper from "@/components/layout/LayoutWrapper"
 import { siteConfig } from "@/data/site"
@@ -13,6 +13,13 @@ const inter = Inter({
 
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
+  subsets: ["latin"],
+})
+
+// Handwritten accent font, used sparingly for human touches (annotations, doodled labels)
+// so pages read as designed, not templated.
+const caveat = Caveat({
+  variable: "--font-caveat",
   subsets: ["latin"],
 })
 
@@ -96,15 +103,14 @@ const organizationSchema = {
   contactPoint: [
     {
       "@type": "ContactPoint",
-      telephone: siteConfig.phone,
-      email: siteConfig.email,
+      url: `${siteConfig.url}/contact`,
       contactType: "customer service",
       availableLanguage: ["English", "Albanian"],
       areaServed: ["GB", "US", "AL"],
     },
     {
       "@type": "ContactPoint",
-      telephone: siteConfig.phone,
+      url: `${siteConfig.url}/contact`,
       contactType: "sales",
       availableLanguage: ["English"],
       areaServed: ["GB", "US"],
@@ -139,7 +145,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
-      <body className={`${inter.variable} ${plusJakarta.variable} antialiased`}>
+      <body className={`${inter.variable} ${plusJakarta.variable} ${caveat.variable} antialiased`}>
         <GTMNoScript />
         <GoogleAnalytics />
         <LayoutWrapper>

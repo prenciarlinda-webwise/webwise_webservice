@@ -2,9 +2,10 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Phone, ArrowRight, Gift } from 'lucide-react'
+import { ArrowRight, Gift } from 'lucide-react'
 import { services, siteConfig, clients } from '@/data/site'
 import PricingCTA from '@/components/forms/PricingCTA'
+import ReferralCTA from '@/components/forms/ReferralCTA'
 
 // URL mappings for new flat URL structure
 const serviceUrlMap: Record<string, string> = {
@@ -31,9 +32,9 @@ export default function Footer() {
                 <p className="text-white/90">Know a business that needs a website or SEO? Get paid for every successful referral.</p>
               </div>
             </div>
-            <PricingCTA
-              source="Footer — Referral program inquiry"
-              ctaLabel="Learn More & Refer"
+            <ReferralCTA
+              source="Footer referral program banner"
+              ctaLabel="Refer a Business"
               buttonClassName="inline-flex items-center gap-2 px-6 py-3 bg-white text-accent font-semibold rounded-lg hover:bg-white/90 transition-colors shadow-lg whitespace-nowrap"
             />
           </div>
@@ -57,12 +58,6 @@ export default function Footer() {
             <p className="text-white/70 mb-6">
               {siteConfig.tagline}. We build stunning websites and deliver powerful SEO strategies that drive real results.
             </p>
-            <div className="flex flex-col gap-3">
-              <a href={`tel:${siteConfig.phone.replace(/[^0-9+]/g, '')}`} className="flex items-center gap-3 text-white/70 hover:text-white transition-colors">
-                <Phone size={18} />
-                {siteConfig.phone}
-              </a>
-            </div>
           </div>
 
           {/* Services */}

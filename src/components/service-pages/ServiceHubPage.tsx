@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import Script from 'next/script'
 import { notFound } from 'next/navigation'
-import { ArrowRight, Check, Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart } from 'lucide-react'
 import { services, siteConfig } from '@/data/site'
 import { generateServiceSchema, generateBreadcrumbSchema, generateFAQSchema, generateHowToSchema } from '@/lib/schemas'
 import FAQSection from '@/components/sections/FAQSection'
@@ -9,6 +8,7 @@ import { pageSEO } from '@/data/seo'
 import { getServiceContent } from '@/data/serviceContent'
 import PricingCTA from '@/components/forms/PricingCTA'
 import LeadForm from '@/components/forms/LeadForm'
+import { DoodleWireframe } from '@/components/ui/Doodle'
 
 const serviceSlugToFormService: Record<string, string> = {
   'seo': 'local-seo',
@@ -16,13 +16,8 @@ const serviceSlugToFormService: Record<string, string> = {
   'digital-marketing': 'digital-marketing',
 }
 
-const iconMap: { [key: string]: React.ElementType } = {
-  Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart
-}
-
-function getIcon(iconName: string, size = 20) {
-  const IconComponent = iconMap[iconName]
-  return IconComponent ? <IconComponent size={size} /> : null
+const heroDoodles: Record<string, typeof DoodleWireframe> = {
+  'web-development': DoodleWireframe,
 }
 
 // URL mappings for new flat URL structure
@@ -64,8 +59,6 @@ function generateLocalBusinessSchema() {
     "@id": `${siteConfig.url}/#localbusiness`,
     name: siteConfig.name,
     url: siteConfig.url,
-    telephone: siteConfig.phone,
-    email: siteConfig.email,
     address: {
       "@type": "PostalAddress",
       addressCountry: ["US", "GB"],
@@ -87,6 +80,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
   // Get rich content for this service
   const content = getServiceContent(slug)
+  const HeroDoodle = heroDoodles[slug]
 
   const serviceUrl = getCanonicalUrl(slug)
   const serviceSchema = generateServiceSchema({
@@ -98,6 +92,15 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     { name: 'Home', url: siteConfig.url },
     { name: service.title, url: serviceUrl },
   ])
+
+  // WebPage schema with speakable markup for the "What Is" answer
+  const webPageSchema = {
+    "@type": "WebPage",
+    "@id": `${serviceUrl}#webpage`,
+    url: serviceUrl,
+    name: content?.hero.headline || service.title,
+    speakable: { "@type": "SpeakableSpecification", cssSelector: [".aeo-answer"] },
+  }
 
   // Generate FAQ schema from rich content
   const faqSchema = content?.faqs ? generateFAQSchema(content.faqs) : null
@@ -119,6 +122,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       serviceSchema,
       breadcrumbSchema,
       generateLocalBusinessSchema(),
+      webPageSchema,
       ...(faqSchema ? [faqSchema] : []),
       ...(howToSchema ? [howToSchema] : []),
     ],
@@ -133,8 +137,14 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       />
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-primary-dark py-20">
-        <div className="container px-6">
+      <section className="relative bg-gradient-to-br from-primary to-primary-dark py-20 overflow-hidden">
+        {HeroDoodle && (
+          <>
+            <HeroDoodle className="hidden lg:block absolute -top-4 -right-14 w-80 h-48 text-white/10 pointer-events-none" />
+            <HeroDoodle className="hidden lg:block absolute -bottom-14 -left-20 w-72 h-44 text-accent/10 pointer-events-none rotate-180" />
+          </>
+        )}
+        <div className="container px-6 relative">
           <nav className="flex items-center gap-2 text-white/60 text-sm mb-8">
             <Link href="/" className="hover:text-white">Home</Link>
             <span>/</span>
@@ -142,9 +152,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           </nav>
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="text-white">
-              <div className="w-16 h-16 flex items-center justify-center bg-white/10 rounded-2xl text-white mb-6">
-                {getIcon(service.icon, 32)}
-              </div>
               <h1 className="text-4xl lg:text-5xl font-bold mb-6">
                 {content?.hero.headline || service.title}
               </h1>
@@ -158,7 +165,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8">
               <h2 className="text-xl md:text-2xl font-bold text-primary mb-2">Get a Free Consultation</h2>
               <p className="text-sm text-text-secondary mb-5">
-                Tell us about your {service.title.toLowerCase()} project. We&apos;ll reply within 24 hours.
+                {`Tell us about your ${service.title.toLowerCase()} project. We'll reply within 24 hours.`}
               </p>
               <LeadForm
                 source={`Services ${slug} hero`}
@@ -179,7 +186,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 <ul className="space-y-2">
                   {content.tldr.map((point, i) => (
                     <li key={i} className="flex items-start gap-3 text-text-secondary">
-                      <Check size={18} className="text-accent flex-shrink-0 mt-0.5" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0 mt-2" />
                       <span>{point}</span>
                     </li>
                   ))}
@@ -190,12 +197,29 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </section>
       )}
 
+      {/* What Is Section */}
+      {content?.definition && (
+        <section className="py-24 bg-white">
+          <div className="container px-6">
+            <div className="max-w-3xl mx-auto">
+              <h2 className="text-3xl font-bold text-primary mb-6">
+                {content.definition.question}
+              </h2>
+              <p className="aeo-answer text-lg text-text-primary leading-relaxed mb-6">
+                {content.definition.answer}
+              </p>
+              <p className="text-text-secondary leading-relaxed">
+                {content.definition.expansion}
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Services Grid */}
       <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
           <div className="text-center mb-16">
-            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Our Services</span>
             <h2 className="text-3xl font-bold text-primary">What {service.title} Do We Offer?</h2>
           </div>
 
@@ -206,13 +230,11 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 href={subserviceUrlMap[slug]?.[subKey] || `/services/${slug}/${subKey}`}
                 className="bg-white border border-border rounded-2xl p-8 hover:shadow-xl hover:border-accent/30 transition-all group"
               >
-                <div className="w-14 h-14 flex items-center justify-center bg-bg-secondary rounded-xl text-accent group-hover:bg-accent group-hover:text-white transition-colors mb-6">
-                  {getIcon(sub.icon, 28)}
-                </div>
+                <div className="w-10 h-1 bg-accent rounded-full mb-6" />
                 <h3 className="text-xl font-bold text-primary mb-3">{sub.title}</h3>
                 <p className="text-text-secondary mb-4">{sub.description}</p>
                 <span className="inline-flex items-center gap-2 text-accent font-medium group-hover:gap-3 transition-all">
-                  Learn more <ArrowRight size={16} />
+                  Learn more →
                 </span>
               </Link>
             ))}
@@ -225,7 +247,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <section className="py-24">
           <div className="container px-6">
             <div className="text-center mb-16">
-              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">What You Get</span>
               <h2 className="text-3xl font-bold text-primary mb-4">
                 {content.whyYouNeed.question || `What Web Wise Delivers with ${service.title}`}
               </h2>
@@ -247,7 +268,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <section className="py-24 bg-bg-secondary">
           <div className="container px-6">
             <div className="text-center mb-16">
-              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">How We Work</span>
               <h2 className="text-3xl font-bold text-primary mb-4">
                 {content.process.question || `What Web Wise Does for You`}
               </h2>
@@ -273,7 +293,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                         <ul className="grid md:grid-cols-2 gap-2">
                           {step.details.map((detail, j) => (
                             <li key={j} className="flex items-center gap-2 text-sm text-text-muted">
-                              <Check size={14} className="text-accent flex-shrink-0" />
+                              <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
                               {detail}
                             </li>
                           ))}
@@ -295,7 +315,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                     <ul className="space-y-1">
                       {content.process.deliverables.map((item, i) => (
                         <li key={i} className="flex items-center gap-2 text-sm text-white/80">
-                          <Check size={14} className="text-accent" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
                           {item}
                         </li>
                       ))}
@@ -313,7 +333,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <section className="py-24">
           <div className="container px-6">
             <div className="text-center mb-16">
-              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Industries</span>
               <h2 className="text-3xl font-bold text-primary mb-4">
                 {content.industries.question || `Which Industries Benefit From ${service.title}?`}
               </h2>
@@ -342,7 +361,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <section className="py-24 bg-bg-secondary">
           <div className="container px-6">
             <div className="text-center mb-16">
-              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Results</span>
               <h2 className="text-3xl font-bold text-primary mb-4">
                 Results Web Wise Has Delivered
               </h2>

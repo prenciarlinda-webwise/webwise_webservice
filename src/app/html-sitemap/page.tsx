@@ -66,6 +66,8 @@ const blogToIndustryMap: Record<string, string> = {
   'cleaning-company-seo-guide': '/local-seo/cleaning',
   'moving-company-seo-guide': '/local-seo/moving',
   'construction-company-seo-strategy': '/local-seo/construction',
+  'locksmith-seo-guide': '/local-seo/locksmiths',
+  'painting-contractor-seo-strategy': '/local-seo/painters',
 }
 
 // Blog URL shortening

@@ -846,6 +846,7 @@ export const industries: Industry[] = [
   { name: 'Cleaning', slug: 'cleaning', localSeoUrl: '/local-seo/cleaning' },
   { name: 'Moving', slug: 'moving', localSeoUrl: '/local-seo/moving' },
   { name: 'Locksmiths', slug: 'locksmiths', localSeoUrl: '/local-seo/locksmiths' },
+  { name: 'Painting', slug: 'painting', localSeoUrl: '/local-seo/painters' },
 ]
 
 // Get industry by name (for matching client industries)
@@ -869,7 +870,7 @@ export const getIndustriesWithPages = (): Industry[] => {
   const pagesExist = [
     'plumbing', 'roofing', 'auto-detailing', 'hvac', 'electricians',
     'construction', 'waste-management', 'landscaping', 'pest-control',
-    'cleaning', 'moving', 'locksmiths'
+    'cleaning', 'moving', 'locksmiths', 'painting'
   ]
   return industries.filter(i => pagesExist.includes(i.slug))
 }

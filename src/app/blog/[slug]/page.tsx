@@ -15,7 +15,8 @@ const excludedSlugs = [
   'local-seo-for-plumbers-complete-guide', 'hvac-seo-complete-guide', 'roofing-company-seo-strategy',
   'electrician-seo-guide', 'auto-detailing-seo-get-more-customers', 'dumpster-rental-seo-dominate-local-search',
   'landscaping-seo-grow-your-business', 'pest-control-seo-strategy', 'cleaning-company-seo-guide',
-  'moving-company-seo-guide', 'construction-company-seo-strategy',
+  'moving-company-seo-guide', 'construction-company-seo-strategy', 'locksmith-seo-guide',
+  'painting-contractor-seo-strategy',
   // Renamed blog posts (served from /blog/[new-slug])
   'how-much-does-seo-cost-for-small-business', 'how-long-does-seo-take-to-work',
   'google-business-profile-optimization-guide', 'local-seo-uk-vs-usa-differences',
@@ -129,8 +130,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       "@type": "ProfessionalService",
       name: siteConfig.name,
       url: siteConfig.url,
-      telephone: siteConfig.phone,
-      email: siteConfig.email,
       priceRange: "$480-$1500",
     },
     areaServed: [
@@ -295,7 +294,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   Get a Free {breadcrumbCtx.current.name} SEO Audit
                 </h2>
                 <p className="text-sm text-text-secondary mb-5">
-                  Tell us about your {breadcrumbCtx.current.name.toLowerCase()} business. We&apos;ll reply within 24 hours with concrete next steps.
+                  {`Tell us about your ${breadcrumbCtx.current.name.toLowerCase()} business. We'll reply within 24 hours with concrete next steps.`}
                 </p>
                 <LeadForm
                   source={`Industry hero — ${breadcrumbCtx.current.name}`}

@@ -1,21 +1,24 @@
 import { Metadata } from 'next'
 import { siteConfig } from '@/data/site'
-import BlogPostPage from '@/app/blog/[slug]/page'
+import IndustryPage from '@/components/industry-pages/IndustryPage'
+import { getIndustryPageContent } from '@/data/industryPages'
+
+const content = getIndustryPageContent('locksmiths')!
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'Locksmith SEO Services - Get More Emergency Lockout Calls From Google',
-    description: 'We help locksmith businesses dominate Google Maps and local search. Emergency lockout calls, 24/7 visibility, and zero per-lead fees. Free audit.',
-    keywords: ['seo for locksmiths', 'locksmith seo', 'locksmith keywords', 'locksmith seo services', 'locksmith marketing', 'emergency locksmith seo', 'locksmith local seo', 'locksmith lead generation'],
+    title: content.metaTitle,
+    description: content.metaDescription,
+    keywords: content.keywords,
     alternates: { canonical: `${siteConfig.url}/local-seo/locksmiths` },
     openGraph: {
-      title: 'Locksmith SEO Services - Get More Emergency Lockout Calls From Google',
-      description: 'We help locksmith businesses dominate Google Maps and local search. Emergency lockout calls, 24/7 visibility, and zero per-lead fees.',
+      title: content.metaTitle,
+      description: content.metaDescription,
       url: `${siteConfig.url}/local-seo/locksmiths`,
     },
   }
 }
 
 export default function LocksmithSEOPage() {
-  return BlogPostPage({ params: Promise.resolve({ slug: 'locksmith-seo-guide' }) })
+  return <IndustryPage content={content} />
 }

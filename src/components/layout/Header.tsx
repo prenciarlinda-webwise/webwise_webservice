@@ -366,7 +366,6 @@ export default function Header() {
                     buttonClassName="text-sm text-text-secondary hover:text-accent transition-colors"
                   />
                 </div>
-                <a href={`tel:${siteConfig.phone.replace(/[^0-9+]/g, '')}`} className="text-sm text-text-secondary">{siteConfig.phone}</a>
               </div>
             </div>
           </div>

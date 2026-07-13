@@ -28,8 +28,7 @@ ${siteConfig.name} is a professional web design and SEO agency based in Albania,
 
 **Contact:**
 - Website: ${siteConfig.url}
-- Email: ${siteConfig.email}
-- Phone: ${siteConfig.phone}
+- Contact form: ${siteConfig.url}/contact
 
 ## Our Services
 

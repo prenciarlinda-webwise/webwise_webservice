@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import Script from 'next/script'
 import { notFound } from 'next/navigation'
-import { ArrowRight, Check, Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart } from 'lucide-react'
 import { services, siteConfig } from '@/data/site'
 import { generateServiceSchema, generateBreadcrumbSchema, generateFAQSchema, generateHowToSchema } from '@/lib/schemas'
 import { pageSEO } from '@/data/seo'
@@ -9,6 +8,13 @@ import { getServiceContent } from '@/data/serviceContent'
 import FAQSection from '@/components/sections/FAQSection'
 import PricingCTA from '@/components/forms/PricingCTA'
 import LeadForm from '@/components/forms/LeadForm'
+import { DoodleFlow, DoodleReceipt, DoodleTrendLine } from '@/components/ui/Doodle'
+
+const heroDoodles: Record<string, typeof DoodleFlow> = {
+  'web-applications': DoodleFlow,
+  'ecommerce-development': DoodleReceipt,
+  'ppc-advertising': DoodleTrendLine,
+}
 
 const subserviceToInitialService: Record<string, string> = {
   'local-seo': 'local-seo',
@@ -22,15 +28,6 @@ const subserviceToInitialService: Record<string, string> = {
   'social-media': 'digital-marketing',
   'content-marketing': 'digital-marketing',
   'analytics': 'digital-marketing',
-}
-
-const iconMap: { [key: string]: React.ElementType } = {
-  Search, Code, TrendingUp, MapPin, Globe, ShoppingCart, PenTool, Layers, FileText, Target, Share2, BarChart
-}
-
-function getIcon(iconName: string, size = 20) {
-  const IconComponent = iconMap[iconName]
-  return IconComponent ? <IconComponent size={size} /> : null
 }
 
 // UPDATED URL mappings
@@ -66,8 +63,6 @@ function generateLocalBusinessSchema() {
     "@id": `${siteConfig.url}/#localbusiness`,
     name: siteConfig.name,
     url: siteConfig.url,
-    telephone: siteConfig.phone,
-    email: siteConfig.email,
     address: { "@type": "PostalAddress", addressCountry: ["US", "GB"] },
     areaServed: [
       { "@type": "Country", name: "United States" },
@@ -89,6 +84,7 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
 
   const content = getServiceContent(subslug)
   const pageUrl = getCanonicalUrl(slug, subslug)
+  const HeroDoodle = heroDoodles[subslug]
 
   // UPDATED parent service URL
   const parentServiceUrl = slug === 'seo' ? `${siteConfig.url}/local-seo`
@@ -116,6 +112,13 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
     description: content.process.intro,
     steps: content.process.steps.map(step => ({ name: step.title, text: step.description })),
   }) : null
+  const webPageSchema = {
+    "@type": "WebPage",
+    "@id": `${pageUrl}#webpage`,
+    url: pageUrl,
+    name: content?.hero.headline || subservice.title,
+    speakable: { "@type": "SpeakableSpecification", cssSelector: [".aeo-answer"] },
+  }
 
   const schemaGraph = {
     "@context": "https://schema.org",
@@ -123,6 +126,7 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
       serviceSchema,
       breadcrumbSchema,
       generateLocalBusinessSchema(),
+      webPageSchema,
       ...(faqSchema ? [faqSchema] : []),
       ...(howToSchema ? [howToSchema] : []),
     ],
@@ -133,8 +137,14 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
       <Script id="schema-graph" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }} />
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-primary-dark py-20">
-        <div className="container px-6">
+      <section className="relative bg-gradient-to-br from-primary to-primary-dark py-20 overflow-hidden">
+        {HeroDoodle && (
+          <>
+            <HeroDoodle className="hidden lg:block absolute -top-4 -right-14 w-80 h-48 text-white/10 pointer-events-none" />
+            <HeroDoodle className="hidden lg:block absolute -bottom-14 -left-20 w-72 h-44 text-accent/10 pointer-events-none rotate-180" />
+          </>
+        )}
+        <div className="container px-6 relative">
           <nav className="flex items-center gap-2 text-white/60 text-sm mb-8 flex-wrap">
             <Link href="/" className="hover:text-white">Home</Link>
             <span>/</span>
@@ -144,9 +154,6 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
           </nav>
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="text-white">
-              <div className="w-16 h-16 flex items-center justify-center bg-white/10 rounded-2xl text-white mb-6">
-                {getIcon(subservice.icon, 32)}
-              </div>
               <h1 className="text-4xl lg:text-5xl font-bold mb-6">
                 {content?.hero.headline || subservice.title}
               </h1>
@@ -160,7 +167,7 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
             <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8">
               <h2 className="text-xl md:text-2xl font-bold text-primary mb-2">Get a Free Consultation</h2>
               <p className="text-sm text-text-secondary mb-5">
-                Tell us about your {subservice.title.toLowerCase()} needs. We&apos;ll reply within 24 hours.
+                {`Tell us about your ${subservice.title.toLowerCase()} needs. We'll reply within 24 hours.`}
               </p>
               <LeadForm
                 source={`${slug}/${subslug} hero`}
@@ -181,7 +188,7 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
                 <ul className="space-y-2">
                   {content.tldr.map((point, i) => (
                     <li key={i} className="flex items-start gap-3 text-text-secondary">
-                      <Check size={18} className="text-accent flex-shrink-0 mt-0.5" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0 mt-2" />
                       <span>{point}</span>
                     </li>
                   ))}
@@ -192,12 +199,30 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
         </section>
       )}
 
+      {/* What Is Section */}
+      {content?.definition && (
+        <section className="py-24 bg-white">
+          <div className="container px-6">
+            <div className="max-w-3xl mx-auto">
+              <h2 className="text-3xl font-bold text-primary mb-6">
+                {content.definition.question}
+              </h2>
+              <p className="aeo-answer text-lg text-text-primary leading-relaxed mb-6">
+                {content.definition.answer}
+              </p>
+              <p className="text-text-secondary leading-relaxed">
+                {content.definition.expansion}
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Packages */}
       {content?.packages && (
         <section className="py-24 bg-bg-secondary">
           <div className="container px-6">
             <div className="text-center mb-16">
-              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Our Packages</span>
               <h2 className="text-3xl font-bold text-primary mb-4">{content.packages.question}</h2>
               <p className="text-text-secondary max-w-3xl mx-auto">{content.packages.intro}</p>
             </div>
@@ -215,13 +240,13 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
                   <ul className="space-y-2 mb-6 flex-grow">
                     {tier.features.map((feature, j) => (
                       <li key={j} className="flex items-start gap-2 text-sm text-text-secondary">
-                        <Check size={14} className="text-accent flex-shrink-0 mt-0.5" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0 mt-2" />
                         {feature}
                       </li>
                     ))}
                   </ul>
                   <div className="bg-bg-secondary rounded-lg p-3 mb-6 text-xs text-text-muted">
-                    <strong className="text-primary">Best for:</strong> {tier.bestFor}
+                    <strong className="text-primary">Best for</strong> {tier.bestFor}
                   </div>
                   <PricingCTA
                     source={`${slug}/${subslug} — Package "${tier.name}" CTA`}
@@ -236,7 +261,7 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
             {content.packages.pricingLink && (
               <div className="text-center mt-10">
                 <Link href={content.packages.pricingLink} className="inline-flex items-center gap-2 text-accent font-medium hover:underline">
-                  View full pricing details <ArrowRight size={16} />
+                  View full pricing details →
                 </Link>
               </div>
             )}
@@ -249,7 +274,6 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
         <section className="py-24">
           <div className="container px-6">
             <div className="text-center mb-16">
-              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">What You Get</span>
               <h2 className="text-3xl font-bold text-primary mb-4">
                 {content.whyYouNeed.question || `What Web Wise Delivers with ${subservice.title}`}
               </h2>
@@ -271,7 +295,6 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
         <section className="py-24 bg-bg-secondary">
           <div className="container px-6">
             <div className="text-center mb-16">
-              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">How We Work</span>
               <h2 className="text-3xl font-bold text-primary mb-4">
                 {content.process.question || `What Web Wise Does for You`}
               </h2>
@@ -294,7 +317,7 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
                         <ul className="grid md:grid-cols-2 gap-2">
                           {step.details.map((detail, j) => (
                             <li key={j} className="flex items-center gap-2 text-sm text-text-muted">
-                              <Check size={14} className="text-accent flex-shrink-0" />
+                              <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
                               {detail}
                             </li>
                           ))}
@@ -315,7 +338,7 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
                     <ul className="space-y-1">
                       {content.process.deliverables.map((item, i) => (
                         <li key={i} className="flex items-center gap-2 text-sm text-white/80">
-                          <Check size={14} className="text-accent" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
                           {item}
                         </li>
                       ))}
@@ -333,7 +356,6 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
         <section className="py-24">
           <div className="container px-6">
             <div className="text-center mb-16">
-              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Industries</span>
               <h2 className="text-3xl font-bold text-primary mb-4">
                 {content.industries.question || `Which Industries Benefit From ${subservice.title}?`}
               </h2>
@@ -359,7 +381,6 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
         <section className="py-24">
           <div className="container px-6">
             <div className="text-center mb-16">
-              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Results</span>
               <h2 className="text-3xl font-bold text-primary mb-4">Results Web Wise Has Delivered</h2>
               <p className="text-text-secondary max-w-3xl mx-auto">{content.caseStudies.intro}</p>
             </div>
@@ -408,7 +429,6 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
       <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
           <div className="text-center mb-12">
-            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Related Services</span>
             <h2 className="text-3xl font-bold text-primary">Other {service.title}</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
@@ -421,9 +441,7 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
                   href={subserviceUrlMap[slug]?.[key] || `/services/${slug}/${key}`}
                   className="bg-white rounded-xl p-6 border border-border hover:shadow-lg hover:border-accent/30 transition-all group"
                 >
-                  <div className="w-12 h-12 flex items-center justify-center bg-bg-secondary rounded-lg text-accent group-hover:bg-accent group-hover:text-white transition-colors mb-4">
-                    {getIcon(sub.icon, 24)}
-                  </div>
+                  <div className="w-10 h-1 bg-accent rounded-full mb-4" />
                   <h3 className="font-semibold text-primary mb-2">{sub.title}</h3>
                   <p className="text-sm text-text-secondary mb-3 line-clamp-2">{sub.description}</p>
                   <span className="text-sm text-accent font-medium group-hover:underline">Learn more →</span>

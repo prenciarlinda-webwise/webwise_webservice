@@ -1,11 +1,11 @@
 import { Metadata } from 'next'
 import Script from 'next/script'
 import Link from 'next/link'
-import { Zap, MessageSquare, Check, ArrowRight, Mic, Globe } from 'lucide-react'
 import { siteConfig } from '@/data/site'
 import { pageSEO } from '@/data/seo'
 import LeadForm from '@/components/forms/LeadForm'
 import PricingCTA from '@/components/forms/PricingCTA'
+import { DoodleUnderline } from '@/components/ui/Doodle'
 
 export async function generateMetadata(): Promise<Metadata> {
   const seoData = pageSEO['ai-search-optimization']
@@ -69,7 +69,7 @@ const jsonLd = {
       name: 'AI Search Optimization Services - GEO & AEO for 2026',
       speakable: {
         '@type': 'SpeakableSpecification',
-        cssSelector: ['#what-is'],
+        cssSelector: ['#what-is', '.hero-answer'],
       },
       breadcrumb: { '@id': `${siteConfig.url}/ai-search-optimization#breadcrumb` },
     },
@@ -79,7 +79,7 @@ const jsonLd = {
       mainEntity: [
         {
           '@type': 'Question',
-          name: 'What is AI search optimization?',
+          name: 'What Is AI Search Optimization?',
           acceptedAnswer: {
             '@type': 'Answer',
             text: 'AI search optimization (also called GEO or AEO) is the practice of structuring your content, authority signals, and entity data so that AI-powered search engines like ChatGPT, Perplexity, and Google AI Overviews cite or recommend your business when users ask relevant questions.',
@@ -87,7 +87,7 @@ const jsonLd = {
         },
         {
           '@type': 'Question',
-          name: 'How is GEO different from SEO?',
+          name: 'How Is GEO Different From SEO?',
           acceptedAnswer: {
             '@type': 'Answer',
             text: 'Traditional SEO targets ranked blue links; GEO (Generative Engine Optimization) targets the AI-synthesized answers that appear above those links or replace them entirely. GEO focuses on entity authority, structured data, citation-worthy content, and topical depth rather than keyword density alone.',
@@ -95,7 +95,7 @@ const jsonLd = {
         },
         {
           '@type': 'Question',
-          name: 'Can you appear in ChatGPT results?',
+          name: 'Can You Appear in ChatGPT Results?',
           acceptedAnswer: {
             '@type': 'Answer',
             text: 'Yes. ChatGPT and Perplexity draw on indexed web content, Bing search data, and trusted third-party sources. By building strong entity authority, earning citations on high-trust sites, and publishing structured Q&A content, businesses can increase their likelihood of being cited in AI-generated answers.',
@@ -103,7 +103,7 @@ const jsonLd = {
         },
         {
           '@type': 'Question',
-          name: 'How long does AI search optimization take?',
+          name: 'How Long Does AI Search Optimization Take?',
           acceptedAnswer: {
             '@type': 'Answer',
             text: 'Initial improvements, such as appearing in Google AI Overviews for branded queries, typically take 6 to 12 weeks. Appearing consistently in ChatGPT or Perplexity for competitive queries usually requires 3 to 6 months of sustained entity-building and content authority work.',
@@ -123,19 +123,16 @@ const tldrPoints = [
 
 const whatWeOptimizeFor = [
   {
-    Icon: Globe,
     title: 'Google AI Overviews',
     description:
-      'Google SGE/AI Overviews appear at the top of SERPs for millions of queries. We optimise your content structure, entity signals, and E-E-A-T indicators so Google pulls your answers into the overview box rather than a competitor\'s.',
+      'Google SGE/AI Overviews appear at the top of SERPs for millions of queries. We optimize your content structure, entity signals, and E-E-A-T indicators so Google pulls your answers into the overview box rather than a competitor\'s.',
   },
   {
-    Icon: MessageSquare,
     title: 'ChatGPT & Perplexity',
     description:
       'ChatGPT Browse, GPT-4o, and Perplexity all pull from indexed web content and third-party citations. We build the authority signals and structured content that make these models reference your business when users ask industry questions.',
   },
   {
-    Icon: Mic,
     title: 'Voice & Answer Engines',
     description:
       'Siri, Alexa, and Google Assistant read Featured Snippet and schema-structured content. We craft concise, spoken-English answers and FAQ schema so your business becomes the default answer for local and industry voice queries.',
@@ -157,7 +154,7 @@ const processSteps = [
   },
   {
     step: '03',
-    title: 'AEO Content Optimisation',
+    title: 'AEO Content Optimization',
     description:
       'We rewrite or create content using direct-answer formats: concise definition paragraphs, FAQ schema, How-To schema, and speakable markup, exactly what AI models extract when generating answers.',
   },
@@ -171,34 +168,34 @@ const processSteps = [
 
 const faqs = [
   {
-    question: 'What is AI search optimization?',
+    question: 'What Is AI Search Optimization?',
     answer:
       'AI search optimization (also called GEO or AEO) is the practice of structuring your content, authority signals, and entity data so that AI-powered engines like ChatGPT, Perplexity, and Google AI Overviews cite or recommend your business when users ask relevant questions.',
   },
   {
-    question: 'How is GEO different from SEO?',
+    question: 'How Is GEO Different From SEO?',
     answer:
       'Traditional SEO targets ranked blue links; GEO targets the AI-synthesized answers that appear above or replace those links. GEO focuses on entity authority, structured data, citation-worthy content, and topical depth rather than keyword density alone.',
   },
   {
-    question: 'Can you appear in ChatGPT results?',
+    question: 'Can You Appear in ChatGPT Results?',
     answer:
       'Yes. ChatGPT and Perplexity draw on indexed web content, Bing search data, and trusted third-party sources. Strong entity authority, citations on high-trust sites, and structured Q&A content all increase the likelihood of being cited in AI-generated answers.',
   },
   {
-    question: 'How long does AI search optimization take?',
+    question: 'How Long Does AI Search Optimization Take?',
     answer:
       'Initial improvements, such as appearing in Google AI Overviews for branded queries, typically take 6 to 12 weeks. Consistent appearance in ChatGPT or Perplexity for competitive queries usually requires 3 to 6 months of sustained entity-building and content authority work.',
   },
 ]
 
 const comparisonRows = [
-  { label: 'Primary goal', traditional: 'Rank on page one', ai: 'Get cited in AI answers' },
-  { label: 'Key metric', traditional: 'Keyword rankings', ai: 'Citation frequency & AI impressions' },
-  { label: 'Content format', traditional: 'Long-form keyword-rich pages', ai: 'Direct-answer, structured Q&A' },
-  { label: 'Authority signals', traditional: 'Backlink count & domain authority', ai: 'Entity recognition & citation quality' },
-  { label: 'Click-through', traditional: 'Users click blue links', ai: 'Answer delivered without click' },
-  { label: 'Schema markup', traditional: 'Nice to have', ai: 'Essential for extraction' },
+  { label: 'Primary Goal', traditional: 'Rank on page one', ai: 'Get cited in AI answers' },
+  { label: 'Key Metric', traditional: 'Keyword rankings', ai: 'Citation frequency & AI impressions' },
+  { label: 'Content Format', traditional: 'Long-form keyword-rich pages', ai: 'Direct-answer, structured Q&A' },
+  { label: 'Authority Signals', traditional: 'Backlink count & domain authority', ai: 'Entity recognition & citation quality' },
+  { label: 'Click-Through', traditional: 'Users click blue links', ai: 'Answer delivered without click' },
+  { label: 'Schema Markup', traditional: 'Nice to have', ai: 'Essential for extraction' },
 ]
 
 export default function AISearchOptimizationPage() {
@@ -227,22 +224,31 @@ export default function AISearchOptimizationPage() {
 
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div>
-              <p className="block text-xs font-bold text-accent uppercase tracking-widest mb-6">GEO and AEO for 2026</p>
               <h1 className="text-4xl lg:text-5xl font-display font-bold leading-tight mb-6">
-                Get Found in ChatGPT, Perplexity and Google AI
+                AI Search{' '}
+                <span className="relative inline-block">
+                  Optimization
+                  <DoodleUnderline className="absolute left-0 -bottom-1 w-full h-3 text-accent" />
+                </span>
               </h1>
               <p className="text-lg text-white/80 mb-8 leading-relaxed">
                 Traditional SEO gets you ranked. AI Search Optimization, through Generative Engine Optimization (GEO) and Answer Engine Optimization (AEO), gets you <strong className="text-white">cited inside the answer</strong>. We help small businesses become the source AI models quote when customers ask questions in your industry.
+              </p>
+              <h2 className="text-xl lg:text-2xl font-display font-semibold text-accent mb-4">
+                How to Get Cited in ChatGPT, Perplexity, and Google AI Overviews
+              </h2>
+              <p className="hero-answer text-base lg:text-lg text-white/90 mb-8 leading-relaxed">
+                You get cited by structuring your content as direct, quotable answers, building the entity and citation authority AI models cross-reference, and keeping your brand data consistent everywhere ChatGPT, Perplexity, and Google AI Overviews look for it.
               </p>
               <ul className="space-y-3 mb-8">
                 {[
                   'Appear in Google AI Overviews & SGE',
                   'Get cited by ChatGPT, Perplexity & Copilot',
-                  'Optimise for voice & answer engines',
+                  'Optimize for voice & answer engines',
                   'Build entity authority AI models trust',
                 ].map((point) => (
                   <li key={point} className="flex items-center gap-3 text-white/90">
-                    <Check size={16} className="text-accent flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
                     {point}
                   </li>
                 ))}
@@ -252,8 +258,7 @@ export default function AISearchOptimizationPage() {
                   href="#contact"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-orange-600 transition-colors"
                 >
-                  Get My Free GEO Audit
-                  <ArrowRight size={16} />
+                  Get My Free GEO Audit →
                 </Link>
                 <Link
                   href="#what-is"
@@ -285,13 +290,13 @@ export default function AISearchOptimizationPage() {
       <section className="py-12 bg-bg-secondary">
         <div className="container mx-auto px-6">
           <div className="max-w-3xl mx-auto border-l-4 border-accent bg-white rounded-r-xl p-6 shadow-sm">
-            <p className="text-sm font-semibold text-accent uppercase tracking-wide mb-4">
+            <h2 className="text-lg font-display font-bold text-primary mb-4">
               Key Takeaways
-            </p>
+            </h2>
             <ul className="space-y-3">
               {tldrPoints.map((point) => (
                 <li key={point} className="flex items-start gap-3 text-text-secondary">
-                  <Zap size={16} className="text-accent flex-shrink-0 mt-0.5" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0 mt-2" />
                   <span>{point}</span>
                 </li>
               ))}
@@ -314,7 +319,7 @@ export default function AISearchOptimizationPage() {
               It encompasses two complementary disciplines: <strong className="text-primary">GEO (Generative Engine Optimization)</strong>, which focuses on getting AI language models to reference your brand in their generated responses, and <strong className="text-primary">AEO (Answer Engine Optimization)</strong>, which structures your content so it can be cleanly extracted and surfaced as a direct answer in AI Overviews, featured snippets, voice responses, and chatbot replies.
             </p>
             <p className="text-text-secondary leading-relaxed">
-              As search behaviour shifts from clicking links to receiving synthesised answers, businesses that invest in GEO and AEO now will hold a compounding advantage: their brand becomes the trusted source AI models learn to cite, creating a self-reinforcing cycle of visibility and authority.
+              As search behavior shifts from clicking links to receiving synthesized answers, businesses that invest in GEO and AEO now will hold a compounding advantage. Their brand becomes the trusted source AI models learn to cite, creating a self-reinforcing cycle of visibility and authority.
             </p>
           </div>
         </div>
@@ -367,12 +372,12 @@ export default function AISearchOptimizationPage() {
         </div>
       </section>
 
-      {/* ── What We Optimise For ────────────────────────────────── */}
+      {/* ── What We Optimize For ────────────────────────────────── */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-display font-bold text-primary mb-4">
-              What We Optimise For
+              What We Optimize For
             </h2>
             <p className="text-text-secondary text-lg max-w-2xl mx-auto">
               AI search is not one platform. We build your presence across every major AI-powered surface where your future customers are asking questions.
@@ -380,14 +385,12 @@ export default function AISearchOptimizationPage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {whatWeOptimizeFor.map(({ Icon, title, description }) => (
+            {whatWeOptimizeFor.map(({ title, description }) => (
               <div
                 key={title}
                 className="border border-border rounded-xl p-8 hover:shadow-md transition-shadow group"
               >
-                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-5 group-hover:bg-accent/20 transition-colors">
-                  <Icon size={22} className="text-accent" />
-                </div>
+                <div className="w-10 h-1 bg-accent rounded-full mb-5" />
                 <h3 className="text-xl font-display font-bold text-primary mb-3">{title}</h3>
                 <p className="text-text-secondary leading-relaxed">{description}</p>
               </div>
@@ -458,8 +461,8 @@ export default function AISearchOptimizationPage() {
               AI Overviews, ChatGPT, and Perplexity draw heavily on the same authority signals as traditional Google rankings, Google Business Profile strength, reviews, citations, and well-structured content. Most clients pair AI Search Optimization with our{' '}
               <Link href="/local-seo" className="text-accent hover:underline font-medium">Local SEO services</Link>{' '}
               for the strongest combined result. See full{' '}
-              <Link href="/pricing" className="text-accent hover:underline font-medium">pricing and package details</Link>{' '}
-              — packages start at $480/month and are fully customizable to your business.
+              <Link href="/pricing" className="text-accent hover:underline font-medium">pricing and package details</Link>
+              , packages start at $480/month and are fully customizable to your business.
             </p>
           </div>
         </div>
@@ -468,7 +471,6 @@ export default function AISearchOptimizationPage() {
       {/* ── Bottom CTA ───────────────────────────────────────────── */}
       <section className="py-24 bg-primary text-white">
         <div className="container mx-auto px-6 text-center">
-          <p className="block text-xs font-bold text-white/60 uppercase tracking-widest mb-6">Free GEO Audit</p>
           <h2 className="text-3xl lg:text-4xl font-display font-bold mb-4">
             Ready to Get Found in AI Search?
           </h2>

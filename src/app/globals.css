@@ -27,6 +27,8 @@
   /* Fonts */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-display: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  /* Handwritten accent, used sparingly for human touches, never for body copy */
+  --font-caveat: 'Caveat', cursive;
 }
 
 /* Base styles */
@@ -66,6 +68,102 @@ video {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Hides scrollbar on horizontal scroll walls (case studies, portfolio strips) while keeping scroll functional */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ===== Page-archetype utilities ===== */
+/* These are shared across a family of pages that lean on the same visual system
+   (e.g. every "trust/proof" page, every "technical/terminal" page) rather than
+   being one-off per page, so a new page in a family gets the identity for free. */
+
+/* Trust/proof archetype (local-seo hub + industry pages): soft ambient light wash for light hero/section backgrounds */
+.ambient-light {
+  position: relative;
+}
+.ambient-light::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(237, 124, 33, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Shared AEO/speakable answer card, left-accent border. Also the stable selector
+   JSON-LD speakable schema targets on any page that uses it. */
+.aeo-answer {
+  border-left: 4px solid var(--color-accent);
+  background: var(--color-bg-secondary);
+  border-radius: 0 0.75rem 0.75rem 0;
+  padding: 1.5rem;
+}
+
+/* Tinted diagonal wash for long-form definition sections, no cards */
+.diagonal-wash {
+  background: linear-gradient(135deg, var(--color-bg-secondary) 0%, rgba(237, 124, 33, 0.06) 50%, var(--color-bg-secondary) 100%);
+}
+
+/* Technical/terminal archetype (web dev + technical SEO pages) */
+.bg-dot-grid {
+  background-image: radial-gradient(circle, var(--color-border) 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+}
+
+.bg-orbit-dark {
+  background-color: var(--color-primary-dark);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.terminal {
+  background: #14152b;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.terminal-step {
+  opacity: 0;
+  animation: terminal-reveal 0.4s ease forwards;
+}
+.terminal-step:nth-child(1) { animation-delay: 0.1s; }
+.terminal-step:nth-child(2) { animation-delay: 0.5s; }
+.terminal-step:nth-child(3) { animation-delay: 0.9s; }
+.terminal-step:nth-child(4) { animation-delay: 1.3s; }
+.terminal-step:nth-child(5) { animation-delay: 1.7s; }
+.terminal-step:nth-child(6) { animation-delay: 2.1s; }
+
+@keyframes terminal-reveal {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cursor-blink::after {
+  content: '_';
+  margin-left: 2px;
+  color: var(--color-accent);
+  animation: cursor-blink-anim 1s step-start infinite;
+}
+@keyframes cursor-blink-anim {
+  50% { opacity: 0; }
+}
+
+.glass-form {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 /* Container */
