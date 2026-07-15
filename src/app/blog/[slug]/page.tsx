@@ -463,6 +463,21 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                       continue
                     }
 
+                    // Inline honest-answer callout: {{ask:Question text|Answer text}}
+                    const askMatch = trimmed.match(/^\{\{ask:([^|]+)\|([^}]+)\}\}$/)
+                    if (askMatch) {
+                      const [, askQuestion, askAnswer] = askMatch
+                      elements.push(
+                        <div key={i} className="my-8 border-l-4 border-accent bg-accent/5 rounded-r-xl px-6 py-5">
+                          <p className="text-xs font-bold text-accent uppercase tracking-wide mb-2">A Client Asked</p>
+                          <p className="text-primary font-semibold italic mb-2">&quot;{askQuestion}&quot;</p>
+                          <p className="text-text-secondary leading-relaxed">{parseInlineMarkdown(askAnswer)}</p>
+                        </div>
+                      )
+                      i++
+                      continue
+                    }
+
                     // Image: ![alt](src)
                     const imgMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)$/)
                     if (imgMatch) {
