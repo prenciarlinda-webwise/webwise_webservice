@@ -11343,7 +11343,7 @@ Want a second opinion on what your own Search Console data is actually telling y
     ],
     content: `A backlink is a link from another website pointing to yours, and Google treats it as a vote of confidence, but not every vote counts the same, which is exactly why our [SEO services](/seo-services) treat link quality, not link quantity, as the metric that actually moves rankings.
 
-{{cta:seo-services|Get a Free Backlink Profile Review}}
+{{cta:local-seo|Get a Free Backlink Profile Review}}
 
 ## What Is a Backlink
 
@@ -11465,7 +11465,7 @@ Want an honest look at what your current backlink profile actually contains, and
     ],
     content: `Bounce rate measures the percentage of visits where someone lands on a page and leaves without taking another action, and on its own it tells you almost nothing since a high number can mean a page failed or succeeded depending on the page. It's one of the first things we check during a [website audit](/custom-web-development), and it matters more than most business owners assume because it is routinely misread in both directions.
 
-{{cta:custom-web-development|Get a Free Website Audit}}
+{{cta:website-dev|Get a Free Website Audit}}
 
 ## What Bounce Rate Actually Measures
 
@@ -11991,7 +11991,7 @@ Not sure whether your site's existing schema is accurate, complete, or even pres
     ],
     content: `Vague reassurance like "the site is fast enough" is not a number, and speed is one of the few things in [website development](/custom-web-development) you can verify yourself in under a minute, for free, without needing to trust anyone's word for it.
 
-{{cta:custom-web-development|Get a Free Site Speed Check}}
+{{cta:website-dev|Get a Free Site Speed Check}}
 
 ## Why Load Speed Actually Matters
 
@@ -12769,7 +12769,7 @@ Want to know how your business is actually performing across AI Overviews, the M
     ],
     content: `Your website should be evaluated the same way a contractor evaluates a building, is the foundation sound, or is the whole structure compromised, because a full [custom rebuild](/custom-web-development) and a lighter redesign solve completely different problems, and confusing the two usually means either overpaying or under-fixing.
 
-{{cta:custom-web-development|Get a Free Website Assessment}}
+{{cta:website-dev|Get a Free Website Assessment}}
 
 ## The Real Question Is Not Old vs New, It Is Broken vs Outdated
 
@@ -13453,7 +13453,7 @@ Want help sizing a Google Ads budget around your actual numbers instead of a gue
     ],
     content: `A vendor offering fifty backlinks for a couple hundred dollars is one of the most common shortcuts pitched to local business owners trying to speed up their [SEO Services](/seo-services) results, and it is worth understanding exactly what that pricing buys before saying yes.
 
-{{cta:seo-services|Get a Free Backlink Profile Audit}}
+{{cta:local-seo|Get a Free Backlink Profile Audit}}
 
 ## What Counts as a Backlink Worth Having
 
@@ -13890,7 +13890,7 @@ const industryPostSlugs = [
 ]
 
 // Check if a post should be published (no publishDate or publishDate <= today)
-const isPublished = (post: BlogPost): boolean => {
+export const isPublished = (post: BlogPost): boolean => {
   if (!post.publishDate) return true
   const today = new Date().toISOString().split('T')[0]
   return post.publishDate <= today

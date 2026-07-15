@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { ArrowRight, Home, Briefcase, FolderOpen, DollarSign, Users, Mail, BookOpen, Search, Code, TrendingUp } from 'lucide-react'
 import { services, clients, siteConfig } from '@/data/site'
-import { blogPosts } from '@/data/blog'
+import { blogPosts, isPublished } from '@/data/blog'
 import PricingCTA from '@/components/forms/PricingCTA'
 
 export const metadata = {
@@ -79,9 +79,11 @@ const blogUrlMap: Record<string, string> = {
 }
 
 export default function SitemapPage() {
+  // Exclude scheduled posts that haven't hit their publishDate yet — their URLs 404 until then
+  const publishedPosts = blogPosts.filter(isPublished)
   // Separate blog posts: industry pages vs regular blog
-  const industryPosts = blogPosts.filter(post => blogToIndustryMap[post.slug])
-  const regularBlogPosts = blogPosts.filter(post => !blogToIndustryMap[post.slug])
+  const industryPosts = publishedPosts.filter(post => blogToIndustryMap[post.slug])
+  const regularBlogPosts = publishedPosts.filter(post => !blogToIndustryMap[post.slug])
 
   return (
     <>
