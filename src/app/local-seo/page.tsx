@@ -218,6 +218,12 @@ const industries = [
   { name: 'Painters', slug: 'painters' },
   { name: 'Landscapers', slug: 'landscaping' },
   { name: 'Cleaning Services', slug: 'cleaning' },
+  { name: 'Construction', slug: 'construction' },
+  { name: 'Pest Control', slug: 'pest-control' },
+  { name: 'Movers', slug: 'moving' },
+  { name: 'Locksmiths', slug: 'locksmiths' },
+  { name: 'Auto Detailing', slug: 'auto-detailing' },
+  { name: 'Dumpster Rental', slug: 'dumpster-rental' },
 ]
 
 const processSteps = [
@@ -298,9 +304,9 @@ export default function LocalSEOPage() {
         <div className="container px-6 relative">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-6xl font-display font-bold text-primary leading-[1.05] mb-6">
-              Local SEO Services That Get You Found on{' '}
+              Local{' '}
               <span className="relative inline-block">
-                Google Maps
+                SEO Services
                 <DoodleUnderline className="absolute left-0 -bottom-1 w-full h-3 text-accent" />
               </span>
             </h1>
@@ -594,9 +600,9 @@ export default function LocalSEOPage() {
               </p>
               <div className="grid grid-cols-2 gap-6 mb-6">
                 {[
-                  { metric: '+290%', label: 'Organic Traffic' },
+                  { metric: '+553%', label: 'Organic Traffic' },
                   { metric: '+245%', label: 'Monthly Leads' },
-                  { metric: '20+', label: 'Keywords Ranked' },
+                  { metric: '911+', label: 'Keywords Ranked' },
                   { metric: 'Top 5', label: 'Local Pack Result' },
                 ].map(({ metric, label }) => (
                   <div key={label}>

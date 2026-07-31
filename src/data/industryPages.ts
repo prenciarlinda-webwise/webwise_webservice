@@ -69,7 +69,7 @@ export const industryPages: Record<string, IndustryPageContent> = {
     slug: 'plumbers',
     tradeName: 'Plumbers',
     tradePlural: 'plumbing companies',
-    metaTitle: 'Local SEO for Plumbers That Gets You Found on Google Maps',
+    metaTitle: 'Local SEO for Plumbers - SEO Leads',
     metaDescription:
       'We help plumbing companies dominate Google Maps and local search. Emergency plumber keywords, Map Pack rankings, and real traffic growth. Free local SEO audit.',
     keywords: [
@@ -209,7 +209,7 @@ export const industryPages: Record<string, IndustryPageContent> = {
       metrics: [
         { metric: '+553%', label: 'Search Impressions' },
         { metric: '+245%', label: 'Monthly Leads' },
-        { metric: '20+', label: 'Keywords Ranked' },
+        { metric: '911+', label: 'Keywords Ranked' },
         { metric: '#1', label: 'For PEX Repiping NJ' },
       ],
     },
@@ -255,7 +255,7 @@ export const industryPages: Record<string, IndustryPageContent> = {
     slug: 'painters',
     tradeName: 'Painters',
     tradePlural: 'painting contractors',
-    metaTitle: 'Local SEO for Painters That Gets You Found on Google Maps',
+    metaTitle: 'Local SEO for Painters - SEO Leads',
     metaDescription:
       'We help painting contractors dominate Google Maps and local search. Exterior repaint keywords, Map Pack rankings, and real traffic growth. Free local SEO audit.',
     keywords: [
@@ -441,7 +441,7 @@ export const industryPages: Record<string, IndustryPageContent> = {
     slug: 'roofing',
     tradeName: 'Roofers',
     tradePlural: 'roofing companies',
-    metaTitle: 'Local SEO for Roofers That Gets You Found on Google Maps',
+    metaTitle: 'Local SEO for Roofers - SEO Leads',
     metaDescription:
       'We help roofing companies dominate Google Maps and local search. Storm damage and roof replacement keywords, Map Pack rankings, and real traffic growth. Free local SEO audit.',
     keywords: [
@@ -627,7 +627,7 @@ export const industryPages: Record<string, IndustryPageContent> = {
     slug: 'locksmiths',
     tradeName: 'Locksmiths',
     tradePlural: 'locksmith businesses',
-    metaTitle: 'Local SEO for Locksmiths That Gets You Found on Google Maps',
+    metaTitle: 'Local SEO for Locksmiths - SEO Leads',
     metaDescription:
       'We help locksmith businesses dominate Google Maps and local search. Emergency lockout keywords, Map Pack rankings, and real call growth. Free local SEO audit.',
     keywords: [

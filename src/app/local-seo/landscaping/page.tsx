@@ -3,7 +3,7 @@ import { siteConfig } from '@/data/site'
 import BlogPostPage from '@/app/blog/[slug]/page'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = 'SEO for Landscapers - Landscaping SEO That Books Every Season'
+  const title = 'Landscaping SEO - Lawn Care SEO'
   const description = 'SEO for landscapers and lawn care companies that keeps your schedule full from spring cleanup to snow removal. Rank on Google Maps, beat local competitors, generate qualified leads.'
   return {
     title,

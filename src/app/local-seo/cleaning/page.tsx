@@ -3,7 +3,7 @@ import { siteConfig } from '@/data/site'
 import BlogPostPage from '@/app/blog/[slug]/page'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = 'SEO for Cleaning Companies - Get More Clients From Google'
+  const title = 'Local SEO for Cleaning Companies - SEO Leads'
   const description = 'SEO for cleaning companies that turns Google search into recurring residential and commercial contracts. Rank for "cleaning service near me" and stop relying on Thumbtack.'
   return {
     title,

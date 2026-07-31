@@ -18,6 +18,7 @@ const slugMap: Record<string, string> = {
   'msc-certification': 'msc-certification-web-application-development',
   'aaa-remodels': 'aaa-remodels-jacksonville-home-remodeling-seo-website',
   'torra-gips': 'torra-gips-construction-company-website-design',
+  'alpha-pro-construction': 'alpha-pro-construction-roofing-seo-website-design',
 }
 
 export async function generateStaticParams() {

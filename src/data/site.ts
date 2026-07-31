@@ -190,7 +190,7 @@ export const clients: Record<string, Client> = {
     results: {
       trafficIncrease: '+553%',
       leadsIncrease: '245%',
-      rankingKeywords: '20+',
+      rankingKeywords: '911+',
     },
     keywordRankings: [
       // Money-keyword service pages
@@ -440,7 +440,7 @@ Phase 4 - AI-first content: Long-form, structured service pages designed to be c
     results: {
       trafficIncrease: '380%',
       leadsIncrease: '295%',
-      rankingKeywords: '52+',
+      rankingKeywords: '734+',
     },
     keywordRankings: [
       {
@@ -511,7 +511,7 @@ Phase 4 - AI-first content: Long-form, structured service pages designed to be c
     results: {
       trafficIncrease: '315%',
       leadsIncrease: '260%',
-      rankingKeywords: '41+',
+      rankingKeywords: '42+',
     },
   },
   northstarhome: {
@@ -539,7 +539,7 @@ Phase 4 - AI-first content: Long-form, structured service pages designed to be c
     results: {
       trafficIncrease: '445%',
       leadsIncrease: '350%',
-      rankingKeywords: '67+',
+      rankingKeywords: '561+',
     },
     keywordRankings: [
       // Brand + top Jacksonville rentals (home page)
@@ -738,7 +738,7 @@ Specific constraints we had to design around: Albanian-language UX as the primar
     results: {
       trafficIncrease: '320%',
       leadsIncrease: '275%',
-      rankingKeywords: '45+',
+      rankingKeywords: '282+',
     },
   },
   sunriseautorent: {
@@ -822,6 +822,114 @@ Specific constraints we had to design around: Albanian-language UX as the primar
     services: ['Website Design'],
     description: 'Flooring contractor offering hardwood, laminate, tile, and vinyl installation. Placeholder entry — replace services / description with final copy once confirmed.',
   },
+  alphaproconstruction: {
+    name: 'Alpha Pro Construction',
+    slug: 'alpha-pro-construction-roofing-seo-website-design',
+    url: 'https://www.alphaproconstructionllc.com',
+    image: getScreenshot('https://www.alphaproconstructionllc.com'),
+    industry: 'Roofing',
+    services: ['Local SEO', 'Website Design'],
+    description: 'Website design and local SEO for this Bridgewater, NJ roofing, gutter, chimney, and masonry contractor serving 130+ towns statewide. Alpha Pro came to us in June 2026 with zero organic traffic, zero AI mentions, and a tracked footprint of just 60 keywords. Sixty days later they are ranking on page one across Newark, Elmwood Park, Garfield, Rahway, Cranford, Ridgewood, Hackensack, and Belleville, including a top 10 organic position for "metal roof cost," a nationally searched term pulling 9,900 monthly searches. Tracked keywords have more than tripled to 208, and the new site has already generated 15+ roofing leads inside the first two months.',
+    results: {
+      trafficIncrease: '0 to 135/mo',
+      leadsIncrease: '15+',
+      rankingKeywords: '208+',
+    },
+    keywordRankings: [
+      {
+        keyword: 'roof replacement cranford',
+        serp: 2,
+      },
+      {
+        keyword: 'roof repair near garfield nj',
+        serp: 3,
+      },
+      {
+        keyword: 'roof repair rahway',
+        serp: 3,
+        note: 'Page one for a term pulling 1,000 monthly searches',
+      },
+      {
+        keyword: 'roof repair cranford nj',
+        serp: 3,
+      },
+      {
+        keyword: 'roof replacement ridgewood nj',
+        serp: 3,
+      },
+      {
+        keyword: 'roof repair belleville nj',
+        serp: 3,
+      },
+      {
+        keyword: 'roof repair newark nj',
+        serp: 4,
+      },
+      {
+        keyword: 'storm damage roof repair new jersey',
+        serp: 5,
+      },
+      {
+        keyword: 'roof repair near ridgewood nj',
+        serp: 5,
+      },
+      {
+        keyword: 'roof flashing repair nj',
+        serp: 6,
+      },
+      {
+        keyword: 'newark nj roof repair',
+        serp: 8,
+      },
+      {
+        keyword: 'hackensack roof repair',
+        serp: 8,
+      },
+      {
+        keyword: 'metal roof cost',
+        serp: 10,
+        note: 'Nationally searched term with 9,900 monthly searches, a rare page one spot for a two-month-old local site',
+      },
+      {
+        keyword: 'storm damage roof replacement',
+        serp: 10,
+      },
+      {
+        keyword: 'insurance storm damage repair nj',
+        serp: 10,
+      },
+      {
+        keyword: 'roof repair cost',
+        serp: 13,
+        note: 'High-volume national term (6,600 monthly searches), currently just off page one',
+      },
+      {
+        keyword: 'metal roofing cost',
+        serp: 16,
+      },
+      {
+        keyword: 'gutter repair livingston nj',
+        serp: 15,
+      },
+    ],
+    challenge: `Alpha Pro Construction is a roofing, chimney, gutter, and masonry contractor based in Bridgewater, New Jersey, competing across more than 130 towns statewide. When they came to us in June 2026, the business had almost no digital footprint. Zero organic traffic, zero mentions inside Google's AI Overviews, and a tracked keyword count of only 60, most of them low-value or irrelevant.
+
+New Jersey roofing is one of the most fragmented, storm-driven markets in the country. Demand spikes hard after severe weather, and homeowners searching in that moment go straight to whoever shows up first, whether that's an established local crew or a national storm-chasing outfit running paid ads. Alpha Pro needed to go from invisible to visible fast, across dozens of towns at once, without months to build up domain authority the traditional way.`,
+    solution: `We built the site and the SEO strategy in parallel instead of sequencing them.
+
+First, the foundation. A new, fast website with dedicated pages for each core service (roof repair, roof replacement, gutters, chimneys, masonry) and for the highest-value towns in Alpha Pro's service area, each with the schema, internal linking, and local signals needed to rank.
+
+Second, breadth over a single hub. Rather than optimizing one location page and hoping it carried the whole state, we built out individual town pages for the NJ markets generating real search volume, from Newark and Elizabeth to Cranford, Ridgewood, Hackensack, and Belleville. That let Alpha Pro compete for dozens of "roof repair [town]" searches at once instead of one at a time.
+
+Third, we went after the high-volume commercial terms most local roofers skip because the competition looks too steep, like "metal roof cost" and "roof repair cost," both searched thousands of times a month nationally. Landing on page one for terms like that is unusual for a brand-new local site, and it's where a lot of the qualified traffic is coming from.
+
+Two months in, Alpha Pro has gone from 60 tracked keywords to 208, and from zero organic traffic to a growing stream of leads, already 15+ and climbing, entirely from search.`,
+    timelineSteps: [
+      { step: '1', title: 'Month 1', desc: 'New Web Wise site launched with dedicated service and town pages. Schema, internal linking, and local signals built in from day one.' },
+      { step: '2', title: 'Month 2', desc: 'Page one rankings land across Newark, Cranford, Ridgewood, Hackensack, and Belleville, plus a top 10 position for the high-volume term "metal roof cost."' },
+      { step: '3', title: 'Now', desc: 'Tracked keywords grow from 60 to 208. The site generates its first 15+ roofing leads in under 60 days, up from zero organic traffic at the start.' },
+    ],
+  },
 }
 
 // Industries we serve (for case studies and local-seo pages)
@@ -886,6 +994,7 @@ const caseStudyShortSlugs: Record<string, string> = {
   'paint-techs-painting-contractor-seo-website-redesign': 'paint-techs',
   'msc-certification-web-application-development': 'msc-certification',
   'aaa-remodels-jacksonville-home-remodeling-seo-website': 'aaa-remodels',
+  'alpha-pro-construction-roofing-seo-website-design': 'alpha-pro-construction',
 }
 
 // Get featured case studies for nav dropdown (clients with results/SEO work)

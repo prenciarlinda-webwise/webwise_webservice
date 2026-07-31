@@ -126,7 +126,7 @@ const caseStudies = [
     type: 'Local SEO + Website',
     description: 'Complete website rebuild and local SEO for East Brunswick, NJ plumber.',
     services: ['Website Development', 'Local SEO', 'Brand Strategy'],
-    results: { traffic: '290%', leads: '245%', keywords: '20+', extra: 'Local Pack Top 5' },
+    results: { traffic: '553%', leads: '245%', keywords: '911+', extra: 'Local Pack Top 5' },
     image: clients.illyrianplumber.image,
   },
   {

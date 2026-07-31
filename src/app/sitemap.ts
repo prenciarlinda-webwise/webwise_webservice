@@ -22,6 +22,7 @@ const caseStudySlugMap: Record<string, string> = {
   'msc-certification-web-application-development': 'msc-certification',
   'aaa-remodels-jacksonville-home-remodeling-seo-website': 'aaa-remodels',
   'torra-gips-construction-company-website-design': 'torra-gips',
+  'alpha-pro-construction-roofing-seo-website-design': 'alpha-pro-construction',
 }
 
 // Old paths that only exist as redirect stubs — never include in sitemap

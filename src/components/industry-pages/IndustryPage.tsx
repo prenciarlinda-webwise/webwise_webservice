@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Script from 'next/script'
 import { siteConfig, clients } from '@/data/site'
+import { getIndustryRelatedPosts } from '@/data/blog'
 import PricingCTA from '@/components/forms/PricingCTA'
 import {
   DoodleUnderline,
@@ -25,6 +26,7 @@ export default function IndustryPage({ content }: { content: IndustryPageContent
   const caseStudy = content.caseStudy
   const caseStudyClient = caseStudy ? clients[caseStudy.clientKey] : undefined
   const HeroDoodle = heroDoodles[content.slug] ?? DoodlePipe
+  const relatedPosts = getIndustryRelatedPosts(content.slug)
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -336,6 +338,51 @@ export default function IndustryPage({ content }: { content: IndustryPageContent
           </div>
         </div>
       </section>
+
+      {/* Related Articles */}
+      {relatedPosts.length > 0 && (
+        <section className="py-24">
+          <div className="container px-6">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-primary mb-4">
+                {content.tradeName} SEO Resources
+              </h2>
+              <p className="text-text-muted max-w-2xl mx-auto">
+                Free guides and keyword research for {content.tradePlural}, straight from the team running
+                these campaigns.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {relatedPosts.map((post) => (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="bg-white rounded-2xl border border-border overflow-hidden hover:shadow-lg transition-shadow group"
+                >
+                  <div className="h-48 bg-white flex items-center justify-center overflow-hidden p-3">
+                    {post.image ? (
+                      <img
+                        src={post.image}
+                        alt={post.imageAlt || post.title}
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <span className="text-2xl font-bold text-accent/20">{post.category}</span>
+                    )}
+                  </div>
+                  <div className="p-6">
+                    <h3 className="font-display font-bold text-primary mb-2 line-clamp-2 group-hover:text-accent transition-colors">
+                      {post.title}
+                    </h3>
+                    <p className="text-text-muted text-sm leading-relaxed line-clamp-2 mb-3">{post.excerpt}</p>
+                    <p className="text-xs text-text-muted">{post.readTime}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Related industries + hub link */}
       <section className="py-12">
