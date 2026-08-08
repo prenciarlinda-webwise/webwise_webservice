@@ -273,6 +273,12 @@ export const pageSEO: Record<string, PageSEO> = {
     keywords: ['plumber keywords', 'plumbing keywords for seo', 'plumbing seo keywords', 'plumber search terms'],
   },
 
+  'blog/plumbing-industry-statistics': {
+    title: 'Plumbing Industry Statistics - Market Size & Costs',
+    description: '40+ sourced plumbing industry statistics covering market size, repair and replacement costs, pipe and water heater lifespan, water damage claims, and where plumbing leads actually come from in 2026.',
+    keywords: ['plumbing industry statistics', 'plumbing market size', 'plumbing industry trends', 'average cost of plumbing repair'],
+  },
+
   'blog/locksmith-keywords-for-seo': {
     title: 'Locksmith SEO: 100+ Keywords That Drive Calls in 2026',
     description: '100+ locksmith keywords organized by service category and conversion potential. Emergency, residential, commercial, and automotive locksmith terms with volumes.',
@@ -308,6 +314,12 @@ export const pageSEO: Record<string, PageSEO> = {
     title: 'How to Get Roofing Leads: 12 Proven Strategies for 2026',
     description: '12 proven strategies to generate roofing leads consistently. SEO, Google Ads, referrals, storm chasing, and more. Average roofing project: $8-$20K.',
     keywords: ['how to get roofing leads', 'roofing lead generation', 'roofing leads', 'roofing marketing'],
+  },
+
+  'blog/roofing-industry-statistics': {
+    title: 'Roofing Industry Statistics - Market Size & Costs',
+    description: '40+ sourced roofing industry statistics covering market size, replacement costs, roof lifespan by material, storm damage claims, and where roofing leads actually come from in 2026.',
+    keywords: ['roofing industry statistics', 'roofing market size', 'roofing industry trends', 'average cost of roof replacement'],
   },
 
   'blog/hvac-marketing-ideas': {

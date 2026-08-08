@@ -480,8 +480,8 @@ export default function Home() {
               <Link href="/local-seo/plumbers" className="px-4 py-2 bg-white border border-border rounded-full text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors">
                 Plumber SEO agency
               </Link>
-              <Link href="/local-seo/plumbers" className="px-4 py-2 bg-white border border-border rounded-full text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors">
-                Local SEO for plumbers
+              <Link href="/blog/plumbing-industry-statistics" className="px-4 py-2 bg-white border border-border rounded-full text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors">
+                Plumbing industry statistics
               </Link>
               <Link href="/blog/locksmith-keywords-for-seo" className="px-4 py-2 bg-white border border-border rounded-full text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors">
                 Locksmith SEO guide
@@ -494,6 +494,9 @@ export default function Home() {
               </Link>
               <Link href="/blog/roofing-leads" className="px-4 py-2 bg-white border border-border rounded-full text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors">
                 How to get roofing leads
+              </Link>
+              <Link href="/blog/roofing-industry-statistics" className="px-4 py-2 bg-white border border-border rounded-full text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors">
+                Roofing industry statistics
               </Link>
               <Link href="/local-seo/landscaping" className="px-4 py-2 bg-white border border-border rounded-full text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors">
                 SEO for landscapers

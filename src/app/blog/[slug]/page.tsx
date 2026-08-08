@@ -228,12 +228,25 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     })),
   } : null
 
+  // WebPage Schema with Speakable markup - tells AI Overviews, Assistant, and voice
+  // search which on-page content is the direct, quotable answer (same .aeo-answer
+  // convention used on the /local-seo/[industry] pages). Only meaningful when the
+  // post actually has a TL;DR block for the selector to target.
+  const webPageSchema = post.tldr && post.tldr.length > 0 ? {
+    "@type": "WebPage",
+    "@id": canonicalUrl,
+    url: canonicalUrl,
+    name: post.title,
+    speakable: { "@type": "SpeakableSpecification", cssSelector: [".aeo-answer"] },
+  } : null
+
   // Combined Schema Graph
   const schemaGraph = {
     "@context": "https://schema.org",
     "@graph": [
       articleSchema,
       breadcrumbSchema,
+      ...(webPageSchema ? [webPageSchema] : []),
       ...(serviceSchema ? [serviceSchema] : []),
       ...(faqSchema ? [faqSchema] : []),
       ...(howToSchema ? [howToSchema] : []),
@@ -338,7 +351,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           <div className="container px-6">
             <div className="max-w-4xl mx-auto">
               <div className="bg-white rounded-2xl border-2 border-accent/30 p-6 lg:p-8 shadow-sm">
-                <ul className="space-y-3">
+                <ul className="aeo-answer space-y-3">
                   {post.tldr.map((point, index) => (
                     <li key={index} className="flex items-start gap-3">
                       <span className="flex-shrink-0 w-6 h-6 bg-accent/10 text-accent rounded-full flex items-center justify-center text-sm font-bold">
