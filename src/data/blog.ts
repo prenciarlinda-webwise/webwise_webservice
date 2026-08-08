@@ -355,7 +355,7 @@ Our [local SEO services](/local-seo) have helped plumbers, roofers, HVAC compani
 
 - [How long does SEO take to work?](/blog/seo-timeline) - What to expect in month 1, 3, and 6.
 - [SEO vs PPC: Which is better for small business?](/blog/seo-vs-ppc) - Cost, speed, and ROI compared.
-- [Plumber keywords for SEO](/blog/plumber-keywords-for-seo) and [locksmith SEO guide](/blog/locksmith-keywords-for-seo) - Industry-specific keyword breakdowns.
+- [Plumber keywords for SEO](/blog/plumber-keywords-for-seo), [roofing keywords for SEO](/blog/roofing-keywords-for-seo), and [locksmith SEO guide](/blog/locksmith-keywords-for-seo) - Industry-specific keyword breakdowns.
 - [Full pricing and package details](/pricing) - Compare all our plans side by side, from $480/month.
 - [AI Search Optimization (AEO/GEO)](/ai-search-optimization) - Get your business surfacing in Google AI Overviews and ChatGPT answers.
 
@@ -649,7 +649,7 @@ Stop losing emergency calls to competitors with better Google visibility. Whethe
 
 ## Explore More Ways We Help Home Service Businesses
 
-Plumber SEO packages start at $480/month, fully customized to your market and competition, see full [pricing and package details](/pricing). Want your business showing up in AI-generated answers on Google AI Overviews and ChatGPT too? Explore our [AI Search Optimization (AEO/GEO) services](/ai-search-optimization). We use the same emergency-service playbook for [HVAC companies](/local-seo/hvac) and [electricians](/local-seo/electricians).
+Plumber SEO packages start at $480/month, fully customized to your market and competition, see full [pricing and package details](/pricing). For the full keyword roadmap behind this strategy, see [plumber keywords for SEO](/blog/plumber-keywords-for-seo) and [plumber marketing ideas](/blog/plumber-marketing-ideas), or dig into the [plumbing industry statistics](/blog/plumbing-industry-statistics) behind this strategy. Want your business showing up in AI-generated answers on Google AI Overviews and ChatGPT too? Explore our [AI Search Optimization (AEO/GEO) services](/ai-search-optimization). We use the same emergency-service playbook for [HVAC companies](/local-seo/hvac) and [electricians](/local-seo/electricians).
     `,
   },
   {
@@ -1169,7 +1169,7 @@ Stop losing high-value roof replacement jobs to competitors with better Google v
 
 ## Explore More Ways We Help Roofers
 
-Roofing SEO packages start at $480/month, fully customized to your storm season patterns and target markets, see full [pricing and package details](/pricing). Want to also show up in AI-generated answers on Google AI Overviews and ChatGPT? Explore our [AI Search Optimization (AEO/GEO) services](/ai-search-optimization). We run a similar playbook for [construction companies](/local-seo/construction) and [HVAC contractors](/local-seo/hvac).
+Roofing SEO packages start at $480/month, fully customized to your storm season patterns and target markets, see full [pricing and package details](/pricing). For the full keyword roadmap and a 12-strategy lead-generation playbook, see [roofing keywords for SEO](/blog/roofing-keywords-for-seo) and [how to get roofing leads](/blog/roofing-leads), or dig into the [roofing industry statistics](/blog/roofing-industry-statistics) behind this strategy. Want to also show up in AI-generated answers on Google AI Overviews and ChatGPT? Explore our [AI Search Optimization (AEO/GEO) services](/ai-search-optimization). We run a similar playbook for [construction companies](/local-seo/construction) and [HVAC contractors](/local-seo/hvac).
     `,
   },
   {
@@ -5222,6 +5222,7 @@ When you are ready to invest in growth, professional plumber marketing services 
 ## Related Reading
 
 - [Plumber keywords for SEO](/blog/plumber-keywords-for-seo) - 100+ high-intent plumbing search terms.
+- [Plumbing industry statistics](/blog/plumbing-industry-statistics) - The cost, lifespan, and lead-source data behind this campaign.
 - [HVAC marketing ideas](/blog/hvac-marketing-ideas) - Tactics that translate directly to seasonal plumbing promotions.
 - [How to get roofing leads](/blog/roofing-leads) - Lead-generation framework for another high-ticket service business.
 
@@ -5517,6 +5518,8 @@ Want professional help building your roofing lead generation system? Our [roofin
 
 ## Related Reading
 
+- [Roofing keywords for SEO](/blog/roofing-keywords-for-seo) - 100+ high-intent roofing search terms mapped to buyer stage.
+- [Roofing industry statistics](/blog/roofing-industry-statistics) - Market size, replacement costs, and storm claim data behind this playbook.
 - [HVAC marketing ideas](/blog/hvac-marketing-ideas) - 15 seasonal tactics that work identically for storm-season roofing.
 - [Plumber marketing ideas](/blog/plumber-marketing-ideas) - Proven lead-generation ideas from another emergency service industry.
 - [How much does SEO cost per month?](/blog/seo-pricing) - Compare the cost of building organic leads vs. buying shared leads.
@@ -5526,6 +5529,122 @@ Looking for the plumbing equivalent of this guide? See our [plumber SEO agency](
 [Get a Free Roofing Lead Generation Consultation](/contact) and we will analyze your market, review your competition, and show you exactly how to generate more high-value roofing leads.
 
 See full [pricing and package details](/pricing) — roofing SEO starts at $480/month. Want your business showing up in AI-generated answers too? Explore our [AI Search Optimization (AEO/GEO) services](/ai-search-optimization).
+    `,
+  },
+  {
+    slug: 'roofing-industry-statistics',
+    title: '40+ Roofing Industry Statistics on Market Size, Costs, and Lead Sources in 2026',
+    excerpt: 'A sourced breakdown of the roofing industry in 2026, covering market size, replacement costs, roof lifespan by material, storm damage insurance claims, and where roofing leads actually come from.',
+    category: 'Local SEO',
+    author: 'Web Wise Team',
+    authorBio: 'The Web Wise Team tracks roofing industry data and builds SEO strategy for roofing companies competing in some of the most seasonal, storm-driven markets in home services.',
+    date: 'Aug 6, 2026',
+    publishDate: '2026-08-06',
+    readTime: '11 min read',
+    featured: false,
+    keywords: ['roofing industry statistics', 'roofing industry trends', 'roofing market size', 'average cost of roof replacement', 'how many roofing companies are there', 'roofing lead generation statistics'],
+    relatedServiceUrl: '/local-seo/roofing',
+    relatedServiceName: 'Roofing SEO Services',
+    tldr: [
+      'The US roofing contractor industry generates roughly $92.5 billion a year and is made up of about 109,000 mostly small, independent businesses, with the three largest companies holding under 4% combined market share',
+      'A full roof replacement averages $9,500 nationally, with most jobs falling between $9,000 and $18,000 depending on material, size, and local labor costs',
+      'Asphalt shingles typically last 20 to 30 years while metal roofs last 30 to 50 years or more, a lifespan gap that shapes when and how homeowners start searching for a roofer',
+      'Wind and hail damage now account for 42.5% of all homeowners insurance claims, and residential roof claim costs hit roughly $31 billion nationwide in 2024, up about 30% since 2022',
+      '98% of homeowners search online before hiring a home services business and 84% specifically use Google, yet most roofing companies still lean on word of mouth and paid leads instead of owning that search traffic',
+      'Major storms can generate 60% to 80% of a roofing company\'s annual leads in just 6 to 10 weeks, which is why storm season SEO readiness matters more than almost any other timing decision a roofer makes',
+    ],
+    faqs: [
+      { question: 'How big is the roofing industry in the United States?', answer: 'The US roofing contractor industry is worth an estimated $92.5 billion as of 2026 according to IBISWorld, with the number of roofing businesses growing at roughly 3% to 5% a year. The industry is highly fragmented. Roughly 109,000 companies compete for market share, and the three largest roofing contractors combined control less than 4% of the total market, so there is no dominant national brand a local roofer has to compete against directly.' },
+      { question: 'How much does a roof replacement cost in 2026?', answer: 'A full roof replacement costs $9,500 on average nationally, with most homeowners paying between $9,000 and $18,000 depending on roof size, material, and local labor rates. Basic asphalt shingles run $4.50 to $6.50 per square foot installed, while premium materials like standing seam metal run $8 to $18 per square foot. Labor typically makes up more than half of the total cost.' },
+      { question: 'How long does a roof actually last?', answer: 'Lifespan depends heavily on material. Basic three tab asphalt shingles last around 20 years, architectural shingles last 22 to 25 years, and premium asphalt shingles can reach 30 years. Metal roofing lasts far longer, typically 30 to 50 years, with copper and zinc systems lasting 70 years or more when properly installed and maintained.' },
+      { question: 'What percentage of homeowners search online before hiring a roofer?', answer: 'Research from home services marketing firms puts the number at 98% of consumers who search online before hiring any home services business, and over 90% search online even when they need emergency help. 84% specifically use Google during that research, and 81% factor Google reviews directly into who they call first.' },
+      { question: 'Where do most roofing leads come from?', answer: 'Word of mouth and repeat business remain the top sources roofing companies report, cited by 74% and 62% respectively, but online search is close behind at 54% and growing faster than any other channel. Storm events compress this further, generating 60% to 80% of a roofing company\'s annual lead volume in just 6 to 10 weeks around major weather events.' },
+      { question: 'How much do roofing leads cost from different sources?', answer: 'Paid lead costs vary widely by channel. Google Ads leads average $50 to $150, shared lead platforms like Angi or HomeAdvisor run $200 to $300 per lead with no exclusivity, and Google Local Services Ads land closer to $30 to $80. Organic search and referral leads cost close to nothing per lead once the underlying SEO and review systems are built, and they convert at 50% to 70%, compared to 8% to 15% for cold paid ads.' },
+    ],
+    content: `## The Roofing Industry by the Numbers in 2026
+
+Roofing is one of the largest and most fragmented trades in home services, and the data behind it explains a lot about how roofing companies should be marketing themselves right now. We pulled together the most current, sourced numbers on market size, replacement costs, roof lifespan, storm damage claims, and where roofing leads actually come from, the same numbers we use when building strategy for [roofing companies](/local-seo/roofing).
+
+## How Big Is the Roofing Industry
+
+The US roofing contractor industry generates an estimated $92.5 billion a year according to [IBISWorld](https://www.ibisworld.com/united-states/market-size/roofing-contractors/198/), growing at roughly a 5% compound annual rate since 2021. About 109,000 roofing contractor businesses operate in the country today, a figure that has climbed steadily each year, per [ConsumerAffairs](https://www.consumeraffairs.com/homeowners/how-many-roofing-companies-are-in-the-us.html).
+
+What stands out most is how fragmented the industry is. The three largest roofing contractors in the country hold a combined market share under 4%. There is no national brand dominating local search results the way a handful of chains dominate other home service categories, which is genuinely good news for independent roofing companies willing to invest in local SEO. The ceiling on how much market share a well-optimized local competitor can capture is high.
+
+About 80% of roofing demand now comes from re-roofing and renovation rather than new construction, which makes the industry fairly resilient to housing slowdowns. Homes built during the boom years of the 2000s and 2010s are aging into replacement territory at a steady, predictable rate every year, independent of what new construction is doing.
+
+## What Does a Roof Replacement Cost in 2026
+
+A full roof replacement costs $9,500 on average nationally, though the total ranges widely, from around $5,800 for a small, simple asphalt job up to $46,000 or more for a large home with premium materials, according to data compiled by [RubyHome](https://www.rubyhome.com/blog/roofing-stats/) and [NerdWallet](https://www.nerdwallet.com/home-ownership/home-improvement/learn/roof-replacement-cost). Most homeowners land somewhere between $9,000 and $18,000 once size, material, and local labor rates are factored in.
+
+Material choice drives most of the variation. Basic asphalt shingles run $4.50 to $6.50 per square foot installed. Premium materials like standing seam metal roofing run $8 to $18 per square foot. Labor typically accounts for more than half of total project cost regardless of material, part of why regional labor markets produce such different pricing from one metro to the next.
+
+For a roofing company, this cost spread matters for keyword strategy as much as it matters for estimating. A homeowner searching "roof replacement cost" is early stage and price shopping. A homeowner searching a specific material like "metal roof cost" or "architectural shingles vs 3 tab" is much further along and worth building dedicated content around.
+
+## How Long Does a Roof Actually Last
+
+Roof lifespan depends heavily on material, and that gap shapes when homeowners start searching in the first place.
+
+Three tab asphalt shingles, the most affordable option, last around 20 years. Architectural shingles last 22 to 25 years. Premium asphalt shingles can reach 30 years with the right ventilation and maintenance. Metal roofing lasts far longer than any asphalt option, typically 30 to 50 years, and copper or zinc systems can last 70 years or more, according to lifespan data from [SERVPRO](https://www.servpro.com/resources/construction-services/how-long-does-roof-last) and [This Old House](https://www.thisoldhouse.com/roofing/how-long-does-a-roof-last).
+
+| Roofing Material | Typical Lifespan |
+|---|---|
+| Three tab asphalt shingles | 20 years |
+| Architectural asphalt shingles | 22 to 25 years |
+| Premium asphalt shingles | 30 years or more |
+| Standing seam metal | 30 to 50 years |
+| Copper or zinc | 70 years or more |
+
+This matters directly for local SEO planning. A roofing company can map roughly when a given neighborhood's roofs were installed against subdivision age, then build proactive content and outreach timed to when those roofs are entering their replacement window, well before a competitor's ad targeting catches up.
+
+## Storm Damage and Insurance Claims Are Reshaping the Industry
+
+Wind and hail damage now account for 42.5% of all homeowners insurance claims nationally, and roughly 1 in 36 insured homes files a wind or hail damage claim in a given year. Insurance experts told the [National Insurance Crime Bureau](https://www.nicb.org/news/regional-news/roof-claims-hitting-new-high-and-crisis-insurance-industry-experts-say) that hail damage claims which used to average $10,000 to $15,000 now routinely reach $40,000 to $60,000, and residential roof claim costs hit roughly $31 billion nationwide in 2024, up about 30% since 2022.
+
+Texas leads the country in total hail damage losses at $338.6 million annually, followed by Colorado at $151 million and Nebraska at $50.8 million. Claim approval is not guaranteed though. 37.4% of all homeowner claims close without any payment, part of why roofing companies that build genuine insurance claim expertise, and content that helps homeowners understand the process, tend to convert storm leads at a higher rate than competitors running generic ads.
+
+Storm damage claims also explain roofing's extreme seasonality better than any other single factor. Major hail and wind events can generate 60% to 80% of a roofing company's annual lead volume in just 6 to 10 weeks, based on lead generation data compiled by [Roofr](https://roofr.com/blog/how-to-generate-more-roofing-leads). Storm damage pages and Google Business Profile updates need to be built and indexed well before storm season hits, not scrambled together after the fact.
+
+## How Homeowners Actually Find and Choose a Roofer
+
+Online research now dominates how homeowners choose a contractor. 98% of consumers search online before hiring a home services business, and more than 90% search online even when they need emergency help, according to data compiled by [Hook Agency](https://hookagency.com/blog/home-services-google-usage-statistics/) and [CallRail](https://www.callrail.com/blog/home-services-marketing-statistics). 84% of homeowners specifically use Google during that research, and 81% factor Google reviews directly into their decision.
+
+Local search volume backs this up. Searches like "roofer near me" have grown roughly 25% in the past year, and 70% of home service inquiries now originate from mobile devices, meaning speed, click to call buttons, and mobile page performance all directly affect whether a search turns into a booked estimate.
+
+For roofing companies still relying primarily on referrals and paid leads, this research behavior represents a lot of uncaptured demand. The homeowner researching online before ever calling anyone is largely invisible to a business with no organic search presence, no matter how strong that business's reputation is in person.
+
+## Where Roofing Leads Really Come From
+
+Contractors report word of mouth as their top lead source, cited by 74%, with repeat business close behind at 62%. Online search sits at 54% and is growing faster than any other channel as more of that early research phase moves to Google, based on lead source data from [Amra and Elma](https://www.amraandelma.com/roofing-marketing-statistics/). Social media sits at 25% and AI powered search results already show up as a lead source for 11% of contractors, a channel that barely existed a few years ago.
+
+Lead cost varies enormously by channel. Google Ads leads average $50 to $150. Shared lead platforms like Angi or HomeAdvisor run $200 to $300 per lead with no exclusivity, meaning several competitors are calling the same homeowner. Google Local Services Ads land closer to $30 to $80. Organic search and referral leads cost close to nothing per lead once the underlying SEO and review systems are in place, and they close at 50% to 70%, compared to 8% to 15% for cold paid ads.
+
+| Lead Source | Typical Cost per Lead |
+|---|---|
+| Google Local Services Ads | $30 to $80 |
+| Google Ads | $50 to $150 |
+| Shared lead platforms (Angi, HomeAdvisor) | $200 to $300, no exclusivity |
+| Organic search and referrals | Near zero per lead once built |
+
+That gap between lead cost and close rate is the entire argument for investing in organic visibility. A roofing company paying $250 for a shared lead that closes 10% of the time is spending roughly $2,500 per job. A company generating that same lead organically, through a Google Business Profile, ranking content, and a strong review profile, pays a fraction of that per job once the system is built, and keeps paying less every month after.
+
+## What These Numbers Mean for Your Roofing Business
+
+Every number above points the same direction. The roofing industry is large, fragmented, and increasingly won or lost in a Google search that happens well before any phone rings. Storm season concentrates a huge share of annual revenue into a few weeks, homeowners are doing more research online than ever, and the cost of buying that attention through shared leads keeps climbing while organic visibility keeps paying for itself.
+
+That is the strategy behind [our local SEO services for roofers](/local-seo/roofing), built around the same seasonal and cost data covered here. See the full [roofing keyword research](/blog/roofing-keywords-for-seo) or the [roofing lead generation guide](/blog/roofing-leads) for the tactical playbook that puts these numbers to work.
+
+[Get a Free Roofing SEO Audit](/contact) and we will show you exactly where your current search visibility stands against local competitors, and what it would take to start capturing more of that 98% who are already searching online.
+
+## Related Reading
+
+- [Roofing keywords for SEO](/blog/roofing-keywords-for-seo) - 100+ high-intent roofing search terms mapped to buyer stage.
+- [How to get roofing leads](/blog/roofing-leads) - 12 strategies beyond SEO for filling the pipeline year round.
+- [SEO for roofers](/blog/roofing-company-seo-strategy) - The full strategy walkthrough for roofing companies.
+
+See full [pricing and package details](/pricing). Roofing SEO starts at $480 a month. Want your business showing up in AI-generated answers too? Explore our [AI Search Optimization (AEO/GEO) services](/ai-search-optimization).
+
+*Data sourced from IBISWorld, ConsumerAffairs, RubyHome, NerdWallet, SERVPRO, This Old House, the National Insurance Crime Bureau, Hook Agency, CallRail, Roofr, and Amra and Elma. Figures are national estimates as of 2026 and may vary by region and season.*
     `,
   },
   {
@@ -7281,6 +7400,7 @@ Ready to take your [SEO strategy](/seo-services) to the next level? We build com
 ## Related Reading
 
 - [Plumber marketing ideas](/blog/plumber-marketing-ideas) - Turn these keywords into full campaigns.
+- [Plumbing industry statistics](/blog/plumbing-industry-statistics) - Market size, repair costs, and lead-source data behind this keyword list.
 - [Locksmith keywords for SEO](/blog/locksmith-keywords-for-seo) - See how another emergency service builds its keyword list.
 - [How much does SEO cost per month?](/blog/seo-pricing) - Investment levels for plumbing SEO.
 
@@ -7289,6 +7409,119 @@ Ready to take your [SEO strategy](/seo-services) to the next level? We build com
 See full [pricing and package details](/pricing) — plumber SEO starts at $480/month. Want your business showing up in AI-generated answers too? Explore our [AI Search Optimization (AEO/GEO) services](/ai-search-optimization).
 
 *Data sources: Google Keyword Planner, Ahrefs, SEMrush, and proprietary client data from websiteandseoagency.com plumbing SEO campaigns. Search volumes are US estimates and may vary by region.*
+    `,
+  },
+  {
+    slug: 'plumbing-industry-statistics',
+    title: '40+ Plumbing Industry Statistics on Market Size, Costs, and Lead Sources in 2026',
+    excerpt: 'A sourced breakdown of the plumbing industry in 2026, covering market size, repair and replacement costs, pipe and water heater lifespan, water damage insurance claims, and where plumbing leads actually come from.',
+    category: 'Local SEO',
+    author: 'Web Wise Team',
+    authorBio: 'The Web Wise Team tracks plumbing industry data and builds SEO strategy for plumbing companies competing for high-value emergency and repiping calls.',
+    date: 'Aug 8, 2026',
+    publishDate: '2026-08-08',
+    readTime: '11 min read',
+    featured: false,
+    keywords: ['plumbing industry statistics', 'plumbing industry trends', 'plumbing market size', 'average cost of plumbing repair', 'how many plumbing companies are there', 'plumbing lead generation statistics'],
+    relatedServiceUrl: '/local-seo/plumbers',
+    relatedServiceName: 'Plumbing SEO Services',
+    tldr: [
+      'The US plumbing industry generates roughly $191.4 billion a year across about 129,000 businesses employing over 742,000 people, with a projected shortfall of 550,000 plumbers by 2027',
+      'A water heater repair averages $615 while a full replacement runs $1,200 to $2,500 for a standard tank swap, with tankless and larger systems pushing well past $3,500',
+      'Copper and PEX piping last 25 to 50 years while tank water heaters last only 8 to 12 years, a gap that predicts when a home is due for its next plumbing call',
+      'Water damage and freezing claims make up nearly 24% of all homeowners insurance claims, and the average claim now runs $11,000 to $12,500',
+      'Branded Google Ads clicks average $34 per lead while non-branded clicks average $167, a fivefold gap that rewards plumbing companies who already own their name in search',
+      'Plumbing has among the highest conversion rates in home services, 12% to 16%, but shared lead platforms that resell the same lead to 3 to 5 plumbers cut close rates down to 15% to 20%',
+    ],
+    faqs: [
+      { question: 'How big is the plumbing industry in the United States?', answer: 'The US plumbing industry generates an estimated $191.4 billion a year, growing at roughly a 3.1% compound annual rate. About 129,000 plumbing businesses employ more than 742,000 people nationwide, and the industry is facing a projected shortfall of 550,000 plumbers by 2027, a labor gap expected to cost the economy roughly $33 billion annually.' },
+      { question: 'How much does a plumbing repair cost in 2026?', answer: 'Costs vary widely by job. A water heater repair averages $615, with smaller fixes like a thermostat or heating element running $100 to $350 and more involved repairs like a gas control valve running $200 to $750. A full water heater replacement typically costs $1,200 to $2,500 for a standard 40-gallon tank swap, with tankless and higher-capacity systems running $3,500 or more.' },
+      { question: 'How long do pipes and water heaters actually last?', answer: 'It depends heavily on the material and type. Copper pipe lasts up to 50 years, PEX lasts 25 to 50 years depending on installation and use, and galvanized steel can last 40 to 100 years but tends to corrode and discolor water well before that. Tank water heaters last 8 to 12 years, while tankless units last 15 to 20 years or more, sometimes reaching 25 to 30 years with proper maintenance.' },
+      { question: 'How common are water damage insurance claims?', answer: 'Water damage and freezing claims make up nearly 24% of all homeowners insurance claims, roughly 1 in 60 insured homes files one in a given year. The average water damage claim runs between $11,000 and $12,500. Coverage typically applies to sudden damage like a burst pipe, not gradual leaks or damage traced to lack of maintenance, which is a common reason claims get denied.' },
+      { question: 'Where do most plumbing leads come from and what do they cost?', answer: 'Cost per lead varies enormously by channel. Branded Google Ads clicks average $34 per lead while non-branded clicks average $167, roughly five times more. Google Local Services Ads run $25 to $60 per lead, shared marketplace leads like Angi or HomeAdvisor cost $15 to $50 but get resold to 3 to 5 other plumbers, and exclusive lead generation platforms run $40 to $100 or more.' },
+      { question: 'How do plumbing lead close rates compare across channels?', answer: 'Plumbing has among the highest conversion rates in home services overall, 12% to 16%, driven by emergency demand. Google Local Services Ads close at 35% to 65% depending on response speed, while shared marketplace leads that get resold to multiple plumbers close at only 15% to 20%. Response time matters enormously, a sub-5-minute callback can push booking rates above 40%.' },
+    ],
+    content: `## The Plumbing Industry by the Numbers in 2026
+
+Plumbing is one of the largest, steadiest trades in home services, and the data behind it explains a lot about how plumbing companies should be marketing themselves right now. We pulled together the most current, sourced numbers on market size, repair and replacement costs, pipe and water heater lifespan, water damage claims, and where plumbing leads actually come from, the same numbers we use when building strategy for [plumbing companies](/local-seo/plumbers).
+
+## How Big Is the Plumbing Industry
+
+The US plumbing industry generates an estimated $191.4 billion a year according to [Simpro](https://www.simprogroup.com/blog/plumbing-industry-statistics-2026), growing at roughly a 3.1% compound annual rate. About 129,000 plumbing businesses employ more than 742,000 people nationwide, per data compiled by [ServiceTitan](https://www.servicetitan.com/blog/plumbing-industry-statistics).
+
+The labor side of the industry is under real strain. A projected shortfall of 550,000 plumbers is expected by 2027, a gap expected to cost the economy roughly $33 billion annually. The plumbing job market itself is still growing faster than the national average, meaning demand for plumbing services keeps climbing even as the pool of available plumbers tightens, a dynamic that keeps well-run plumbing companies busy and makes owning search visibility more valuable every year, not less.
+
+Profitability varies widely across the industry. Industry-leading plumbing businesses operate at 20% to 35% net profit margins, while the median company sits closer to 2% to 8%, a spread largely explained by how much of their revenue comes from cheap, resold leads versus owned organic and referral traffic.
+
+## What Does a Plumbing Repair Cost in 2026
+
+A water heater repair averages $615 nationally, though the range runs from around $90 for a minor fix up to $1,775 or more for a major repair on a tankless unit, according to data compiled by [Modernize](https://modernize.com/plumbing/water-heaters/repair-cost) and [Angi](https://www.angi.com/articles/how-much-does-it-cost-repair-water-heater.htm). Smaller fixes like replacing a thermostat or heating element typically run $100 to $350, while more involved repairs like a gas control valve replacement run $200 to $750. Labor alone runs $75 to $150 an hour, and most repair visits take one to three hours.
+
+Full replacement costs more. A standard 40-gallon gas tank swap in a mid-cost market typically runs $900 to $1,500, and most homeowners land between $1,200 and $2,500 for a complete standard replacement. Larger, higher-efficiency, or tankless systems push the total well past $3,500.
+
+For a plumbing company, this cost spread matters for keyword strategy as much as it matters for estimating. A homeowner searching "water heater repair cost" is early stage and comparing options. A homeowner searching "tankless water heater installation" is much further along and worth building dedicated content around.
+
+## How Long Do Pipes and Water Heaters Actually Last
+
+Lifespan depends heavily on material and type, and that gap shapes when a home is due for its next plumbing call.
+
+Copper pipe lasts up to 50 years with proper care, though it is prone to corrosion and scale buildup over time. PEX lasts 25 to 50 years depending on the manufacturer and how it is installed. Galvanized steel can technically last 40 to 100 years, but it corrodes and accumulates mineral deposits well before then, often causing rust and discoloration that force an earlier replacement. Water heaters wear out much faster than pipe. Tank units last 8 to 12 years, while tankless units last 15 to 20 years or more, sometimes reaching 25 to 30 years with proper maintenance, according to lifespan data from [Rheem](https://www.rheem.com/water-heating/articles/tank-vs-tankless-water-heater-lifespan-comparison-what-to-expect-long-term/) and [Express Plumbing](https://www.expressplumbingidaho.com/galvanized-steel-copper-pex/).
+
+| Plumbing Component | Typical Lifespan |
+|---|---|
+| Galvanized steel pipe | 40 to 100 years, often replaced earlier due to corrosion |
+| Copper pipe | Up to 50 years |
+| PEX pipe | 25 to 50 years |
+| Tankless water heater | 15 to 20 years or more |
+| Tank water heater | 8 to 12 years |
+
+This matters directly for local SEO planning. A plumbing company can map roughly when a given neighborhood's homes were built against typical water heater lifespan, then build proactive content and outreach timed to when those units are entering their replacement window, well before a competitor's ad targeting catches up.
+
+## Water Damage and Insurance Claims Are a Major Driver of Emergency Calls
+
+Water damage and freezing claims make up nearly 24% of all homeowners insurance claims nationally, the third most common type of property claim, according to [ConsumerAffairs](https://www.consumeraffairs.com/homeowners/water-damage-insurance-claims-statistics.html). Roughly 1 in 60 insured homes files a water damage or freezing claim in a given year, and the average claim runs between $11,000 and $12,500.
+
+Coverage details matter for how homeowners search. Insurance typically covers water damage that is sudden, like a burst pipe, but not damage that built up gradually from a slow leak or lack of maintenance, and that distinction is a common reason claims get denied. Plumbing companies that build genuine content around insurance claims, what is covered, what gets denied, and how to document damage properly, tend to convert emergency water damage leads at a higher rate than competitors running generic ads.
+
+Freeze events also explain plumbing's seasonal spikes. Just as storm season concentrates roofing leads into a narrow window, cold snaps concentrate burst pipe calls the same way, which is why frozen pipe content and emergency service pages need to be built and indexed well before winter hits, not scrambled together after the first freeze of the season.
+
+## How Homeowners Actually Find and Choose a Plumber
+
+Online research now dominates how homeowners choose a contractor. 98% of consumers search online before hiring a home services business, and more than 90% search online even when they need emergency help, according to data compiled by [Hook Agency](https://hookagency.com/blog/home-services-google-usage-statistics/) and [CallRail](https://www.callrail.com/blog/home-services-marketing-statistics). 84% of homeowners specifically use Google during that research, and 81% factor Google reviews directly into their decision.
+
+For a trade defined by burst pipes and no-hot-water emergencies, that research behavior matters more than almost anywhere else in home services. A homeowner with water actively pooling on the floor is not browsing leisurely, they are searching once and calling whoever answers first with a credible, well-reviewed presence. A plumbing company with no organic search visibility is effectively invisible to that entire category of caller, no matter how strong its reputation is with existing customers.
+
+## Where Plumbing Leads Really Come From
+
+Cost per lead varies enormously by channel, and the gap between branded and non-branded search is one of the more striking numbers in the data. Branded Google Ads clicks, people already searching your company name, average $34 per lead. Non-branded clicks, people searching generic terms like "plumber near me," average $167, roughly five times more, based on benchmark data from [BaaDigi](https://www.baadigi.com/tools/benchmarks/plumbing). That gap is effectively the market pricing in how much cheaper it is to reach someone who already knows who you are, which is exactly what organic visibility and brand-building content do for free once they are built.
+
+| Lead Source | Typical Cost per Lead |
+|---|---|
+| Branded Google Ads (your company name) | $34 |
+| Google Local Services Ads | $25 to $60 |
+| Shared marketplace leads (Angi, HomeAdvisor) | $15 to $50, resold to 3 to 5 plumbers |
+| Exclusive lead generation platforms | $40 to $100 |
+| Non-branded Google Ads (generic search) | $167 |
+
+Close rates tell the rest of the story. Plumbing has among the highest conversion rates in home services overall, 12% to 16%, driven by emergency demand. Google Local Services Ads close at 35% to 65% depending on response speed, while shared marketplace leads that get resold to multiple plumbers close at only 15% to 20%, since three to five other companies are calling the same homeowner. Response time compounds all of it, a sub-5-minute callback can push booking rates above 40%, regardless of channel.
+
+## What These Numbers Mean for Your Plumbing Business
+
+Every number above points the same direction. The plumbing industry is large, growing, and short on labor, which means the companies that win are the ones who can convert search visibility into booked jobs without bidding against themselves on expensive non-branded ads. Water damage and freeze events concentrate a huge share of annual revenue into emergency windows, homeowners are doing more research online than ever, and the fivefold gap between branded and non-branded lead cost is a direct measure of how much organic visibility is worth once it is built.
+
+That is the strategy behind [our local SEO services for plumbers](/local-seo/plumbers), built around the same seasonal and cost data covered here. See the full [plumber keyword research](/blog/plumber-keywords-for-seo) or the [plumber marketing ideas guide](/blog/plumber-marketing-ideas) for the tactical playbook that puts these numbers to work.
+
+[Get a Free Plumber SEO Audit](/contact) and we will show you exactly where your current search visibility stands against local competitors, and what it would take to start capturing more of that 98% who are already searching online.
+
+## Related Reading
+
+- [Plumber keywords for SEO](/blog/plumber-keywords-for-seo) - 100+ high-intent plumbing search terms.
+- [Plumber marketing ideas](/blog/plumber-marketing-ideas) - Turn this data into a full campaign.
+- [Complete local SEO guide for plumbers](/local-seo/plumbers) - The full strategy walkthrough beyond keywords.
+
+See full [pricing and package details](/pricing). Plumber SEO starts at $480 a month. Want your business showing up in AI-generated answers too? Explore our [AI Search Optimization (AEO/GEO) services](/ai-search-optimization).
+
+*Data sourced from Simpro, ServiceTitan, Modernize, Angi, Rheem, Express Plumbing, ConsumerAffairs, Hook Agency, CallRail, and BaaDigi. Figures are national estimates as of 2026 and may vary by region and season.*
     `,
   },
   {
@@ -8163,7 +8396,16 @@ If you want professional help building and executing a roofing keyword strategy 
 
 Ready to see where you stand? Learn more about our full range of [SEO services](/seo-services) or go straight to getting your custom analysis.
 
+## Related Reading
+
+- [How to get roofing leads](/blog/roofing-leads) - Turn these keywords into a full lead-generation system, 12 strategies beyond SEO.
+- [SEO for roofers](/blog/roofing-company-seo-strategy) - The full strategy walkthrough beyond keywords.
+- [Roofing industry statistics](/blog/roofing-industry-statistics) - The market size, cost, and lead-source data behind this keyword list.
+- [How much does SEO cost per month?](/blog/seo-pricing) - Investment levels for roofing SEO.
+
 [Get a Free Roofing SEO Audit](/contact) - We will analyze your current keyword rankings, identify the highest-opportunity terms in your market, and show you exactly what it takes to outrank your competition before storm season hits.
+
+See full [pricing and package details](/pricing) — roofing SEO starts at $480/month. Want your business showing up in AI-generated answers too? Explore our [AI Search Optimization (AEO/GEO) services](/ai-search-optimization).
     `,
   },
   {

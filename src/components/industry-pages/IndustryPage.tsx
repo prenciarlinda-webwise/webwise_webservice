@@ -33,14 +33,31 @@ export default function IndustryPage({ content }: { content: IndustryPageContent
     '@graph': [
       {
         '@type': 'ProfessionalService',
+        '@id': `${pageUrl}#service`,
         name: `Web Wise Local SEO for ${content.tradeName}`,
         description: content.metaDescription,
         url: pageUrl,
         areaServed: ['United States', 'United Kingdom'],
         priceRange: '$$',
+        provider: { '@type': 'Organization', name: siteConfig.name, url: siteConfig.url, logo: `${siteConfig.url}${siteConfig.logo}` },
+        mainEntityOfPage: { '@id': `${pageUrl}#webpage` },
+        // Real per-plan pricing from the tiers already rendered on this page, not a generic placeholder.
+        hasOfferCatalog: {
+          '@type': 'OfferCatalog',
+          name: `${content.tradeName} SEO Plans`,
+          itemListElement: content.pricingTiers.map((tier) => ({
+            '@type': 'Offer',
+            name: `${tier.name} Plan`,
+            description: tier.description,
+            price: tier.price.replace(/[^0-9.]/g, ''),
+            priceCurrency: 'USD',
+            priceSpecification: { '@type': 'UnitPriceSpecification', price: tier.price.replace(/[^0-9.]/g, ''), priceCurrency: 'USD', billingIncrement: 1, unitText: 'MONTH' },
+          })),
+        },
       },
       {
         '@type': 'FAQPage',
+        '@id': `${pageUrl}#faq`,
         mainEntity: content.faqs.map((faq) => ({
           '@type': 'Question',
           name: faq.question,
@@ -49,6 +66,7 @@ export default function IndustryPage({ content }: { content: IndustryPageContent
       },
       {
         '@type': 'BreadcrumbList',
+        '@id': `${pageUrl}#breadcrumb`,
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Home', item: siteConfig.url },
           { '@type': 'ListItem', position: 2, name: 'Local SEO', item: `${siteConfig.url}/local-seo` },
@@ -57,9 +75,11 @@ export default function IndustryPage({ content }: { content: IndustryPageContent
       },
       {
         '@type': 'WebPage',
+        '@id': `${pageUrl}#webpage`,
         url: pageUrl,
         name: content.metaTitle,
         speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.aeo-answer', '.hero-answer'] },
+        about: { '@id': `${pageUrl}#service` },
       },
     ],
   }
