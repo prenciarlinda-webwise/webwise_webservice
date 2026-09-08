@@ -214,6 +214,7 @@ export const clients: Record<string, Client> = {
     slug: 'msc-certification-web-application-development',
     url: 'https://www.msc-cert.com',
     image: getScreenshot('https://www.msc-cert.com'),
+    embeddable: false, // X-Frame-Options: SAMEORIGIN, verified 2026-09-08
     industry: 'Certification & Training',
     services: ['Web Application', 'Website Design', 'Dashboard Development'],
     description: 'Custom-built certification management platform featuring a professional public website, secure admin dashboard for managing clients and certificates, dynamic certificate template builder, and automated QR code generation for instant verification.',
@@ -228,6 +229,7 @@ export const clients: Record<string, Client> = {
     slug: 'illyrian-group-plumbing-seo-web-development',
     url: 'https://www.illyrianplumber.com',
     image: getScreenshot('https://www.illyrianplumber.com'),
+    embeddable: true, // no frame-blocking headers, verified 2026-09-08
     industry: 'Plumbing',
     services: ['Local SEO', 'Website Design', 'Brand Strategy'],
     description: 'Local SEO and a brand-new high-performance website for this East Brunswick, NJ plumbing company. Today, Illyrian Plumber ranks #1 organic on Google for "PEX repiping NJ", "whole house repiping NJ", and "gas appliance hookup NJ" - five-figure jobs that competitors used to win. The site is cited directly inside Google AI Overviews, ChatGPT, and Perplexity, and Search Console shows a +553% jump in impressions over the last 90 days. From a near-zero starting point to dominating the highest-value plumbing searches in Middlesex County, all without paying per-lead platforms.',
@@ -651,6 +653,7 @@ Phase 4 - AI-first content: Long-form, structured service pages designed to be c
     slug: 'albros-premium-detailing-seo-website-design',
     url: 'https://www.albrosdetailing.com',
     image: getScreenshot('https://www.albrosdetailing.com'),
+    embeddable: false, // X-Frame-Options: SAMEORIGIN, verified 2026-09-08
     industry: 'Auto Detailing',
     services: ['Local SEO', 'Website Design'],
     description: 'Premium mobile auto detailing service offering interior and exterior car care, ceramic coating, and paint protection. Designed a sleek, modern website with online booking integration, service packages showcase, and before/after gallery to drive conversions.',
@@ -665,6 +668,7 @@ Phase 4 - AI-first content: Long-form, structured service pages designed to be c
     slug: 'northstar-home-improvement-seo-website-development',
     url: 'https://www.northstarhome.pro',
     image: getScreenshot('https://www.northstarhome.pro'),
+    embeddable: true, // no frame-blocking headers, verified 2026-09-08
     industry: 'Home Services',
     services: ['Local SEO', 'Website Design', 'PPC'],
     description: 'Comprehensive home improvement and renovation company offering kitchen remodeling, bathroom upgrades, flooring, and general contracting. Built an authority website with project portfolios, financing options integration, and multi-step quote request forms.',
@@ -679,6 +683,7 @@ Phase 4 - AI-first content: Long-form, structured service pages designed to be c
     slug: '904-dumpster-rental-jacksonville-seo-website',
     url: 'https://www.904dumpster.com',
     image: getScreenshot('https://www.904dumpster.com'),
+    embeddable: false, // X-Frame-Options: SAMEORIGIN, verified 2026-09-08
     industry: 'Waste Management',
     services: ['Local SEO', 'Website Design'],
     description: 'Jacksonville-based dumpster rental company serving residential and commercial customers for construction debris, home cleanouts, and renovation projects. Developed a user-friendly website with instant pricing calculator, online booking system, and service area maps.',
@@ -844,6 +849,7 @@ Phase 4 - AI-first content: Long-form, structured service pages designed to be c
     slug: 'gjej-pro-marketplace-web-application-seo',
     url: 'https://www.gjejpro.com',
     image: getScreenshot('https://www.gjejpro.com'),
+    embeddable: true, // no frame-blocking headers, verified 2026-09-08
     industry: 'Marketplace Platform',
     services: ['Web Application', 'Marketplace Architecture', 'SEO', 'Content Marketing'],
     description: 'A two-sided marketplace platform connecting Albanian homeowners and businesses with verified local professionals — electricians, plumbers, painters, cleaners, tutors, and 17 more service categories — with a path to UK expansion. Tagline: "Profesionistë për ju" (Professionals for you). We built the full product end-to-end: Django 6 + DRF + PostGIS backend, Next.js 16 (App Router, server components) + Tailwind v4 frontend, JWT auth with rotating refresh tokens, role-guarded dashboards for Admin / Profesionist / Klient, real-time messaging, an end-to-end job-and-quote flow with atomic accept logic, and a fully server-rendered SEO-shaped public site with 100+ indexable URLs across categories, cities, and pros. The platform makes finding the right professional feel as easy as ordering food: transparent prices, real reviews, no hidden commissions.',
@@ -878,6 +884,7 @@ Specific constraints we had to design around: Albanian-language UX as the primar
     slug: 'paint-techs-painting-contractor-seo-website-redesign',
     url: 'https://www.paint-techs.com',
     image: getScreenshot('https://www.paint-techs.com'),
+    embeddable: true, // no frame-blocking headers, verified 2026-09-08
     industry: 'Painting Services',
     services: ['SEO', 'Website Redesign'],
     description: 'Professional painting contractor offering residential and commercial painting services. Redesigned their website with a modern look and optimized for search engines to increase visibility and generate more leads.',
@@ -892,6 +899,9 @@ Specific constraints we had to design around: Albanian-language UX as the primar
     slug: 'sunrise-auto-rent-car-rental-website-design',
     url: 'https://www.sunriseautorent.com',
     image: getScreenshot('https://www.sunriseautorent.com'),
+    // Domain does not resolve (NXDOMAIN) as of 2026-09-08, site appears down.
+    // Flag this to the client, screenshots/embed will both be broken until fixed.
+    embeddable: false,
     industry: 'Car Rental',
     services: ['Website Design'],
     description: 'Car rental service offering a wide range of vehicles for tourists and locals. Built a user-friendly website with vehicle catalog, online booking system, and pricing calculator.',
@@ -902,6 +912,7 @@ Specific constraints we had to design around: Albanian-language UX as the primar
     slug: 'kn-flooring-contractor-website-design',
     url: 'https://www.knflooringllc.com',
     image: getScreenshot('https://www.knflooringllc.com'),
+    embeddable: true, // no frame-blocking headers, verified 2026-09-08
     industry: 'Flooring',
     services: ['Website Design'],
     description: 'Professional flooring company specializing in hardwood, laminate, tile, and vinyl flooring installation. Developed a showcase website with project gallery and service area information.',
@@ -912,6 +923,7 @@ Specific constraints we had to design around: Albanian-language UX as the primar
     slug: 'kryemadhi-car-rental-albania-website-design',
     url: 'https://www.kryemadhicarrental.com',
     image: getScreenshot('https://www.kryemadhicarrental.com'),
+    embeddable: true, // no frame-blocking headers, verified 2026-09-08
     industry: 'Car Rental',
     services: ['Website Design'],
     description: 'Car rental service providing quality vehicles for travelers. Created a modern website with fleet showcase, reservation system, and contact integration.',
@@ -922,6 +934,7 @@ Specific constraints we had to design around: Albanian-language UX as the primar
     slug: 'gnt-home-remodeling-contractor-website-design',
     url: 'https://www.gnthomeremodeling.com',
     image: getScreenshot('https://www.gnthomeremodeling.com'),
+    embeddable: true, // no frame-blocking headers, verified 2026-09-08
     industry: 'Home Remodeling',
     services: ['Website Design'],
     description: 'Full-service home remodeling company offering kitchen, bathroom, and whole-home renovations. Built a professional website with project portfolio and quote request functionality.',
@@ -932,6 +945,7 @@ Specific constraints we had to design around: Albanian-language UX as the primar
     slug: 'aaa-remodels-jacksonville-home-remodeling-seo-website',
     url: 'https://www.aaaremodelsllc.com',
     image: getScreenshot('https://www.aaaremodelsllc.com'),
+    embeddable: true, // no frame-blocking headers, verified 2026-09-08
     industry: 'Home Remodeling',
     services: ['Local SEO', 'Website Design'],
     description: 'Jacksonville-based home remodeling company specializing in kitchen and bathroom renovations, whole-home remodels, and interior/exterior painting. Built a professional website with service showcases, project galleries, and integrated quote request system to capture local customers.',
@@ -946,6 +960,7 @@ Specific constraints we had to design around: Albanian-language UX as the primar
     slug: 'torra-gips-construction-company-website-design',
     url: 'https://www.torragips.com/sq/',
     image: getScreenshot('https://www.torragips.com/sq/'),
+    embeddable: false, // X-Frame-Options: SAMEORIGIN, verified 2026-09-08
     industry: 'Construction',
     services: ['Website Design'],
     description: 'Albanian construction and gypsum services company specializing in interior finishing, drywall installation, and decorative plasterwork. Built a bilingual website showcasing their project portfolio, service offerings, and contact system to reach residential and commercial clients across Albania.',
@@ -955,6 +970,7 @@ Specific constraints we had to design around: Albanian-language UX as the primar
     slug: 'illyrian-group-corp-corporate-website',
     url: 'https://www.illyriangroupcorp.com',
     image: getScreenshot('https://www.illyriangroupcorp.com'),
+    embeddable: true, // no frame-blocking headers, verified 2026-09-08
     industry: 'Construction',
     services: ['Website Design'],
     description: 'Corporate website for Illyrian Group Corp — the parent company behind multiple home-service and contracting brands serving Central/Northern New Jersey. Placeholder entry — replace industry / services / description with final copy.',
@@ -964,6 +980,7 @@ Specific constraints we had to design around: Albanian-language UX as the primar
     slug: 'zelo-flooring-website-design',
     url: 'https://zeloflooring.com/',
     image: getScreenshot('https://zeloflooring.com/'),
+    embeddable: true, // no frame-blocking headers, verified 2026-09-08
     industry: 'Flooring',
     services: ['Website Design'],
     description: 'Flooring contractor offering hardwood, laminate, tile, and vinyl installation. Placeholder entry — replace services / description with final copy once confirmed.',
@@ -973,6 +990,7 @@ Specific constraints we had to design around: Albanian-language UX as the primar
     slug: 'alpha-pro-construction-roofing-seo-website-design',
     url: 'https://www.alphaproconstructionllc.com',
     image: getScreenshot('https://www.alphaproconstructionllc.com'),
+    embeddable: false, // X-Frame-Options: SAMEORIGIN, verified 2026-09-08
     industry: 'Roofing',
     services: ['Local SEO', 'Website Design'],
     description: 'Website design and local SEO for this Bridgewater, NJ roofing, gutter, chimney, and masonry contractor serving 130+ towns statewide. Alpha Pro came to us in June 2026 with zero organic traffic, zero AI mentions, and a tracked footprint of just 60 keywords. Sixty days later they are ranking on page one across Newark, Elmwood Park, Garfield, Rahway, Cranford, Ridgewood, Hackensack, and Belleville, including a top 10 organic position for "metal roof cost," a nationally searched term pulling 9,900 monthly searches. Tracked keywords have more than tripled to 208, and the new site has already generated 15+ roofing leads inside the first two months.',

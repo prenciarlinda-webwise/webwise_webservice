@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import Script from 'next/script'
 import { ArrowRight, ExternalLink } from 'lucide-react'
 import { clients, siteConfig } from '@/data/site'
@@ -106,14 +107,37 @@ export default function PortfolioPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {allClients.map(([key, client]) => (
               <div key={key} className="bg-white rounded-2xl border border-border overflow-hidden hover:shadow-xl transition-shadow group">
-                {/* Website Screenshot */}
+                {/* Website Screenshot, or a live mini preview when the site allows framing */}
                 <div className="h-52 relative overflow-hidden bg-gradient-to-br from-bg-tertiary to-bg-secondary">
-                  <img
-                    src={client.image}
-                    alt={`${client.name} website screenshot`}
-                    loading="lazy"
-                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                  />
+                  {client.embeddable ? (
+                    <div className="pointer-events-none absolute inset-0 origin-top-left transition-transform duration-500 group-hover:scale-105">
+                      <iframe
+                        src={client.url}
+                        title={`Website live, ${client.name}`}
+                        loading="lazy"
+                        tabIndex={-1}
+                        className="h-[400%] w-[400%] origin-top-left scale-[0.25] border-0 bg-white"
+                      />
+                    </div>
+                  ) : (
+                    <Image
+                      src={client.image}
+                      alt={`${client.name} website screenshot`}
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                      className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    />
+                  )}
+                  <div className="absolute inset-x-0 top-0 flex items-center gap-2 bg-primary/80 px-3 py-2 backdrop-blur-sm" aria-hidden="true">
+                    <div className="flex shrink-0 gap-1.5">
+                      <span className="h-2 w-2 rounded-full bg-red-400/70" />
+                      <span className="h-2 w-2 rounded-full bg-yellow-400/70" />
+                      <span className="h-2 w-2 rounded-full bg-green-400/70" />
+                    </div>
+                    <span className="truncate text-[11px] text-white/70">
+                      {new URL(client.url).hostname.replace(/^www\./, '')}
+                    </span>
+                  </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                     <Link href={caseStudyUrlMap[client.slug] || `/case-studies/${client.slug}`} className="px-5 py-2.5 bg-white text-primary font-semibold rounded-lg flex items-center gap-2 shadow-lg hover:bg-accent hover:text-white transition-colors">
