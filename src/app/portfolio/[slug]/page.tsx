@@ -245,7 +245,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
               Toggle between desktop and mobile to see how {client.name} looks on every screen.
             </p>
           </div>
-          <WebsitePreview url={client.url} name={client.name} nofollow={client.nofollow} />
+          <WebsitePreview url={client.url} name={client.name} image={client.image} nofollow={client.nofollow} />
         </div>
       </section>
 

@@ -434,6 +434,7 @@ Phase 4 - AI-first content: Long-form, structured service pages designed to be c
     slug: 'gimos-roofing-local-seo-website-design',
     url: 'https://www.gimosroofing.com',
     image: getScreenshot('https://www.gimosroofing.com'),
+    nofollow: true,
     industry: 'Roofing',
     services: ['Local SEO', 'Website Design', 'Google Ads'],
     description: 'Full-service roofing company specializing in residential and commercial roof installation, repair, and maintenance. Built a lead-generating website with service area pages, project galleries, and integrated quote request system to capture local customers.',

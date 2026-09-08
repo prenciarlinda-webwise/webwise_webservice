@@ -1,49 +1,81 @@
 'use client'
 
-import { useState, useCallback } from 'react'
-import { Monitor, Smartphone, ExternalLink, Globe } from 'lucide-react'
+import { useState, useCallback, useEffect, useRef } from 'react'
+import { Monitor, Smartphone, ExternalLink } from 'lucide-react'
 
 interface WebsitePreviewProps {
   url: string
   name: string
+  image?: string
   nofollow?: boolean
 }
 
-export default function WebsitePreview({ url, name, nofollow }: WebsitePreviewProps) {
+// Backstop only: how long we wait for a "load" event at all before assuming
+// the embed is blocked. Many sites (ours included) send X-Frame-Options /
+// frame-ancestors headers that silently block embedding, and some browsers
+// never fire load for a blocked frame — it just stays blank forever, which
+// is what made this look broken. A genuinely slow-but-working load isn't
+// punished by this: onLoad clears the timer the moment it actually fires,
+// however long that takes.
+const LOAD_TIMEOUT_MS = 3000
+
+export default function WebsitePreview({ url, name, image, nofollow }: WebsitePreviewProps) {
   const [view, setView] = useState<'desktop' | 'mobile'>('desktop')
   const [iframeError, setIframeError] = useState(false)
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const relAttr = nofollow ? 'nofollow noopener noreferrer' : 'noopener noreferrer'
 
+  useEffect(() => {
+    timerRef.current = setTimeout(() => setIframeError(true), LOAD_TIMEOUT_MS)
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current)
+    }
+  }, [url])
+
   const handleIframeLoad = useCallback((e: React.SyntheticEvent<HTMLIFrameElement>) => {
-    // Check if iframe loaded empty (blocked by X-Frame-Options)
     try {
       const iframe = e.currentTarget
-      // If we can't access contentDocument due to CORS, that's expected and fine
-      // The iframe loaded successfully
+      // A same-origin-accessible, empty document means the browser served
+      // its own blank/blocked page instead of the real site.
       if (iframe.contentDocument?.title === '') {
         setIframeError(true)
+        return
       }
     } catch {
-      // CORS error means iframe loaded a cross-origin page — that's fine
+      // Cross-origin access throws once the real page has loaded — that's
+      // the success case, so there's nothing more to check.
     }
+    // Some kind of response came back and it isn't the blocked case above —
+    // stop the backstop timer so a slow-but-real load never gets discarded.
+    if (timerRef.current) clearTimeout(timerRef.current)
   }, [])
 
-  const fallback = (
-    <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 text-center p-6">
-      <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-4">
-        <Globe className="w-8 h-8 text-primary" />
-      </div>
-      <p className="text-primary font-semibold text-lg mb-1">{name}</p>
-      <p className="text-text-muted text-sm mb-4">Live preview unavailable for this site</p>
-      <a
-        href={url}
-        target="_blank"
-        rel={relAttr}
-        className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-white font-semibold rounded-lg hover:bg-accent/90 transition-colors text-sm"
-      >
-        <ExternalLink size={16} /> Visit Website
-      </a>
+  // Full-bleed image used both as the poster while the live embed is still
+  // proving itself and as the permanent fallback if it never does.
+  const screenshot = image ? (
+    <img
+      src={image}
+      alt={`Screenshot of the ${name} website`}
+      className="absolute inset-0 w-full h-full object-cover object-top"
+      loading="lazy"
+    />
+  ) : (
+    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
+      <span className="text-primary font-semibold text-lg">{name}</span>
     </div>
+  )
+
+  const clickThrough = (
+    <a
+      href={url}
+      target="_blank"
+      rel={relAttr}
+      className="absolute inset-0 z-10 bg-black/0 hover:bg-black/10 transition-colors flex items-center justify-center group"
+    >
+      <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg shadow-lg font-semibold text-primary text-sm sm:text-base flex items-center gap-2">
+        <ExternalLink size={18} /> Visit Website
+      </span>
+    </a>
   )
 
   const renderIframe = (width: number, height: number) => (
@@ -134,20 +166,9 @@ export default function WebsitePreview({ url, name, nofollow }: WebsitePreviewPr
             {/* Monitor Screen */}
             <div className="bg-gray-900 rounded-lg sm:rounded-xl p-2 sm:p-3 shadow-2xl w-full">
               <div className="bg-white rounded-md sm:rounded-lg overflow-hidden w-full relative aspect-[16/10]">
-                {iframeError ? fallback : renderIframe(1280, 800)}
-                {/* Clickable overlay */}
-                {!iframeError && (
-                  <a
-                    href={url}
-                    target="_blank"
-                    rel={relAttr}
-                    className="absolute inset-0 z-10 bg-black/0 hover:bg-black/10 transition-colors flex items-center justify-center group"
-                  >
-                    <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg shadow-lg font-semibold text-primary text-sm sm:text-base flex items-center gap-2">
-                      <ExternalLink size={18} /> Visit Website
-                    </span>
-                  </a>
-                )}
+                {screenshot}
+                {!iframeError && renderIframe(1280, 800)}
+                {clickThrough}
               </div>
             </div>
             {/* Monitor Stand */}
@@ -168,20 +189,9 @@ export default function WebsitePreview({ url, name, nofollow }: WebsitePreviewPr
 
                 {/* Screen */}
                 <div className="relative bg-white rounded-[1.25rem] sm:rounded-[2rem] overflow-hidden aspect-[375/812]">
-                  {iframeError ? fallback : renderIframe(375, 812)}
-                  {/* Clickable overlay */}
-                  {!iframeError && (
-                    <a
-                      href={url}
-                      target="_blank"
-                      rel={relAttr}
-                      className="absolute inset-0 z-10 bg-black/0 hover:bg-black/10 transition-colors flex items-center justify-center group"
-                    >
-                      <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-white px-4 py-2 rounded-lg shadow-lg font-semibold text-primary text-sm flex items-center gap-2">
-                        <ExternalLink size={16} /> Visit Website
-                      </span>
-                    </a>
-                  )}
+                  {screenshot}
+                  {!iframeError && renderIframe(375, 812)}
+                  {clickThrough}
                 </div>
 
                 {/* Home Indicator */}
