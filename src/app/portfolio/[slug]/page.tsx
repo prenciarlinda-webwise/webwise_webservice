@@ -2,8 +2,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Script from 'next/script'
 import { notFound } from 'next/navigation'
-import { ArrowRight, ExternalLink, Target, Zap, Star, TrendingUp, MapPin, Sparkles, Trophy } from 'lucide-react'
-import { clients, siteConfig } from '@/data/site'
+import { ArrowRight, ExternalLink, Target, Zap, Star } from 'lucide-react'
+import { clients, siteConfig, type KeywordRanking } from '@/data/site'
 import { generateBreadcrumbSchema } from '@/lib/schemas'
 import WebsitePreview from '@/components/ui/WebsitePreview'
 import PricingCTA from '@/components/forms/PricingCTA'
@@ -64,6 +64,31 @@ function SectionList({ sections }: { sections: Section[] }) {
       )}
     </div>
   )
+}
+
+// The strongest position a keyword holds across organic, local pack, and maps
+function bestPosition(rank: KeywordRanking): number {
+  return Math.min(
+    ...[rank.serp, rank.localPack, rank.mapsPack].filter((v): v is number => v !== undefined),
+  )
+}
+
+const SERP_BUCKETS = [
+  { label: 'Top 3', min: 1, max: 3 },
+  { label: '4–10', min: 4, max: 10 },
+  { label: '11–20', min: 11, max: 20 },
+  { label: '21–50', min: 21, max: 50 },
+  { label: '51+', min: 51, max: Infinity },
+]
+
+function getPositionBuckets(rankings: KeywordRanking[]) {
+  return SERP_BUCKETS.map((b) => ({
+    label: b.label,
+    count: rankings.filter((r) => {
+      const p = bestPosition(r)
+      return Number.isFinite(p) && p >= b.min && p <= b.max
+    }).length,
+  })).filter((b) => b.count > 0)
 }
 
 export async function generateStaticParams() {
@@ -260,58 +285,73 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         <section className="py-24 bg-bg-secondary">
           <div className="container px-6">
             <div className="text-center mb-12">
-              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Live Rankings</span>
               <h2 className="text-3xl font-bold text-primary mb-4">Keywords {client.name} Ranks For Today</h2>
               <p className="text-text-secondary max-w-2xl mx-auto">
-                Real positions pulled from Google search results, the local map pack, and AI Overview citations.
-                These are searches sending qualified, high-intent customers to {client.name} every day.
+                Real positions pulled from Google search results, the local map pack, and AI Overview citations —
+                sorted from strongest to weakest.
               </p>
             </div>
 
-            <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-4">
-              {client.keywordRankings.map((rank, i) => (
-                <div key={i} className="bg-white rounded-2xl border border-border p-6 hover:shadow-lg transition-shadow">
-                  <div className="flex items-start justify-between gap-4 mb-4">
-                    <h3 className="font-semibold text-primary text-lg leading-snug">&quot;{rank.keyword}&quot;</h3>
-                    {rank.serp === 1 || rank.localPack === 1 || rank.mapsPack === 1 ? (
-                      <div className="flex-shrink-0 w-9 h-9 flex items-center justify-center bg-accent/10 rounded-lg text-accent" title="#1 ranking">
-                        <Trophy size={18} />
+            {/* Position distribution */}
+            <div className="max-w-xl mx-auto mb-12">
+              <h3 className="text-sm font-semibold text-text-secondary text-center mb-5">Where These Rankings Land</h3>
+              <div className="space-y-3">
+                {(() => {
+                  const buckets = getPositionBuckets(client.keywordRankings)
+                  const max = Math.max(...buckets.map((b) => b.count))
+                  return buckets.map((b) => (
+                    <div key={b.label} className="flex items-center gap-4">
+                      <span className="w-14 flex-shrink-0 text-sm font-medium text-text-secondary text-right">{b.label}</span>
+                      <div className="flex-1 h-3 rounded-full bg-bg-tertiary overflow-hidden">
+                        <div
+                          className="h-full rounded-full bg-accent"
+                          style={{ width: `${Math.max((b.count / max) * 100, 8)}%` }}
+                        />
                       </div>
-                    ) : null}
-                  </div>
+                      <span className="w-6 flex-shrink-0 text-sm font-bold text-primary">{b.count}</span>
+                    </div>
+                  ))
+                })()}
+              </div>
+            </div>
 
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {rank.serp !== undefined && (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-bg-secondary border border-border rounded-full text-xs font-medium text-primary">
-                        <TrendingUp size={12} className="text-accent" />
-                        SERP <span className="font-bold text-accent">#{rank.serp}</span>
-                      </span>
-                    )}
-                    {rank.localPack !== undefined && (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-bg-secondary border border-border rounded-full text-xs font-medium text-primary">
-                        <MapPin size={12} className="text-accent" />
-                        Local Pack <span className="font-bold text-accent">#{rank.localPack}</span>
-                      </span>
-                    )}
-                    {rank.mapsPack !== undefined && (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-bg-secondary border border-border rounded-full text-xs font-medium text-primary">
-                        <MapPin size={12} className="text-accent" />
-                        Maps <span className="font-bold text-accent">#{rank.mapsPack}</span>
-                      </span>
-                    )}
-                    {rank.aiOverview && (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-accent text-white rounded-full text-xs font-semibold">
-                        <Sparkles size={12} />
-                        AI Overview {rank.aiOverview === 'cited' ? 'cited' : rank.aiOverview === 'suggestion' ? 'suggested' : rank.aiOverview}
-                      </span>
-                    )}
+            {/* Ranked list */}
+            <div className="max-w-3xl mx-auto rounded-2xl border border-border bg-white overflow-hidden">
+              {[...client.keywordRankings]
+                .sort((a, b) => bestPosition(a) - bestPosition(b))
+                .map((rank, i) => (
+                  <div
+                    key={i}
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-6 py-4 border-b border-border last:border-b-0 hover:bg-bg-secondary transition-colors"
+                  >
+                    <div className="min-w-0">
+                      <p className="font-semibold text-primary">&quot;{rank.keyword}&quot;</p>
+                      {rank.note && <p className="text-sm text-text-muted mt-1 leading-relaxed">{rank.note}</p>}
+                    </div>
+                    <div className="flex flex-wrap items-center gap-2 flex-shrink-0">
+                      {rank.aiOverview && (
+                        <span className="px-2.5 py-1 rounded-full bg-accent/10 text-accent text-xs font-semibold">
+                          AI Overview {rank.aiOverview === 'cited' ? 'cited' : rank.aiOverview === 'suggestion' ? 'suggested' : rank.aiOverview}
+                        </span>
+                      )}
+                      {rank.serp !== undefined && (
+                        <span className={`px-3 py-1 rounded-full text-sm font-bold ${rank.serp === 1 ? 'bg-accent text-white' : 'bg-bg-secondary text-primary'}`}>
+                          SERP #{rank.serp}
+                        </span>
+                      )}
+                      {rank.localPack !== undefined && (
+                        <span className={`px-3 py-1 rounded-full text-sm font-bold ${rank.localPack === 1 ? 'bg-accent text-white' : 'bg-bg-secondary text-primary'}`}>
+                          Map #{rank.localPack}
+                        </span>
+                      )}
+                      {rank.mapsPack !== undefined && (
+                        <span className={`px-3 py-1 rounded-full text-sm font-bold ${rank.mapsPack === 1 ? 'bg-accent text-white' : 'bg-bg-secondary text-primary'}`}>
+                          Maps #{rank.mapsPack}
+                        </span>
+                      )}
+                    </div>
                   </div>
-
-                  {rank.note && (
-                    <p className="text-sm text-text-muted leading-relaxed">{rank.note}</p>
-                  )}
-                </div>
-              ))}
+                ))}
             </div>
 
             {/* Optional ranking screenshots */}

@@ -510,8 +510,19 @@ Phase 4 - AI-first content: Long-form, structured service pages designed to be c
         serp: 36,
       },
       {
-        keyword: 'roof replacement cost Jacksonville',
-        serp: 75,
+        keyword: 'top-rated roofing contractors near Duval County',
+        serp: 14,
+        aiOverview: 'cited',
+      },
+      {
+        keyword: 'ridge cap roof',
+        serp: 6,
+        aiOverview: 'cited',
+      },
+      {
+        keyword: 'how to tell how old your roof is',
+        serp: 1,
+        aiOverview: 'cited',
       },
     ],
   },
