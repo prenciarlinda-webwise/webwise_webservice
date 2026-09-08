@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Script from 'next/script'
 import { notFound } from 'next/navigation'
-import { ArrowRight, ExternalLink, Target, Zap, Star } from 'lucide-react'
+import { ArrowRight, ExternalLink, Star } from 'lucide-react'
 import { clients, siteConfig, type KeywordRanking } from '@/data/site'
 import { generateBreadcrumbSchema } from '@/lib/schemas'
 import WebsitePreview from '@/components/ui/WebsitePreview'
@@ -246,25 +246,23 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
       {client.challenge && client.solution && (
         <section className="py-24">
           <div className="container px-6">
-            <div className="grid lg:grid-cols-2 gap-8">
-              <div className="bg-white border border-border rounded-2xl p-8">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 flex items-center justify-center bg-accent/10 rounded-lg text-accent">
-                    <Target size={20} />
-                  </div>
-                  <h2 className="text-xl font-bold text-primary">The Challenge</h2>
+            <div className="max-w-3xl mx-auto text-center mb-10">
+              <h2 className="text-3xl font-bold text-primary">The Challenge</h2>
+            </div>
+            <div className="max-w-3xl mx-auto mb-20">
+              <SectionList sections={parseSections(client.challenge)} />
+            </div>
+
+            <div className="max-w-3xl mx-auto text-center mb-10">
+              <h2 className="text-3xl font-bold text-primary">Our Solution</h2>
+            </div>
+            <div className="max-w-4xl mx-auto grid sm:grid-cols-2 gap-x-10 gap-y-8">
+              {parseSections(client.solution).map((s, i) => (
+                <div key={i}>
+                  {s.title && <h3 className="font-semibold text-primary mb-1.5">{s.title}</h3>}
+                  <p className="text-text-secondary leading-relaxed">{s.body}</p>
                 </div>
-                <SectionList sections={parseSections(client.challenge)} />
-              </div>
-              <div className="bg-white border border-border rounded-2xl p-8">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 flex items-center justify-center bg-accent/10 rounded-lg text-accent">
-                    <Zap size={20} />
-                  </div>
-                  <h2 className="text-xl font-bold text-primary">Our Solution</h2>
-                </div>
-                <SectionList sections={parseSections(client.solution)} />
-              </div>
+              ))}
             </div>
           </div>
         </section>
