@@ -16801,6 +16801,124 @@ Ready to take your [SEO strategy](/seo-services) to the next level? We will anal
 [Get a Free Dumpster Rental SEO Audit](/contact) - We will show you exactly where you stand in your local market and what it takes to start booking more rentals from Google.
     `,
   },
+  {
+    slug: 'google-ai-overviews-character-counter-what-it-means',
+    title: 'Google AI Overviews Just Got a Character Counter Tool, and What It Means for Local Businesses',
+    excerpt: 'Google now shows an interactive character counter directly inside AI Overviews for queries like "character counter." Here is the pattern behind it, and what it actually means if you run a local service business.',
+    category: 'AI Search Optimization',
+    author: 'Web Wise Team',
+    authorBio: 'The Web Wise Team tracks Google Search and AI Overviews changes as part of managing SEO and AI Search Optimization for local service businesses across the US and UK.',
+    date: 'Sep 8, 2026',
+    publishDate: '2026-09-08',
+    readTime: '5 min read',
+    featured: false,
+    image: '/blog/seo-general/seo-pricing-comparison.svg',
+    imageAlt: 'Google AI Overviews interactive character counter tool shown directly in search results',
+    keywords: ['google ai overviews character counter', 'ai overviews new feature', 'zero click search 2026', 'google ai overviews update', 'what does ai overviews mean for local business'],
+    relatedServiceUrl: '/ai-search-optimization',
+    relatedServiceName: 'AI Search Optimization (AEO/GEO)',
+    tldr: [
+      'Google now loads an interactive character counter widget directly inside AI Overviews for queries like "character counter," so the searcher never has to click through to a dedicated tool site',
+      'This is not really about character counters, it is another example of Google answering simple, informational queries itself instead of sending that click anywhere',
+      'The direct impact on plumbers, roofers, and other local service businesses is close to zero, nobody is searching "character counter" to hire a contractor',
+      'The pattern behind it is still worth watching, it is one more reason informational-only content keeps losing clicks while local, transactional intent (the searches that end in a phone call) does not',
+    ],
+    faqs: [
+      { question: 'What is the new AI Overviews character counter tool?', answer: 'Google now shows an interactive, functional character counter directly inside the AI Overview when someone searches something like "character counter." The searcher can type or paste text and get a live count right there in the search results, without visiting a separate character counting website.' },
+      { question: 'Does this affect my local service business directly?', answer: 'No. This specific change targets a narrow, purely informational query category. Nobody searching "character counter" is a plumbing or roofing customer. The reason it is worth knowing about is the pattern it represents, not the tool itself.' },
+      { question: 'What is the actual pattern behind this update?', answer: 'Google has been steadily building simple, self-contained tools (calculators, converters, and now a character counter) directly into AI Overviews for queries it can fully answer on its own. Every time this happens, the click that used to go to a third-party tool site instead stays on Google.' },
+      { question: 'Should local businesses worry about losing traffic to AI Overviews?', answer: 'Not for the type of content most local service businesses rely on. AI Overviews is absorbing simple factual and utility queries, not "plumber near me" or "how much does a roof replacement cost in [city]," which still require a business to actually contact. The risk is concentrated in general informational content, not local, transactional search.' },
+      { question: 'What should a local business actually do about this trend?', answer: 'Keep leaning into what AI Overviews cannot answer for a searcher, your Google Business Profile, your reviews, and location-specific service pages that end in a phone call. See our guide on [how to get cited by ChatGPT and Google AI Overviews](/blog/how-to-get-cited-by-chatgpt-google-ai-overviews) for the content types that still earn a click even as Google keeps more informational traffic for itself.' },
+    ],
+    content: `## Google AI Overviews Just Got a Character Counter Tool
+
+Google now shows an interactive character counter directly inside AI Overviews. Search something like "character counter" and instead of a list of blue links to third-party tool sites, Google loads a working counter right there in the results, [as reported by Search Engine Roundtable](https://www.seroundtable.com/google-ai-overviews-character-counter-42026.html). Type or paste text, get a live count, never leave Google.
+
+On its own, this is a small update that affects a small, narrow category of searches. It matters because of what it represents, not because of what it does.
+
+## What Is the Pattern Behind This Update
+
+Google has spent the last few years steadily moving simple, self-contained, fully-answerable queries out of the list of blue links and into the answer box itself. Unit converters, basic calculators, and now a character counter all follow the same shape, a query with one clear, correct answer that Google can generate and display without sending the click anywhere else.
+
+Every one of these additions quietly removes a slice of traffic from whichever websites used to own that query. A character counter site that used to rank first for "character counter" now competes with an answer Google renders itself, above every organic result.
+
+## Why This Barely Touches Local Service Businesses
+
+If you run a plumbing, roofing, HVAC, or landscaping business, this specific change is not going to show up in your analytics. Nobody searches "character counter" while trying to hire a contractor. The queries at risk here are narrow, purely informational, and self-contained, exactly the opposite of "emergency plumber near me" or "how much does a roof replacement cost in [city]," searches that end in a phone call rather than an answer Google can generate on its own.
+
+That gap is the real takeaway. Google absorbing simple utility queries into AI Overviews is not a threat to local, transactional search, it is a reminder of which queries are safe and which are not. See our full breakdown of [what zero-click searches actually mean for your business](/blog/what-are-zero-click-searches) if you want the deeper version of this distinction.
+
+## What This Means for Your Search Strategy
+
+The businesses actually losing ground to AI Overviews are the ones publishing broad, generic, purely informational content and hoping it drives leads on its own. That was always a weaker strategy for a local service business than it looked.
+
+The stronger position, and the one this update quietly reinforces, is doubling down on the searches Google cannot fully answer itself. A tight, well-optimized Google Business Profile, a strong flow of recent reviews, and location-specific service pages built around the exact questions your customers ask before they call, none of that goes away no matter how good AI Overviews gets at counting characters.
+
+Want your business showing up as the cited source in AI-generated answers instead of losing clicks to them? Explore our [AI Search Optimization (AEO/GEO) services](/ai-search-optimization), or get a [free Google Business Profile review](/contact) to see where your local search visibility actually stands today.
+    `,
+  },
+  {
+    slug: 'google-testing-search-campaigns-ai-mode',
+    title: 'Google Is Testing Standard Search Campaigns in AI Mode, and What Advertisers Should Check Now',
+    excerpt: 'Google is testing whether exact and phrase match Search campaigns can serve text ads inside AI Mode, without requiring AI Max or Performance Max. Here is what the test actually covers and what to check in your account.',
+    category: 'Digital Marketing',
+    author: 'Web Wise Team',
+    authorBio: 'The Web Wise Team manages Google Ads accounts for local service businesses across the US and UK, and tracks AI Mode and Performance Max changes as they roll out.',
+    date: 'Sep 8, 2026',
+    publishDate: '2026-09-08',
+    readTime: '6 min read',
+    featured: false,
+    image: '/blog/seo-general/seo-pricing-comparison.svg',
+    imageAlt: 'Google testing standard Search campaigns serving ads inside AI Mode',
+    keywords: ['google ai mode search campaigns', 'ai mode ads test 2026', 'exact match ads ai mode', 'google ads ai mode update', 'ppc ai mode strategy'],
+    relatedServiceUrl: '/digital-marketing/ppc',
+    relatedServiceName: 'PPC Advertising',
+    tldr: [
+      'Google is testing whether standard Search campaigns using exact and phrase match keywords can serve as text ads inside AI Mode, not just AI Max or Performance Max for Search',
+      'Before this test, the only paths into AI Mode ad placements were AI Max, Performance Max for Search, or broad match paired with Smart Bidding, all of which hand more control to Google automation',
+      'Google says eligibility is limited to queries with clear, direct intent, but has not published a definition of what that means in practice',
+      'This does not mean every advertiser needs to change anything today, it is an early test, not a rollout, and the safest move right now is watching your account, not restructuring campaigns to chase it',
+    ],
+    faqs: [
+      { question: 'What is Google actually testing in AI Mode?', answer: 'Google is testing whether traditional Search campaigns using exact and phrase match keywords can serve text ads inside AI Mode, [as first reported by Search Engine Land](https://searchengineland.com/google-tests-traditional-search-campaigns-in-ai-mode-487199). Previously, the only ways into AI Mode ad placements were AI Max, Performance Max for Search, or broad match keywords paired with Smart Bidding.' },
+      { question: 'Do I need AI Max or Performance Max to show up in AI Mode?', answer: 'Not necessarily anymore, at least based on this test. If it expands beyond testing, advertisers running standard exact and phrase match Search campaigns may get some AI Mode exposure without switching campaign types or handing over the tighter keyword control those campaigns offer.' },
+      { question: 'What does Google mean by clear, direct intent?', answer: 'Google\'s Ads Liaison, Ginny Marvin, confirmed on September 4, 2026 that eligibility is currently limited to searches showing clear, direct intent, but Google has not published a specific definition. In practice, this likely means highly specific, unambiguous queries rather than broad or exploratory ones.' },
+      { question: 'Should I change my Google Ads account because of this test?', answer: 'Not yet. This is an early-stage test, not a general rollout, and Google has not published enrollment criteria or a timeline. The right move right now is watching your placement and impression data for any AI Mode surfaces, not restructuring campaigns around a test that could change or end at any point.' },
+      { question: 'How is this different from AI Max or Performance Max for Search?', answer: 'AI Max and Performance Max hand significant control to Google\'s automation, including bidding, targeting, and often creative decisions. A standard exact or phrase match Search campaign getting a path into AI Mode would let advertisers reach that surface while keeping the keyword-level control those campaign types are built for.' },
+    ],
+    content: `## Google Is Testing Standard Search Campaigns in AI Mode
+
+Google has started testing whether standard Search campaigns, the kind built on exact and phrase match keywords, can serve text ads inside AI Mode, [as first reported by Search Engine Land](https://searchengineland.com/google-tests-traditional-search-campaigns-in-ai-mode-487199). Until now, the only paths into AI Mode ad placements were AI Max, Performance Max for Search, or broad match keywords running on Smart Bidding, all approaches that hand a large amount of control to Google's automation.
+
+Google's Ads Liaison, Ginny Marvin, confirmed on September 4, 2026 that eligibility in the test is currently limited to queries showing clear, direct intent. Google has not published a specific definition of what qualifies, which matters more than it might sound like.
+
+## Why This Test Matters More Than It Looks
+
+For the last couple of years, showing up in Google's AI-powered search surfaces has meant giving up keyword-level control in exchange for reach, whether that meant shifting budget into Performance Max or loosening match types into broad match paired with Smart Bidding. Both paths trade precision for automation.
+
+A standard exact or phrase match campaign getting a path into AI Mode would be the first real exception to that trade-off. If it expands past the test phase, advertisers could reach AI Mode placements while keeping the tighter targeting that exact and phrase match are built for, without restructuring an account around Google's automated campaign types.
+
+That said, "clear, direct intent" is Google's phrase, not a documented eligibility rule. Until Google defines it, or the test expands, this reads more like an early signal than a strategy to build a campaign around today.
+
+## What to Actually Check in Your Account Right Now
+
+Given this is a test, not a rollout, the right response is watching, not restructuring.
+
+**Review your existing Search campaigns.** If you already run exact and phrase match campaigns with solid Quality Scores and tightly matched keywords, you are already positioned well if this test expands. See our guide on [what Quality Score actually measures](/blog/what-is-quality-score-in-google-ads) if you have not audited yours recently.
+
+**Watch your placement and impression data.** Once AI Mode placements become visible in reporting for standard Search campaigns, that is the signal the test has moved past a small pilot group.
+
+**Do not rush into broad match or Performance Max just to chase this.** That path already exists and has for a while. If exact and phrase match campaigns end up with their own route into AI Mode, switching campaign types now to chase a placement that may open up anyway would be working backward.
+
+**Keep an eye on official Google Ads communications.** Tests like this either quietly expand or quietly end. There is no public timeline yet for either outcome.
+
+## What This Means for Your PPC Strategy
+
+This test is worth knowing about, not worth reacting to yet. The advertisers who benefit most when changes like this expand are usually the ones already running clean, well-structured Search campaigns, not the ones scrambling to restructure an account around a Google Ads Liaison's four-word phrase.
+
+If you want a second set of eyes on whether your Google Ads account is actually positioned to take advantage of changes like this as they roll out, our team specializes in [PPC advertising for local service businesses](/digital-marketing/ppc). Get a [free Google Ads account review](/contact) and we will show you exactly where your current campaigns stand.
+    `,
+  },
 ]
 
 // URL mapping for blog slugs to their canonical URLs
