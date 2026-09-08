@@ -193,6 +193,10 @@ export interface Client {
   timelineSteps?: CaseStudyTimelineStep[]
   testimonial?: CaseStudyTestimonial
   nofollow?: boolean
+  // Set once we've confirmed the site doesn't send a frame-blocking header
+  // (X-Frame-Options / CSP frame-ancestors). Flip to true after redeploying
+  // a fix, the Live Preview switches to the real embed automatically.
+  embeddable?: boolean
 }
 
 // Clients/Portfolio Data
@@ -467,6 +471,9 @@ Phase 4 - AI-first content: Long-form, structured service pages designed to be c
     url: 'https://www.gimosroofing.com',
     image: getScreenshot('https://www.gimosroofing.com'),
     nofollow: true,
+    // Still X-Frame-Options: SAMEORIGIN as of this commit. Flip to true
+    // once the nginx fix in gimos_roofing_website is redeployed.
+    embeddable: false,
     industry: 'Roofing',
     services: ['Local SEO', 'Website Design', 'Google Ads'],
     description: 'Full-service roofing company specializing in residential and commercial roof installation, repair, and maintenance. Built a lead-generating website with service area pages, project galleries, and integrated quote request system to capture local customers.',
