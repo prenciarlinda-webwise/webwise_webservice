@@ -7,6 +7,7 @@ import { clients, siteConfig, type KeywordRanking } from '@/data/site'
 import { generateBreadcrumbSchema } from '@/lib/schemas'
 import WebsitePreview from '@/components/ui/WebsitePreview'
 import PricingCTA from '@/components/forms/PricingCTA'
+import LeadForm from '@/components/forms/LeadForm'
 
 // URL mappings for case studies (old slug -> new short URL)
 const caseStudyUrlMap: Record<string, string> = {
@@ -195,31 +196,51 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 Visit Website <ExternalLink size={18} />
               </a>
             </div>
-            {client.results && (
-              <div className={`grid grid-cols-2 gap-4 sm:gap-6 ${client.results.aiVisibility ? '' : 'sm:grid-cols-3'}`}>
-                <div className="bg-white/10 rounded-2xl p-6 text-center">
-                  <div className="text-3xl font-bold text-white mb-2">{client.results.trafficIncrease}</div>
-                  <div className="text-sm text-white/70">Traffic Increase</div>
+            <div className="relative">
+              {client.results && (
+                <div className="absolute -top-4 -right-3 sm:-right-6 z-10 bg-accent text-white text-xs sm:text-sm font-bold px-3 sm:px-4 py-2 rounded-full shadow-lg rotate-3">
+                  {client.results.trafficIncrease} traffic for this client
                 </div>
-                <div className="bg-white/10 rounded-2xl p-6 text-center">
-                  <div className="text-3xl font-bold text-white mb-2">{client.results.leadsIncrease}</div>
-                  <div className="text-sm text-white/70">Lead Growth</div>
-                </div>
-                <div className="bg-white/10 rounded-2xl p-6 text-center">
-                  <div className="text-3xl font-bold text-white mb-2">{client.results.rankingKeywords}</div>
-                  <div className="text-sm text-white/70">Keywords Ranked</div>
-                </div>
-                {client.results.aiVisibility && (
-                  <div className="bg-white/10 rounded-2xl p-6 text-center">
-                    <div className="text-2xl font-bold text-white mb-2">{client.results.aiVisibility.headline}</div>
-                    <div className="text-sm text-white/70">{client.results.aiVisibility.label}</div>
-                  </div>
-                )}
+              )}
+              <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8">
+                <h2 className="text-2xl font-bold text-primary mb-2">Get a Free Audit</h2>
+                <p className="text-sm text-text-secondary mb-6">
+                  Tell us about your project. We&apos;ll reply within 24 hours with concrete next steps.
+                </p>
+                <LeadForm source={`${client.name} case study hero`} ctaLabel="Get My Free Audit" />
               </div>
-            )}
+            </div>
           </div>
         </div>
       </section>
+
+      {/* Results Strip */}
+      {client.results && (
+        <section className="py-10 border-b border-border">
+          <div className="container px-6">
+            <div className="flex flex-wrap justify-center divide-x divide-border max-w-3xl mx-auto">
+              <div className="px-6 sm:px-10 py-2 text-center">
+                <div className="text-2xl font-bold text-primary">{client.results.trafficIncrease}</div>
+                <div className="text-sm text-text-muted">Traffic Increase</div>
+              </div>
+              <div className="px-6 sm:px-10 py-2 text-center">
+                <div className="text-2xl font-bold text-primary">{client.results.leadsIncrease}</div>
+                <div className="text-sm text-text-muted">Lead Growth</div>
+              </div>
+              <div className="px-6 sm:px-10 py-2 text-center">
+                <div className="text-2xl font-bold text-primary">{client.results.rankingKeywords}</div>
+                <div className="text-sm text-text-muted">Keywords Ranked</div>
+              </div>
+              {client.results.aiVisibility && (
+                <div className="px-6 sm:px-10 py-2 text-center">
+                  <div className="text-2xl font-bold text-primary">{client.results.aiVisibility.headline}</div>
+                  <div className="text-sm text-text-muted">{client.results.aiVisibility.label}</div>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Challenge & Solution */}
       {client.challenge && client.solution && (
