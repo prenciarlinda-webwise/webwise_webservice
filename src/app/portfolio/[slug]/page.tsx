@@ -68,27 +68,10 @@ function SectionList({ sections }: { sections: Section[] }) {
 
 // The strongest position a keyword holds across organic, local pack, and maps
 function bestPosition(rank: KeywordRanking): number {
-  return Math.min(
+  const p = Math.min(
     ...[rank.serp, rank.localPack, rank.mapsPack].filter((v): v is number => v !== undefined),
   )
-}
-
-const SERP_BUCKETS = [
-  { label: 'Top 3', min: 1, max: 3 },
-  { label: '4–10', min: 4, max: 10 },
-  { label: '11–20', min: 11, max: 20 },
-  { label: '21–50', min: 21, max: 50 },
-  { label: '51+', min: 51, max: Infinity },
-]
-
-function getPositionBuckets(rankings: KeywordRanking[]) {
-  return SERP_BUCKETS.map((b) => ({
-    label: b.label,
-    count: rankings.filter((r) => {
-      const p = bestPosition(r)
-      return Number.isFinite(p) && p >= b.min && p <= b.max
-    }).length,
-  })).filter((b) => b.count > 0)
+  return Number.isFinite(p) ? p : Infinity
 }
 
 export async function generateStaticParams() {
@@ -266,93 +249,111 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         </section>
       )}
 
-      {/* Live Website Preview */}
-      <section className="py-24 bg-bg-secondary">
-        <div className="container px-6">
-          <div className="text-center mb-12">
-            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Live Preview</span>
-            <h2 className="text-3xl font-bold text-primary mb-4">See the Website in Action</h2>
-            <p className="text-text-secondary max-w-2xl mx-auto">
-              Toggle between desktop and mobile to see how {client.name} looks on every screen.
-            </p>
-          </div>
-          <WebsitePreview url={client.url} name={client.name} image={client.image} nofollow={client.nofollow} />
-        </div>
-      </section>
-
-      {/* Keyword Ranking Wins */}
-      {client.keywordRankings && client.keywordRankings.length > 0 && (
-        <section className="py-24 bg-bg-secondary">
+      {/* The Website */}
+      {client.lighthouse && (
+        <section className="py-24">
           <div className="container px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-primary mb-4">Keywords {client.name} Ranks For Today</h2>
-              <p className="text-text-secondary max-w-2xl mx-auto">
-                Real positions pulled from Google search results, the local map pack, and AI Overview citations —
-                sorted from strongest to weakest.
+            <div className="max-w-3xl mx-auto text-center mb-12">
+              <h2 className="text-3xl font-bold text-primary mb-4">
+                {client.techStack ? `Built on ${client.techStack} and Tuned for Real Performance` : 'Built and Tuned for Real Performance'}
+              </h2>
+              <p className="text-text-secondary">
+                We didn&apos;t just redesign {client.name}&apos;s website. We rebuilt it from the ground up
+                {client.techStack ? ` on ${client.techStack}, one of the fastest frameworks in web development` : ''}, and
+                the results hold up under Google&apos;s own testing tools, not just our word for it.
               </p>
             </div>
 
-            {/* Position distribution */}
-            <div className="max-w-xl mx-auto mb-12">
-              <h3 className="text-sm font-semibold text-text-secondary text-center mb-5">Where These Rankings Land</h3>
-              <div className="space-y-3">
-                {(() => {
-                  const buckets = getPositionBuckets(client.keywordRankings)
-                  const max = Math.max(...buckets.map((b) => b.count))
-                  return buckets.map((b) => (
-                    <div key={b.label} className="flex items-center gap-4">
-                      <span className="w-14 flex-shrink-0 text-sm font-medium text-text-secondary text-right">{b.label}</span>
-                      <div className="flex-1 h-3 rounded-full bg-bg-tertiary overflow-hidden">
-                        <div
-                          className="h-full rounded-full bg-accent"
-                          style={{ width: `${Math.max((b.count / max) * 100, 8)}%` }}
-                        />
-                      </div>
-                      <span className="w-6 flex-shrink-0 text-sm font-bold text-primary">{b.count}</span>
-                    </div>
-                  ))
-                })()}
+            <div className="max-w-3xl mx-auto space-y-6">
+              <div>
+                <p className="text-text-secondary leading-relaxed">
+                  <span className="font-semibold text-primary">{client.lighthouse.performance} desktop performance score.</span>{' '}
+                  Verified independently by Google PageSpeed Insights.
+                </p>
               </div>
+              <div>
+                <p className="text-text-secondary leading-relaxed">
+                  <span className="font-semibold text-primary">{client.lighthouse.seo} SEO score.</span>{' '}
+                  A perfect score, with every technical SEO signal Google checks in place.
+                </p>
+              </div>
+              <div>
+                <p className="text-text-secondary leading-relaxed">
+                  <span className="font-semibold text-primary">{client.lighthouse.bestPractices} best practices score.</span>{' '}
+                  Also perfect, covering security, modern code standards, and browser compatibility.
+                </p>
+              </div>
+              <div>
+                <p className="text-text-secondary leading-relaxed">
+                  <span className="font-semibold text-primary">{client.lighthouse.accessibility} accessibility score.</span>{' '}
+                  Built to work well for every visitor, screen reader users included.
+                </p>
+              </div>
+              {client.lighthouse.agenticBrowsing && (
+                <div>
+                  <p className="text-text-secondary leading-relaxed">
+                    <span className="font-semibold text-primary">{client.lighthouse.agenticBrowsing} on Google&apos;s agentic browsing audit.</span>{' '}
+                    A new, still-evolving Lighthouse category that measures how well AI agents like ChatGPT and Gemini can actually browse and use the site.
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Full-Service Setup */}
+      {client.deliverables && client.deliverables.length > 0 && (
+        <section className="py-24 bg-bg-secondary">
+          <div className="container px-6">
+            <div className="max-w-3xl mx-auto text-center mb-12">
+              <h2 className="text-3xl font-bold text-primary mb-4">A Complete Local Presence, Not Just a Website</h2>
+              <p className="text-text-secondary">
+                Most agencies build a website and stop there. For {client.name}, we set up and manage the full stack
+                that actually drives local visibility.
+              </p>
+            </div>
+            <div className="max-w-3xl mx-auto grid sm:grid-cols-2 gap-x-8 gap-y-6">
+              {client.deliverables.map((item, i) => (
+                <p key={i} className="text-text-secondary leading-relaxed">
+                  <span className="font-semibold text-primary">{item.label}.</span> {item.description}
+                </p>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Keyword Ranking Wins */}
+      {client.keywordRankings && client.keywordRankings.length > 0 && (
+        <section className="py-24">
+          <div className="container px-6">
+            <div className="max-w-3xl mx-auto text-center mb-12">
+              <h2 className="text-3xl font-bold text-primary mb-4">Keywords {client.name} Ranks For Today</h2>
+              <p className="text-text-secondary">
+                Real positions pulled from Google search results, the local map pack, and AI Overview citations.
+              </p>
             </div>
 
-            {/* Ranked list */}
-            <div className="max-w-3xl mx-auto rounded-2xl border border-border bg-white overflow-hidden">
+            <ul className="max-w-2xl mx-auto space-y-4">
               {[...client.keywordRankings]
                 .sort((a, b) => bestPosition(a) - bestPosition(b))
-                .map((rank, i) => (
-                  <div
-                    key={i}
-                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-6 py-4 border-b border-border last:border-b-0 hover:bg-bg-secondary transition-colors"
-                  >
-                    <div className="min-w-0">
-                      <p className="font-semibold text-primary">&quot;{rank.keyword}&quot;</p>
-                      {rank.note && <p className="text-sm text-text-muted mt-1 leading-relaxed">{rank.note}</p>}
-                    </div>
-                    <div className="flex flex-wrap items-center gap-2 flex-shrink-0">
-                      {rank.aiOverview && (
-                        <span className="px-2.5 py-1 rounded-full bg-accent/10 text-accent text-xs font-semibold">
-                          AI Overview {rank.aiOverview === 'cited' ? 'cited' : rank.aiOverview === 'suggestion' ? 'suggested' : rank.aiOverview}
-                        </span>
-                      )}
-                      {rank.serp !== undefined && (
-                        <span className={`px-3 py-1 rounded-full text-sm font-bold ${rank.serp === 1 ? 'bg-accent text-white' : 'bg-bg-secondary text-primary'}`}>
-                          SERP #{rank.serp}
-                        </span>
-                      )}
-                      {rank.localPack !== undefined && (
-                        <span className={`px-3 py-1 rounded-full text-sm font-bold ${rank.localPack === 1 ? 'bg-accent text-white' : 'bg-bg-secondary text-primary'}`}>
-                          Map #{rank.localPack}
-                        </span>
-                      )}
-                      {rank.mapsPack !== undefined && (
-                        <span className={`px-3 py-1 rounded-full text-sm font-bold ${rank.mapsPack === 1 ? 'bg-accent text-white' : 'bg-bg-secondary text-primary'}`}>
-                          Maps #{rank.mapsPack}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                ))}
-            </div>
+                .map((rank, i) => {
+                  const position = bestPosition(rank)
+                  const positionLabel = rank.mapsPack !== undefined && rank.mapsPack === position
+                    ? `#${position} in Google Maps`
+                    : rank.localPack !== undefined && rank.localPack === position
+                    ? `#${position} in the local map pack`
+                    : `#${position}`
+                  return (
+                    <li key={i} className="text-text-secondary leading-relaxed">
+                      <span className="font-semibold text-primary">&quot;{rank.keyword}&quot;</span> ranks {positionLabel}
+                      {rank.aiOverview ? ', and is cited in Google AI Overview' : ''}.
+                      {rank.note && ` ${rank.note}`}
+                    </li>
+                  )
+                })}
+            </ul>
 
             {/* Optional ranking screenshots */}
             {client.rankingScreenshots && client.rankingScreenshots.length > 0 && (
@@ -383,6 +384,19 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           </div>
         </section>
       )}
+
+      {/* Live Website Preview */}
+      <section className="py-24 bg-bg-secondary">
+        <div className="container px-6">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <h2 className="text-3xl font-bold text-primary mb-4">See the Website in Action</h2>
+            <p className="text-text-secondary">
+              Toggle between desktop and mobile to see how {client.name} looks on every screen.
+            </p>
+          </div>
+          <WebsitePreview url={client.url} name={client.name} image={client.image} nofollow={client.nofollow} />
+        </div>
+      </section>
 
       {/* Timeline */}
       {client.timelineSteps && client.timelineSteps.length > 0 && (

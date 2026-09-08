@@ -143,6 +143,25 @@ export interface CaseStudyTestimonial {
   role?: string
 }
 
+// One item in the "what we actually set up and manage" checklist —
+// a bold label plus a single supporting sentence, matching the site's
+// established bold-label content pattern.
+export interface ServiceDeliverable {
+  label: string
+  description: string
+}
+
+// Independently verifiable scores from Google's own Lighthouse/PageSpeed
+// Insights tool, so case-study copy can cite real numbers rather than
+// vague performance claims.
+export interface LighthouseScores {
+  performance: number
+  accessibility: number
+  bestPractices: number
+  seo: number
+  agenticBrowsing?: string
+}
+
 export interface Client {
   name: string
   slug: string
@@ -166,6 +185,9 @@ export interface Client {
   }
   keywordRankings?: KeywordRanking[]
   rankingScreenshots?: RankingScreenshot[]
+  techStack?: string
+  lighthouse?: LighthouseScores
+  deliverables?: ServiceDeliverable[]
   challenge?: string
   solution?: string
   timelineSteps?: CaseStudyTimelineStep[]
@@ -457,6 +479,44 @@ Phase 4 - AI-first content: Long-form, structured service pages designed to be c
         label: 'Named in AI Recommendations',
       },
     },
+    techStack: 'Next.js',
+    lighthouse: {
+      performance: 94,
+      accessibility: 90,
+      bestPractices: 100,
+      seo: 100,
+      agenticBrowsing: '2 of 3 checks passed',
+    },
+    deliverables: [
+      {
+        label: 'Custom Next.js website',
+        description: 'Fast, mobile-friendly, and built for search from day one.',
+      },
+      {
+        label: 'Google Business Profile optimization',
+        description: 'Fully verified, categorized, and kept active with regular updates.',
+      },
+      {
+        label: 'Google Search Console setup',
+        description: 'Indexing, sitemap submission, and search performance all monitored.',
+      },
+      {
+        label: 'Google Analytics 4 tracking',
+        description: 'Every lead source and conversion tracked and reported.',
+      },
+      {
+        label: 'Local directory listings',
+        description: 'Consistent name, address, and phone details across the citations that matter for local rankings.',
+      },
+      {
+        label: 'YouTube channel setup',
+        description: 'A dedicated channel for project videos, feeding both search and AI visibility.',
+      },
+      {
+        label: 'Google Ads management',
+        description: 'Paid search running alongside organic for immediate lead flow.',
+      },
+    ],
     keywordRankings: [
       {
         keyword: 'roofing Mandarin FL',
