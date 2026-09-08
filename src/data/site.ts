@@ -209,21 +209,6 @@ export interface Client {
 
 // Clients/Portfolio Data
 export const clients: Record<string, Client> = {
-  msccertification: {
-    name: 'MSC Certification',
-    slug: 'msc-certification-web-application-development',
-    url: 'https://www.msc-cert.com',
-    image: getScreenshot('https://www.msc-cert.com'),
-    embeddable: false, // X-Frame-Options: SAMEORIGIN, verified 2026-09-08
-    industry: 'Certification & Training',
-    services: ['Web Application', 'Website Design', 'Dashboard Development'],
-    description: 'Custom-built certification management platform featuring a professional public website, secure admin dashboard for managing clients and certificates, dynamic certificate template builder, and automated QR code generation for instant verification.',
-    results: {
-      trafficIncrease: '250%',
-      leadsIncrease: '180%',
-      rankingKeywords: '35+',
-    },
-  },
   illyrianplumber: {
     name: 'Illyrian Plumber',
     slug: 'illyrian-group-plumbing-seo-web-development',
@@ -844,41 +829,6 @@ Phase 4 - AI-first content: Long-form, structured service pages designed to be c
       },
     ],
   },
-  gjejpro: {
-    name: 'Gjej Pro',
-    slug: 'gjej-pro-marketplace-web-application-seo',
-    url: 'https://www.gjejpro.com',
-    image: getScreenshot('https://www.gjejpro.com'),
-    embeddable: true, // no frame-blocking headers, verified 2026-09-08
-    industry: 'Marketplace Platform',
-    services: ['Web Application', 'Marketplace Architecture', 'SEO', 'Content Marketing'],
-    description: 'A two-sided marketplace platform connecting Albanian homeowners and businesses with verified local professionals — electricians, plumbers, painters, cleaners, tutors, and 17 more service categories — with a path to UK expansion. Tagline: "Profesionistë për ju" (Professionals for you). We built the full product end-to-end: Django 6 + DRF + PostGIS backend, Next.js 16 (App Router, server components) + Tailwind v4 frontend, JWT auth with rotating refresh tokens, role-guarded dashboards for Admin / Profesionist / Klient, real-time messaging, an end-to-end job-and-quote flow with atomic accept logic, and a fully server-rendered SEO-shaped public site with 100+ indexable URLs across categories, cities, and pros. The platform makes finding the right professional feel as easy as ordering food: transparent prices, real reviews, no hidden commissions.',
-    results: {
-      trafficIncrease: '580%',
-      leadsIncrease: '430%',
-      rankingKeywords: '92+',
-    },
-    challenge: `Gjej Pro needed an entire two-sided marketplace built from zero — not a template skin, an actual production system that could handle the messy reality of local services in Albania.
-
-The job: connect Klients (people who need a leak fixed, a wall painted, an emergency electrician, a tutor for their kid) with Profesionistë (verified tradespeople competing on quotes and reputation), without taking commission, without intermediating payment, and without making either side feel like they were dealing with software.
-
-Specific constraints we had to design around: Albanian-language UX as the primary market with a UK-expansion-ready architecture, 22 distinct service categories with their own taxonomy and routes, 18 cities with per-city SEO landing pages, role-aware navigation for three user types, real-time-feeling messaging without a websocket budget, server-rendered pages so Google could actually index real content (not empty React shells), and a platform that ranks before it has critical mass. None of this exists out of the box.`,
-    solution: `We built the entire product end-to-end across backend, frontend, infrastructure, and SEO.
-
-**Backend (Django 6 + DRF + PostgreSQL + PostGIS):** Three-role auth (Admin / Profesionist / Klient) with JWT, rotating refresh tokens, Argon2 password hashing, and email verification. 22-category service catalog with reserved-slug guards. Per-freelancer service CRUD, service areas auto-geocoded to PostGIS center_points, and the core job-and-quote loop with atomic accept logic that rejects all other quotes in a single transaction. 1:1 messaging with idempotent conversation creation. Reviews with server-side avg recompute. A 7-trigger notification system (in-app + email) with per-kind opt-out toggles.
-
-**Frontend (Next.js 16 + React 19 + Tailwind v4):** Server-component-first public site, client-component dashboards. Role-guarded routing, mobile drawer nav, unread badges polling every 30s. Avatar uploads with deterministic-color fallbacks. Per-role profile editors. Public freelancer browse with "Pranë meje" geolocation filtering.
-
-**SEO-shaped public site:** 100+ server-rendered URLs that Google can actually crawl — 22 category landings (/elektricist, /hidraulik, …) flattened from /kategorite/[slug] for shorter URLs, 18 city landings, public freelancer profiles, a Django-backed blog at /blog, auto-generated sitemap.xml, and Albanian-language og: tags + canonical URLs on every page. Indexable real content, not empty React shells.
-
-**Brand & UX:** Black + forest green (#1F4D3A) + warm gold (#C9A961) for verified/featured. Inter + Fraunces. Layered card hero, category scroll-rail, featured pros, stats band, testimonials. Designed to feel as easy as ordering food.`,
-    timelineSteps: [
-      { step: '1', title: 'Discovery & Architecture', desc: 'Mapped the full marketplace flow — auth, catalog, jobs, quotes, messaging, reviews, notifications. Chose Django + DRF + PostGIS for the backend, Next.js 16 App Router for the frontend.' },
-      { step: '2', title: 'Core Loop Built', desc: 'Three-role auth, 22-category catalog with reserved-slug guard, services CRUD, geocoded service areas, end-to-end job-and-quote flow with atomic accept logic.' },
-      { step: '3', title: 'Engagement Layer', desc: '1:1 messaging, 5-star reviews with server-side avg recompute, 7-trigger notification system (in-app + email) with per-user opt-out toggles.' },
-      { step: '4', title: 'SEO-Shaped Public Site', desc: '100+ server-rendered URLs across categories, cities, and pros. Auto-generated sitemap, Albanian metadata, Django-backed blog, full schema. Indexable content from day one.' },
-    ],
-  },
   painttechs: {
     name: 'Paint-Techs LLC',
     slug: 'paint-techs-painting-contractor-seo-website-redesign',
@@ -894,19 +844,6 @@ Specific constraints we had to design around: Albanian-language UX as the primar
       rankingKeywords: '282+',
     },
   },
-  sunriseautorent: {
-    name: 'Sunrise Auto Rent',
-    slug: 'sunrise-auto-rent-car-rental-website-design',
-    url: 'https://www.sunriseautorent.com',
-    image: getScreenshot('https://www.sunriseautorent.com'),
-    // Domain does not resolve (NXDOMAIN) as of 2026-09-08, site appears down.
-    // Flag this to the client, screenshots/embed will both be broken until fixed.
-    embeddable: false,
-    industry: 'Car Rental',
-    services: ['Website Design'],
-    description: 'Car rental service offering a wide range of vehicles for tourists and locals. Built a user-friendly website with vehicle catalog, online booking system, and pricing calculator.',
-    nofollow: true,
-  },
   knflooring: {
     name: 'KN Flooring LLC',
     slug: 'kn-flooring-contractor-website-design',
@@ -916,17 +853,6 @@ Specific constraints we had to design around: Albanian-language UX as the primar
     industry: 'Flooring',
     services: ['Website Design'],
     description: 'Professional flooring company specializing in hardwood, laminate, tile, and vinyl flooring installation. Developed a showcase website with project gallery and service area information.',
-    nofollow: true,
-  },
-  kryemadhicarrental: {
-    name: 'Kryemadhi Car Rental',
-    slug: 'kryemadhi-car-rental-albania-website-design',
-    url: 'https://www.kryemadhicarrental.com',
-    image: getScreenshot('https://www.kryemadhicarrental.com'),
-    embeddable: true, // no frame-blocking headers, verified 2026-09-08
-    industry: 'Car Rental',
-    services: ['Website Design'],
-    description: 'Car rental service providing quality vehicles for travelers. Created a modern website with fleet showcase, reservation system, and contact integration.',
     nofollow: true,
   },
   gnthomeremodeling: {
@@ -954,16 +880,6 @@ Specific constraints we had to design around: Albanian-language UX as the primar
       leadsIncrease: '275%',
       rankingKeywords: '48+',
     },
-  },
-  torragips: {
-    name: 'Torra Gips',
-    slug: 'torra-gips-construction-company-website-design',
-    url: 'https://www.torragips.com/sq/',
-    image: getScreenshot('https://www.torragips.com/sq/'),
-    embeddable: false, // X-Frame-Options: SAMEORIGIN, verified 2026-09-08
-    industry: 'Construction',
-    services: ['Website Design'],
-    description: 'Albanian construction and gypsum services company specializing in interior finishing, drywall installation, and decorative plasterwork. Built a bilingual website showcasing their project portfolio, service offerings, and contact system to reach residential and commercial clients across Albania.',
   },
   illyriangroupcorp: {
     name: 'Illyrian Group Corp',

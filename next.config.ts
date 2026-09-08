@@ -112,15 +112,16 @@ const nextConfig: NextConfig = {
       { source: '/portfolio/albros-premium-detailing-seo-website-design', destination: '/case-studies/albros-detailing', statusCode: 301 },
       { source: '/portfolio/northstar-home-improvement-seo-website-development', destination: '/case-studies/northstar', statusCode: 301 },
       { source: '/portfolio/904-dumpster-rental-jacksonville-seo-website', destination: '/case-studies/904-dumpster', statusCode: 301 },
-      { source: '/portfolio/gjej-pro-marketplace-web-application-seo', destination: '/case-studies/gjej-pro', statusCode: 301 },
+      { source: '/portfolio/gjej-pro-marketplace-web-application-seo', destination: '/case-studies', statusCode: 301 },
       { source: '/portfolio/paint-techs-painting-contractor-seo-website-redesign', destination: '/case-studies/paint-techs', statusCode: 301 },
-      { source: '/portfolio/sunrise-auto-rent-car-rental-website-design', destination: '/case-studies/sunrise-auto', statusCode: 301 },
+      { source: '/portfolio/sunrise-auto-rent-car-rental-website-design', destination: '/case-studies', statusCode: 301 },
       { source: '/portfolio/kn-flooring-contractor-website-design', destination: '/case-studies/kn-flooring', statusCode: 301 },
-      { source: '/portfolio/kryemadhi-car-rental-albania-website-design', destination: '/case-studies/kryemadhi', statusCode: 301 },
+      { source: '/portfolio/kryemadhi-car-rental-albania-website-design', destination: '/case-studies', statusCode: 301 },
       { source: '/portfolio/gnt-home-remodeling-contractor-website-design', destination: '/case-studies/gnt-remodeling', statusCode: 301 },
       { source: '/portfolio/eli-taxi-durres-albania-website-design', destination: '/case-studies', statusCode: 301 },
-      { source: '/portfolio/msc-certification-web-application-development', destination: '/case-studies/msc-certification', statusCode: 301 },
+      { source: '/portfolio/msc-certification-web-application-development', destination: '/case-studies', statusCode: 301 },
       { source: '/portfolio/aaa-remodels-jacksonville-home-remodeling-seo-website', destination: '/case-studies/aaa-remodels', statusCode: 301 },
+      { source: '/portfolio/torra-gips-construction-company-website-design', destination: '/case-studies', statusCode: 301 },
 
       // ============================================
       // OLD WORDPRESS REDIRECTS (updated destinations to new URLs)

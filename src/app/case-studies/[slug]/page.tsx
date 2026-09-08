@@ -9,15 +9,10 @@ const slugMap: Record<string, string> = {
   'albros-detailing': 'albros-premium-detailing-seo-website-design',
   'northstar': 'northstar-home-improvement-seo-website-development',
   '904-dumpster': '904-dumpster-rental-jacksonville-seo-website',
-  'gjej-pro': 'gjej-pro-marketplace-web-application-seo',
   'paint-techs': 'paint-techs-painting-contractor-seo-website-redesign',
-  'sunrise-auto': 'sunrise-auto-rent-car-rental-website-design',
   'kn-flooring': 'kn-flooring-contractor-website-design',
-  'kryemadhi': 'kryemadhi-car-rental-albania-website-design',
   'gnt-remodeling': 'gnt-home-remodeling-contractor-website-design',
-  'msc-certification': 'msc-certification-web-application-development',
   'aaa-remodels': 'aaa-remodels-jacksonville-home-remodeling-seo-website',
-  'torra-gips': 'torra-gips-construction-company-website-design',
   'alpha-pro-construction': 'alpha-pro-construction-roofing-seo-website-design',
 }
 

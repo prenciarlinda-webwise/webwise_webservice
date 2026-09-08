@@ -15,15 +15,10 @@ const caseStudyUrlMap: Record<string, string> = {
   'albros-premium-detailing-seo-website-design': '/case-studies/albros-detailing',
   'northstar-home-improvement-seo-website-development': '/case-studies/northstar',
   '904-dumpster-rental-jacksonville-seo-website': '/case-studies/904-dumpster',
-  'gjej-pro-marketplace-web-application-seo': '/case-studies/gjej-pro',
   'paint-techs-painting-contractor-seo-website-redesign': '/case-studies/paint-techs',
-  'sunrise-auto-rent-car-rental-website-design': '/case-studies/sunrise-auto',
   'kn-flooring-contractor-website-design': '/case-studies/kn-flooring',
-  'kryemadhi-car-rental-albania-website-design': '/case-studies/kryemadhi',
   'gnt-home-remodeling-contractor-website-design': '/case-studies/gnt-remodeling',
-  'msc-certification-web-application-development': '/case-studies/msc-certification',
   'aaa-remodels-jacksonville-home-remodeling-seo-website': '/case-studies/aaa-remodels',
-  'torra-gips-construction-company-website-design': '/case-studies/torra-gips',
   'alpha-pro-construction-roofing-seo-website-design': '/case-studies/alpha-pro-construction',
 }
 

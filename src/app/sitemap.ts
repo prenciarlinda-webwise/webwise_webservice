@@ -13,15 +13,10 @@ const caseStudySlugMap: Record<string, string> = {
   'albros-premium-detailing-seo-website-design': 'albros-detailing',
   'northstar-home-improvement-seo-website-development': 'northstar',
   '904-dumpster-rental-jacksonville-seo-website': '904-dumpster',
-  'gjej-pro-marketplace-web-application-seo': 'gjej-pro',
   'paint-techs-painting-contractor-seo-website-redesign': 'paint-techs',
-  'sunrise-auto-rent-car-rental-website-design': 'sunrise-auto',
   'kn-flooring-contractor-website-design': 'kn-flooring',
-  'kryemadhi-car-rental-albania-website-design': 'kryemadhi',
   'gnt-home-remodeling-contractor-website-design': 'gnt-remodeling',
-  'msc-certification-web-application-development': 'msc-certification',
   'aaa-remodels-jacksonville-home-remodeling-seo-website': 'aaa-remodels',
-  'torra-gips-construction-company-website-design': 'torra-gips',
   'alpha-pro-construction-roofing-seo-website-design': 'alpha-pro-construction',
 }
 

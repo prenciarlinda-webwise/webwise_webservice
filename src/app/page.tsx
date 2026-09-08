@@ -112,15 +112,6 @@ const industries = [
 // Case studies (image pulled from the real client screenshot already generated in site.ts)
 const caseStudies = [
   {
-    name: 'MSC Certification',
-    slug: 'msc-certification',
-    type: 'Web Application',
-    description: 'Custom certification management platform with admin dashboard, certificate builder, and QR code verification.',
-    services: ['Web Application', 'Website', 'Dashboard'],
-    results: { traffic: '250%', leads: '180%', keywords: '35+' },
-    image: clients.msccertification.image,
-  },
-  {
     name: 'Illyrian Plumber',
     slug: 'illyrian-group',
     type: 'Local SEO + Website',
@@ -147,15 +138,6 @@ const caseStudies = [
     results: { traffic: '445%', leads: '350%', keywords: '67+' },
     image: clients['904dumpster'].image,
   },
-  {
-    name: 'GjejPro',
-    slug: 'gjej-pro',
-    type: 'Web Application + SEO',
-    description: 'Professional services marketplace with booking, reviews, and admin dashboard.',
-    services: ['Web Application', 'SEO', 'Content Marketing'],
-    results: { traffic: '580%', leads: '430%', keywords: '92+' },
-    image: clients.gjejpro.image,
-  },
 ]
 
 // Ambient hero proof strip, visual only, names/domains intentionally omitted
@@ -174,12 +156,8 @@ const testimonials = [
     company: "Gimo's Roofing"
   },
   {
-    quote: "The certification management system they built has streamlined our entire operation. The admin dashboard and QR code verification feature have saved us countless hours.",
-    company: "MSC Certification"
-  },
-  {
-    quote: "The web application they built for us is incredible. Fast, reliable, and exactly what we needed. Their Django expertise is unmatched.",
-    company: "GjejPro"
+    quote: "Web Wise rebuilt our website and our SEO from the ground up. We're now ranking #1 on Google for the jobs that actually pay, whole house repiping, PEX, gas line work. Our phone rings with the right kind of calls now, and we're the only plumber in our area being recommended by Google's AI directly. Worth every dollar.",
+    company: "Illyrian Plumber"
   },
 ]
 
