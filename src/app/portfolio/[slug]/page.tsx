@@ -188,7 +188,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
               </a>
             </div>
             {client.results && (
-              <div className="grid grid-cols-3 gap-6">
+              <div className={`grid grid-cols-2 gap-4 sm:gap-6 ${client.results.aiVisibility ? '' : 'sm:grid-cols-3'}`}>
                 <div className="bg-white/10 rounded-2xl p-6 text-center">
                   <div className="text-3xl font-bold text-white mb-2">{client.results.trafficIncrease}</div>
                   <div className="text-sm text-white/70">Traffic Increase</div>
@@ -201,6 +201,12 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                   <div className="text-3xl font-bold text-white mb-2">{client.results.rankingKeywords}</div>
                   <div className="text-sm text-white/70">Keywords Ranked</div>
                 </div>
+                {client.results.aiVisibility && (
+                  <div className="bg-white/10 rounded-2xl p-6 text-center">
+                    <div className="text-2xl font-bold text-white mb-2">{client.results.aiVisibility.headline}</div>
+                    <div className="text-sm text-white/70">{client.results.aiVisibility.label}</div>
+                  </div>
+                )}
               </div>
             )}
           </div>

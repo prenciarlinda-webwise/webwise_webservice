@@ -110,8 +110,10 @@ export const services = {
 }
 
 // Helper function to generate screenshot URL
-// Using WordPress mshots for free website screenshots
-const getScreenshot = (url: string) => `https://s.wordpress.com/mshots/v1/${encodeURIComponent(url)}?w=800&h=600`
+// WordPress mshots (s.wordpress.com) started hard-403ing every request as of
+// Sep 2026 — thum.io is already whitelisted in next.config.ts and serves a
+// real screenshot reliably, so it's the live replacement.
+const getScreenshot = (url: string) => `https://image.thum.io/get/width/1200/crop/900/${url}`
 
 // Client type definition
 export interface KeywordRanking {
@@ -153,6 +155,14 @@ export interface Client {
     trafficIncrease: string
     leadsIncrease: string
     rankingKeywords: string
+    // Optional 4th hero stat — a headline claim only (e.g. which AI
+    // engines named the brand). Keep specifics like prompts/queries out
+    // of published copy so the underlying playbook isn't handed to
+    // competitors.
+    aiVisibility?: {
+      headline: string
+      label: string
+    }
   }
   keywordRankings?: KeywordRanking[]
   rankingScreenshots?: RankingScreenshot[]
@@ -442,6 +452,10 @@ Phase 4 - AI-first content: Long-form, structured service pages designed to be c
       trafficIncrease: '380%',
       leadsIncrease: '295%',
       rankingKeywords: '734+',
+      aiVisibility: {
+        headline: 'ChatGPT & Gemini',
+        label: 'Named in AI Recommendations',
+      },
     },
     keywordRankings: [
       {
