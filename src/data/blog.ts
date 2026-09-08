@@ -14163,6 +14163,10 @@ Here is what makes landscaping keyword research different from other trades.
 
 **Recurring revenue opportunity.** Unlike a one-time repair trade, landscaping keywords like "weekly lawn care" and "lawn care contract" point to customers looking for a season-long or year-round relationship, which is the most valuable type of lead you can generate.
 
+Want this keyword strategy built and running for your business instead of managing it yourself?
+
+{{cta:local-seo|Get a Free Landscaping SEO Audit}}
+
 ## Storm and Emergency Landscaping Keywords
 
 Storm and tree emergency keywords are the most urgent landscaping searches. These happen after a storm drops a tree on a fence, a limb threatens a roof, or property damage needs to be cleared immediately. They convert quickly because the customer needs someone on-site fast.
@@ -14499,7 +14503,9 @@ If you want professional help building and executing a landscaping keyword strat
 
 Ready to take your [SEO strategy](/seo-services) to the next level? We will analyze your current keyword rankings, identify the highest-opportunity terms in your market, and build a plan to outrank your competition.
 
-[Get a Free Landscaping SEO Audit](/contact) - We will show you exactly where you stand in your local market and what it takes to start filling your schedule from Google.
+We will show you exactly where you stand in your local market and what it takes to start filling your schedule from Google.
+
+{{cta:local-seo|Get a Free Landscaping SEO Audit}}
     `,
   },
   {
@@ -14557,6 +14563,10 @@ Here is what makes cleaning keyword research unique.
 **Trust and vetting behavior.** Because cleaning happens inside someone's home, searchers are more likely to read reviews, check for background-checked staff, and look for bonded and insured language before booking. Your content needs to answer those trust questions directly.
 
 **Split residential and commercial markets.** Office and commercial cleaning contracts operate on a completely different sales cycle than residential bookings, often involving a walkthrough and a proposal rather than an instant booking, and deserve their own dedicated keyword strategy.
+
+Want this keyword strategy built and running for your business instead of managing it yourself?
+
+{{cta:local-seo|Get a Free Cleaning Company SEO Audit}}
 
 ## Same-Day and Deadline Cleaning Keywords
 
@@ -14813,7 +14823,9 @@ If you want professional help building and executing a cleaning company keyword 
 
 Ready to take your [SEO strategy](/seo-services) to the next level? We will analyze your current keyword rankings, identify the highest-opportunity terms in your market, and build a plan to outrank your competition.
 
-[Get a Free Cleaning Company SEO Audit](/contact) - We will show you exactly where you stand in your local market and what it takes to start booking more jobs from Google.
+We will show you exactly where you stand in your local market and what it takes to start booking more jobs from Google.
+
+{{cta:local-seo|Get a Free Cleaning Company SEO Audit}}
     `,
   },
   {
@@ -14871,6 +14883,10 @@ Here is what makes pest control keyword research unique.
 **Wide service and price range.** A single ant treatment might be a $150 visit. A full termite treatment or bond can run $1,000 to $3,000 or more. Your keyword strategy needs to capture both ends of that range.
 
 **Strong recurring revenue model.** Quarterly and annual pest prevention plans are standard in the industry, which makes keywords signaling ongoing service, not just a one-time treatment, some of the most valuable terms you can target.
+
+Want this keyword strategy built and running for your business instead of managing it yourself?
+
+{{cta:local-seo|Get a Free Pest Control SEO Audit}}
 
 ## Emergency and Active Infestation Keywords
 
@@ -15179,7 +15195,9 @@ If you want professional help building and executing a pest control keyword stra
 
 Ready to take your [SEO strategy](/seo-services) to the next level? We will analyze your current keyword rankings, identify the highest-opportunity terms in your market, and build a plan to outrank your competition.
 
-[Get a Free Pest Control SEO Audit](/contact) - We will show you exactly where you stand in your local market and what it takes to start generating more calls from Google.
+We will show you exactly where you stand in your local market and what it takes to start generating more calls from Google.
+
+{{cta:local-seo|Get a Free Pest Control SEO Audit}}
     `,
   },
   {
@@ -15237,6 +15255,10 @@ Here is what makes moving keyword research different from other trades.
 **Trust and vetting behavior.** Customers are handing over their entire household of possessions, so they research more than usual, checking reviews, licensing, and insurance before booking. Content that answers these trust questions directly converts better.
 
 **Local and long-distance are different searches entirely.** A customer searching "movers near me" wants someone in their neighborhood today. A customer searching "movers from Chicago to Denver" is planning a complex relocation weeks in advance. These require completely different pages and content.
+
+Want this keyword strategy built and running for your business instead of managing it yourself?
+
+{{cta:local-seo|Get a Free Moving Company SEO Audit}}
 
 ## Last-Minute and Same-Day Moving Keywords
 
@@ -15535,7 +15557,9 @@ If you want professional help building and executing a moving company keyword st
 
 Ready to take your [SEO strategy](/seo-services) to the next level? We will analyze your current keyword rankings, identify the highest-opportunity terms in your market, and build a plan to outrank your competition.
 
-[Get a Free Moving Company SEO Audit](/contact) - We will show you exactly where you stand in your local market and what it takes to start booking more moves from Google.
+We will show you exactly where you stand in your local market and what it takes to start booking more moves from Google.
+
+{{cta:local-seo|Get a Free Moving Company SEO Audit}}
     `,
   },
   {
@@ -15593,6 +15617,10 @@ Here is what makes construction keyword research unique.
 **Split residential and commercial buyers.** Homeowners planning a renovation and property owners planning a commercial build-out are searching with completely different vocabulary and expectations, and deserve separate pages built around each audience.
 
 **Licensing and credibility carry real weight.** Because the stakes are high, customers actively search for licensed, bonded, and insured contractors, and they check reviews and past project photos closely before making contact.
+
+Want this keyword strategy built and running for your business instead of managing it yourself?
+
+{{cta:local-seo|Get a Free Construction SEO Audit}}
 
 ## Storm and Disaster Reconstruction Keywords
 
@@ -15853,7 +15881,9 @@ If you want professional help building and executing a construction company keyw
 
 Ready to take your [SEO strategy](/seo-services) to the next level? We will analyze your current keyword rankings, identify the highest-opportunity terms in your market, and build a plan to outrank your competition.
 
-[Get a Free Construction Company SEO Audit](/contact) - We will show you exactly where you stand in your local market and what it takes to start winning more projects from Google.
+We will show you exactly where you stand in your local market and what it takes to start winning more projects from Google.
+
+{{cta:local-seo|Get a Free Construction SEO Audit}}
     `,
   },
   {
@@ -15911,6 +15941,10 @@ Here is what makes painter keyword research unique.
 **Strong visual decision making.** Painting is one of the most visually driven trades in home services. Customers want to see real before-and-after photos before they commit, which makes portfolio-rich content especially important for conversion.
 
 **Specialty work carries premium pricing.** Cabinet refinishing, epoxy floor coating, and other specialty finishes pay significantly more per hour than standard wall painting and face far less search competition.
+
+Want this keyword strategy built and running for your business instead of managing it yourself?
+
+{{cta:local-seo|Get a Free Painting Contractor SEO Audit}}
 
 ## Exterior Painting Keywords
 
@@ -16156,7 +16190,9 @@ If you want professional help building and executing a painting contractor keywo
 
 Ready to take your [SEO strategy](/seo-services) to the next level? We will analyze your current keyword rankings, identify the highest-opportunity terms in your market, and build a plan to outrank your competition.
 
-[Get a Free Painting Contractor SEO Audit](/contact) - We will show you exactly where you stand in your local market and what it takes to start winning more jobs from Google.
+We will show you exactly where you stand in your local market and what it takes to start winning more jobs from Google.
+
+{{cta:local-seo|Get a Free Painting Contractor SEO Audit}}
     `,
   },
   {
@@ -16214,6 +16250,10 @@ Here is what makes auto detailing keyword research unique.
 **Recurring revenue potential.** Many detailing customers rebook every few months for maintenance details, and ceramic coating customers often return for annual maintenance appointments, creating a natural repeat relationship.
 
 **Fleet and commercial opportunity.** Dealerships, rental car companies, and businesses with vehicle fleets need recurring detailing service, and these contracts are dramatically underused by detailers who focus only on individual car owners.
+
+Want this keyword strategy built and running for your business instead of managing it yourself?
+
+{{cta:local-seo|Get a Free Auto Detailing SEO Audit}}
 
 ## Mobile Detailing Keywords
 
@@ -16477,7 +16517,9 @@ If you want professional help building and executing an auto detailing keyword s
 
 Ready to take your [SEO strategy](/seo-services) to the next level? We will analyze your current keyword rankings, identify the highest-opportunity terms in your market, and build a plan to outrank your competition.
 
-[Get a Free Auto Detailing SEO Audit](/contact) - We will show you exactly where you stand in your local market and what it takes to start booking more details from Google.
+We will show you exactly where you stand in your local market and what it takes to start booking more details from Google.
+
+{{cta:local-seo|Get a Free Auto Detailing SEO Audit}}
     `,
   },
   {
@@ -16535,6 +16577,10 @@ Here is what makes dumpster rental keyword research unique.
 **Construction and residential are very different buyers.** A homeowner renting a 10 yard dumpster for a garage cleanout has a completely different timeline and price sensitivity than a contractor renting a 30 yard container for months on a job site.
 
 **Same-day and urgent demand is real and frequent.** Construction projects often cannot pause, and unexpected cleanout needs come up constantly, which makes fast availability messaging a genuine competitive advantage worth targeting directly.
+
+Want this keyword strategy built and running for your business instead of managing it yourself?
+
+{{cta:local-seo|Get a Free Dumpster Rental SEO Audit}}
 
 ## Same-Day and Urgent Dumpster Rental Keywords
 
@@ -16798,7 +16844,9 @@ If you want professional help building and executing a dumpster rental keyword s
 
 Ready to take your [SEO strategy](/seo-services) to the next level? We will analyze your current keyword rankings, identify the highest-opportunity terms in your market, and build a plan to outrank your competition.
 
-[Get a Free Dumpster Rental SEO Audit](/contact) - We will show you exactly where you stand in your local market and what it takes to start booking more rentals from Google.
+We will show you exactly where you stand in your local market and what it takes to start booking more rentals from Google.
+
+{{cta:local-seo|Get a Free Dumpster Rental SEO Audit}}
     `,
   },
   {
@@ -16854,7 +16902,9 @@ The businesses actually losing ground to AI Overviews are the ones publishing br
 
 The stronger position, and the one this update quietly reinforces, is doubling down on the searches Google cannot fully answer itself. A tight, well-optimized Google Business Profile, a strong flow of recent reviews, and location-specific service pages built around the exact questions your customers ask before they call, none of that goes away no matter how good AI Overviews gets at counting characters.
 
-Want your business showing up as the cited source in AI-generated answers instead of losing clicks to them? Explore our [AI Search Optimization (AEO/GEO) services](/ai-search-optimization), or get a [free Google Business Profile review](/contact) to see where your local search visibility actually stands today.
+Want your business showing up as the cited source in AI-generated answers instead of losing clicks to them?
+
+{{cta:ai-search-optimization|Get a Free AI Visibility Audit}}
     `,
   },
   {
@@ -16916,7 +16966,9 @@ Given this is a test, not a rollout, the right response is watching, not restruc
 
 This test is worth knowing about, not worth reacting to yet. The advertisers who benefit most when changes like this expand are usually the ones already running clean, well-structured Search campaigns, not the ones scrambling to restructure an account around a Google Ads Liaison's four-word phrase.
 
-If you want a second set of eyes on whether your Google Ads account is actually positioned to take advantage of changes like this as they roll out, our team specializes in [PPC advertising for local service businesses](/digital-marketing/ppc). Get a [free Google Ads account review](/contact) and we will show you exactly where your current campaigns stand.
+If you want a second set of eyes on whether your Google Ads account is actually positioned to take advantage of changes like this as they roll out, our team specializes in [PPC advertising for local service businesses](/digital-marketing/ppc).
+
+{{cta:digital-marketing|Get a Free Google Ads Account Review}}
     `,
   },
 ]
