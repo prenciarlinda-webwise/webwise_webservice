@@ -151,6 +151,13 @@ export interface ServiceDeliverable {
   description: string
 }
 
+// One topic area where the client's content shows up inside Google's AI
+// Overview, breadth without needing an exact, hard-to-verify total count.
+export interface AIOverviewTopic {
+  topic: string
+  description: string
+}
+
 // Independently verifiable scores from Google's own Lighthouse/PageSpeed
 // Insights tool, so case-study copy can cite real numbers rather than
 // vague performance claims.
@@ -188,6 +195,7 @@ export interface Client {
   techStack?: string
   lighthouse?: LighthouseScores
   deliverables?: ServiceDeliverable[]
+  aiOverviewCoverage?: AIOverviewTopic[]
   challenge?: string
   solution?: string
   timelineSteps?: CaseStudyTimelineStep[]
@@ -492,7 +500,7 @@ Phase 4 - AI-first content: Long-form, structured service pages designed to be c
       accessibility: 90,
       bestPractices: 100,
       seo: 100,
-      agenticBrowsing: '2 of 3 checks passed',
+      agenticBrowsing: '3 of 3 checks passed',
     },
     deliverables: [
       {
@@ -522,6 +530,24 @@ Phase 4 - AI-first content: Long-form, structured service pages designed to be c
       {
         label: 'Google Ads management',
         description: 'Paid search running alongside organic for immediate lead flow.',
+      },
+    ],
+    aiOverviewCoverage: [
+      {
+        topic: 'Shingle bundle questions',
+        description: 'How many shingles come in a bundle, how many bundles make a square, and the coverage math homeowners search before buying materials.',
+      },
+      {
+        topic: 'Roof component guides',
+        description: 'Ridge caps, roof flashing, and gutter comparisons homeowners research before ever calling a contractor.',
+      },
+      {
+        topic: 'Roof style questions',
+        description: 'Gambrel roofs, gable roofs, and the differences between them, searched by name far more often than most roofers realize.',
+      },
+      {
+        topic: 'Florida specific roofing',
+        description: 'Roof lifespan, material choice, and climate specific questions unique to Florida homeowners.',
       },
     ],
     keywordRankings: [

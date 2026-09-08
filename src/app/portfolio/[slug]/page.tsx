@@ -125,6 +125,8 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
   }
 
   const otherClients = Object.values(clients).filter((c) => c.slug !== slug && c.results).slice(0, 3)
+  // Only the genuine number 1 rankings, a weaker position like #36 doesn't belong on the highlight reel
+  const topRankings = (client.keywordRankings ?? []).filter((r) => bestPosition(r) === 1)
 
   const pageUrl = getCanonicalUrl(slug)
   const breadcrumbSchema = generateBreadcrumbSchema([
@@ -343,35 +345,29 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         </section>
       )}
 
-      {/* Keyword Ranking Wins */}
-      {client.keywordRankings && client.keywordRankings.length > 0 && (
+      {/* Top Rankings */}
+      {topRankings.length > 0 && (
         <section className="py-24">
           <div className="container px-6">
-            <div className="max-w-3xl mx-auto text-center mb-12">
-              <h2 className="text-3xl font-bold text-primary mb-4">Keywords {client.name} Ranks For Today</h2>
-              <p className="text-text-secondary">
-                Real positions pulled from Google search results, the local map pack, and AI Overview citations.
-              </p>
+            <div className="max-w-3xl mx-auto text-center mb-10">
+              <h2 className="text-3xl font-bold text-primary mb-4">Ranking Number 1 in Google</h2>
             </div>
-
-            <ul className="max-w-2xl mx-auto space-y-4">
-              {[...client.keywordRankings]
-                .sort((a, b) => bestPosition(a) - bestPosition(b))
-                .map((rank, i) => {
-                  const position = bestPosition(rank)
-                  const positionLabel = rank.mapsPack !== undefined && rank.mapsPack === position
-                    ? `#${position} in Google Maps`
-                    : rank.localPack !== undefined && rank.localPack === position
-                    ? `#${position} in the local map pack`
-                    : `#${position}`
-                  return (
-                    <li key={i} className="text-text-secondary leading-relaxed">
-                      <span className="font-semibold text-primary">&quot;{rank.keyword}&quot;</span> ranks {positionLabel}
-                      {rank.aiOverview ? ', and is cited in Google AI Overview' : ''}.
-                      {rank.note && ` ${rank.note}`}
-                    </li>
-                  )
-                })}
+            <ul className="max-w-2xl mx-auto space-y-4 text-center">
+              {topRankings.map((rank, i) => {
+                const position = bestPosition(rank)
+                const positionLabel = rank.mapsPack !== undefined && rank.mapsPack === position
+                  ? 'the number 1 spot in Google Maps'
+                  : rank.localPack !== undefined && rank.localPack === position
+                  ? 'the number 1 spot in the local map pack'
+                  : 'the actual number 1 spot in Google'
+                return (
+                  <li key={i} className="text-text-secondary leading-relaxed">
+                    <span className="font-semibold text-primary">&quot;{rank.keyword}&quot;</span> holds {positionLabel}
+                    {rank.aiOverview ? ', and is cited directly in Google AI Overview' : ''}.
+                    {rank.note && ` ${rank.note}`}
+                  </li>
+                )
+              })}
             </ul>
 
             {/* Optional ranking screenshots */}
@@ -400,6 +396,29 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 </div>
               </div>
             )}
+          </div>
+        </section>
+      )}
+
+      {/* AI Overview Coverage */}
+      {client.aiOverviewCoverage && client.aiOverviewCoverage.length > 0 && (
+        <section className="py-24 bg-bg-secondary">
+          <div className="container px-6">
+            <div className="max-w-3xl mx-auto text-center mb-10">
+              <h2 className="text-3xl font-bold text-primary mb-4">Cited Across Google&apos;s AI Overview</h2>
+              <p className="text-text-secondary">
+                That AI Overview presence reaches well beyond one keyword, the kind of citation that used to only
+                go to national brands with decades of content behind them.
+              </p>
+            </div>
+            <div className="max-w-3xl mx-auto grid sm:grid-cols-2 gap-x-8 gap-y-6">
+              {client.aiOverviewCoverage.map((item, i) => (
+                <div key={i}>
+                  <h3 className="font-semibold text-primary mb-1.5">{item.topic}</h3>
+                  <p className="text-text-secondary leading-relaxed">{item.description}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       )}
