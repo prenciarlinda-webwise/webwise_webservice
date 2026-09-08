@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import Script from 'next/script'
 import { ArrowRight, ExternalLink } from 'lucide-react'
 import { clients, siteConfig } from '@/data/site'
@@ -107,7 +106,7 @@ export default function PortfolioPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {allClients.map(([key, client]) => (
               <div key={key} className="bg-white rounded-2xl border border-border overflow-hidden hover:shadow-xl transition-shadow group">
-                {/* Website Screenshot, or a live mini preview when the site allows framing */}
+                {/* Live mini preview when the site allows framing, no screenshots */}
                 <div className="h-52 relative overflow-hidden bg-gradient-to-br from-bg-tertiary to-bg-secondary">
                   {client.embeddable ? (
                     <div className="pointer-events-none absolute inset-0 origin-top-left transition-transform duration-500 group-hover:scale-105">
@@ -120,13 +119,9 @@ export default function PortfolioPage() {
                       />
                     </div>
                   ) : (
-                    <Image
-                      src={client.image}
-                      alt={`${client.name} website screenshot`}
-                      fill
-                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                      className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                    />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-xs font-medium text-text-muted">Live preview unavailable</span>
+                    </div>
                   )}
                   <div className="absolute inset-x-0 top-0 flex items-center gap-2 bg-primary/80 px-3 py-2 backdrop-blur-sm" aria-hidden="true">
                     <div className="flex shrink-0 gap-1.5">

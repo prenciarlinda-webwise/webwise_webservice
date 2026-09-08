@@ -1,49 +1,46 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import { Monitor, Smartphone } from 'lucide-react'
 
 interface WebsitePreviewProps {
   url: string
   name: string
-  image: string
   /** Set once we've confirmed the site doesn't send a frame-blocking header.
-   * A manual flag, not runtime detection, so the fallback screenshot never
-   * has to guess or race a timeout. */
+   * A manual flag, not runtime detection. No screenshot fallback, if a site
+   * isn't embeddable yet this shows a plain message instead of an image. */
   embeddable?: boolean
   nofollow?: boolean
 }
 
-export default function WebsitePreview({ url, name, image, embeddable = false, nofollow }: WebsitePreviewProps) {
+export default function WebsitePreview({ url, name, embeddable = false, nofollow }: WebsitePreviewProps) {
   const [device, setDevice] = useState<'desktop' | 'mobile'>('desktop')
   const hostname = new URL(url).hostname.replace(/^www\./, '')
   const relAttr = nofollow ? 'nofollow noopener noreferrer' : 'noopener noreferrer'
+  const frameHeight = device === 'mobile' ? 'h-[680px]' : 'h-[600px]'
 
   return (
     <div>
-      {embeddable && (
-        <div className="mb-6 flex justify-center">
-          <div className="inline-flex gap-1 rounded-full bg-bg-secondary p-1">
-            {(['desktop', 'mobile'] as const).map((option) => (
-              <button
-                key={option}
-                type="button"
-                onClick={() => setDevice(option)}
-                className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-colors ${
-                  device === option ? 'bg-accent text-white' : 'text-text-muted hover:text-primary'
-                }`}
-              >
-                {option === 'desktop' ? <Monitor size={14} /> : <Smartphone size={14} />}
-                {option === 'desktop' ? 'Desktop' : 'Mobile'}
-              </button>
-            ))}
-          </div>
+      <div className="mb-6 flex justify-center">
+        <div className="inline-flex gap-1 rounded-full bg-bg-secondary p-1">
+          {(['desktop', 'mobile'] as const).map((option) => (
+            <button
+              key={option}
+              type="button"
+              onClick={() => setDevice(option)}
+              className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-colors ${
+                device === option ? 'bg-accent text-white' : 'text-text-muted hover:text-primary'
+              }`}
+            >
+              {option === 'desktop' ? <Monitor size={14} /> : <Smartphone size={14} />}
+              {option === 'desktop' ? 'Desktop' : 'Mobile'}
+            </button>
+          ))}
         </div>
-      )}
+      </div>
 
       <div className="flex justify-center">
-        <div className={`relative w-full ${embeddable && device === 'mobile' ? 'max-w-[375px]' : 'max-w-4xl'}`}>
+        <div className={`relative w-full ${device === 'mobile' ? 'max-w-[375px]' : 'max-w-4xl'}`}>
           {/* Corner brackets, a restrained decorative accent, not chrome */}
           <span aria-hidden="true" className="pointer-events-none absolute -left-3 -top-3 h-6 w-6 border-l-2 border-t-2 border-accent sm:-left-4 sm:-top-4 sm:h-8 sm:w-8" />
           <span aria-hidden="true" className="pointer-events-none absolute -right-3 -top-3 h-6 w-6 border-r-2 border-t-2 border-accent sm:-right-4 sm:-top-4 sm:h-8 sm:w-8" />
@@ -76,16 +73,22 @@ export default function WebsitePreview({ url, name, image, embeddable = false, n
                 src={url}
                 title={`${name} website, live`}
                 loading="lazy"
-                className={`w-full border-0 bg-white ${device === 'mobile' ? 'h-[680px]' : 'h-[600px]'}`}
+                className={`w-full border-0 bg-white ${frameHeight}`}
               />
             ) : (
-              <Image
-                src={image}
-                alt={`Screenshot of the ${name} website`}
-                width={1200}
-                height={900}
-                className="h-auto w-full"
-              />
+              <div className={`flex flex-col items-center justify-center gap-4 bg-bg-secondary px-6 text-center ${frameHeight}`}>
+                <p className="max-w-xs text-text-secondary">
+                  This site can&apos;t be embedded here yet. Visit it directly to see it live.
+                </p>
+                <a
+                  href={url}
+                  target="_blank"
+                  rel={relAttr}
+                  className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 font-semibold text-white transition-colors hover:bg-accent-dark"
+                >
+                  Visit Website
+                </a>
+              </div>
             )}
           </div>
         </div>

@@ -431,10 +431,10 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             <p className="text-text-secondary">
               {client.embeddable
                 ? `This is the real ${client.name} website, loaded live below. Toggle between desktop and mobile to see how it adapts.`
-                : `${client.name}'s website blocks being loaded inside a frame from other pages, so you're seeing a screenshot below. Visit the site directly to see it live.`}
+                : `${client.name}'s website blocks being loaded inside a frame from other pages. Visit it directly to see it live.`}
             </p>
           </div>
-          <WebsitePreview url={client.url} name={client.name} image={client.image} embeddable={client.embeddable} nofollow={client.nofollow} />
+          <WebsitePreview url={client.url} name={client.name} embeddable={client.embeddable} nofollow={client.nofollow} />
         </div>
       </section>
 
