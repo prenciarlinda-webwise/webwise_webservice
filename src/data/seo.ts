@@ -268,7 +268,7 @@ export const pageSEO: Record<string, PageSEO> = {
 
   // Keyword research guides
   'blog/plumber-keywords-for-seo': {
-    title: 'Plumber Keywords for SEO: 100+ High-Intent Keywords for 2026',
+    title: 'Plumber Keywords for SEO',
     description: '100+ plumber keywords organized by service type, search intent, and conversion potential. Emergency, residential, commercial, and seasonal plumbing keywords.',
     keywords: ['plumber keywords', 'plumbing keywords for seo', 'plumbing seo keywords', 'plumber search terms'],
   },
@@ -280,25 +280,25 @@ export const pageSEO: Record<string, PageSEO> = {
   },
 
   'blog/locksmith-keywords-for-seo': {
-    title: 'Locksmith SEO: 100+ Keywords That Drive Calls in 2026',
+    title: 'Locksmith Keywords for SEO',
     description: '100+ locksmith keywords organized by service category and conversion potential. Emergency, residential, commercial, and automotive locksmith terms with volumes.',
     keywords: ['locksmith seo', 'locksmith keywords', 'locksmith keywords for seo', 'locksmith seo keywords', 'locksmith search terms'],
   },
 
   'blog/electrician-keywords-for-seo': {
-    title: 'Electrician Keywords for SEO: 100+ High-Intent Keywords for 2026',
+    title: 'Electrician Keywords for SEO',
     description: '100+ electrician keywords organized by service type and search intent. Residential, commercial, emergency, and specialty electrical keywords with volumes.',
     keywords: ['electrician keywords', 'electrician keywords for seo', 'electrician seo keywords', 'electrician search terms'],
   },
 
   'blog/roofing-keywords-for-seo': {
-    title: 'Roofing Keywords for SEO: 100+ Keywords for Year-Round Leads',
+    title: 'Roofing Keywords for SEO',
     description: '100+ roofing keywords organized by service type, material, and season. Storm damage, roof replacement, repair, and commercial roofing search terms.',
     keywords: ['roofing keywords', 'roofing keywords for seo', 'roofing seo keywords', 'roofer search terms'],
   },
 
   'blog/hvac-keywords-for-seo': {
-    title: 'HVAC Keywords for SEO: 100+ Keywords for Year-Round Leads',
+    title: 'HVAC Keywords for SEO',
     description: '100+ HVAC keywords organized by service type, season, and conversion potential. AC repair, furnace, heating, cooling, and commercial HVAC search terms.',
     keywords: ['hvac keywords', 'hvac keywords for seo', 'hvac seo keywords', 'heating cooling keywords'],
   },
