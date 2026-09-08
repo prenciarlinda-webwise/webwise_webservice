@@ -585,6 +585,35 @@ Phase 4 - AI-first content: Long-form, structured service pages designed to be c
         aiOverview: 'cited',
       },
     ],
+    challenge: `Gimo's Roofing has been a trusted name in Jacksonville since 2001, backed by a 5.0 rating across 100+ Google reviews and a Florida state license. None of that showed up online. When Web Wise took over six months ago, the business had a bare bones website, no meaningful presence in Google's AI Overviews, and almost nothing tracked in organic search.
+
+Jacksonville roofing is a brutal market to break into digitally. Hurricane season brings a wave of out of state storm chasing crews running paid ads the moment a storm passes, and established local competitors already had years of reviews and backlinks. Gimo's needed to go from invisible to visible fast, without the years most local sites take to build authority the traditional way.`,
+    solution: `We rebuilt the entire digital foundation and the local search strategy at the same time, instead of one after the other.
+
+First, a brand new Next.js website built for speed and for how Google and AI systems read a site today, with dedicated pages for every core service and every neighborhood Gimo's actually serves across the Jacksonville metro.
+
+Second, the full local stack most agencies skip. Google Business Profile fully optimized and kept active, Google Search Console and Analytics wired up from day one, consistent directory listings, and a YouTube channel feeding project videos into both search and AI visibility.
+
+Third, a deliberate bet on informational content most local roofers ignore, real guides on shingle bundles, ridge caps, gambrel roofs, and Florida specific roofing questions homeowners actually search for. That content is what now gets Gimo's cited directly inside Google's AI Overview, not just ranked on a results page.
+
+Six months in, Gimo's Roofing tracks 734+ keywords, up from a near empty starting point, and shows up by name in ChatGPT and Gemini recommendations for Jacksonville roofing searches.`,
+    timelineSteps: [
+      {
+        step: '1',
+        title: 'Month 1',
+        desc: 'New Next.js website launches with service and location pages, plus Google Business Profile, Search Console, and GA4 all connected from day one.',
+      },
+      {
+        step: '2',
+        title: 'Months 2 to 4',
+        desc: 'Local directory listings, a YouTube channel, and a steady stream of AEO focused blog content go live, targeting the questions Jacksonville homeowners actually search.',
+      },
+      {
+        step: '3',
+        title: 'Now',
+        desc: "Gimo's Roofing tracks 734+ keywords, ranks number 1 in Google AI Overview for multiple roofing topics, and is named directly in ChatGPT and Gemini recommendations.",
+      },
+    ],
   },
   albrosdetailing: {
     name: 'Albros Premium Detailing',
