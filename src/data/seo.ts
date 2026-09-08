@@ -303,6 +303,66 @@ export const pageSEO: Record<string, PageSEO> = {
     keywords: ['hvac keywords', 'hvac keywords for seo', 'hvac seo keywords', 'heating cooling keywords'],
   },
 
+  'blog/landscaping-keywords-for-seo': {
+    title: 'Landscaping Keywords for SEO',
+    description: '100+ landscaping keywords covering lawn care, design, hardscaping, and seasonal terms, organized by search volume and competition.',
+    keywords: ['landscaping keywords', 'landscaping keywords for seo', 'lawn care seo keywords'],
+  },
+
+  'blog/cleaning-keywords-for-seo': {
+    title: 'Cleaning Company Keywords for SEO',
+    description: '100+ cleaning company keywords covering residential, deep cleaning, commercial, and recurring service terms with search volumes.',
+    keywords: ['cleaning keywords', 'cleaning company keywords for seo', 'house cleaning seo keywords'],
+  },
+
+  'blog/pest-control-keywords-for-seo': {
+    title: 'Pest Control Keywords for SEO',
+    description: '100+ pest control keywords covering emergency, general, termite, rodent, and commercial pest terms with search volumes.',
+    keywords: ['pest control keywords', 'pest control keywords for seo', 'exterminator seo keywords'],
+  },
+
+  'blog/moving-keywords-for-seo': {
+    title: 'Moving Company Keywords for SEO',
+    description: '100+ moving company keywords covering local, long distance, specialty, and commercial move terms with search volumes.',
+    keywords: ['moving company keywords', 'moving keywords for seo', 'movers seo keywords'],
+  },
+
+  'blog/construction-keywords-for-seo': {
+    title: 'Construction Company Keywords for SEO',
+    description: '100+ construction company keywords covering residential, commercial, design build, and specialty project terms with volumes.',
+    keywords: ['construction company keywords', 'construction keywords for seo', 'general contractor seo keywords'],
+  },
+
+  'blog/painter-keywords-for-seo': {
+    title: 'Painter Keywords for SEO',
+    description: '100+ painter keywords covering interior, exterior, specialty finishes, and commercial painting terms with search volumes.',
+    keywords: ['painter keywords', 'painting contractor keywords for seo', 'painter seo keywords'],
+  },
+
+  'blog/auto-detailing-keywords-for-seo': {
+    title: 'Auto Detailing Keywords for SEO',
+    description: '100+ auto detailing keywords covering mobile, ceramic coating, paint correction, and fleet detailing terms with volumes.',
+    keywords: ['auto detailing keywords', 'car detailing seo keywords', 'mobile detailing keywords'],
+  },
+
+  'blog/dumpster-rental-keywords-for-seo': {
+    title: 'Dumpster Rental Keywords for SEO',
+    description: '100+ dumpster rental keywords covering residential, construction, size specific, and commercial rental terms with volumes.',
+    keywords: ['dumpster rental keywords', 'dumpster rental seo keywords', 'roll off dumpster keywords'],
+  },
+
+  'blog/google-ai-overviews-character-counter-what-it-means': {
+    title: 'Google AI Overviews Now Has a Character Counter Tool',
+    description: 'Google now embeds an interactive character counter in AI Overviews. Here is the pattern behind it and what it means for local businesses.',
+    keywords: ['google ai overviews character counter', 'ai overviews new feature', 'zero click search 2026'],
+  },
+
+  'blog/google-testing-search-campaigns-ai-mode': {
+    title: 'Google Tests Search Campaigns in AI Mode',
+    description: 'Google is testing standard Search campaigns in AI Mode. Here is what the test covers and what PPC advertisers should check.',
+    keywords: ['google ai mode search campaigns', 'ai mode ads test 2026', 'exact match ads ai mode'],
+  },
+
   // Marketing and advertising guides
   'blog/plumber-marketing-ideas': {
     title: '15 Plumber Marketing Ideas That Actually Generate Calls in 2026',
