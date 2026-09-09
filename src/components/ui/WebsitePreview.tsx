@@ -10,13 +10,14 @@ interface WebsitePreviewProps {
    * A manual flag, not runtime detection. No screenshot fallback, if a site
    * isn't embeddable yet this shows a plain message instead of an image. */
   embeddable?: boolean
-  nofollow?: boolean
 }
 
-export default function WebsitePreview({ url, name, embeddable = false, nofollow }: WebsitePreviewProps) {
+export default function WebsitePreview({ url, name, embeddable = false }: WebsitePreviewProps) {
   const [device, setDevice] = useState<'desktop' | 'mobile'>('desktop')
   const hostname = new URL(url).hostname.replace(/^www\./, '')
-  const relAttr = nofollow ? 'nofollow noopener noreferrer' : 'noopener noreferrer'
+  // Every client link carries nofollow, this page draws prospects in from our own
+  // pitch, not from search, so there's no reason to pass PageRank out through it.
+  const relAttr = 'nofollow noopener noreferrer'
   const frameHeight = device === 'mobile' ? 'h-[680px]' : 'h-[600px]'
 
   return (

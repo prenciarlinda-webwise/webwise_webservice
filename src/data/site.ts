@@ -200,7 +200,6 @@ export interface Client {
   solution?: string
   timelineSteps?: CaseStudyTimelineStep[]
   testimonial?: CaseStudyTestimonial
-  nofollow?: boolean
   // Set once we've confirmed the site doesn't send a frame-blocking header
   // (X-Frame-Options / CSP frame-ancestors). Flip to true after redeploying
   // a fix, the Live Preview switches to the real embed automatically.
@@ -465,7 +464,6 @@ Phase 4 - AI-first content: Long-form, structured service pages designed to be c
     slug: 'gimos-roofing-local-seo-website-design',
     url: 'https://www.gimosroofing.com',
     image: getScreenshot('https://www.gimosroofing.com'),
-    nofollow: true,
     // Still X-Frame-Options: SAMEORIGIN as of this commit. Flip to true
     // once the nginx fix in gimos_roofing_website is redeployed.
     embeddable: false,
@@ -853,7 +851,6 @@ Phase 4 - AI-first content: Long-form, structured service pages designed to be c
     industry: 'Flooring',
     services: ['Website Design'],
     description: 'Professional flooring company specializing in hardwood, laminate, tile, and vinyl flooring installation. Developed a showcase website with project gallery and service area information.',
-    nofollow: true,
   },
   gnthomeremodeling: {
     name: 'GNT Home Remodeling',
@@ -864,7 +861,6 @@ Phase 4 - AI-first content: Long-form, structured service pages designed to be c
     industry: 'Home Remodeling',
     services: ['Website Design'],
     description: 'Full-service home remodeling company offering kitchen, bathroom, and whole-home renovations. Built a professional website with project portfolio and quote request functionality.',
-    nofollow: true,
   },
   aaaremodels: {
     name: 'AAA Remodels LLC',

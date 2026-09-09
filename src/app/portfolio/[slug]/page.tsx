@@ -189,7 +189,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
               <a
                 href={client.url}
                 target="_blank"
-                rel={client.nofollow ? 'nofollow noopener noreferrer' : 'noopener noreferrer'}
+                rel="nofollow noopener noreferrer"
                 className="inline-flex items-center gap-2 px-7 py-4 border-2 border-border text-primary font-semibold rounded-lg hover:border-accent hover:text-accent transition-colors"
               >
                 Visit Website →
@@ -437,7 +437,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 : `${client.name}'s website blocks being loaded inside a frame from other pages. Visit it directly to see it live.`}
             </p>
           </div>
-          <WebsitePreview url={client.url} name={client.name} embeddable={client.embeddable} nofollow={client.nofollow} />
+          <WebsitePreview url={client.url} name={client.name} embeddable={client.embeddable} />
         </div>
       </section>
 

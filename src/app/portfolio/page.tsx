@@ -183,7 +183,7 @@ export default function PortfolioPage() {
                     </div>
                   )}
                   <div className="flex gap-3 mt-4">
-                    <a href={client.url} target="_blank" rel={client.nofollow ? 'nofollow noopener noreferrer' : 'noopener noreferrer'} className="flex-1 inline-flex items-center justify-center gap-2 py-2 text-sm font-medium text-accent hover:bg-accent/10 rounded-lg transition-colors">
+                    <a href={client.url} target="_blank" rel="nofollow noopener noreferrer" className="flex-1 inline-flex items-center justify-center gap-2 py-2 text-sm font-medium text-accent hover:bg-accent/10 rounded-lg transition-colors">
                       <ExternalLink size={14} /> Visit Site
                     </a>
                     <Link href={caseStudyUrlMap[client.slug] || `/case-studies/${client.slug}`} className="flex-1 inline-flex items-center justify-center gap-2 py-2 text-sm font-medium text-text-secondary hover:text-primary hover:bg-bg-secondary rounded-lg transition-colors">

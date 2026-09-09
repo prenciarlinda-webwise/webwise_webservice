@@ -15,6 +15,11 @@ export async function generateMetadata(): Promise<Metadata> {
       description: seoData?.description,
       url: `${siteConfig.url}/case-studies`,
     },
+    // Prospects reach this grid from our own pitch, not organic search, and
+    // it's the one page holding all the (now nofollowed) client links. Keep
+    // it out of the index so it never reads as a link-scheme hub. `follow`
+    // stays on so crawl equity still reaches the individual case studies.
+    robots: { index: false, follow: true },
   }
 }
 

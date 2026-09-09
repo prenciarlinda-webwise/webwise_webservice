@@ -80,7 +80,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {Object.entries(clients).filter(([, c]) => c.results).slice(0, 5).map(([key, client]) => (
                 <li key={key}>
-                  <a href={client.url} target="_blank" rel={client.nofollow ? 'nofollow noopener noreferrer' : 'noopener noreferrer'} className="text-white/70 hover:text-white transition-colors">
+                  <a href={client.url} target="_blank" rel="nofollow noopener noreferrer" className="text-white/70 hover:text-white transition-colors">
                     {client.name}
                   </a>
                 </li>
