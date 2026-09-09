@@ -29,10 +29,20 @@ export function generateServiceSchema(service: {
 }
 
 // FAQ Schema - for pages with FAQs
-export function generateFAQSchema(faqs: { question: string; answer: string }[]) {
+export interface FAQItem {
+  question: string
+  answer: string
+}
+
+// pagePath is optional so existing callers (contact, about, portfolio, pricing, the
+// service-hub pages) keep working unchanged. Pass it to get a stable '@id' - needed
+// when this schema is spliced into a page's '@graph' array alongside other nodes that
+// reference it, e.g. mainEntityOfPage pointing at `${pageUrl}#faq`.
+export function generateFAQSchema(faqs: FAQItem[], pagePath?: string) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    ...(pagePath && { "@id": `${siteConfig.url}${pagePath}#faq` }),
     mainEntity: faqs.map(faq => ({
       "@type": "Question",
       name: faq.question,

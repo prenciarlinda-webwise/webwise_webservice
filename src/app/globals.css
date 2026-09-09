@@ -1,22 +1,22 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand Colors */
-  --color-primary: #25274d;
-  --color-primary-light: #363a6e;
-  --color-primary-dark: #1a1c38;
-  --color-accent: #ed7c21;
-  --color-accent-light: #f09540;
-  --color-accent-dark: #e67e28;
+  /* Brand Colors — Deep Sea palette */
+  --color-primary: #000f1f;
+  --color-primary-light: #003459;
+  --color-primary-dark: #00080f;
+  --color-accent: #ff8600;
+  --color-accent-light: #ff9d33;
+  --color-accent-dark: #e67a00;
 
   /* Background Colors */
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #f8f9fc;
   --color-bg-tertiary: #f0f2f7;
-  --color-bg-dark: #25274d;
+  --color-bg-dark: #000f1f;
 
   /* Text Colors */
-  --color-text-primary: #25274d;
+  --color-text-primary: #000f1f;
   --color-text-secondary: #5a5d7a;
   --color-text-muted: #8b8ea8;
 
@@ -125,7 +125,7 @@ video {
 }
 
 .terminal {
-  background: #14152b;
+  background: var(--color-primary-dark);
   border-radius: 0.75rem;
   border: 1px solid rgba(255, 255, 255, 0.08);
   font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
@@ -164,6 +164,139 @@ video {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ===== Floating header (Header.tsx) ===== */
+.glass-panel {
+  /* Fully opaque on purpose, dropdowns sit directly over hero/dark sections
+     and must never let that content show through, blur is a bonus for the
+     browsers that support backdrop-filter, not something relied on. */
+  background: var(--color-bg-primary);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--color-border);
+  border-radius: 1.25rem;
+  box-shadow: 0 24px 60px -12px rgba(0, 15, 31, 0.25);
+}
+
+/* ===== Homepage connective design system =====
+   One shared visual vocabulary reused across every homepage section (cards,
+   glow, numerals) so sections read as one system instead of independently
+   colored blocks. See src/app/page.tsx. */
+
+/* Shared card shell, used for service/industry/case-study/testimonial/FAQ
+   cards alike so every "card" on the page shares the same DNA. */
+.wise-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--color-border);
+  border-radius: 1.25rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.wise-card:hover {
+  border-color: rgba(255, 134, 0, 0.35);
+  box-shadow: 0 20px 45px -15px rgba(0, 15, 31, 0.18);
+  transform: translateY(-3px);
+}
+
+/* Large gradient numerals, the typographic stand-in for icons across
+   Services / Process / Results, repeated on purpose for cohesion. */
+.wise-numeral {
+  font-family: var(--font-display);
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 55%, var(--color-primary-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Soft blurred color fields used to bleed one section's ambience into the
+   next, positioned so a single orb straddles the boundary between two
+   sections rather than living inside just one. */
+.glow-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+/* Slow ambient drift for hero/dark-anchor backgrounds, subtle on purpose. */
+@keyframes aurora-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(3%, -4%) scale(1.08); }
+}
+.aurora-drift {
+  animation: aurora-drift 14s ease-in-out infinite;
+}
+
+/* Gentle vertical float, used sparingly (hero screenshots only). */
+@keyframes wise-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.wise-float {
+  animation: wise-float 6s ease-in-out infinite;
+}
+
+/* Fade + rise on scroll into view, toggled by the Reveal component via
+   IntersectionObserver (adds .is-visible), no animation library needed. */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .aurora-drift,
+  .wise-float {
+    animation: none;
+  }
+}
+/* Printing doesn't trigger scroll/IntersectionObserver, content must not be lost. */
+@media print {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Gradient hairline divider, replaces a hard border-color seam between
+   stacked sections with a soft fade instead. */
+.wise-seam {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border) 50%, transparent);
+}
+
+/* ===== ClientOrbit.tsx =====
+   Ring spins one way, each coin spins the exact opposite way at the same
+   speed, so the two cancel out and every coin's face stays upright while
+   its position still sweeps around the tilted ellipse. */
+@keyframes orbit-ring-spin {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+@keyframes orbit-item-counter-spin {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(-360deg); }
+}
+.orbit-ring-spin {
+  animation: orbit-ring-spin 42s linear infinite;
+}
+.orbit-counter-spin {
+  animation: orbit-item-counter-spin 42s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .orbit-ring-spin,
+  .orbit-counter-spin {
+    animation: none;
+  }
 }
 
 /* Container */

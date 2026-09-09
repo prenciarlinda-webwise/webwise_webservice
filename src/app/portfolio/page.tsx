@@ -7,6 +7,7 @@ import { portfolioFaqs } from '@/data/faqs'
 import FAQSection from '@/components/sections/FAQSection'
 import { pageSEO } from '@/data/seo'
 import PricingCTA from '@/components/forms/PricingCTA'
+import { DoodleUnderline } from '@/components/ui/Doodle'
 
 // URL mappings for case studies
 const caseStudyUrlMap: Record<string, string> = {
@@ -61,17 +62,34 @@ export default function PortfolioPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-primary-dark py-24 lg:py-32">
-        <div className="container px-6">
-          <div className="max-w-3xl">
-            <span className="block text-xs font-bold text-white/60 uppercase tracking-widest mb-4">Case Studies</span>
-            <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-              SEO Case Studies & Portfolio
+      {/* Hero, light, centered, ambient light wash, matches the local-seo hero */}
+      <section className="relative bg-white ambient-light overflow-hidden py-24 lg:py-28">
+        <div className="container px-6 relative">
+          <div className="max-w-3xl mx-auto text-center">
+            <h1 className="text-4xl md:text-6xl font-display font-bold text-primary leading-[1.05] mb-6">
+              SEO Case Studies{' '}
+              <span className="relative inline-block">
+                &amp; Portfolio
+                <DoodleUnderline className="absolute left-0 -bottom-1 w-full h-3 text-accent" />
+              </span>
             </h1>
-            <p className="text-lg text-white/80">
-              Real results for real businesses. See how we helped contractors and service businesses increase traffic by 290%+.
+            <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-10 leading-relaxed">
+              Real results for real businesses. See how we helped contractors and service businesses
+              increase traffic by 290%+.
             </p>
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <PricingCTA
+                source="Case studies hero"
+                ctaLabel="Get My Free Audit"
+                buttonClassName="inline-flex items-center gap-2 px-7 py-4 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors shadow-lg shadow-accent/20"
+              />
+              <Link
+                href="/pricing"
+                className="inline-flex items-center gap-2 px-7 py-4 border-2 border-border text-primary font-semibold rounded-lg hover:border-accent hover:text-accent transition-colors"
+              >
+                View pricing
+              </Link>
+            </div>
           </div>
         </div>
       </section>

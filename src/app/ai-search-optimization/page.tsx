@@ -6,6 +6,7 @@ import { pageSEO } from '@/data/seo'
 import LeadForm from '@/components/forms/LeadForm'
 import PricingCTA from '@/components/forms/PricingCTA'
 import { DoodleUnderline } from '@/components/ui/Doodle'
+import HeroBackground from '@/components/ui/HeroBackground'
 
 export async function generateMetadata(): Promise<Metadata> {
   const seoData = pageSEO['ai-search-optimization']
@@ -208,8 +209,9 @@ export default function AISearchOptimizationPage() {
       />
 
       {/* ── Hero ────────────────────────────────────────────────── */}
-      <section className="bg-primary text-white py-24">
-        <div className="container mx-auto px-6">
+      <section className="relative overflow-hidden text-white py-24">
+        <HeroBackground />
+        <div className="container mx-auto px-6 relative">
           <nav className="text-sm text-white/60 mb-8" aria-label="Breadcrumb">
             <ol className="flex items-center gap-2">
               <li>

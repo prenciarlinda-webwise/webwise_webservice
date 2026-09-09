@@ -2,12 +2,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Script from 'next/script'
 import { notFound } from 'next/navigation'
-import { ArrowRight, ExternalLink, Star } from 'lucide-react'
 import { clients, siteConfig, type KeywordRanking } from '@/data/site'
 import { generateBreadcrumbSchema } from '@/lib/schemas'
 import WebsitePreview from '@/components/ui/WebsitePreview'
 import PricingCTA from '@/components/forms/PricingCTA'
-import LeadForm from '@/components/forms/LeadForm'
+import { DoodleUnderline } from '@/components/ui/Doodle'
 
 // URL mappings for case studies (old slug -> new short URL)
 const caseStudyUrlMap: Record<string, string> = {
@@ -166,47 +165,55 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-primary-dark py-20">
-        <div className="container px-6">
-          <nav className="flex items-center gap-2 text-white/60 text-sm mb-8">
-            <Link href="/" className="hover:text-white">Home</Link>
+      {/* Hero, light, centered, ambient light wash, matches the local-seo hero */}
+      <section className="relative bg-white ambient-light overflow-hidden py-24 lg:py-28">
+        <div className="container px-6 relative">
+          <nav className="flex items-center justify-center gap-2 text-text-muted text-sm mb-8">
+            <Link href="/" className="hover:text-accent">Home</Link>
             <span>/</span>
-            <Link href="/case-studies" className="hover:text-white">Case Studies</Link>
+            <Link href="/case-studies" className="hover:text-accent">Case Studies</Link>
             <span>/</span>
-            <span className="text-white">{client.name}</span>
+            <span className="text-text-secondary">{client.name}</span>
           </nav>
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <span className="block text-xs font-bold text-white/60 uppercase tracking-widest mb-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-primary leading-[1.05] mb-6 text-balance">
+              <span className="relative inline-block">
+                {client.name}
+                <DoodleUnderline className="absolute left-0 -bottom-1 w-full h-3 text-accent" />
+              </span>
+            </h1>
+            <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-8 leading-relaxed">
+              {firstSentence(client.description)}
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
+              <a
+                href={client.url}
+                target="_blank"
+                rel={client.nofollow ? 'nofollow noopener noreferrer' : 'noopener noreferrer'}
+                className="inline-flex items-center gap-2 px-7 py-4 border-2 border-border text-primary font-semibold rounded-lg hover:border-accent hover:text-accent transition-colors"
+              >
+                Visit Website →
+              </a>
+              <PricingCTA
+                source={`${client.name} case study hero`}
+                ctaLabel="Get My Free Audit"
+                buttonClassName="inline-flex items-center gap-2 px-7 py-4 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors shadow-lg shadow-accent/20"
+              />
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <span className="px-3 py-1.5 bg-bg-secondary border border-border rounded-full text-sm text-text-secondary">
                 {client.industry}
               </span>
-              <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 text-balance">{client.name}</h1>
-              <p className="text-lg text-white/80 mb-6">{firstSentence(client.description)}</p>
-              <div className="flex flex-wrap gap-2 mb-8">
-                {client.services.map((s, i) => (
-                  <span key={i} className="px-3 py-1 bg-white/10 text-white rounded-full text-sm">
-                    {s}
-                  </span>
-                ))}
-              </div>
-              <a href={client.url} target="_blank" rel={client.nofollow ? 'nofollow noopener noreferrer' : 'noopener noreferrer'} className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors">
-                Visit Website <ExternalLink size={18} />
-              </a>
-            </div>
-            <div className="relative">
+              {client.services.map((s, i) => (
+                <span key={i} className="px-3 py-1.5 bg-bg-secondary border border-border rounded-full text-sm text-text-secondary">
+                  {s}
+                </span>
+              ))}
               {client.results && (
-                <div className="absolute -top-4 -right-3 sm:-right-6 z-10 bg-accent text-white text-xs sm:text-sm font-bold px-3 sm:px-4 py-2 rounded-full shadow-lg rotate-3">
+                <span className="px-3 py-1.5 bg-accent/10 text-accent rounded-full text-sm font-semibold">
                   {client.results.trafficIncrease} traffic for this client
-                </div>
+                </span>
               )}
-              <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8">
-                <h2 className="text-2xl font-bold text-primary mb-2">Get a Free Audit</h2>
-                <p className="text-sm text-text-secondary mb-6">
-                  Tell us about your project. We&apos;ll reply within 24 hours with concrete next steps.
-                </p>
-                <LeadForm source={`${client.name} case study hero`} ctaLabel="Get My Free Audit" />
-              </div>
             </div>
           </div>
         </div>
@@ -463,9 +470,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           <div className="container px-6">
             <div className="max-w-3xl mx-auto text-center">
               <div className="bg-white rounded-2xl p-12 shadow-lg">
-                <div className="flex justify-center text-yellow-400 mb-6">
-                  {[...Array(5)].map((_, i) => <Star key={i} size={24} fill="currentColor" />)}
-                </div>
+                <span className="wise-numeral text-6xl leading-none block mb-2" aria-hidden="true">&ldquo;</span>
                 <blockquote className="text-xl text-text-secondary mb-8 leading-relaxed">
                   &quot;{client.testimonial.quote}&quot;
                 </blockquote>
@@ -513,7 +518,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           </div>
           <div className="text-center mt-12">
             <Link href="/case-studies" className="inline-flex items-center gap-2 px-6 py-3 bg-bg-secondary text-primary font-medium rounded-lg hover:bg-bg-tertiary transition-colors">
-              View All Projects <ArrowRight size={18} />
+              View All Projects →
             </Link>
           </div>
         </div>

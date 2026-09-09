@@ -8,13 +8,7 @@ import { getServiceContent } from '@/data/serviceContent'
 import FAQSection from '@/components/sections/FAQSection'
 import PricingCTA from '@/components/forms/PricingCTA'
 import LeadForm from '@/components/forms/LeadForm'
-import { DoodleFlow, DoodleReceipt, DoodleTrendLine } from '@/components/ui/Doodle'
-
-const heroDoodles: Record<string, typeof DoodleFlow> = {
-  'web-applications': DoodleFlow,
-  'ecommerce-development': DoodleReceipt,
-  'ppc-advertising': DoodleTrendLine,
-}
+import HeroBackground from '@/components/ui/HeroBackground'
 
 const subserviceToInitialService: Record<string, string> = {
   'local-seo': 'local-seo',
@@ -84,7 +78,6 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
 
   const content = getServiceContent(subslug)
   const pageUrl = getCanonicalUrl(slug, subslug)
-  const HeroDoodle = heroDoodles[subslug]
 
   // UPDATED parent service URL
   const parentServiceUrl = slug === 'seo' ? `${siteConfig.url}/local-seo`
@@ -137,13 +130,8 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
       <Script id="schema-graph" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }} />
 
       {/* Hero */}
-      <section className="relative bg-gradient-to-br from-primary to-primary-dark py-20 overflow-hidden">
-        {HeroDoodle && (
-          <>
-            <HeroDoodle className="hidden lg:block absolute -top-4 -right-14 w-80 h-48 text-white/10 pointer-events-none" />
-            <HeroDoodle className="hidden lg:block absolute -bottom-14 -left-20 w-72 h-44 text-accent/10 pointer-events-none rotate-180" />
-          </>
-        )}
+      <section className="relative overflow-hidden py-20">
+        <HeroBackground />
         <div className="container px-6 relative">
           <nav className="flex items-center gap-2 text-white/60 text-sm mb-8 flex-wrap">
             <Link href="/" className="hover:text-white">Home</Link>
@@ -160,9 +148,18 @@ export default async function SubservicePage({ params }: { params: Promise<{ slu
               {content?.hero.subheadline && (
                 <p className="text-xl text-white/90 mb-4">{content.hero.subheadline}</p>
               )}
-              <p className="text-lg text-white/80">
+              <p className="text-lg text-white/80 mb-8">
                 {content?.hero.valueProposition || subservice.description}
               </p>
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/15 text-sm">
+                  <span className="font-semibold text-white">Google</span>
+                  <span className="text-white/60">5.0 rating</span>
+                </span>
+                <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/15 text-sm text-white/70">
+                  50+ businesses helped
+                </span>
+              </div>
             </div>
             <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8">
               <h2 className="text-xl md:text-2xl font-bold text-primary mb-2">Get a Free Consultation</h2>

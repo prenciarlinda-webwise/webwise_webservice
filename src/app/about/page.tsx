@@ -8,6 +8,7 @@ import { aboutFaqs } from '@/data/faqs'
 import { aboutContent } from '@/data/staticContent'
 import FAQSection from '@/components/sections/FAQSection'
 import { pageSEO } from '@/data/seo'
+import HeroBackground from '@/components/ui/HeroBackground'
 
 export const metadata = {
   title: pageSEO.about.title,
@@ -48,10 +49,10 @@ export default function AboutPage() {
       />
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-primary-dark py-24 lg:py-32">
-        <div className="container px-6">
+      <section className="relative overflow-hidden py-24 lg:py-32">
+        <HeroBackground />
+        <div className="container px-6 relative">
           <div className="max-w-3xl">
-            <span className="block text-xs font-bold text-white/60 uppercase tracking-widest mb-4">About Us</span>
             <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
               {content.hero.headline}
             </h1>

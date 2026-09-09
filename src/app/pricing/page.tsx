@@ -8,6 +8,7 @@ import { pricingFaqs } from '@/data/faqs'
 import { pricingContent } from '@/data/staticContent'
 import FAQSection from '@/components/sections/FAQSection'
 import PricingCTA from '@/components/forms/PricingCTA'
+import HeroBackground from '@/components/ui/HeroBackground'
 
 export const metadata = {
   title: pageSEO.pricing.title,
@@ -33,13 +34,15 @@ export default function PricingPage() {
     {
       name: 'Starter Local SEO',
       icon: Zap,
-      originalPrice: '€580',
-      price: '€480',
-      savings: 'Save €100/month',
+      originalPrice: '$580',
+      price: '$480',
+      savings: 'Save $100/month',
       period: '/month',
       description: 'Foundational Visibility',
       features: [
+        { text: '2 target services, 1 location, worked at full capacity', included: true },
         { text: 'Full local SEO audit (20+ point checklist)', included: true },
+        { text: 'Full technical SEO optimization of your website (speed, schema, crawlability, mobile-first)', included: true },
         { text: 'Google Business Profile optimized (all 14 sections)', included: true },
         { text: 'NAP consistency check across 15 directories', included: true },
         { text: '10 target keywords tracked monthly', included: true },
@@ -61,13 +64,14 @@ export default function PricingPage() {
     {
       name: 'Medium Local SEO',
       icon: Rocket,
-      originalPrice: '€980',
-      price: '€780',
-      savings: 'Save €200/month',
+      originalPrice: '$980',
+      price: '$780',
+      savings: 'Save $200/month',
       period: '/month',
       description: 'Competitive Climbing',
       features: [
         { text: 'Everything in Starter', included: true },
+        { text: 'Up to 3 target services and locations, worked at full capacity', included: true },
         { text: '25 target keywords tracked weekly', included: true },
         { text: '5 local citations + 1 backlink per month', included: true },
         { text: '2 blog posts/month (800+ words, fully optimized)', included: true },
@@ -89,20 +93,21 @@ export default function PricingPage() {
     {
       name: 'Premium Local SEO',
       icon: Crown,
-      originalPrice: '€1,500',
-      price: '€1,100',
-      savings: 'Save €400/month',
+      originalPrice: '$1,500',
+      price: '$1,100',
+      savings: 'Save $400/month',
       period: '/month',
       description: 'Market Authority',
       features: [
         { text: 'Everything in Medium', included: true },
+        { text: 'Unlimited target services and locations, worked at full capacity', included: true },
         { text: 'Unlimited keywords tracked weekly', included: true },
         { text: '10+ citations & backlinks per month', included: true },
         { text: '4 blog posts/month (1,000+ words, schema-optimized)', included: true },
         { text: 'Deep competitor analysis (5 competitors)', included: true },
         { text: '20 GBP posts per month', included: true },
         { text: 'Weekly reporting with call tracking metrics', included: true },
-        { text: 'Proactive review generation system', included: true },
+        { text: 'Priority review response coaching', included: true },
         { text: 'Aggressive backlink outreach campaign', included: true },
         { text: 'Dedicated account manager', included: true },
       ],
@@ -119,8 +124,8 @@ export default function PricingPage() {
   const webPlan = {
     name: 'Website Development',
     icon: Monitor,
-    originalPrice: '€2,000',
-    price: '€1,500',
+    originalPrice: '$2,000',
+    price: '$1,500',
     period: 'one-time',
     description: 'The Conversion Engine',
     includes: ['Perfect SEO Setup', 'Google My Business Setup'],
@@ -129,7 +134,7 @@ export default function PricingPage() {
       'Next.js for blazing speed',
       'SEO-optimized structure',
       'Contact form integration',
-      'Google Analytics setup (€100 value)',
+      'Google Analytics setup ($100 value)',
       'Mobile-first approach',
       '30-day support included',
     ],
@@ -193,10 +198,10 @@ export default function PricingPage() {
       />
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-primary-dark py-24 lg:py-32">
-        <div className="container px-6">
+      <section className="relative overflow-hidden py-24 lg:py-32">
+        <HeroBackground />
+        <div className="container px-6 relative">
           <div className="text-center max-w-3xl mx-auto">
-            <span className="block text-xs font-bold text-white/60 uppercase tracking-widest mb-4">Pricing</span>
             <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
               {content.hero.headline}
             </h1>
@@ -310,11 +315,11 @@ export default function PricingPage() {
                         <span className="bg-accent/10 text-accent text-xs font-semibold px-2 py-0.5 rounded-full ml-auto border border-accent/30">Optional Add-On</span>
                       </div>
                       <p className="text-sm text-text-secondary leading-relaxed">
-                        You can choose to add our <strong>Premium SEO package at the Medium SEO price</strong>, full premium service for <strong>€780/month</strong> instead of €1,100.
+                        You can choose to add our <strong>Premium SEO package at the Medium SEO price</strong>, full premium service for <strong>$780/month</strong> instead of $1,100.
                       </p>
                       <div className="mt-4 flex items-center justify-between text-sm">
-                        <span className="text-text-muted line-through">Premium SEO: €1,100/mo</span>
-                        <span className="text-accent font-bold">Available at: €780/mo</span>
+                        <span className="text-text-muted line-through">Premium SEO: $1,100/mo</span>
+                        <span className="text-accent font-bold">Available at: $780/mo</span>
                       </div>
                       <p className="text-xs text-text-muted mt-3 italic">Available exclusively to Launch Package clients after month 3.</p>
                     </div>
@@ -512,7 +517,7 @@ export default function PricingPage() {
                       <span className="text-text-muted">{webPlan.period}</span>
                     </div>
                     <div className="inline-block mt-2 px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded">
-                      Save €500
+                      Save $500
                     </div>
                   </div>
 

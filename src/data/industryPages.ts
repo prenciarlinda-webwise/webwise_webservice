@@ -33,6 +33,14 @@ export interface IndustryFAQ {
   answer: string
 }
 
+// Real, published ranking-speed milestones for this trade, sourced from the page's own
+// "how long" FAQ answer. Only add a milestone here if it's a claim already stated on the
+// page, not a new estimate, so the table and the FAQ can never contradict each other.
+export interface IndustryTimelineMilestone {
+  milestone: string
+  timeframe: string
+}
+
 export interface IndustryCaseStudy {
   clientKey: string
   caseStudySlug: string
@@ -59,6 +67,8 @@ export interface IndustryPageContent {
   services: IndustryService[]
   process: IndustryProcessStep[]
   pricingTiers: IndustryPricingTier[]
+  // Optional: omitted for any industry whose FAQ copy doesn't state ranking-speed numbers yet.
+  rankingTimeline?: IndustryTimelineMilestone[]
   caseStudy?: IndustryCaseStudy
   faqs: IndustryFAQ[]
   relatedIndustries: { name: string; slug: string }[]
@@ -69,23 +79,23 @@ export const industryPages: Record<string, IndustryPageContent> = {
     slug: 'plumbers',
     tradeName: 'Plumbers',
     tradePlural: 'plumbing companies',
-    metaTitle: 'Local SEO for Plumbers - SEO Leads',
+    metaTitle: 'Plumber SEO Services - SEO Leads',
     metaDescription:
-      'We help plumbing companies dominate Google Maps and local search. Emergency plumber keywords, Map Pack rankings, and real traffic growth. Free local SEO audit.',
+      'Plumber SEO services that get you found on Google Maps and local search. Emergency plumber keywords, Map Pack rankings, and real traffic growth. Free audit.',
     keywords: [
+      'plumber seo services',
       'seo for plumbers',
       'plumber seo',
       'local seo for plumbers',
       'plumbing seo',
       'seo for plumbing companies',
-      'plumber seo services',
       'plumbing marketing agency',
       'plumber seo company',
       'plumber seo agency',
       'seo services for plumbers',
     ],
-    h1: 'Local SEO for Plumbers',
-    underlineWord: 'Plumbers',
+    h1: 'Plumber SEO Services That Fill Your Schedule',
+    underlineWord: 'SEO Services',
     heroH2: 'How to Get Found on Google Maps',
     heroH2Answer:
       'You get found on Google Maps by fully optimizing your Google Business Profile, building consistent local citations, earning steady reviews, and publishing dedicated pages for emergency and repiping searches, the mix of fast and high-value jobs that drive plumbing revenue.',
@@ -200,6 +210,10 @@ export const industryPages: Record<string, IndustryPageContent> = {
           'Priority support',
         ],
       },
+    ],
+    rankingTimeline: [
+      { milestone: 'Google Business Profile improvements', timeframe: '2 to 4 weeks' },
+      { milestone: 'Meaningful ranking gains', timeframe: '90 days' },
     ],
     caseStudy: {
       clientKey: 'illyrianplumber',
@@ -387,6 +401,11 @@ export const industryPages: Record<string, IndustryPageContent> = {
         ],
       },
     ],
+    rankingTimeline: [
+      { milestone: 'Google Business Profile improvements', timeframe: '2 to 4 weeks' },
+      { milestone: 'Meaningful ranking gains', timeframe: '90 days' },
+      { milestone: 'Full market dominance', timeframe: '6 to 12 months' },
+    ],
     caseStudy: {
       clientKey: 'painttechs',
       caseStudySlug: 'paint-techs',
@@ -573,6 +592,11 @@ export const industryPages: Record<string, IndustryPageContent> = {
         ],
       },
     ],
+    rankingTimeline: [
+      { milestone: 'Google Business Profile improvements', timeframe: '2 to 4 weeks' },
+      { milestone: 'Meaningful ranking gains', timeframe: '90 days' },
+      { milestone: 'Full market dominance', timeframe: '6 to 12 months' },
+    ],
     caseStudy: {
       clientKey: 'gimosroofing',
       caseStudySlug: 'gimos-roofing',
@@ -758,6 +782,10 @@ export const industryPages: Record<string, IndustryPageContent> = {
           'Priority support',
         ],
       },
+    ],
+    rankingTimeline: [
+      { milestone: 'Quick wins from Google Business Profile optimization', timeframe: 'Within the first month' },
+      { milestone: 'Measurable Google Maps improvements', timeframe: '60 to 90 days' },
     ],
     faqs: [
       {

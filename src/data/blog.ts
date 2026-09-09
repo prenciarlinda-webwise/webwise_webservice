@@ -2400,8 +2400,8 @@ Construction SEO packages start at $480/month, fully customized to your service 
   },
   {
     slug: 'electrician-seo-guide',
-    title: 'Local SEO for Electricians',
-    excerpt: 'We help electrical contractors dominate local search and generate consistent leads. From emergency calls to EV charger installations, our SEO drives the jobs you want.',
+    title: 'Electrician SEO Agency That Books More Jobs',
+    excerpt: 'As an electrician SEO agency, we help electrical contractors dominate local search and generate consistent leads. From emergency calls to EV charger installations, our SEO drives the jobs you want.',
     category: 'Local SEO',
     author: 'Web Wise Team',
     authorBio: 'The Web Wise Team has helped electrical contractors across the US and UK achieve top Google rankings and consistent lead generation.',
@@ -2410,7 +2410,7 @@ Construction SEO packages start at $480/month, fully customized to your service 
     featured: false,
     image: '/blog/electrician-seo/electrician-map-pack.svg',
     imageAlt: 'Where 74% of electrical service calls start, Google Map Pack for electrician searches',
-    keywords: ['electrician SEO', 'electrician SEO services', 'SEO for electricians', 'electrical contractor marketing', 'electrician leads', 'electrical services SEO'],
+    keywords: ['electrician seo agency', 'electrician SEO', 'electrician SEO services', 'SEO for electricians', 'electrical contractor marketing', 'electrician leads', 'electrical services SEO'],
     relatedServiceUrl: '/local-seo/electricians',
     relatedServiceName: 'Electrician SEO Services',
     tldr: [

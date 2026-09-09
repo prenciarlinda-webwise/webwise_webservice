@@ -1,13 +1,15 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import Script from 'next/script'
-import { ArrowRight, Star, Code, Search, TrendingUp, Droplet, Wind, Zap, Car, Truck, TreePine, Bug, Sparkles, Building, Home as HomeIcon, KeyRound, MapPin } from 'lucide-react'
 import { siteConfig, techStack, clients } from '@/data/site'
 import { pageSEO } from '@/data/seo'
 import type { Metadata } from 'next'
-import LeadForm from '@/components/forms/LeadForm'
 import PricingCTA from '@/components/forms/PricingCTA'
-import ScreenshotFrame from '@/components/ui/ScreenshotFrame'
+import Globe from '@/components/ui/Globe'
+import Reveal from '@/components/ui/Reveal'
+import TiltCard from '@/components/ui/TiltCard'
+import FaqAccordion from '@/components/ui/FaqAccordion'
+import ClientOrbit from '@/components/ui/ClientOrbit'
 
 // Homepage-specific metadata
 export const metadata: Metadata = {
@@ -72,6 +74,13 @@ const homepageSchema = {
       }
     },
     {
+      "@type": "WebPage",
+      "@id": `${siteConfig.url}/#webpage`,
+      "url": siteConfig.url,
+      "name": "Web Wise, Web Development and SEO Services",
+      "speakable": { "@type": "SpeakableSpecification", "cssSelector": [".aeo-answer"] },
+    },
+    {
       "@type": "ProfessionalService",
       "name": "Web Wise",
       "description": "Web development, SEO, and digital marketing services",
@@ -93,20 +102,20 @@ const homepageSchema = {
   ]
 }
 
-// Industries data
+// Industries data, no icon field, the grid leans on typography and hover glow instead
 const industries = [
-  { name: 'Plumbers', slug: 'plumbers', icon: Droplet, description: 'Emergency plumber SEO, website development' },
-  { name: 'Roofers', slug: 'roofing', icon: HomeIcon, description: 'Storm damage keywords, lead generation' },
-  { name: 'HVAC Companies', slug: 'hvac', icon: Wind, description: 'Seasonal SEO strategies' },
-  { name: 'Electricians', slug: 'electricians', icon: Zap, description: 'Emergency + EV charger keywords' },
-  { name: 'Auto Detailing', slug: 'auto-detailing', icon: Car, description: 'Mobile detailing, booking sites' },
-  { name: 'Dumpster Rental', slug: 'dumpster-rental', icon: Truck, description: 'Size-specific landing pages' },
-  { name: 'Landscaping', slug: 'landscaping', icon: TreePine, description: 'Seasonal marketing' },
-  { name: 'Pest Control', slug: 'pest-control', icon: Bug, description: 'Emergency pest searches' },
-  { name: 'Cleaning Services', slug: 'cleaning', icon: Sparkles, description: 'Residential + commercial' },
-  { name: 'Moving Companies', slug: 'moving', icon: Truck, description: 'Local mover keywords' },
-  { name: 'Construction', slug: 'construction', icon: Building, description: 'Contractor SEO' },
-  { name: 'Locksmiths', slug: 'locksmiths', icon: KeyRound, description: 'Emergency lockout SEO' },
+  { name: 'Plumbers', slug: 'plumbers', description: 'Emergency plumber SEO, website development' },
+  { name: 'Roofers', slug: 'roofing', description: 'Storm damage keywords, lead generation' },
+  { name: 'HVAC Companies', slug: 'hvac', description: 'Seasonal SEO strategies' },
+  { name: 'Electricians', slug: 'electricians', description: 'Emergency + EV charger keywords' },
+  { name: 'Auto Detailing', slug: 'auto-detailing', description: 'Mobile detailing, booking sites' },
+  { name: 'Dumpster Rental', slug: 'dumpster-rental', description: 'Size-specific landing pages' },
+  { name: 'Landscaping', slug: 'landscaping', description: 'Seasonal marketing' },
+  { name: 'Pest Control', slug: 'pest-control', description: 'Emergency pest searches' },
+  { name: 'Cleaning Services', slug: 'cleaning', description: 'Residential + commercial' },
+  { name: 'Moving Companies', slug: 'moving', description: 'Local mover keywords' },
+  { name: 'Construction', slug: 'construction', description: 'Contractor SEO' },
+  { name: 'Locksmiths', slug: 'locksmiths', description: 'Emergency lockout SEO' },
 ]
 
 // Case studies (image pulled from the real client screenshot already generated in site.ts)
@@ -116,8 +125,7 @@ const caseStudies = [
     slug: 'illyrian-group',
     type: 'Local SEO + Website',
     description: 'Complete website rebuild and local SEO for East Brunswick, NJ plumber.',
-    services: ['Website Development', 'Local SEO', 'Brand Strategy'],
-    results: { traffic: '553%', leads: '245%', keywords: '911+', extra: 'Local Pack Top 5' },
+    results: { traffic: '553%', leads: '245%', keywords: '911+' },
     image: clients.illyrianplumber.image,
   },
   {
@@ -125,7 +133,6 @@ const caseStudies = [
     slug: 'gimos-roofing',
     type: 'Local SEO + Website + PPC',
     description: 'Full-service roofing website with local SEO and Google Ads management.',
-    services: ['Website Development', 'Local SEO', 'Google Ads'],
     results: { traffic: '380%', leads: '295%', keywords: '52+' },
     image: clients.gimosroofing.image,
   },
@@ -134,19 +141,53 @@ const caseStudies = [
     slug: '904-dumpster',
     type: 'Local SEO + Website',
     description: 'Dumpster rental website with pricing calculator and online booking.',
-    services: ['Website Development', 'Local SEO'],
     results: { traffic: '445%', leads: '350%', keywords: '67+' },
     image: clients['904dumpster'].image,
   },
 ]
 
-// Ambient hero proof strip, visual only, names/domains intentionally omitted
-// so this decorative use never becomes a shortcut straight to a client's live site
-const proofScreenshots = [
-  { image: clients.gimosroofing.image, alt: 'Screenshot of a roofing company website we designed', rotate: -4 },
-  { image: clients.illyrianplumber.image, alt: 'Screenshot of a plumbing company website we designed', rotate: 3 },
-  { image: clients['904dumpster'].image, alt: 'Screenshot of a dumpster rental website we designed', rotate: -2 },
-  { image: clients.aaaremodels.image, alt: 'Screenshot of a home remodeling website we designed', rotate: 4 },
+// General spread of markers across the US and UK, shown as green dots on
+// the globe to back up the "30+ clients" claim and the site's UK + USA
+// positioning. Deliberately not paired with named city labels in the UI,
+// this is an approximate footprint, not a per-client verified address list.
+const clientLocations: { location: [number, number]; size: number }[] = [
+  { location: [40.7128, -74.0060], size: 0.07 }, // New York, NY
+  { location: [40.7357, -74.1724], size: 0.08 }, // Newark, NJ
+  { location: [39.9526, -75.1652], size: 0.06 }, // Philadelphia, PA
+  { location: [42.3601, -71.0589], size: 0.06 }, // Boston, MA
+  { location: [30.3322, -81.6557], size: 0.08 }, // Jacksonville, FL
+  { location: [25.7617, -80.1918], size: 0.06 }, // Miami, FL
+  { location: [33.7490, -84.3880], size: 0.07 }, // Atlanta, GA
+  { location: [35.2271, -80.8431], size: 0.06 }, // Charlotte, NC
+  { location: [35.7796, -78.6382], size: 0.06 }, // Raleigh, NC
+  { location: [36.1627, -86.7816], size: 0.06 }, // Nashville, TN
+  { location: [41.8781, -87.6298], size: 0.08 }, // Chicago, IL
+  { location: [39.9612, -82.9988], size: 0.06 }, // Columbus, OH
+  { location: [42.3314, -83.0458], size: 0.06 }, // Detroit, MI
+  { location: [39.7684, -86.1581], size: 0.06 }, // Indianapolis, IN
+  { location: [44.9778, -93.2650], size: 0.06 }, // Minneapolis, MN
+  { location: [38.6270, -90.1994], size: 0.06 }, // St. Louis, MO
+  { location: [29.7604, -95.3698], size: 0.07 }, // Houston, TX
+  { location: [32.7767, -96.7970], size: 0.07 }, // Dallas, TX
+  { location: [30.2672, -97.7431], size: 0.06 }, // Austin, TX
+  { location: [29.4241, -98.4936], size: 0.06 }, // San Antonio, TX
+  { location: [29.9511, -90.0715], size: 0.06 }, // New Orleans, LA
+  { location: [39.7392, -104.9903], size: 0.06 }, // Denver, CO
+  { location: [33.4484, -112.0740], size: 0.07 }, // Phoenix, AZ
+  { location: [36.1699, -115.1398], size: 0.06 }, // Las Vegas, NV
+  { location: [40.7608, -111.8910], size: 0.06 }, // Salt Lake City, UT
+  { location: [34.0522, -118.2437], size: 0.08 }, // Los Angeles, CA
+  { location: [32.7157, -117.1611], size: 0.06 }, // San Diego, CA
+  { location: [37.7749, -122.4194], size: 0.06 }, // San Francisco, CA
+  { location: [47.6062, -122.3321], size: 0.06 }, // Seattle, WA
+  { location: [45.5152, -122.6784], size: 0.06 }, // Portland, OR
+  // UK
+  { location: [51.5074, -0.1278], size: 0.08 }, // London
+  { location: [53.4808, -2.2426], size: 0.07 }, // Manchester
+  { location: [52.4862, -1.8904], size: 0.06 }, // Birmingham
+  { location: [53.8008, -1.5491], size: 0.06 }, // Leeds
+  { location: [55.8642, -4.2518], size: 0.06 }, // Glasgow
+  { location: [51.4545, -2.5879], size: 0.06 }, // Bristol
 ]
 
 // Testimonials
@@ -161,6 +202,30 @@ const testimonials = [
   },
 ]
 
+// Process steps, big gradient numerals replace icons as the repeated visual motif
+const processSteps = [
+  {
+    step: '01',
+    title: 'Free Consultation',
+    description: "We discuss your business, goals, and challenges. You'll get honest advice, even if that means we're not the right fit.",
+  },
+  {
+    step: '02',
+    title: 'Proposal & Roadmap',
+    description: 'You receive a clear proposal with scope, timeline, and pricing. No hidden fees. No vague deliverables.',
+  },
+  {
+    step: '03',
+    title: 'Build & Launch',
+    description: 'Websites launch in 2-4 weeks. SEO builds its foundation in month one, then grows steadily through month six. Marketing campaigns go live within 1-2 weeks.',
+  },
+  {
+    step: '04',
+    title: 'Measure & Optimize',
+    description: 'Monthly reports showing traffic, leads, and ROI. We optimize based on data, not guesses.',
+  },
+]
+
 export default function Home() {
   return (
     <>
@@ -171,135 +236,132 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homepageSchema) }}
       />
 
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary via-primary-dark to-primary overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 25% 25%, rgba(255,255,255,0.2) 0%, transparent 50%)' }} />
-        </div>
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
-        <div className="container px-6 relative py-24 lg:py-32">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Text Content */}
-            <div className="text-white">
-              <h1 className="text-4xl lg:text-6xl font-display font-bold mb-6 leading-[1.05] tracking-tight">
-                Websites and SEO
-                <span className="text-gradient"> built to get you found</span>
-              </h1>
-              <p className="text-xl text-white/90 font-medium mb-4">
-                Websites that convert, SEO that ranks, marketing that grows.
-              </p>
-              <p className="text-lg text-white/80 mb-8 max-w-lg">
-                We help contractors and small businesses dominate online, with lightning fast
-                websites (98+ PageSpeed), local SEO that puts you in the Google Map Pack, and
-                digital marketing that generates real leads.
-              </p>
+      {/* ============ HERO — dark aurora anchor, sets the brand tone the rest of the page echoes ============ */}
+      <section className="relative bg-primary overflow-hidden py-28 lg:py-36">
+        {/* Ambient gradient mesh, one continuous field rather than a flat navy fill */}
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-primary via-primary to-primary-dark" />
+        <div aria-hidden="true" className="glow-orb aurora-drift -top-24 -left-24 w-[28rem] h-[28rem] bg-accent/25" />
+        <div aria-hidden="true" className="glow-orb aurora-drift -bottom-32 -right-16 w-[32rem] h-[32rem] bg-primary-light/50" style={{ animationDelay: '-7s' }} />
+        <div
+          aria-hidden="true"
+          className="hidden lg:block absolute inset-0 pointer-events-none opacity-40"
+          style={{
+            backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.15) 1.5px, transparent 1.5px)',
+            backgroundSize: '28px 28px',
+            WebkitMaskImage: 'radial-gradient(circle at 50% 40%, black 0%, transparent 65%)',
+            maskImage: 'radial-gradient(circle at 50% 40%, black 0%, transparent 65%)',
+          }}
+        />
 
-              {/* Proof strip, real screenshots, no domains named on purpose */}
-              <div className="flex items-end gap-3 mb-4">
-                {proofScreenshots.map((shot, i) => (
-                  <ScreenshotFrame
-                    key={i}
-                    image={shot.image}
-                    alt={shot.alt}
-                    rotate={shot.rotate}
-                    className={`w-16 sm:w-20 shrink-0 ${i >= 2 ? 'hidden sm:block' : ''} ${i === 3 ? 'hidden lg:block' : ''}`}
-                  />
-                ))}
-                <p className="text-sm text-white/70 pb-1">Real sites we&apos;ve designed and ranked</p>
-              </div>
+        {/* Low-opacity glass-coin ring drifting behind the headline, ambient
+            texture rather than a feature, standing in for the literal website
+            screenshots this replaced. */}
+        <ClientOrbit className="hidden lg:flex opacity-[0.14]" count={9} radius={340} />
 
-              <div className="flex items-center gap-3">
-                <div className="flex text-yellow-400">
-                  {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
-                </div>
-                <span className="text-sm text-white/70">Rated 5.0, 50+ businesses helped</span>
-              </div>
+        <div className="container px-6 relative">
+          <div className="max-w-2xl mx-auto text-center">
+            <h1 className="text-4xl md:text-6xl font-display font-bold leading-[1.05] mb-6 text-white">
+              Web Development, SEO, and Marketing{' '}
+              <span className="text-gradient">That Get You Found</span>
+            </h1>
+
+            <p className="text-lg md:text-xl text-white/70 max-w-xl mx-auto mb-10 leading-relaxed">
+              We help contractors and small businesses dominate online. Starting at $950, you get
+              an SEO optimized website with full branding included. Then Local SEO starts at $480
+              a month to keep you ranking in the Google Map Pack.
+            </p>
+
+            <div className="mb-3">
+              <PricingCTA
+                source="Homepage hero"
+                ctaLabel="Get My Free Audit"
+                buttonClassName="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white font-semibold rounded-full hover:bg-accent-dark transition-colors shadow-lg shadow-accent/30"
+              />
             </div>
+            <Link href="/pricing" className="inline-block text-sm text-white/50 hover:text-accent transition-colors mb-10">
+              or view pricing
+            </Link>
 
-            {/* Lead Capture Form */}
-            <div className="relative">
-              <div className="absolute -top-4 -right-3 sm:-right-6 z-10 bg-accent text-white text-xs sm:text-sm font-bold px-3 sm:px-4 py-2 rounded-full shadow-lg rotate-3">
+            {/* Rating strip, verified claims only, no icons */}
+            <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
+              <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/15 text-sm">
+                <span className="font-semibold text-white">Google</span>
+                <span className="text-white/60">5.0 rating</span>
+              </span>
+              <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/15 text-sm text-white/70">
+                50+ businesses helped
+              </span>
+              <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/15 text-sm text-white/70">
                 +553% traffic for one client
-              </div>
-              <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8">
-                <h2 className="text-2xl font-bold text-primary mb-2">Get a Free Audit</h2>
-                <p className="text-sm text-text-secondary mb-6">
-                  Tell us about your project. We&apos;ll reply within 24 hours with concrete next steps.
-                </p>
-                <LeadForm source="Homepage hero" ctaLabel="Get My Free Audit" />
-              </div>
+              </span>
             </div>
+
+            <p className="text-sm text-white/40">Clear scope, clear pricing, no hidden fees.</p>
           </div>
         </div>
       </section>
 
-      {/* What We Do Section - AEO Optimized */}
-      <section className="py-24 bg-bg-secondary">
-        <div className="container px-6">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">What We Do</span>
+      {/* ============ WHAT WE DO — AEO answer panel, reuses the shared trust/proof texture ============ */}
+      <section className="relative ambient-light diagonal-wash py-24 overflow-hidden">
+        {/* Bleeds up into the dark hero above so the seam between them isn't a flat color cut. */}
+        <div aria-hidden="true" className="glow-orb -top-32 left-1/2 -translate-x-1/2 w-[36rem] h-64 bg-accent/10" />
+        <div className="container px-6 relative">
+          <Reveal className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-6">What Does Web Wise Do?</h2>
-            <p className="text-lg text-text-secondary mb-6">
-              Web Wise is a web development and digital marketing agency that helps contractors
-              and small businesses grow online. We build custom, high-performance websites that
-              load fast and convert visitors into customers. We implement local SEO strategies
-              that put you at the top of Google Maps. And we run digital marketing campaigns,
-              PPC, content, and social, that generate measurable leads. We specialize in{' '}
+            <p className="aeo-answer text-left text-lg text-text-secondary mb-6">
+              Web Wise is a web development and digital marketing agency for contractors and small
+              businesses. We build fast, custom websites, run local SEO campaigns that win the
+              Google Map Pack, and manage marketing campaigns that generate measurable leads.
+            </p>
+            <p className="text-text-secondary mb-4">
+              We specialize in{' '}
               <Link href="/local-seo/plumbers" className="text-accent hover:underline">plumbers</Link>,{' '}
               <Link href="/local-seo/roofing" className="text-accent hover:underline">roofers</Link>,{' '}
               <Link href="/local-seo/hvac" className="text-accent hover:underline">HVAC companies</Link>,{' '}
               <Link href="/local-seo/landscaping" className="text-accent hover:underline">landscapers</Link>,{' '}
-              <Link href="/local-seo/locksmiths" className="text-accent hover:underline">locksmiths</Link>,{' '}
-              <Link href="/local-seo/cleaning" className="text-accent hover:underline">cleaning services</Link>,
-              and other service businesses across the UK and USA.
+              <Link href="/local-seo/locksmiths" className="text-accent hover:underline">locksmiths</Link>, and{' '}
+              <Link href="/local-seo/cleaning" className="text-accent hover:underline">cleaning services</Link>{' '}
+              across the UK and USA.
             </p>
             <p className="text-text-secondary font-medium">
-              <strong className="text-primary">We&apos;re not a generalist agency.</strong> We only work with small businesses and
-              contractors. That focus means we understand your customers, your competition,
-              and what actually works in your industry.
+              <strong className="text-primary">We&apos;re not a generalist agency.</strong> That focus means
+              we understand your customers, your competition, and what actually works in your industry.
             </p>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Services Section - Bento layout, Local SEO featured since it's our core focus */}
-      <section className="py-24">
+      {/* ============ SERVICES — bento, gradient numerals stand in for icons ============ */}
+      <section className="py-24 bg-bg-primary">
         <div className="container px-6">
-          <div className="text-center mb-16">
-            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Our Services</span>
+          <Reveal className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">Comprehensive Digital Solutions</h2>
             <p className="text-text-secondary max-w-2xl mx-auto">
               From custom websites to dominating search results, we provide end-to-end
               digital services tailored to your business.
             </p>
-          </div>
+          </Reveal>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {/* SEO Services - featured bento tile */}
-            <div className="md:col-span-2 md:row-span-2 bg-gradient-to-br from-primary to-primary-dark rounded-2xl p-8 lg:p-10 shadow-sm hover:shadow-xl transition-shadow relative overflow-hidden">
-              <div className="absolute -bottom-10 -right-10 w-56 h-56 bg-accent/20 rounded-full blur-3xl" />
+            {/* SEO Services, featured bento tile, part of the recurring dark-gradient-plus-glow family */}
+            <Reveal className="md:col-span-2 md:row-span-2 bg-gradient-to-br from-primary to-primary-dark rounded-2xl p-8 lg:p-10 shadow-sm relative overflow-hidden">
+              <div aria-hidden="true" className="glow-orb -bottom-10 -right-10 w-56 h-56 bg-accent/25" />
               <div className="relative">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-16 h-16 flex items-center justify-center bg-accent rounded-xl text-white shrink-0">
-                    <Search size={32} />
-                  </div>
-                  <div>
-                    <span className="text-xs font-bold text-accent uppercase tracking-widest">Our core focus</span>
-                    <h3 className="text-2xl font-bold text-white">SEO Services</h3>
-                  </div>
-                </div>
-                <p className="text-white/80 mb-6 max-w-lg">
+                <span className="wise-numeral text-5xl block mb-3">01</span>
+                <h3 className="text-2xl font-bold text-white mb-4">SEO Services</h3>
+                <p className="text-white/80 mb-4 max-w-lg">
                   Data-driven SEO strategies that get you found on Google, in Maps, and in AI search results.
                   This is what most of our clients hire us for first.
                 </p>
-                <div className="flex items-baseline gap-2 mb-6">
-                  <span className="text-5xl font-display font-bold text-accent">340%</span>
-                  <span className="text-white/70">average traffic increase across our clients</span>
-                </div>
+                <p className="text-white/70 border-l-2 border-accent bg-white/5 pl-4 py-3 rounded-r-md mb-8 max-w-lg">
+                  In plain terms, we optimize your Google Business Profile, build the citations Google checks,
+                  and write content that answers what buyers are actually searching. That is what gets you into
+                  the Map Pack and named in AI answers, instead of buried on page one.
+                </p>
                 <ul className="grid sm:grid-cols-2 gap-3 mb-8">
                   <li className="text-sm text-white/90">
                     <Link href="/local-seo" className="hover:text-accent transition-colors flex items-center gap-2">
-                      <MapPin size={14} className="text-accent shrink-0" />
+                      <span className="w-1.5 h-1.5 bg-accent rounded-full shrink-0" />
                       Local SEO, Google Maps, GBP, citations
                     </Link>
                   </li>
@@ -323,16 +385,14 @@ export default function Home() {
                   </li>
                 </ul>
                 <Link href="/local-seo" className="inline-flex items-center gap-2 px-5 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors">
-                  Explore SEO services <ArrowRight size={16} />
+                  Explore SEO Services →
                 </Link>
               </div>
-            </div>
+            </Reveal>
 
             {/* Web Development */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-shadow border border-border">
-              <div className="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-primary to-primary-light rounded-xl text-white mb-4">
-                <Code size={22} />
-              </div>
+            <Reveal delay={100} className="wise-card p-6">
+              <span className="wise-numeral text-3xl block mb-3">02</span>
               <h3 className="text-lg font-bold text-primary mb-2">Web Development</h3>
               <p className="text-sm text-text-secondary mb-4">
                 Custom websites and web applications built for speed and conversions.
@@ -357,17 +417,18 @@ export default function Home() {
                   </Link>
                 </li>
               </ul>
-              <p className="text-xs text-accent font-medium mb-4">98+ average PageSpeed score</p>
+              <p className="text-sm text-text-secondary border-l-2 border-accent/40 bg-bg-secondary/60 pl-3 py-2 rounded-r-md mb-4">
+                A slow, cluttered site loses customers before they ever call. We build fast, mobile-friendly
+                sites with clear calls to action, so visitors become leads instead of bouncing to a competitor.
+              </p>
               <Link href="/custom-web-development" className="inline-flex items-center gap-2 text-sm text-accent font-medium hover:gap-3 transition-all">
-                Learn more <ArrowRight size={14} />
+                Learn more →
               </Link>
-            </div>
+            </Reveal>
 
             {/* Digital Marketing */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-shadow border border-border">
-              <div className="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-primary to-primary-light rounded-xl text-white mb-4">
-                <TrendingUp size={22} />
-              </div>
+            <Reveal delay={200} className="wise-card p-6">
+              <span className="wise-numeral text-3xl block mb-3">03</span>
               <h3 className="text-lg font-bold text-primary mb-2">Digital Marketing</h3>
               <p className="text-sm text-text-secondary mb-4">
                 Marketing strategies that drive traffic, leads, and revenue.
@@ -382,60 +443,58 @@ export default function Home() {
                 <li className="text-sm text-text-muted">
                   <Link href="/digital-marketing/content" className="hover:text-accent transition-colors flex items-center gap-2">
                     <span className="w-1.5 h-1.5 bg-accent rounded-full" />
-                    Content Marketing - Blogs, guides, SEO content
+                    Content marketing, blogs, guides, SEO content
                   </Link>
                 </li>
                 <li className="text-sm text-text-muted">
                   <Link href="/digital-marketing/social-management" className="hover:text-accent transition-colors flex items-center gap-2">
                     <span className="w-1.5 h-1.5 bg-accent rounded-full" />
-                    Social Media - Strategy, management, ads
+                    Social media, strategy, management, ads
                   </Link>
                 </li>
                 <li className="text-sm text-text-muted">
                   <Link href="/digital-marketing/analytics" className="hover:text-accent transition-colors flex items-center gap-2">
                     <span className="w-1.5 h-1.5 bg-accent rounded-full" />
-                    Analytics - Tracking, reporting, insights
+                    Analytics, tracking, reporting, insights
                   </Link>
                 </li>
               </ul>
-              <p className="text-sm text-accent font-medium mb-4">We focus on ROI, not vanity metrics</p>
+              <p className="text-sm text-text-secondary border-l-2 border-accent/40 bg-bg-secondary/60 pl-3 py-2 rounded-r-md mb-4">
+                Marketing without a plan wastes your budget on clicks that never turn into customers. We run
+                the ads and content built for people already ready to hire you, so every dollar has a job to do.
+              </p>
               <Link href="/digital-marketing" className="inline-flex items-center gap-2 text-accent font-medium hover:gap-3 transition-all">
-                Learn more <ArrowRight size={16} />
+                Learn more →
               </Link>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* Industries Section */}
+      {/* ============ INDUSTRIES — typography-led grid, no icon boxes ============ */}
       <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
-          <div className="text-center mb-16">
-            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Industries</span>
+          <Reveal className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">Who We Work With</h2>
             <p className="text-text-secondary max-w-2xl mx-auto">
               We specialize in contractors and local service businesses. If you serve
               customers in a specific area, we can help you dominate that market.
             </p>
-          </div>
+          </Reveal>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {industries.map((industry) => {
-              const IconComponent = industry.icon
-              return (
+            {industries.map((industry, i) => (
+              <Reveal key={industry.slug} delay={(i % 4) * 80}>
                 <Link
-                  key={industry.slug}
                   href={`/local-seo/${industry.slug}`}
-                  className="bg-white rounded-xl p-6 border border-border hover:shadow-lg hover:border-accent/30 transition-all group"
+                  className="wise-card group block p-6 h-full"
                 >
-                  <div className="w-12 h-12 flex items-center justify-center bg-accent/10 rounded-lg text-accent mb-4 group-hover:bg-accent group-hover:text-white transition-colors">
-                    <IconComponent size={24} />
-                  </div>
                   <h3 className="font-bold text-primary mb-2 group-hover:text-accent transition-colors">{industry.name}</h3>
                   <p className="text-sm text-text-muted">{industry.description}</p>
+                  <span className="block mt-4 h-0.5 w-8 bg-accent/40 group-hover:w-12 group-hover:bg-accent transition-all" />
                 </Link>
-              )
-            })}
+              </Reveal>
+            ))}
           </div>
 
           <div className="text-center mt-8">
@@ -490,125 +549,131 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Case Studies Section - horizontal wall of real screenshots */}
-      <section className="py-24 overflow-hidden">
-        <div className="container px-6">
-          <div className="text-center mb-16">
-            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Results</span>
+      {/* ============ CASE STUDIES — the one flagship "glass tilt" moving moment ============ */}
+      <section className="relative py-24 overflow-hidden bg-bg-primary">
+        <div aria-hidden="true" className="glow-orb top-0 left-1/2 -translate-x-1/2 w-[40rem] h-40 bg-accent/8" />
+        <div className="container px-6 relative">
+          <Reveal className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">Results for Businesses Like Yours</h2>
             <p className="text-text-secondary max-w-2xl mx-auto">
               Real projects, real results. Here is what we have built and achieved.
             </p>
-          </div>
+          </Reveal>
         </div>
 
-        <div className="flex gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory px-6 pb-4">
+        <div className="flex gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory px-6 pb-4" style={{ perspective: '1200px' }}>
           {caseStudies.map((study) => (
-            <Link
-              key={study.slug}
-              href={`/case-studies/${study.slug}`}
-              className="group shrink-0 w-[300px] sm:w-[360px] snap-start bg-white rounded-2xl border border-border overflow-hidden hover:shadow-xl transition-shadow"
-            >
-              {/* Screenshot with overlaid result badge */}
-              <div className="relative aspect-[4/3] bg-bg-secondary">
-                <Image src={study.image} alt={`Screenshot of the ${study.name} website`} fill unoptimized className="object-cover object-top" />
-                <div className="absolute top-3 left-3 flex gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-red-400/80" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-yellow-400/80" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-green-400/80" />
+            <TiltCard key={study.slug} className="group shrink-0 w-[300px] sm:w-[360px] snap-start">
+              <Link
+                href={`/case-studies/${study.slug}`}
+                className="wise-card block overflow-hidden"
+              >
+                {/* Screenshot with overlaid result badge */}
+                <div className="relative aspect-[4/3] bg-bg-secondary">
+                  <Image src={study.image} alt={`Screenshot of the ${study.name} website`} fill unoptimized className="object-cover object-top" />
+                  <div className="absolute top-3 left-3 flex gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-red-400/80" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-yellow-400/80" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-green-400/80" />
+                  </div>
+                  <div className="absolute bottom-3 right-3 bg-accent text-white text-sm font-bold px-3 py-1.5 rounded-full shadow-lg">
+                    +{study.results.traffic} traffic
+                  </div>
                 </div>
-                <div className="absolute bottom-3 right-3 bg-accent text-white text-sm font-bold px-3 py-1.5 rounded-full shadow-lg">
-                  +{study.results.traffic} traffic
-                </div>
-              </div>
 
-              <div className="p-6">
-                <span className="text-xs font-medium text-accent bg-accent/10 px-2 py-1 rounded-full">{study.type}</span>
-                <h3 className="text-lg font-bold text-primary mt-3 mb-2 group-hover:text-accent transition-colors">
-                  {study.name}
-                </h3>
-                <p className="text-sm text-text-secondary mb-4 line-clamp-2">{study.description}</p>
-                <div className="grid grid-cols-3 gap-2 py-4 border-t border-border">
-                  <div className="text-center">
-                    <div className="text-lg font-bold text-accent">{study.results.traffic}</div>
-                    <div className="text-xs text-text-muted">Traffic</div>
+                <div className="p-6">
+                  <span className="text-xs font-medium text-accent bg-accent/10 px-2 py-1 rounded-full">{study.type}</span>
+                  <h3 className="text-lg font-bold text-primary mt-3 mb-2 group-hover:text-accent transition-colors">
+                    {study.name}
+                  </h3>
+                  <p className="text-sm text-text-secondary mb-4 line-clamp-2">{study.description}</p>
+                  <div className="grid grid-cols-3 gap-2 py-4 border-t border-border">
+                    <div className="text-center">
+                      <div className="text-lg font-bold text-accent">{study.results.traffic}</div>
+                      <div className="text-xs text-text-muted">Traffic</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-lg font-bold text-accent">{study.results.leads}</div>
+                      <div className="text-xs text-text-muted">Leads</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-lg font-bold text-accent">{study.results.keywords}</div>
+                      <div className="text-xs text-text-muted">Keywords</div>
+                    </div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-lg font-bold text-accent">{study.results.leads}</div>
-                    <div className="text-xs text-text-muted">Leads</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-lg font-bold text-accent">{study.results.keywords}</div>
-                    <div className="text-xs text-text-muted">Keywords</div>
-                  </div>
+                  <span className="inline-flex items-center gap-2 text-sm text-accent font-medium group-hover:gap-3 transition-all">
+                    View Case Study →
+                  </span>
                 </div>
-                <span className="inline-flex items-center gap-2 text-sm text-accent font-medium group-hover:gap-3 transition-all">
-                  View Case Study <ArrowRight size={14} />
-                </span>
-              </div>
-            </Link>
+              </Link>
+            </TiltCard>
           ))}
 
-          {/* Trailing card pointing to the full list */}
+          {/* Trailing card pointing to the full list, part of the recurring dark-gradient family */}
           <Link
             href="/case-studies"
-            className="group shrink-0 w-[300px] sm:w-[360px] snap-start bg-gradient-to-br from-primary to-primary-dark rounded-2xl flex flex-col items-center justify-center text-center p-8 hover:shadow-xl transition-shadow"
+            className="group shrink-0 w-[300px] sm:w-[360px] snap-start bg-gradient-to-br from-primary to-primary-dark rounded-2xl flex flex-col items-center justify-center text-center p-8 hover:shadow-xl transition-shadow relative overflow-hidden"
           >
-            <span className="text-white font-bold text-lg mb-2">View All Case Studies</span>
-            <span className="text-white/70 text-sm mb-4">See every project, industry, and result</span>
-            <span className="inline-flex items-center gap-2 text-accent font-semibold group-hover:gap-3 transition-all">
-              Browse all <ArrowRight size={16} />
+            <div aria-hidden="true" className="glow-orb -top-8 -right-8 w-40 h-40 bg-accent/25" />
+            <span className="relative text-white font-bold text-lg mb-2">View All Case Studies</span>
+            <span className="relative text-white/70 text-sm mb-4">See every project, industry, and result</span>
+            <span className="relative inline-flex items-center gap-2 text-accent font-semibold group-hover:gap-3 transition-all">
+              Browse all →
             </span>
           </Link>
         </div>
       </section>
 
-      {/* How It Works Section */}
+      {/* ============ WHERE WE WORK — client locations globe, second dark anchor ============ */}
+      <section className="relative py-24 bg-orbit-dark overflow-hidden">
+        <div aria-hidden="true" className="glow-orb -top-20 left-10 w-72 h-72 bg-accent/10" />
+        <div className="container px-6 relative">
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+            <Reveal>
+              <h2 className="text-3xl lg:text-4xl font-display font-bold text-white mb-4">
+                Clients Across the US and UK
+              </h2>
+              <p className="text-white/70 text-lg mb-8 max-w-lg leading-relaxed">
+                We are not a one-metro shop. Drag the globe, each green marker represents one
+                of the businesses whose website and rankings we manage today on both sides
+                of the Atlantic.
+              </p>
+              <div className="flex items-baseline gap-3">
+                <span className="wise-numeral text-5xl">30+</span>
+                <span className="text-white/60 text-sm uppercase tracking-widest">Clients in the US and UK</span>
+              </div>
+            </Reveal>
+
+            <Reveal delay={150} className="flex justify-center">
+              <Globe
+                className="max-w-sm"
+                markers={clientLocations}
+              />
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ============ HOW IT WORKS — same gradient numerals as Services, ties the two together ============ */}
       <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
-          <div className="text-center mb-16">
-            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Our Process</span>
+          <Reveal className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">How We Work</h2>
             <p className="text-text-secondary max-w-2xl mx-auto">
               Simple process. Clear timeline. No surprises.
             </p>
-          </div>
+          </Reveal>
 
           <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8">
-              {[
-                {
-                  step: 1,
-                  title: 'Free Consultation',
-                  description: 'We discuss your business, goals, and challenges. You\'ll get honest advice, even if that means we\'re not the right fit.'
-                },
-                {
-                  step: 2,
-                  title: 'Proposal & Roadmap',
-                  description: 'You receive a clear proposal with scope, timeline, and pricing. No hidden fees. No vague deliverables.'
-                },
-                {
-                  step: 3,
-                  title: 'Build & Launch',
-                  description: 'For websites: 2-4 weeks to launch. For SEO: Month 1 is foundation, months 2-6 are growth. For marketing: Campaigns live within 1-2 weeks.'
-                },
-                {
-                  step: 4,
-                  title: 'Measure & Optimize',
-                  description: 'Monthly reports showing traffic, leads, and ROI. We optimize based on data, not guesses.'
-                },
-              ].map((item) => (
-                <div key={item.step} className="flex gap-4 items-start">
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-accent text-white rounded-full flex items-center justify-center font-bold text-lg">
-                      {item.step}
-                    </div>
-                  </div>
+            <div className="grid md:grid-cols-2 gap-6">
+              {processSteps.map((item, i) => (
+                <Reveal key={item.step} delay={(i % 2) * 100} className="wise-card flex gap-5 items-start p-6">
+                  <span className="wise-numeral text-4xl shrink-0 leading-none">{item.step}</span>
                   <div>
                     <h3 className="font-bold text-primary text-lg mb-2">{item.title}</h3>
                     <p className="text-text-secondary">{item.description}</p>
                   </div>
-                </div>
+                </Reveal>
               ))}
             </div>
 
@@ -623,16 +688,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Technology Section */}
-      <section className="py-24">
+      {/* ============ TECHNOLOGY ============ */}
+      <section className="py-24 bg-bg-primary">
         <div className="container px-6">
-          <div className="text-center mb-16">
-            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Technology</span>
+          <Reveal className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">Built With Modern Technology</h2>
             <p className="text-text-secondary max-w-2xl mx-auto">
               We use cutting-edge tools to deliver fast, scalable, secure solutions.
             </p>
-          </div>
+          </Reveal>
 
           <div className="grid md:grid-cols-3 gap-8">
             {Object.entries(techStack).map(([category, techs]) => (
@@ -651,62 +715,47 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* ============ TESTIMONIALS — oversized gradient quote mark instead of star icons ============ */}
       <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
-          <div className="text-center mb-16">
-            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">Testimonials</span>
+          <Reveal className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">What Our Clients Say</h2>
-          </div>
+          </Reveal>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {testimonials.map((testimonial, i) => (
-              <div key={i} className="bg-white rounded-2xl p-8 shadow-sm border border-border">
-                <div className="flex text-yellow-400 mb-4">
-                  {[...Array(5)].map((_, j) => <Star key={j} size={16} fill="currentColor" />)}
-                </div>
-                <blockquote className="text-text-secondary mb-6">
-                  &quot;{testimonial.quote}&quot;
+              <Reveal key={i} delay={i * 120} className="wise-card p-8 h-full">
+                <span className="wise-numeral text-6xl leading-none block mb-2" aria-hidden="true">&ldquo;</span>
+                <blockquote className="text-text-secondary mb-6 -mt-4">
+                  {testimonial.quote}
                 </blockquote>
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center text-white font-bold">
+                  <div className="w-11 h-11 bg-accent rounded-full flex items-center justify-center text-white font-bold text-sm shrink-0">
                     {testimonial.company.substring(0, 2).toUpperCase()}
                   </div>
-                  <div>
-                    <span className="font-semibold text-primary">
-                      {testimonial.company}
-                    </span>
-                  </div>
+                  <span className="font-semibold text-primary">{testimonial.company}</span>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-24">
+      {/* ============ FAQ — accordion ============ */}
+      <section className="py-24 bg-bg-primary">
         <div className="container px-6">
-          <div className="text-center mb-16">
-            <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">FAQ</span>
+          <Reveal className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4">Frequently Asked Questions</h2>
-          </div>
-          <div className="max-w-3xl mx-auto space-y-4">
-            {homepageFaqs.map((faq, i) => (
-              <div key={i} className="bg-white rounded-xl p-6 border border-border">
-                <h3 className="font-semibold text-primary mb-2">{faq.question}</h3>
-                <p className="text-text-secondary">{faq.answer}</p>
-              </div>
-            ))}
-          </div>
+          </Reveal>
+          <FaqAccordion faqs={homepageFaqs} />
         </div>
       </section>
 
-      {/* Final CTA Section */}
+      {/* ============ FINAL CTA — bookends the hero, same dark-gradient-plus-glow family ============ */}
       <section className="py-24 bg-bg-secondary">
         <div className="container px-6">
-          <div className="bg-gradient-to-br from-primary to-primary-dark rounded-3xl p-12 lg:p-16 text-center text-white relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-accent/20 rounded-full blur-3xl" />
+          <Reveal className="bg-gradient-to-br from-primary to-primary-dark rounded-3xl p-12 lg:p-16 text-center text-white relative overflow-hidden">
+            <div aria-hidden="true" className="glow-orb aurora-drift top-0 right-0 w-64 h-64 bg-accent/25" />
             <div className="relative">
               <h2 className="text-3xl lg:text-4xl font-bold mb-4">Ready to Grow Your Business Online?</h2>
               <p className="text-white/80 max-w-2xl mx-auto mb-8">
@@ -724,7 +773,7 @@ export default function Home() {
                 </Link>
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
     </>

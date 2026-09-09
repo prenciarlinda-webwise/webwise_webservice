@@ -468,7 +468,7 @@ export const localSeoContent: ServiceContent = {
     tiers: [
       {
         name: 'Starter Local SEO',
-        price: '£480/month',
+        price: '$480/month',
         description: 'Get found locally - ideal for businesses starting from scratch or fixing a neglected online presence.',
         features: [
           'Full local SEO audit (20+ point checklist)',
@@ -484,7 +484,7 @@ export const localSeoContent: ServiceContent = {
       },
       {
         name: 'Medium Local SEO',
-        price: '£780/month',
+        price: '$780/month',
         description: 'Climb past competitors and start generating consistent, measurable leads from organic search.',
         features: [
           'Everything in Starter',
@@ -502,7 +502,7 @@ export const localSeoContent: ServiceContent = {
       },
       {
         name: 'Premium Local SEO',
-        price: '£1,100/month',
+        price: '$1,100/month',
         description: 'Dominate your market and become the undeniable authority in your service area.',
         features: [
           'Everything in Medium',

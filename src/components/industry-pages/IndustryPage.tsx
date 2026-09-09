@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Script from 'next/script'
 import { siteConfig, clients } from '@/data/site'
 import { getIndustryRelatedPosts } from '@/data/blog'
+import { generateFAQSchema } from '@/lib/schemas'
 import PricingCTA from '@/components/forms/PricingCTA'
 import {
   DoodleUnderline,
@@ -55,15 +56,7 @@ export default function IndustryPage({ content }: { content: IndustryPageContent
           })),
         },
       },
-      {
-        '@type': 'FAQPage',
-        '@id': `${pageUrl}#faq`,
-        mainEntity: content.faqs.map((faq) => ({
-          '@type': 'Question',
-          name: faq.question,
-          acceptedAnswer: { '@type': 'Answer', text: faq.answer },
-        })),
-      },
+      generateFAQSchema(content.faqs, `/local-seo/${content.slug}`),
       {
         '@type': 'BreadcrumbList',
         '@id': `${pageUrl}#breadcrumb`,
@@ -290,6 +283,61 @@ export default function IndustryPage({ content }: { content: IndustryPageContent
                 />
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Plan and Timeline Comparison, real <table> markup so pricing and ranking-speed
+          data can be extracted directly by AI Overviews and other LLM answer engines. */}
+      <section className="py-16 bg-white">
+        <div className="container px-6">
+          <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8">
+            <div className="lg:col-span-3 overflow-x-auto">
+              <table className="w-full border-collapse text-sm">
+                <caption className="text-left font-display font-bold text-lg text-primary mb-4">
+                  {content.tradeName} SEO Plan Comparison
+                </caption>
+                <thead>
+                  <tr className="border-b-2 border-border">
+                    <th scope="col" className="text-left py-3 pr-4 font-semibold text-primary">Plan</th>
+                    <th scope="col" className="text-left py-3 pr-4 font-semibold text-primary">Monthly Price</th>
+                    <th scope="col" className="text-left py-3 font-semibold text-primary">Best For</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {content.pricingTiers.map((tier) => (
+                    <tr key={tier.name} className="border-b border-border">
+                      <th scope="row" className="text-left py-3 pr-4 font-medium text-text-primary">{tier.name}</th>
+                      <td className="py-3 pr-4 text-text-primary">{tier.price}/mo</td>
+                      <td className="py-3 text-text-muted">{tier.description}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            {content.rankingTimeline && content.rankingTimeline.length > 0 && (
+              <div className="lg:col-span-2 overflow-x-auto">
+                <table className="w-full border-collapse text-sm">
+                  <caption className="text-left font-display font-bold text-lg text-primary mb-4">
+                    Expected Ranking Timeline
+                  </caption>
+                  <thead>
+                    <tr className="border-b-2 border-border">
+                      <th scope="col" className="text-left py-3 pr-4 font-semibold text-primary">Milestone</th>
+                      <th scope="col" className="text-left py-3 font-semibold text-primary">Timeframe</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {content.rankingTimeline.map((row) => (
+                      <tr key={row.milestone} className="border-b border-border">
+                        <th scope="row" className="text-left py-3 pr-4 font-medium text-text-primary">{row.milestone}</th>
+                        <td className="py-3 text-text-muted">{row.timeframe}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         </div>
       </section>

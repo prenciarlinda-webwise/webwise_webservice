@@ -2,12 +2,12 @@ import React from 'react'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import Script from 'next/script'
-import { ArrowLeft, ArrowRight, Calendar, User, Clock, Share2, HelpCircle, Award, Check, Rocket } from 'lucide-react'
 import { blogPosts, getPostBySlug, getRelatedPosts, getBlogPostUrl, getBlogPosts, getServicePageBreadcrumbContext } from '@/data/blog'
 import LeadForm from '@/components/forms/LeadForm'
 import { siteConfig } from '@/data/site'
 import { getBlogPostSEO } from '@/data/seo'
 import PricingCTA from '@/components/forms/PricingCTA'
+import HeroBackground from '@/components/ui/HeroBackground'
 
 // Only generate pages for slugs that don't have dedicated pages elsewhere
 const excludedSlugs = [
@@ -261,8 +261,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       />
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-primary-dark py-16 lg:py-24">
-        <div className="container px-6">
+      <section className="relative overflow-hidden py-16 lg:py-24">
+        <HeroBackground />
+        <div className="container px-6 relative">
           <nav className="flex items-center gap-2 text-white/60 text-sm mb-8" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-white">Home</Link>
             <span>/</span>
@@ -280,27 +281,32 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               </>
             )}
           </nav>
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <span className="block text-xs font-bold text-accent uppercase tracking-widest mb-4">
-                {post.category}
-              </span>
-              <h1 className="text-3xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-                {post.title}
-              </h1>
-              <p className="text-lg text-white/80 mb-8">{post.excerpt}</p>
-              <div className="flex flex-wrap items-center gap-6 text-sm text-white/70">
-                <span className="flex items-center gap-2"><User size={16} /> {post.author}</span>
-                <span className="flex items-center gap-2"><Calendar size={16} /> {post.date}</span>
-                {post.lastModified && (
-                  <span className="flex items-center gap-2 text-accent-light">
-                    Updated {new Date(post.lastModified).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                  </span>
-                )}
-                <span className="flex items-center gap-2"><Clock size={16} /> {post.readTime}</span>
+
+          {breadcrumbCtx ? (
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <h1 className="text-3xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+                  {post.title}
+                </h1>
+                <p className="text-lg text-white/80 mb-8">{post.excerpt}</p>
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-white/70">
+                  <span className="text-accent font-semibold">{post.category}</span>
+                  <span className="text-white/30">·</span>
+                  <span>{post.author}</span>
+                  <span className="text-white/30">·</span>
+                  <span>{post.date}</span>
+                  {post.lastModified && (
+                    <>
+                      <span className="text-white/30">·</span>
+                      <span className="text-accent-light">
+                        Updated {new Date(post.lastModified).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                      </span>
+                    </>
+                  )}
+                  <span className="text-white/30">·</span>
+                  <span>{post.readTime}</span>
+                </div>
               </div>
-            </div>
-            {breadcrumbCtx ? (
               <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8">
                 <h2 className="text-xl md:text-2xl font-bold text-primary mb-2">
                   Get a Free {breadcrumbCtx.current.name} SEO Audit
@@ -314,35 +320,34 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   ctaLabel="Get My Free Audit"
                 />
               </div>
-            ) : post.image ? (
-              <div className="hidden lg:block">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-white/10 p-4">
-                  <img
-                    src={post.image}
-                    alt={post.imageAlt || post.title}
-                    className="w-full rounded-xl"
-                  />
-                </div>
+            </div>
+          ) : (
+            <div className="max-w-3xl mx-auto text-center">
+              <h1 className="text-3xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+                {post.title}
+              </h1>
+              <p className="text-lg text-white/80 mb-8 max-w-2xl mx-auto">{post.excerpt}</p>
+              <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm text-white/70">
+                <span className="text-accent font-semibold">{post.category}</span>
+                <span className="text-white/30">·</span>
+                <span>{post.author}</span>
+                <span className="text-white/30">·</span>
+                <span>{post.date}</span>
+                {post.lastModified && (
+                  <>
+                    <span className="text-white/30">·</span>
+                    <span className="text-accent-light">
+                      Updated {new Date(post.lastModified).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </span>
+                  </>
+                )}
+                <span className="text-white/30">·</span>
+                <span>{post.readTime}</span>
               </div>
-            ) : null}
-          </div>
+            </div>
+          )}
         </div>
       </section>
-
-      {/* Mobile Featured Image — only for regular blog posts, not industry pages */}
-      {!breadcrumbCtx && post.image && (
-        <div className="lg:hidden -mt-8 px-6 pb-8">
-          <div className="container">
-            <div className="rounded-2xl overflow-hidden shadow-xl bg-white p-3">
-              <img
-                src={post.image}
-                alt={post.imageAlt || post.title}
-                className="w-full rounded-xl"
-              />
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Key Takeaways Box - Immediately after hero for AI extraction */}
       {post.tldr && post.tldr.length > 0 && (
@@ -532,8 +537,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     href={post.relatedServiceUrl}
                     className="inline-flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all"
                   >
-                    Explore {post.relatedServiceName} Services
-                    <ArrowRight size={18} />
+                    Explore {post.relatedServiceName} Services →
                   </Link>
                 </div>
               )}
@@ -541,12 +545,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               {/* FAQ Section */}
               {post.faqs && post.faqs.length > 0 && (
                 <div className="mt-12 pt-8 border-t border-border">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      <HelpCircle className="text-primary" size={24} />
-                    </div>
-                    <h2 className="text-2xl font-bold text-primary">Frequently Asked Questions</h2>
-                  </div>
+                  <h2 className="text-2xl font-bold text-primary mb-6">Frequently Asked Questions</h2>
                   <div className="space-y-4">
                     {post.faqs.map((faq, index) => (
                       <details
@@ -573,32 +572,19 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               {/* Author Bio */}
               {post.authorBio && (
                 <div className="mt-12 pt-8 border-t border-border">
-                  <div className="flex items-start gap-4 p-6 bg-bg-secondary rounded-2xl">
-                    <div className="flex-shrink-0 p-3 bg-primary rounded-xl">
-                      <Award className="text-white" size={28} />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-primary mb-1">About the Author</h3>
-                      <p className="text-lg font-semibold text-primary mb-2">{post.author}</p>
-                      <p className="text-text-secondary leading-relaxed">{post.authorBio}</p>
-                    </div>
+                  <div className="p-6 bg-bg-secondary rounded-2xl">
+                    <h3 className="font-bold text-primary mb-1">About the Author</h3>
+                    <p className="text-lg font-semibold text-primary mb-2">{post.author}</p>
+                    <p className="text-text-secondary leading-relaxed">{post.authorBio}</p>
                   </div>
                 </div>
               )}
 
-              {/* Share */}
+              {/* Back to blog */}
               <div className="mt-12 pt-8 border-t border-border">
-                <div className="flex items-center justify-between flex-wrap gap-4">
-                  <div className="flex items-center gap-3">
-                    <span className="text-text-muted">Share this article:</span>
-                    <button className="p-2 bg-bg-secondary rounded-lg hover:bg-accent hover:text-white transition-colors">
-                      <Share2 size={18} />
-                    </button>
-                  </div>
-                  <Link href="/blog" className="inline-flex items-center gap-2 text-accent font-medium hover:gap-3 transition-all">
-                    <ArrowLeft size={16} /> Back to Blog
-                  </Link>
-                </div>
+                <Link href="/blog" className="inline-flex items-center gap-2 text-accent font-medium hover:gap-3 transition-all">
+                  ← Back to Blog
+                </Link>
               </div>
             </article>
 
@@ -608,8 +594,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
                 {/* New Local Business Launch Package */}
                 <div className="rounded-2xl overflow-hidden border-2 border-accent/30 bg-gradient-to-br from-[#fff4e8] to-[#fde8ce]">
-                  <div className="bg-gradient-to-r from-accent to-[#d96a10] px-4 py-2.5 flex items-center gap-2">
-                    <Rocket size={16} className="text-white flex-shrink-0" />
+                  <div className="bg-gradient-to-r from-accent to-[#d96a10] px-4 py-2.5">
                     <span className="text-white font-bold text-sm">New Local Business?</span>
                   </div>
                   <div className="p-5">
@@ -630,13 +615,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         '2 locations, 3 services, 3 blogs',
                       ].map((item) => (
                         <li key={item} className="flex items-center gap-2 text-xs text-text-secondary">
-                          <Check size={12} className="text-accent flex-shrink-0" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
                           {item}
                         </li>
                       ))}
                     </ul>
                     <div className="bg-accent/10 border border-accent/20 rounded-lg px-3 py-2 mb-4 text-xs text-text-secondary">
-                      <strong className="text-primary">3-Month Offer:</strong> Unlock Premium SEO at £780/mo after month 3.
+                      <strong className="text-primary">3-Month Offer.</strong> Unlock Premium Local SEO at $1,100/mo after month 3.
                     </div>
                     <PricingCTA
                       source={`Blog ${slug} — Sidebar pricing CTA`}
@@ -699,25 +684,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <h2 className="text-2xl font-bold text-primary mb-8">Related Articles</h2>
             <div className="grid md:grid-cols-3 gap-8">
               {relatedPosts.map((relatedPost) => (
-                <Link key={relatedPost.slug} href={getBlogPostUrl(relatedPost.slug)} className="bg-white rounded-2xl border border-border overflow-hidden hover:shadow-lg transition-shadow group">
-                  <div className="h-48 bg-white flex items-center justify-center overflow-hidden p-3">
-                    {relatedPost.image ? (
-                      <img
-                        src={relatedPost.image}
-                        alt={relatedPost.imageAlt || relatedPost.title}
-                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
-                      />
-                    ) : (
-                      <span className="text-2xl font-bold text-accent/20">{relatedPost.category}</span>
-                    )}
-                  </div>
-                  <div className="p-6">
-                    <span className="inline-block px-3 py-1 bg-accent/10 text-accent text-xs font-medium rounded-full mb-3">
-                      {relatedPost.category}
-                    </span>
-                    <h3 className="font-bold text-primary mb-2 line-clamp-2 group-hover:text-accent transition-colors">{relatedPost.title}</h3>
-                    <p className="text-sm text-text-muted">{relatedPost.readTime}</p>
-                  </div>
+                <Link key={relatedPost.slug} href={getBlogPostUrl(relatedPost.slug)} className="wise-card group block p-6">
+                  <span className="inline-block px-3 py-1 bg-accent/10 text-accent text-xs font-medium rounded-full mb-3">
+                    {relatedPost.category}
+                  </span>
+                  <h3 className="font-bold text-primary mb-2 line-clamp-2 group-hover:text-accent transition-colors">{relatedPost.title}</h3>
+                  <p className="text-sm text-text-muted">{relatedPost.readTime}</p>
                 </Link>
               ))}
             </div>

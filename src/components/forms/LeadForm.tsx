@@ -296,10 +296,10 @@ export default function LeadForm({
                 <label className="block text-sm font-medium text-text-primary mb-1.5">Monthly budget</label>
                 <select value={data.seoBudget} onChange={e => set('seoBudget', e.target.value)} className={`${field} bg-white`}>
                   <option value="">Select range</option>
-                  <option value="under-500">Under €500/mo</option>
-                  <option value="500-1000">€500 – €1,000/mo</option>
-                  <option value="1000-2000">€1,000 – €2,000/mo</option>
-                  <option value="2000+">€2,000+/mo</option>
+                  <option value="under-500">Under $500/mo</option>
+                  <option value="500-1000">$500 – $1,000/mo</option>
+                  <option value="1000-2000">$1,000 – $2,000/mo</option>
+                  <option value="2000+">$2,000+/mo</option>
                 </select>
               </div>
             </>)}
@@ -490,9 +490,9 @@ export default function LeadForm({
                 <label className="block text-sm font-medium text-text-primary mb-1.5">Monthly budget</label>
                 <select value={data.dmBudget} onChange={e => set('dmBudget', e.target.value)} className={`${field} bg-white`}>
                   <option value="">Select range</option>
-                  <option value="under-1000">Under €1,000/mo</option>
-                  <option value="1000-3000">€1,000 – €3,000/mo</option>
-                  <option value="3000+">€3,000+/mo</option>
+                  <option value="under-1000">Under $1,000/mo</option>
+                  <option value="1000-3000">$1,000 – $3,000/mo</option>
+                  <option value="3000+">$3,000+/mo</option>
                 </select>
               </div>
             </>)}

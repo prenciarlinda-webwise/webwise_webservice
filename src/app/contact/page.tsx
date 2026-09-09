@@ -1,13 +1,15 @@
 import { MapPin, Clock } from 'lucide-react'
 import { contactFaqs } from '@/data/faqs'
 import LeadForm from '@/components/forms/LeadForm'
+import HeroBackground from '@/components/ui/HeroBackground'
 
 export default function ContactPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-primary-dark py-24 lg:py-32">
-        <div className="container px-6">
+      <section className="relative overflow-hidden py-24 lg:py-32">
+        <HeroBackground />
+        <div className="container px-6 relative">
           <div className="max-w-3xl">
             <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">Contact Web Wise</h1>
             <p className="text-lg text-white/80">

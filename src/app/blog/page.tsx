@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import Script from 'next/script'
-import { ArrowRight, Calendar, User, Clock } from 'lucide-react'
 import { blogPosts, getFeaturedPost, getOtherPosts, getBlogPostUrl } from '@/data/blog'
 import { siteConfig } from '@/data/site'
 import { generateCollectionPageSchema } from '@/lib/schemas'
 import { pageSEO } from '@/data/seo'
+import HeroBackground from '@/components/ui/HeroBackground'
 
 export const metadata = {
   title: pageSEO.blog.title,
@@ -35,12 +35,12 @@ export default function BlogPage() {
       />
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-primary-dark py-24 lg:py-32">
-        <div className="container px-6">
+      <section className="relative overflow-hidden py-24 lg:py-32">
+        <HeroBackground />
+        <div className="container px-6 relative">
           <div className="max-w-3xl">
-            <span className="block text-xs font-bold text-white/60 uppercase tracking-widest mb-4">Blog</span>
             <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-              SEO & Web Development Blog
+              SEO &amp; Web Development Blog
             </h1>
             <p className="text-lg text-white/80">
               Actionable SEO tips, web development guides, and digital marketing strategies for local service businesses.
@@ -52,36 +52,25 @@ export default function BlogPage() {
       {/* Featured Post */}
       <section className="py-16">
         <div className="container px-6">
-          <div className="bg-white border border-border rounded-2xl overflow-hidden">
-            <div className="grid lg:grid-cols-2 gap-0">
-              <div className="h-64 lg:h-auto bg-white flex items-center justify-center overflow-hidden p-4">
-                {featuredPost.image ? (
-                  <img
-                    src={featuredPost.image}
-                    alt={featuredPost.imageAlt || featuredPost.title}
-                    className="w-full h-full object-contain"
-                  />
-                ) : (
-                  <span className="text-6xl font-bold text-accent/20">FEATURED</span>
-                )}
-              </div>
-              <div className="p-8 lg:p-12">
-                <span className="inline-block px-3 py-1 bg-accent/10 text-accent text-sm font-medium rounded-full mb-4">
-                  {featuredPost.category}
-                </span>
-                <h2 className="text-2xl lg:text-3xl font-bold text-primary mb-4">{featuredPost.title}</h2>
-                <p className="text-text-secondary mb-6">{featuredPost.excerpt}</p>
-                <div className="flex flex-wrap items-center gap-4 text-sm text-text-muted mb-6">
-                  <span className="flex items-center gap-1"><User size={14} /> {featuredPost.author}</span>
-                  <span className="flex items-center gap-1"><Calendar size={14} /> {featuredPost.date}</span>
-                  <span className="flex items-center gap-1"><Clock size={14} /> {featuredPost.readTime}</span>
-                </div>
-                <Link href={getBlogPostUrl(featuredPost.slug)} className="inline-flex items-center gap-2 text-accent font-medium hover:gap-3 transition-all">
-                  Read Article <ArrowRight size={16} />
-                </Link>
-              </div>
+          <Link href={getBlogPostUrl(featuredPost.slug)} className="wise-card group block p-8 lg:p-12">
+            <span className="inline-block px-3 py-1 bg-accent text-white text-xs font-semibold rounded-full mb-4">
+              Featured
+            </span>
+            <h2 className="text-2xl lg:text-3xl font-bold text-primary mb-4 group-hover:text-accent transition-colors">{featuredPost.title}</h2>
+            <p className="text-text-secondary mb-6 max-w-2xl">{featuredPost.excerpt}</p>
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-text-muted mb-6">
+              <span className="text-accent font-medium">{featuredPost.category}</span>
+              <span>·</span>
+              <span>{featuredPost.author}</span>
+              <span>·</span>
+              <span>{featuredPost.date}</span>
+              <span>·</span>
+              <span>{featuredPost.readTime}</span>
             </div>
-          </div>
+            <span className="inline-flex items-center gap-2 text-accent font-medium group-hover:gap-3 transition-all">
+              Read Article →
+            </span>
+          </Link>
         </div>
       </section>
 
@@ -91,28 +80,15 @@ export default function BlogPage() {
           <h2 className="text-2xl font-bold text-primary mb-8">Latest Articles</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {otherPosts.map((post) => (
-              <Link key={post.slug} href={getBlogPostUrl(post.slug)} className="bg-white rounded-2xl border border-border overflow-hidden hover:shadow-lg transition-shadow group">
-                <div className="h-48 bg-white flex items-center justify-center overflow-hidden p-3">
-                  {post.image ? (
-                    <img
-                      src={post.image}
-                      alt={post.imageAlt || post.title}
-                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
-                    />
-                  ) : (
-                    <span className="text-3xl font-bold text-accent/20">{post.category}</span>
-                  )}
-                </div>
-                <div className="p-6">
-                  <span className="inline-block px-3 py-1 bg-accent/10 text-accent text-xs font-medium rounded-full mb-3">
-                    {post.category}
-                  </span>
-                  <h3 className="text-lg font-bold text-primary mb-2 line-clamp-2 group-hover:text-accent transition-colors">{post.title}</h3>
-                  <p className="text-sm text-text-secondary mb-4 line-clamp-2">{post.excerpt}</p>
-                  <div className="flex items-center justify-between text-xs text-text-muted">
-                    <span>{post.date}</span>
-                    <span>{post.readTime}</span>
-                  </div>
+              <Link key={post.slug} href={getBlogPostUrl(post.slug)} className="wise-card group block p-6">
+                <span className="inline-block px-3 py-1 bg-accent/10 text-accent text-xs font-medium rounded-full mb-3">
+                  {post.category}
+                </span>
+                <h3 className="text-lg font-bold text-primary mb-2 line-clamp-2 group-hover:text-accent transition-colors">{post.title}</h3>
+                <p className="text-sm text-text-secondary mb-4 line-clamp-2">{post.excerpt}</p>
+                <div className="flex items-center justify-between text-xs text-text-muted">
+                  <span>{post.date}</span>
+                  <span>{post.readTime}</span>
                 </div>
               </Link>
             ))}

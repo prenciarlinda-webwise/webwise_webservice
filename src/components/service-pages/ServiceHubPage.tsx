@@ -7,8 +7,7 @@ import FAQSection from '@/components/sections/FAQSection'
 import { pageSEO } from '@/data/seo'
 import { getServiceContent } from '@/data/serviceContent'
 import PricingCTA from '@/components/forms/PricingCTA'
-import LeadForm from '@/components/forms/LeadForm'
-import { DoodleWireframe } from '@/components/ui/Doodle'
+import { DoodleWireframe, DoodleTrendLine } from '@/components/ui/Doodle'
 
 const serviceSlugToFormService: Record<string, string> = {
   'seo': 'local-seo',
@@ -16,8 +15,15 @@ const serviceSlugToFormService: Record<string, string> = {
   'digital-marketing': 'digital-marketing',
 }
 
-const heroDoodles: Record<string, typeof DoodleWireframe> = {
+const heroDoodles: Record<string, typeof DoodleWireframe | undefined> = {
   'web-development': DoodleWireframe,
+  'digital-marketing': DoodleTrendLine,
+}
+
+// Each service family gets its own background texture instead of one hero cloned everywhere
+const heroBackground: Record<string, string> = {
+  'web-development': 'bg-white bg-dot-grid',
+  'digital-marketing': 'bg-white diagonal-wash',
 }
 
 // URL mappings for new flat URL structure
@@ -81,6 +87,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   // Get rich content for this service
   const content = getServiceContent(slug)
   const HeroDoodle = heroDoodles[slug]
+  const heroBgClass = heroBackground[slug] || 'bg-white ambient-light'
 
   const serviceUrl = getCanonicalUrl(slug)
   const serviceSchema = generateServiceSchema({
@@ -136,43 +143,58 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
       />
 
-      {/* Hero */}
-      <section className="relative bg-gradient-to-br from-primary to-primary-dark py-20 overflow-hidden">
-        {HeroDoodle && (
-          <>
-            <HeroDoodle className="hidden lg:block absolute -top-4 -right-14 w-80 h-48 text-white/10 pointer-events-none" />
-            <HeroDoodle className="hidden lg:block absolute -bottom-14 -left-20 w-72 h-44 text-accent/10 pointer-events-none rotate-180" />
-          </>
-        )}
+      {/* Hero, left-aligned, its own background texture per service family, doodle shown as a real illustration not a faint watermark */}
+      <section className={`relative overflow-hidden py-24 lg:py-28 ${heroBgClass}`}>
         <div className="container px-6 relative">
-          <nav className="flex items-center gap-2 text-white/60 text-sm mb-8">
-            <Link href="/" className="hover:text-white">Home</Link>
+          <nav className="flex items-center gap-2 text-text-muted text-sm mb-8">
+            <Link href="/" className="hover:text-accent">Home</Link>
             <span>/</span>
-            <span className="text-white">{service.title}</span>
+            <span className="text-text-secondary">{service.title}</span>
           </nav>
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="text-white">
-              <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+          <div className={`grid gap-12 items-center ${HeroDoodle ? 'lg:grid-cols-5' : ''}`}>
+            <div className={HeroDoodle ? 'lg:col-span-3' : 'max-w-2xl'}>
+              <h1 className="text-4xl md:text-5xl font-display font-bold text-primary leading-[1.05] mb-6">
                 {content?.hero.headline || service.title}
               </h1>
-              <p className="text-xl text-white/90 mb-4">
+              <p className="text-lg md:text-xl text-text-secondary mb-4 leading-relaxed">
                 {content?.hero.subheadline || ''}
               </p>
-              <p className="text-lg text-white/80">
+              <p className="text-base text-text-muted mb-10 leading-relaxed">
                 {content?.hero.valueProposition || service.description}
               </p>
+              <div className="flex flex-wrap items-center gap-4 mb-10">
+                <PricingCTA
+                  source={`Services ${slug} hero`}
+                  defaultService={serviceSlugToFormService[slug] || ''}
+                  ctaLabel="Get a Free Consultation"
+                  buttonClassName="inline-flex items-center gap-2 px-7 py-4 bg-accent text-white font-semibold rounded-lg hover:bg-accent-dark transition-colors shadow-lg shadow-accent/20"
+                />
+                <Link
+                  href="/pricing"
+                  className="inline-flex items-center gap-2 px-7 py-4 border-2 border-border text-primary font-semibold rounded-lg hover:border-accent hover:text-accent transition-colors"
+                >
+                  View pricing
+                </Link>
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="inline-flex items-center gap-2 px-4 py-2 bg-bg-secondary rounded-full border border-border text-sm">
+                  <span className="font-semibold text-primary">Google</span>
+                  <span className="text-text-muted">5.0 rating</span>
+                </span>
+                <span className="inline-flex items-center gap-2 px-4 py-2 bg-bg-secondary rounded-full border border-border text-sm text-text-secondary">
+                  50+ businesses helped
+                </span>
+              </div>
             </div>
-            <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8">
-              <h2 className="text-xl md:text-2xl font-bold text-primary mb-2">Get a Free Consultation</h2>
-              <p className="text-sm text-text-secondary mb-5">
-                {`Tell us about your ${service.title.toLowerCase()} project. We'll reply within 24 hours.`}
-              </p>
-              <LeadForm
-                source={`Services ${slug} hero`}
-                defaultService={serviceSlugToFormService[slug] || ''}
-                ctaLabel="Send My Request"
-              />
-            </div>
+
+            {/* Hand-drawn illustration, an actual visual instead of a faint watermark */}
+            {HeroDoodle && (
+              <div className="hidden lg:flex lg:col-span-2 items-center justify-center">
+                <div className="w-full aspect-square max-w-xs bg-white rounded-3xl border border-border shadow-sm flex items-center justify-center p-10">
+                  <HeroDoodle className="w-full h-full text-accent" />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>

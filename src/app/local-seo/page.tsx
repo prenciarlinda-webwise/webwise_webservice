@@ -9,9 +9,9 @@ import { DoodleUnderline, DoodleArrow } from '@/components/ui/Doodle'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'Local SEO Services for Small Business - From $750/mo',
+    title: 'Local SEO Services for Small Business - From $480/mo',
     description:
-      'Local SEO agency for contractors and small businesses. Get into the Google 3-Pack, rank on Maps, and generate leads. Services from $750/mo. Free local SEO audit.',
+      'Local SEO agency for contractors and small businesses. Get into the Google 3-Pack, rank on Maps, and generate leads. Services from $480/mo. Free local SEO audit.',
     keywords: [
       'local seo agency',
       'local seo services for small business',
@@ -33,9 +33,9 @@ export async function generateMetadata(): Promise<Metadata> {
       canonical: `${siteConfig.url}/local-seo`,
     },
     openGraph: {
-      title: 'Local SEO Services for Small Business - From $750/mo',
+      title: 'Local SEO Services for Small Business - From $480/mo',
       description:
-        'Local SEO agency for contractors and small businesses. Get into the Google 3-Pack, rank on Maps, and generate leads. Services from $750/mo. Free local SEO audit.',
+        'Local SEO agency for contractors and small businesses. Get into the Google 3-Pack, rank on Maps, and generate leads. Services from $480/mo. Free local SEO audit.',
       url: `${siteConfig.url}/local-seo`,
     },
   }
@@ -81,7 +81,7 @@ const jsonLd = {
           name: 'How much does local SEO cost per month?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Local SEO services for small businesses cost between $750 and $1,800 per month depending on competition, location, and scope. Our packages start at $750 per month and include Google Business Profile optimization, citation building, and monthly reporting. We offer no-contract, month-to-month plans.',
+            text: 'Local SEO services for small businesses cost between $480 and $1,100 per month depending on competition, location, and scope. Our packages start at $480 per month and include Google Business Profile optimization, citation building, and monthly reporting. We offer no-contract, month-to-month plans.',
           },
         },
         {
@@ -122,7 +122,7 @@ const jsonLd = {
     {
       '@type': 'WebPage',
       url: `${siteConfig.url}/local-seo`,
-      name: 'Local SEO Services for Small Business - From $750/mo',
+      name: 'Local SEO Services for Small Business - From $480/mo',
       speakable: {
         '@type': 'SpeakableSpecification',
         cssSelector: ['.aeo-answer'],
@@ -165,47 +165,58 @@ const services = [
   },
 ]
 
+// Kept in sync with the tiers on /pricing (same names, prices, and features)
+// so a visitor doesn't see two different stories about what Local SEO costs.
 const pricingTiers = [
   {
-    name: 'Starter',
-    price: '$750',
-    description: 'For businesses just starting local SEO or in lower-competition markets.',
+    name: 'Starter Local SEO',
+    price: '$480',
+    description: 'Foundational visibility for businesses just starting local SEO or in lower-competition markets.',
     features: [
-      'Google Business Profile optimization',
-      '20 local citation submissions',
-      'NAP consistency audit and fixes',
-      'Review monitoring dashboard',
-      'Monthly ranking report',
-      'Keyword position tracking (10 terms)',
+      '2 target services, 1 location, worked at full capacity',
+      'Full local SEO audit (20+ point checklist)',
+      'Full technical SEO optimization of your website (speed, schema, crawlability, mobile-first)',
+      'Google Business Profile optimized (all 14 sections)',
+      'NAP consistency check across 15 directories',
+      '10 target keywords tracked monthly',
+      '3 local citations built per month',
+      '10 GBP posts per month',
+      'Monthly ranking and traffic report',
+      'Review monitoring, alerts on new reviews',
     ],
   },
   {
-    name: 'Growth',
-    price: '$1,100',
-    description: 'For businesses ready to compete seriously for Map Pack rankings.',
+    name: 'Medium Local SEO',
+    price: '$780',
+    description: 'Competitive climbing for businesses ready to compete seriously for Map Pack rankings.',
     popular: true,
     features: [
       'Everything in Starter',
-      'Local landing pages (up to 3)',
-      'Competitor tracking and analysis',
-      'Review request coaching and templates',
-      '40+ citation submissions',
-      'Keyword tracking (25 terms)',
-      'Bi-weekly check-in calls',
+      'Up to 3 target services and locations, worked at full capacity',
+      '25 target keywords tracked weekly',
+      '5 local citations plus 1 backlink per month',
+      '2 blog posts a month, 800+ words, fully optimized',
+      'On-page SEO for all service and location pages',
+      'Competitor rank tracking, 3 competitors',
+      '15 GBP posts per month',
+      'Bi-weekly ranking and traffic reports',
     ],
   },
   {
-    name: 'Authority',
-    price: '$1,800',
-    description: 'For competitive markets where you need to dominate, not just appear.',
+    name: 'Premium Local SEO',
+    price: '$1,100',
+    description: 'Market authority for competitive markets where you need to dominate, not just appear.',
     features: [
-      'Everything in Growth',
-      'Local link building (5 links/mo)',
-      'Content marketing (2 posts/mo)',
-      'Service area page expansion',
-      'Weekly ranking reports',
-      'Keyword tracking (50 terms)',
-      'Priority support and strategy calls',
+      'Everything in Medium',
+      'Unlimited target services and locations, worked at full capacity',
+      'Unlimited keywords tracked weekly',
+      '10+ citations and backlinks per month',
+      '4 blog posts a month, 1,000+ words, schema-optimized',
+      'Deep competitor analysis, 5 competitors',
+      '20 GBP posts per month',
+      'Weekly reporting with call tracking metrics',
+      'Priority review response coaching',
+      'Dedicated account manager',
     ],
   },
 ]
@@ -266,7 +277,7 @@ const faqs = [
   {
     question: 'How much does local SEO cost per month?',
     answer:
-      'Local SEO services for small businesses cost between $750 and $1,800 per month depending on competition, location, and scope. Our packages start at $750 per month and include Google Business Profile optimization, citation building, and monthly reporting. We offer no-contract, month-to-month plans.',
+      'Local SEO services for small businesses cost between $480 and $1,100 per month depending on competition, location, and scope. Our packages start at $480 per month and include Google Business Profile optimization, citation building, and monthly reporting. We offer no-contract, month-to-month plans.',
   },
   {
     question: 'What is the Google 3-Pack and how do I get in it?',
